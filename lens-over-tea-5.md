@@ -70,7 +70,16 @@ This is what applications of `lmap` and `rmap` do:
           ‾‾‾‾‾|           |‾‾‾‾‾
                x-----------x
 
-Now: an iso can convert `p a (f b)` to `p s (f t)`, for any `p`. And `p` is a profunctor. And the only thing you can do with an arbitrary profunctor is attach a function to its input or output (or both). So, in order for an iso to work, it must contain functions `s -> a` and `f b -> f t` in it. (But since the iso has to work for all functors, `f b -> f t` and `b -> t` are isomorphic.)
+Now: an iso can convert `p a (f b)` to `p s (f t)`, for any `p`. And `p` is a profunctor. And the only thing you can do with an arbitrary profunctor is attach a function to its input or output (or both). So, in order for an iso to work, it must contain functions `s -> a` and `f b -> f t` in it, and `f b -> f t` can be converted to `b -> t`:
+
+~~~ haskell
+type FBT b t = forall f. Functor f => f b -> f t
+
+convert :: FBT b t -> (b -> t)
+convert fbt = runIdentity
+            . (fbt :: Identity b -> Identity t)
+            . Identity
+~~~
 
 ## Getting `s -> a`
 
