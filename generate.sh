@@ -11,8 +11,6 @@ do
   outf=${f%.*}
   echo "converting $f"
 
-#  ~/code/John-sandbox/bin/John -f markdown -t html5 --mathjax -o $outf -V src:"$f" -V today:"$today" --template=page.template --standalone --css /pandoc.css "$f"
-
   pandoc -f markdown -t html5 --mathjax -o $outf -V src:"$f" -V today:"$today" --template=page.template --standalone --css /pandoc.css --filter ~/code/pandoc-contrib/dist/build/pandoc-shortcut-links/pandoc-shortcut-links "$f"
 done
 
