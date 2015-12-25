@@ -194,7 +194,7 @@ $endif$
 document.body.innerHTML = document.body.innerHTML.replace(/‾/g, "<span style='text-decoration: overline'> </span>");
 </script>
 
-<script type="text/javascript" src="/orphus.js"></script>
+<script src="https://cdn.rawgit.com/neongreen/orphus.js/3337c92943c662936c0b7a9969746c71c9f53581/orphus.js"></script>
 <script src="https://carnivalapp.io/sites/328/init.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
