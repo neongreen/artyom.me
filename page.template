@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html$if(lang)$ lang="$lang$"$endif$>
+<head>
+  <meta charset="utf-8">
+  <meta name="google-site-verification" content="y-gj-eNGiiocXI1nd6EPlywGEfhW90jeeFO__ePHvbg" />
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" 
+        content="width=device-width, initial-scale=1.0, user-scalable=yes">
+$if(keywords)$
+  <meta name="keywords" content="$keywords$">
+$endif$
+  <link rel="icon" type="image/png" href="/ame256.png">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml"
+        title="RSS"> 
+$for(author-meta)$
+  <meta name="author" content="$author-meta$">
+$endfor$
+$if(date-meta)$
+  <meta name="dcterms.date" content="$date-meta$">
+$endif$
+  <title>$if(title-prefix)$$title-prefix$ – $endif$$pagetitle$</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+$if(quotes)$
+  <style type="text/css">q { quotes: "“" "”" "‘" "’"; }</style>
+$endif$
+$if(highlighting-css)$
+  <style type="text/css">
+$highlighting-css$
+  </style>
+$endif$
+$for(css)$
+  <link rel="stylesheet" href="$css$">
+$endfor$
+$if(math)$
+  $math$
+$endif$
+$for(header-includes)$
+  $header-includes$
+$endfor$
+
+<!-- I'm watching you, mwa-ha-ha... ha-ha. Hm. Hm-m. -->
+
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["trackPageView"]);
+  _paq.push(["enableLinkTracking"]);
+
+  (function() {
+    var u="http://admin.artyom.me/piwik/";
+    _paq.push(["setTrackerUrl", u+"piwik.php"]);
+    _paq.push(["setSiteId", "1"]);
+    var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
+    g.defer=true; g.async=true; g.src=u+"piwik.js"; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Piwik Code -->
+
+<!-- 
+— I'm sorry.
+— Don't apologise.
+— But, but at least I let you watch each other too!
+— It's even worse.
+-->
+
+</head>
+
+<body>
+
+<div id="header">
+<div style="background-color:$if(unfinished)$#eb2142$else$#19e672$endif$" id="headerheader">
+  <div style="line-height:1px;float:left;width:33.33%;font-size:1px;color:transparent">∙∙ ∙−−−−∙ −− ∙− −∙−∙ ∙− − ∙∙∙ ∙ −∙−∙ ∙−∙ ∙ − ∙−∙∙ −∙−−</div>
+  <div style="float:left;width:33.33%;text-align:center">
+    <a style="text-decoration:none;color:black" href="/">[artyom.me]</a>
+  </div>
+  <div style="float:left;width:33.33%;text-align:right">
+    <a style="text-decoration:none;padding-right:0.5em;color:black" href="/feed.xml">[RSS]</a>
+  </div>
+</div>
+
+<div style="text-align:center;border-bottom:1px solid black;font-size:0.75em;padding:0.5em 8px">
+Hello, I'm Artyom.
+You can write me at <a href="mailto:yom@artyom.me">yom@artyom.me</a>, 
+in Telegram (<a href="http://telegram.me/lightgreen">@lightgreen</a>), 
+Skype (<a href="skype:mayangreen?chat">mayangreen</a>), 
+or in IRC (puregreen at freenode).
+Write me if you're bored or if you can't figure out something Haskell-related
+(I really, really like explaining things).
+This site was last updated on <b>$today$</b>
+under intriguing and mysterious circumstances.
+If you're unsure whether I'm alive (or at least have internet), see my 
+<a href="http://last.fm/user/mantisgreen">Last.FM</a>. 
+Here's a
+<a href="http://tvtropes.org/pmwiki/randomitem.php?p=1">random TVTrope</a>,
+<a href="http://dynamic.xkcd.com/random/comic/">xkcd comic</a>, and
+<a href="http://thecatapi.com/api/images/get?format=src&type=jpg">kitten</a>
+for you.
+</div>
+
+<div style="text-align:center;padding:0.5em 8px;font-size:0.9em">
+typo? missing comma? bad phrasing? blatant lie?
+select and press Ctrl-Enter or
+<button type="button" onclick="orphus.reportSelected();"
+        style="padding:0.2em">this button</button>
+</div>
+
+</div>
+
+<div id="main">
+
+$for(include-before)$
+$include-before$
+$endfor$
+
+$if(unfinished)$
+<div style="font-size:2.5em;color:#eb2142;text-align:center">
+Unfinished.
+</div>
+<hr>
+$endif$
+
+$if(series.top)$
+<div id="series">
+  $if(series.prev)$
+    <a href="$series.prev$">&lt;&lt;&lt;</a>
+  $else$
+    <span class="grey"><a href="$series.toplink$">&lt;&lt;&lt;</a></span>
+  $endif$
+
+  <a href="$series.toplink$">$series.top$</a>
+
+  $if(series.next)$
+    <a href="$series.next$">&gt;&gt;&gt;</a>
+  $else$
+    <span class="grey"><a href="$series.toplink$">&gt;&gt;&gt;</a></span>
+  $endif$
+</div>
+$endif$
+
+$if(toc)$
+<div id="$idprefix$TOC">
+$toc$
+</div>
+$endif$
+
+<article>
+$if(title)$
+<h1 class="title">$title$</h1>
+$endif$
+
+$body$
+</article>
+
+$for(include-after)$
+$include-after$
+$endfor$
+
+$if(series.top)$
+<div id="series">
+  $if(series.prev)$
+    <a href="$series.prev$">&lt;&lt;&lt;</a>
+  $else$
+    <span class="grey"><a href="$series.toplink$">&lt;&lt;&lt;</a></span>
+  $endif$
+
+  <a href="$series.toplink$">$series.top$</a>
+
+  $if(series.next)$
+    <a href="$series.next$">&gt;&gt;&gt;</a>
+  $else$
+    <span class="grey"><a href="$series.toplink$">&gt;&gt;&gt;</a></span>
+  $endif$
+</div>
+$endif$
+
+</div>
+
+<div id="footer">
+
+<div style="text-align:center;font-size:0.9em;padding:0.5em 8px">
+<a href="$src$">view source</a> /
+<a href="/inside">how it's made</a> /
+<a href="/stats">stats</a> /
+<a href="mailto:yom@artyom.me?subject=Regarding $src$">comment by email</a> /
+<a href="/curiosity">curiosity killed the cat</a>
+</div>
+
+</div>
+
+<script>
+document.body.innerHTML = document.body.innerHTML.replace(/‾/g, "<span style='text-decoration: overline'> </span>");
+</script>
+
+<script type="text/javascript" src="/orphus.js"></script>
+<script src="https://carnivalapp.io/sites/328/init.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  Carnival.init({
+    enabled: true,
+    article_author: "",
+    article_selector: "article",
+    block_selector: ":scope > p, :scope > pre, :scope > ul > li > p, :scope > ul > li > pre",
+    onNewComment: function(comment) { }
+  });
+});
+</script>
+
+</body>
+</html>

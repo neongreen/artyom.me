@@ -1,0 +1,87 @@
+RSS
+  "Artyom"
+  "http://artyom.me"
+  ""
+  [Language "en-us", 
+   Image "http://artyom.me/ame256.png" "" 
+         "http://artyom.me" Nothing Nothing Nothing]
+  [ 
+
+  [ Title        "lens over tea #5: prisms"
+  , Link         "http://artyom.me/lens-over-tea-5"
+  , Description  "Prisms (and a recap of isomorphisms)."
+  , Guid False   "lens-over-tea-5"
+  ] ,
+
+  [ Title        "lens over tea #4: isomorphisms, some profunctors, lens families"
+  , Link         "http://artyom.me/lens-over-tea-4"
+  , Description  "Isomorphisms and a bunch of things that got me interested while I was figuring out isomorphisms. (Prisms seem more interesting to me, but we need isomorphisms to be able to understand prisms.)"
+  , Guid False   "lens-over-tea-4"
+  ] ,
+
+  [ Title        "10 questions about Haskell: a shitpost"
+  , Link         "http://artyom.me/haskell-10"
+  , Description  "An attempt to answer a troll on r/haskell – so, in other words, an overgrown shitty Reddit comment. You've been warned."
+  , Guid False   "haskell-10"
+  ] ,
+
+  [ Title        "lens over tea #3: folds"
+  , Link         "http://artyom.me/lens-over-tea-3"
+  , Description  "Folds, yeah."
+  , Guid False   "lens-over-tea-3"
+  ] ,
+
+  [ Title        "Aeson: the tutorial"
+  , Link         "http://artyom.me/aeson"
+  , Description  "Because all other tutorials are bad."
+  , Guid False   "aeson"
+  ] ,
+
+  [ Title        "Some common and annoying mistakes in Haddocks"
+  , Link         "http://artyom.me/haddock-mistakes"
+  , Description  "(Not many, tho.)"
+  , Guid False   "haddock-mistakes"
+  ] ,
+
+  [ Title        "lens over tea #2: composition, laws, getters/actions/setters"
+  , Link         "http://artyom.me/lens-over-tea-2"
+  , Description  "I gave up and posted the draft of the 2nd part of the lens tutorial."
+  , Guid False   "lens-over-tea-2"
+  ] ,
+
+  [ Title        "Making a CTF task in Haskell"
+  , Link         "http://artyom.me/haskell-ctf"
+  , Description  "A hacking challenge for non-experts."
+  , Guid False   "haskell-ctf"
+  ] ,
+
+  [ Title        "lens over tea #1: lenses 101, traversals 101, and some implementation details"
+  , Link         "http://artyom.me/lens-over-tea-1"
+  , Description  "The lens tutorial which really tries to explain *everything*."
+  , Guid False   "lens-over-tea-1"
+  ] ,
+
+  [ Title        "Flattrs of Popular Software Projects"
+  , Link         "http://artyom.me/flattrs"
+  , Description  "All in one place for your convenience."
+  , Guid False   "flattrs"
+  ] ,
+
+  [ Title        "Learning Racket #2: Macros, Macros and a Bit of Modules"
+  , Link         "http://artyom.me/learning-racket-2"
+  , Description  "In this post: syntax (albeit some different syntax), macros, macros, and macros. Oh, and one page about creating a module. Have I mentioned macros?"
+  , Guid False   "learning-racket-2"
+  ] ,
+
+  [ Title        "How to Build Your Own Static Site from Matches and Acorns"
+  , Link         "http://artyom.me/inside"
+  , Description  "It's all in the title."
+  , Guid False   "inside"
+  ] ,
+
+  [ Title        "Learning Racket #1: Introduction"
+  , Link         "http://artyom.me/learning-racket-1"
+  , Description  "I'm learning Racket! In this post: syntax, factorial, list functions, Quicksort, rants and musings."
+  , Guid False   "learning-racket-1"
+  ]
+  ]
