@@ -1,3 +1,3 @@
 #!/bin/sh
 
-rsync --exclude 'John' -PLcr . root@artyom.me:/var/artyom.me/
+rsync --exclude '.git' -PLcr . root@artyom.me:/var/artyom.me/
