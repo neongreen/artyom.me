@@ -181,7 +181,7 @@ $endif$
 <div id="footer">
 
 <div style="text-align:center;font-size:0.9em;padding:0.5em 8px">
-<a href="$src$">view source</a> /
+<a href="https://github.com/neongreen/artyom.me/blob/master/$src$">view source</a> /
 <a href="/inside">how it's made</a> /
 <a href="/stats">stats</a> /
 <a href="mailto:yom@artyom.me?subject=Regarding $src$">comment by email</a> /
