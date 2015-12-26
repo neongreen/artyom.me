@@ -23,19 +23,15 @@ A series of articles (called “lens over tea”) about [lens](@hackage) and its
 It's a work in progress; the future parts will mention:
 
   * indexed things
-  * `Bazaar`, `Magma`, `Molten`, `Mafic`
-  * `partsOf`, `taking`, etc
-  * TH used in lens
+  * `Bazaar`/`Magma`/`Molten`/`Mafic`, traversal stuff like `partsOf`, `taking`
+  * `fusing` and `confusing`
+  * Template Haskell used in lens
   * benchmarks (`view _1` vs `fst`? how much does `fusing` help? etc)
   * vertical composition, [link](http://stackoverflow.com/a/17529470/615030)
   * `ala`, `AlongsideLeft`
   * `upon`, [link](http://stackoverflow.com/q/17006679/615030)
-  * pure profunctor lenses and traversals, [link 1](https://www.reddit.com/r/haskell/comments/1jeo0p/theres_a_massive_gap_between_the_average_and/cbe1ebv), [link 2](https://github.com/purescript-contrib/purescript-lens/issues/26), [link 3](http://lpaste.net/103359), [link 4](http://r6research.livejournal.com/27476.html)
-  * symmetric lenses: `(g a -> f b) -> g s -> f t`, [link](http://slbkbs.org/pr.hs)
-  * `fusing` and `confusing`
-  * `Control.Lens.Plated`
-  * `Control.Lens.Level`
-  * `Control.Lens.Zoom`
+  * pure profunctor lenses and traversals, [link 1](https://www.reddit.com/r/haskell/comments/1jeo0p/theres_a_massive_gap_between_the_average_and/cbe1ebv), [link 2](https://github.com/purescript-contrib/purescript-lens/issues/26), [link 3](http://lpaste.net/103359), [link 4](http://r6research.livejournal.com/27476.html), symmetric lenses (`(g a -> f b) -> g s -> f t`), [link](http://slbkbs.org/pr.hs)
+  * `Control.Lens.Plated`, `Control.Lens.Level`, `Control.Lens.Zoom`
 
 ## Other stuff
 
