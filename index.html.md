@@ -58,7 +58,7 @@ I've been learning [Racket](@w:Racket (programming language)) and making notes:
 
   * [This site](/inside). Yes, it runs on a couple of shell scripts, but I thought I'd explain them anyway.
 
-  * [microlens](https://github.com/aelve/microlens/), a small lens-compatible library for lenses (in Haskell). Should be useful for library writers and stuff.
+  * [microlens](@gh:aelve/microlens), a small lens-compatible library for lenses (in Haskell). Should be useful for library writers and stuff.
 
   * [/r/haskelltil](http://reddit.com/r/haskelltil), a subreddit for Haskell tips and tricks and code samples and oddities and curiosities and idioms and interesting facts and everything that is short enough that you'd be ashamed to submit it to [/r/haskell](http://reddit.com/r/haskell) or write about it at your blog. Okay, well, at least I started it.
 
