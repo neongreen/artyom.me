@@ -135,6 +135,9 @@ dd p {
     background-color: #eee;
     width: 100%; }
 
+#footer .vert {
+    margin: 0px 15px; }
+
 .footnotes {
     margin: 3em 0;
     font-size: 0.9em; }
