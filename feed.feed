@@ -7,6 +7,12 @@ RSS
          "http://artyom.me" Nothing Nothing Nothing]
   [ 
 
+  [ Title        "CV"
+  , Link         "http://artyom.me/cv"
+  , Description  "I finally have a CV online, just in case anybody ever wants to hire me."
+  , Guid False   "cv"
+  ] ,
+
   [ Title        "lens over tea #5: prisms"
   , Link         "http://artyom.me/lens-over-tea-5"
   , Description  "Prisms (and a recap of isomorphisms)."
