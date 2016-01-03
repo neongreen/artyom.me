@@ -121,7 +121,7 @@ with `top` links.
 
 ## CSS
 
-You can see the file [here][pandoc.css] (it's not minimised). I didn't know
+You can see the file [here][css.css] (it's not minimised). I didn't know
 how to write CSS, so I mostly stole bits and pieces from other places.
 
 ### Custom classes
@@ -291,6 +291,6 @@ you do.
 [page.template]: https://github.com/neongreen/artyom.me/blob/master/page.template
 [upload.sh]: https://github.com/neongreen/artyom.me/blob/master/upload.sh
 [generate.sh]: https://github.com/neongreen/artyom.me/blob/master/generate.sh
-[pandoc.css]: https://github.com/neongreen/artyom.me/blob/master/pandoc.css
+[css.css]: https://github.com/neongreen/artyom.me/blob/master/css.css
 [genrss.hs]: https://github.com/neongreen/artyom.me/blob/master/genrss.hs
 [feed.feed]: https://github.com/neongreen/artyom.me/blob/master/feed.feed

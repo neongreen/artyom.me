@@ -11,7 +11,7 @@ do
   outf=${f%.*}
   echo "converting $f"
 
-  pandoc -f markdown -t html5 --mathjax -o $outf -V src:"$f" -V today:"$today" --template=page.template --standalone --css /pandoc.css --filter ~/code/pandoc-contrib/dist/build/pandoc-shortcut-links/pandoc-shortcut-links "$f"
+  pandoc -f markdown -t html5 --mathjax -o $outf -V src:"$f" -V today:"$today" --template=page.template --standalone --css /css.css --filter ~/code/pandoc-contrib/dist/build/pandoc-shortcut-links/pandoc-shortcut-links "$f"
 done
 
 pandoc -f markdown -t latex -V links-as-notes -V geometry:margin=1.5in -o cv.pdf --filter ~/code/pandoc-contrib/dist/build/pandoc-shortcut-links/pandoc-shortcut-links cv.md
