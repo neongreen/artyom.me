@@ -81,7 +81,7 @@ Here's [another](https://www.quora.com/In-what-specific-manner-did-learning-Hask
 
 And [another](https://www.reddit.com/r/haskell/comments/3absc6/how_did_haskell_make_you_a_better_programmer/csbd3tk):
 
-> I've been writing a lot of Javascript lately and Haskell has my poor-code Spidey senses turned way up. I can't tolerate “incomplete matches” and find ways to avoid boolean blindness as a rule. I am constantly papering over Javascript's wildly duplicitous APIs with simple, consistent ones inspired by ADTs. I also write APIs which respect abstraction in a way that's nearly impossible to conceive of in normal JS usage.
+> I've been writing a lot of Javascript lately and Haskell has my poor-code Spidey senses turned way up. I can't tolerate “incomplete matches” and find ways to avoid boolean blindness as a rule. I am constantly papering over Javascript's wildly duplicitous APIs with simple, consistent ones inspired by [ADTs](@w:algebraic data type). I also write APIs which respect abstraction in a way that's nearly impossible to conceive of in normal JS usage.
 >
 > It's a huge step up. I still write Javascript, but I write things that a multitudes simpler, dumber, easier to understand. 
 
@@ -154,11 +154,11 @@ Okay, let's throw out the list and approach this from another angle. Googling �
 
 **Erlang:**
 
-> Erlang will make you appreciate fault tolerant design. Pattern matching is such an amazing thing that you will miss it in your language and immutability is a safety net that you will wish you had in your language. In short, it will probably make you aware of a few mistakes that you were unwittingly committing in your language.
+> Erlang will make you appreciate fault tolerant design. [Pattern matching](http://c2.com/cgi/wiki?PatternMatching) is such an amazing thing that you will miss it in your language and immutability is a safety net that you will wish you had in your language. In short, it will probably make you aware of a few mistakes that you were unwittingly committing in your language.
 
 <!-- -->
 
-> I found that being forced into the actor concurrency model and building up intuitions about it as a result of using Erlang helped make me better at reasoning about concurrency in systems in general. Even though it's not always the most appropriate abstraction in practice, it's a very useful data point to have in evaluating the tradeoffs when designing distributed systems.
+> I found that being forced into the [actor concurrency model](@w:actor model) and building up intuitions about it as a result of using Erlang helped make me better at reasoning about concurrency in systems in general. Even though it's not always the most appropriate abstraction in practice, it's a very useful data point to have in evaluating the tradeoffs when designing distributed systems.
 
 <!-- -->
 
@@ -176,7 +176,7 @@ Okay, let's throw out the list and approach this from another angle. Googling �
 
 **Scala:**
 
-> But learning Python won't greatly add to your skill set at a deep level.  Scala will. It will teach you many more new abstractions, particularly in its type system, functional programming features, and emphasis on immutable data. These will make you a much better programmer, even when you're using other languages. While you won't see a lot of job ads looking for Scala, some employers (even those mostly using languages like Java or C++) look for skills in languages like Scala as way to distinguish great programmers from cannon fodder.
+> But learning Python won't greatly add to your skill set at a deep level.  Scala will. It will teach you many more new abstractions, particularly in its type system, functional programming features, and emphasis on [immutable data](@w:immutable object). These will make you a much better programmer, even when you're using other languages. While you won't see a lot of job ads looking for Scala, some employers (even those mostly using languages like Java or C++) look for skills in languages like Scala as way to distinguish great programmers from cannon fodder.
 
 <!-- -->
 
@@ -196,13 +196,13 @@ Okay, let's throw out the list and approach this from another angle. Googling �
 
 **Clojure:**
 
-> Finally, there's Clojure which is unique amongst the languages you list in two ways: it is the only dynamically typed language, and it is the only Lisp. I like it best for those two reasons but it's not for everyone. In the same way that Haskell will make you a better programmer, a Lisp will also make you a better programmer (in different ways, perhaps), because it is a very different idiom from “traditional” programming languages. Everything is data, and in Clojure it is all about the abstractions (sequences, protocols, etc). Clojure combines the best of OOP (several forms of a la carte polymorphism) with the best of FP (immutable data structures, a focus on small pure functions), as well as offering a pragmatic way to deal with mutable state (Software Transactional Memory) for practical, real-world FP.
+> Finally, there's Clojure which is unique amongst the languages you list in two ways: it is the only dynamically typed language, and it is the only Lisp. I like it best for those two reasons but it's not for everyone. In the same way that Haskell will make you a better programmer, a Lisp will also make you a better programmer (in different ways, perhaps), because it is a very different idiom from “traditional” programming languages. Everything is data, and in Clojure it is all about the abstractions (sequences, protocols, etc). Clojure combines the best of OOP (several forms of a la carte polymorphism) with the best of FP (immutable data structures, a focus on small pure functions), as well as offering a pragmatic way to deal with mutable state ([Software Transactional Memory](@w:software transactional memory)) for practical, real-world FP.
 
 > Haskell is fantastic and learning it changed how I think about a lot of software problems in ways that made me a better programmer in general. It was my first experience with good Type Inference and showed me that with the right language you can get all the great benefits of strong typing without most of the pain normally associated with that.
 >
 > But Haskell just didn't stick with me, I didn't end up making enough useful things with it. I'm not sure of why that was, but part of it was that the web libraries were weak, they had interesting and useful features but were mostly, in my opinion, solving problems in the wrong way or solving the wrong problems. If my area of main expertise and focus wasn't web stuff this would be different and Haskell would have been fantastic.
 >
-> Clojure had equally strong changes to how I think about programming by finally showing me why I want real macros and lispy syntax.
+> Clojure had equally strong changes to how I think about programming by finally showing me why I want real [macros](http://clojure.org/macros) and lispy syntax.
 
 **Lisps in general:**
 
@@ -252,7 +252,7 @@ While googling, I was also collecting opinions *against* languages I listed, so 
 >
 > So I learnt Haskell.
 >
-> I learnt that Functor and Applicative give you pragmatic ways to handle a million different complex data structures and abstract data types without caring about their implementation. I learnt that Monad gives you rational ways to structure logic and the order of computations, giving you more power than in an imperative language I know (“programmable semicolons!”). I learnt that you can handle errors in pure and explicit ways. I discovered that almost everything can be composable; I can have a thousand computations that may fail, run them in parallel trivially and still catch all those errors in a single line while using the same operators I use to print text to the screen. I fell in love with currying and how easily things can work together if the language lets them. Also I learnt that concurrency can be a beautifully simple endeavour, that there are actually a lot of ways to do it and that it actually makes things faster without adding unnecessary complexity. I learnt how rich types can give structure, meaning and modularity to a piece of code (almost) for free.
+> I learnt that [Functor](https://en.wikibooks.org/wiki/Haskell/The_Functor_class) and [Applicative](https://pbrisbin.com/posts/applicative_functors/) give you pragmatic ways to handle a million different complex data structures and abstract data types without caring about their implementation. I learnt that Monad gives you rational ways to structure logic and the order of computations, giving you more power than in an imperative language I know (“programmable semicolons!”). I learnt that you can handle errors in pure and explicit ways. I discovered that almost everything can be composable; I can have a thousand computations that may fail, run them in parallel trivially and still catch all those errors in a single line while using the same operators I use to print text to the screen. I fell in love with currying and how easily things can work together if the language lets them. Also I learnt that concurrency can be a beautifully simple endeavour, that there are actually a lot of ways to do it and that it actually makes things faster without adding unnecessary complexity. I learnt how rich types can give structure, meaning and modularity to a piece of code (almost) for free.
 
 <!-- -->
 
