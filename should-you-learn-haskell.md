@@ -22,7 +22,7 @@ This depends.
 
 Haskell is one of those languages that can be more fun to *learn* than to get stuff done with, since Haskell allows more complexity than most other popular languages. If you like math, or ever tried to invent your own language (programming or not), or generally regard “figuring new stuff out” as a cool way to procrastinate, you would probably enjoy Haskell.
 
-Haskell is pretty concise and lets you get rid of lots of repetition in your code; something that takes 500 lines in C++ might take 50 lines of Haskell and would be just as understandable. If you have a visceral reaction to repetition that goes like “repetition is bad”, you would like that feature of Haskell, but I guess many people actually don't have such a reaction and don't mind copying code when they need to. (Just in case: I'm not implying either that people who copy code are bad *or* that getting rid of repetition is a useless feature! I'm merely saying that some people dislike repetition even in small doses, and for them using Haskell is going to be nicer than using other languages.)
+Haskell is pretty concise and lets you get rid of lots of repetition in your code; something that takes 500 lines in C++ might take 50 lines of Haskell and would be just as understandable. If you have a visceral negative reaction to repetition, you would like that feature of Haskell, but I guess many people actually don't have such a reaction and don't mind duplicating code when it's the easiest solution.
 
 There's more logic/structure in Haskell than in other languages – and again, some people like it and some don't care about it. Imagine a language where all nouns end with “e” and all adjectives end with “o”; does this sound like a potentially nice idea? If yep, you might like Haskell.
 
