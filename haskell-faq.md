@@ -6,7 +6,7 @@ unfinished: true
 
 # What is Haskell?
 
-It's a programming language, like C++, Java, Python, or Javascript (but it's rather different from all languages I listed).
+It's a programming language, like C++, Java, Python, or Javascript (but it's rather different from all these languages).
 
 # Is this going to be Haskell propaganda?
 
@@ -148,9 +148,11 @@ This all, however, doesn't help *that* much. How can we decide between Clojure a
 >
 > Learning C makes you a better programmer because you are forced to deal with these issues earlier and more frequently. You can't be sloppy and half-assed about what you write or nothing will work. The advantage of C is it's a simple language you can figure out on your own, which makes it a great language for learning about the machine and getting stronger in these core programmer skills.
 
-Okay, let's throw out the list and approach this from another angle. Googling “makes you a better programmer” gives us the following list of languages: Haskell, Lisp, C, APL/J/K, Clojure, F#, Scala, Erlang. We've already heard arguments for Haskell and C; what about the rest of them?
+Okay, let's throw out the list and approach this from another angle. Googling “makes you a better programmer” gives us the following list of languages: Haskell, Lisp, C, APL/J/K, Clojure, F#, Scala, Erlang, Smalltalk. We've already heard arguments for Haskell and C; what about the rest of them?
 
 (I won't be giving sources for quotes 'cause it's a bit tedious (and also some come from ebooks), but they're all easily googleable.)
+
+(If you want to skip the quotes, [click here](#skip-quotes).)
 
 **Erlang:**
 
@@ -230,15 +232,33 @@ Okay, let's throw out the list and approach this from another angle. Googling �
 
 > [by] using Lisp, you get a better idea about what an ideal interface should look like, and what in your code can be abstracted away as data. It also helps you to see your favorite language as a big data structure, and to better understand its semantics.
 
+**Smalltalk:**
+
+> Clojure is just a Lisp on the JVM. If you want to learn a Lisp, Scheme or CL would be better choices since they don't have all that JVM noise going on. If you want to learn the Java platform, learn Java because it doesn't have all that Lisp noise going on (not that learning a platform will make you much of a better programmer in the first place, and the Java language is pretty boring and narrow-minded as far as languages go.)
+>
+> Smalltalk, on the other hand, is probably the language that has taken class-based object-orientation the farthest. It's one of the “extreme” languages that will change how you think about programming.
+
 While googling, I was also collecting opinions *against* languages I listed, so here are some of them:
 
 **Scala:**
 
 > Scala is a complex language, with a complex type system (that Odersky et al are working to simplify in the future) and it is also a hybrid OOP/FP language which means you can easily write non-FP code and miss some of the real benefits (and good concepts) of FP. I don't recommend it as a “first FP language” and only partially recommend it as a “better Java”. Don't get me wrong: it's a very impressive and capable language but I think you need a solid FP background before you can use it effectively.
 
+<!-- -->
+
 > Scala's type system is pretty complex, which can be a hindrance to those who don't take the time to understand it or a help to those who do. It is more multiparadigm than strictly functional, meaning, you can mix imperative, object-oriented, and functional code. This enables you to ease into functional programming, but may also prove to be a hindrance as you may frequently be tempted to just go imperative if you can't figure out a functional approach.
 
-> Haskell is simply more advanced that Standard ML or OCaml, the only ML dialects that are widely used. [...] Scala is an immensely bloated language. My instinctive reaction to Scala was that something that ugly can’t have a clean implementation, and consequently I was not overly surprised when Paul Phillips, the main compiler writer on the Scala team, called it quits, and went on what seems like a retribution tour, spilling the beans on the nastiness hidden in the Scala compiler. It’s quite fascinating to watch his presentations.
+<!-- -->
+
+> Haskell is simply more advanced that Standard ML or OCaml, the only ML dialects that are widely used. [...] Scala is an immensely bloated language. My instinctive reaction to Scala was that something that ugly can't have a clean implementation, and consequently I was not overly surprised when Paul Phillips, the main compiler writer on the Scala team, called it quits, and went on what seems like a retribution tour, spilling the beans on the nastiness hidden in the Scala compiler. It's quite fascinating to watch his presentations.
+
+<!-- -->
+
+> Besides this, Scala has way too much Java in it to really be “algebraically elegant” or even simple! Scala is a compromise. It has the legacy of Java compatibility dragging it down. That's one of the main reasons it's caught on, but it's also the reason it isn't actually particularly simple or elegant.
+>
+> [...]
+>
+> In embracing Java and OO, it throws away many of the advantages of functional programming. In fact, any non-trivial functional programming quickly becomes unbearable. Especially compared to Haskell.
 
 **Lisp:**
 
@@ -256,51 +276,97 @@ While googling, I was also collecting opinions *against* languages I listed, so 
 
 <!-- -->
 
-> The most important reason is that Haskell can teach you advanced functional programming in a way no other common languages can—including Clojure! (Although Clojure is better than most alternatives.) Haskell elevates functional programming to an artform with an incredible array of libraries and rich abstractions that really *double down* on functional programming. 
+> The most important reason is that Haskell can teach you advanced functional programming in a way no other common languages can – including Clojure! (Although Clojure is better than most alternatives.) Haskell elevates functional programming to an artform with an incredible array of libraries and rich abstractions that really *double down* on functional programming. 
 
+**Haskell:**
 
-Common Lisp
-Clojure
-Racket
+(The post I'm taking this quote from isn't entirely serious, but it's still making a good point in my opinion.)
 
-Ada
-Go
-Rust
+> I've found, contrary to what you sometimes read, that learning Python and Haskell has *not* improved my programming using other languages. Haskell in particular, being so different from imperative languages, is supposed to give new insights into programming that will help you even when you are not using the language. My current experience doesn't exactly tally with this, and here is why:
+>
+> [...]
+>
+> Using functional style obfuscates your code when using other languages.
+>
+> C# has begun to get some features that are more friendly to functional style programming. So, the other day, when faced with a very common situation I tried a functional solution. I have a list of `Foo` objects, each having a `Description()` method that returns a string. I need to concatenate all the non-empty descriptions, inserting newlines between them.
+>
+> The code I wanted to write was this Python code:
+>
+> ~~~ python
+> "\n".join(foo.description() for foo in mylist
+>                          if foo.description() != "")
+> ~~~
+>
+> Or this Haskell:
+>
+> ~~~ haskell
+> concat $ List.intersperse "\n" $ filter (/= "") $ map description mylist
+> ~~~
+>
+> Using generics from C# 2.0 and the methods they contain, the best I got was:
 
-J
+> ~~~ cs
+> string.Join("\n", mylist.ConvertAll<string>(
+>             delegate(Foo foo)
+>             {
+>                     return foo.Description();
+>             }).FindAll(
+>             delegate(string x)
+>             {
+>                     return x != "";
+>             }).ToArray());
+> ~~~
+>
+> There are some big problems with the C# version. The first is that there is very little reduction in size versus the imperative style code, if any. [...] Second, it took me longer to write. I had to do some experimenting to see how much type information I had to add to get it to compile (e.g. adding an explicit cast for the delegate turned out not to be necessary, but I did have to specify `ConvertAll<string>` instead of `ConvertAll`).
+>
+> Finally, there is the problem that this code will get me into trouble with my colleagues. Why am I writing such complex code – using such advanced features as anonymous delegates – when a simple loop would have sufficed? I actually left my functional version in, but was so embarrassed about it I had to add a brief explanatory note.
+>
+> The fact is that functional idioms work badly in languages that don't have syntactic support for them. Java, from what I know, would have been much worse. C# suffers in that although some features that enable more functional programming have arrived in C# 2.0 (along with various other language improvements), huge chunks of .NET libraries have not been updated to take advantage of them, and our own code certainly hasn't.
+>
+> It might be argued that you can still use the principles of functional programming (no side effects, functions depend only on their inputs etc) and get benefits that way, even if you can't use the idioms. In reality, libraries and frameworks designed for imperative languages just don't work like that.
 
-Factor
+# Yeah, I skipped the quotes.    {#skip-quotes}
 
-Wolfram Language
-Lua
-Perl
+So, where does this all leave us?
 
-Oz
+* People like claiming that learning functional programming makes you a better programming, and by “functional programming” they mean a good type system, immutable data, purity/controlling side effects, composable functions, pattern matching, higher order functions, recursion, ADTs, and abstraction. Haskell, F#, Scala, Racket, and lots of other languages have all/most/many of those features.
 
-Prolog
-Mercury
+* Some languages (Clojure, Common Lisp, F#, Scala) don't really force you into the functional paradigm, which makes them more pragmatic – and often better for getting stuff done – but probably less suitable for the purpose of making you a better programmer.
 
-Icon, Io, Smalltalk, Pure, Red, Eiffel
+* Same for abstraction: Clojure doesn't seem to give as many possibilities for abstraction as Haskell does, or at least it doesn't force you into using them:
 
-Haskell
-Agda
-Idris
+  > You really have to absorb and internalise all abstractions of [Typeclassopedia](https://wiki.haskell.org/Typeclassopedia) and more to have a fighting chance at understanding how to do Haskell at scale. All those abstractions are legit and make sense in context (for example when you click that list is in fact a monad) but while in Clojure you can postpone learning the abstractions until it's necessary in Haskell there's no way of getting around making this investment up front, because having a static type system means you need to know how to talk to it.
+  >
+  > I think Haskell is a worthwhile investment to make if you believe in correctness, but it's an upfront investment you have to make and not everyone is up for that, especially if they need to have something done now and not two years later after monads finally click.
 
-F#
-Standard ML
-OCaml
-Scala
-Alice
+* On the other hand, too much abstraction can be bad, and there's a danger that after learning Haskell you would start writing *overengineered* code. How much of a danger? I don't know; I don't think it's too big, but it's still there.
 
-Elixir
+* Scala is “a compromise”, complicated, possibly bloated, and at the same time not advanced enough compared to Haskell (since Haskell doesn't try to be everything at once, it can simultaneously have less features than Scala and be a more advanced functional language than Scala).
 
-Nim
-Shen
+* It's hard to find anyone saying anything good about F# apart from, well, it being a functional language. It has .NET ecosystem and better IDE support than Haskell, but it's probably not better than Haskell when it comes to becoming a better programmer etc.
 
-ATS
+* Even if learning Haskell makes you the best programmer ever, it's just *not going to happen* if you end up giving up on Haskell (e.g. because you wanted to get something cool done fast and Haskell didn't let you do that):
+
+  > [it's] just that people dread big up front investments in general, and Haskell just happens to be one. It pays off in the long run as you say, but you still have to make the jump, which is probably the reason most people don't.
+
+* With Lisp you're going to use metaprogramming/macros/etc more often than with Haskell; whether it would make you a better programmer or simply a better *Lisp* programmer is up to a debate. I'd argue that the skills of decomposition and abstraction are more broadly applicable/useful than the skill of understanding how language design is done (not to mention that in Haskell you're going to see a lot of examples of [DSLs](@w:domain-specific language) too). However, “code is data” is still a nice lesson to learn and Lisp is the best language to learn it.
+
+* Racket doesn't get many mentions, but on the other hand it's a Lisp and a Scheme and so things said about Lisp/Scheme apply to it just as well.
+
+* Smalltalk is to OOP languages as Haskell is to functional languages. Could be worth learning.
+
+* Erlang makes you think about concurrency and fault tolerance. (Descriptions of other languages don't mention that.)
+
+* C makes you more disciplined/attentive/careful. (Again, descriptions of other languages don't mention that.)
+
+* It's possible that languages like Shen, Red, Factor, Oz, Mercury, etc. would make you a better programmer too, but nobody is talking about them much and so it's hard to compare them (especially since I haven't used any of them). 
 
 -----------------------------------------------------------------------------
 
-(I don't know of any studies that show that this style is actually *better*, and conducting such studies would likely be pretty hard, but it seems to be widely accepted that 
+All in all, Haskell wins at abstraction and forcing you into functional paradigm, Clojure wins at pragmatism, and some systems language (maybe C, maybe something else) wins at discipline. This leads to the following recommendation:
 
-(on the other hand, too much abstraction is bad, and <link to the global state post>, etc)
+* Try learning Haskell.
+
+* If after some time (say, a month) you find yourself confused and impatient (because of not producing anything useful), switch to Clojure.
+
+* In addition to that, learn a systems language (C? Go? Rust? I've no idea, which). Whether it's more or less useful than learning Haskell, I can't say either.
