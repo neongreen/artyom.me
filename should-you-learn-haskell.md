@@ -228,9 +228,7 @@ And finally, from Eric Raymond's [How to Become a Hacker](http://www.catb.org/es
 
 From a [post on xkcd forums](http://forums.xkcd.com/viewtopic.php?t=64613&p=2358376#p2348762) (in the “would Haskell make me a better programmer?” topic):
 
-> Clojure is just a Lisp on the JVM. If you want to learn a Lisp, Scheme or CL would be better choices since they don't have all that JVM noise going on. If you want to learn the Java platform, learn Java because it doesn't have all that Lisp noise going on (not that learning a platform will make you much of a better programmer in the first place, and the Java language is pretty boring and narrow-minded as far as languages go.)
->
-> Smalltalk, on the other hand, is probably the language that has taken class-based object-orientation the farthest. It's one of the “extreme” languages that will change how you think about programming.
+> Smalltalk [...] is probably the language that has taken class-based object-orientation the farthest. It's one of the “extreme” languages that will change how you think about programming.
 
 -----------------------------------------------------------------------------
 
