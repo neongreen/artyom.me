@@ -128,7 +128,7 @@ This all, however, doesn't help *that* much. How can we decide between Clojure a
 >
 > Learning C makes you a better programmer because you are forced to deal with these issues earlier and more frequently. You can't be sloppy and half-assed about what you write or nothing will work. The advantage of C is it's a simple language you can figure out on your own, which makes it a great language for learning about the machine and getting stronger in these core programmer skills.
 
-Okay, let's throw out the list and approach this from another angle. Googling “makes you a better programmer” gives us the following list of languages: Haskell, Lisp, C, APL/J/K, Clojure, F#, Scala, Erlang, Smalltalk. We've already heard arguments for Haskell and C; what about the rest of them?
+Okay, let's throw out the list and approach this from another angle. Googling “makes you a better programmer” gives us the following list of languages: Haskell, Lisp, C, APL/J/K, Clojure, F#, Scala, Erlang, Smalltalk, Go. We've already heard arguments for Haskell and C; what about the rest of them?
 
 (If you want to skip the quotes, [click here](#skip-quotes).)
 
@@ -229,6 +229,18 @@ And finally, from Eric Raymond's [How to Become a Hacker](http://www.catb.org/es
 From a [post on xkcd forums](http://forums.xkcd.com/viewtopic.php?t=64613&p=2358376#p2348762) (in the “would Haskell make me a better programmer?” topic):
 
 > Smalltalk [...] is probably the language that has taken class-based object-orientation the farthest. It's one of the “extreme” languages that will change how you think about programming.
+
+**Go:**
+
+From some [blog post](http://blog.nella.org/go-will-make-you-a-better-programmer/):
+
+> When I am programming Go, I never think, “OK, is this an OK shortcut to take here? Is this a play context? Is this a work context, but I can push off bounds checking on some other layer? Is this just a little local server, and I don’t care about hackers?”
+>
+> These questions don't exist, because the way Go and its standard library and its idioms work together, the right way – the easy way! – to write it is simply, clearly, and securely.
+>
+> Go makes me a better programmer.
+>
+> And it makes me increasingly intolerant of C and Python. This week alone at work I struggled with a crashing router from a missing C bounds check and late- and strangely-failing Python code from dynamic typing. Idiomatic Go code does not have those two failure modes, and my patience for them is waning fast as a result.
 
 -----------------------------------------------------------------------------
 
@@ -363,16 +375,16 @@ So, where does this all leave us?
 
 * Erlang makes you think about concurrency and fault tolerance. (Descriptions of other languages don't mention that.)
 
-* C makes you more disciplined/attentive/careful. (Again, descriptions of other languages don't mention that.)
+* C makes you more disciplined/attentive/careful. (Again, descriptions of other languages don't mention that.) On the other hand, in C it's entirely possible *not* to be disciplined, while Go seems to enforce discipline more strictly (which also means that you don't get carefulness practised as much).
 
 * It's possible that languages like Shen, Red, Factor, Oz, Mercury, etc. would make you a better programmer too, but nobody is talking about them much and so it's hard to compare them (especially since I haven't used any of them). 
 
 -----------------------------------------------------------------------------
 
-All in all, Haskell wins at abstraction and forcing you into functional paradigm, Clojure wins at pragmatism, and some systems language (maybe C, maybe something else) wins at discipline. This leads to the following recommendation:
+All in all, Haskell wins at abstraction and forcing you into functional paradigm, Clojure wins at pragmatism, and some systems language (maybe C, maybe Go) wins at discipline. This leads to the following recommendation:
 
 * Try learning Haskell.
 
 * If after some time (say, a month) you find yourself confused and impatient (because of not producing anything useful), switch to Clojure.
 
-* In addition to that, learn a systems language (C? Rust? I've no idea, which). Whether it's more or less useful than learning Haskell, I can't say either.
+* In addition to that, learn a systems language (C? Go? Rust? I've no idea, which). Whether it's more or less useful than learning Haskell, I can't say either.
