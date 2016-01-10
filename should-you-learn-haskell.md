@@ -76,8 +76,6 @@ And [another](https://www.reddit.com/r/haskell/comments/3absc6/how_did_haskell_m
 > * Make undesirable state unrepresentable in the system, or at least so hard to create that tests are bound to catch it even when that's not what they're actually testing
 > * Limit the range of implicit state as much as you can (given OOP languages that's pretty futile to be honest though)
 
-(I apologise for the slightly overexcited tone of these quotes.)
-
 However, this alone doesn't prove that learning Haskell is a good time investment. Many people think it is, but I've no idea how many of those people would've liked Haskell even if it wasn't a good time investment (possibly a lot?); besides, even if Haskell makes you a better programmer, it might be still not a good time investment in terms of cost/utility. An easier question to answer would be “*if* you want to learn a new language in order to become a better programmer, what language should you learn?”. If you already know some functional language, “Haskell” is probably not going to be the right answer, so let's additionally assume that:
 
   * you either don't know any programming languages or only know some of the mainstream ones (like Python, C++, or Java)
