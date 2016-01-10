@@ -71,14 +71,10 @@ $endfor$
 <body>
 
 <div id="header">
-<div style="background-color:$if(unfinished)$#eb2142$else$#19e672$endif$" id="headerheader">
-  <div style="line-height:1px;float:left;width:33.33%;font-size:1px;color:transparent">∙∙ ∙−−−−∙ −− ∙− −∙−∙ ∙− − ∙∙∙ ∙ −∙−∙ ∙−∙ ∙ − ∙−∙∙ −∙−−</div>
-  <div style="float:left;width:33.33%;text-align:center">
-    <a style="text-decoration:none;color:black" href="/">[artyom.me]</a>
-  </div>
-  <div style="float:left;width:33.33%;text-align:right">
-    <a style="text-decoration:none;padding-right:0.5em;color:black" href="/feed.xml">[RSS]</a>
-  </div>
+<div style="position:relative;height:4em;background-color:$if(unfinished)$#eb2142$else$#19e672$endif$" id="headerheader">
+  <a href="/feed.xml"><img style="float:right;top:50%;position:relative;transform:translateY(-50%);max-height:3em;right:0.5em" src="/feed-icon.svg" alt="feed"></a>
+  <div style="width:100%;text-align:center;position:absolute;top:53%;transform:translateY(-50%)"><a style="text-decoration:none;color:black;font-size:2em;" href="/">[artyom.me]</a></div>
+  <div style="width:100%;text-align:center;position:absolute;bottom:0px;line-height:0px;font-size:6pt;color:transparent">∙∙ ∙−−−−∙ −− ∙− −∙−∙ ∙− − ∙∙∙ ∙ −∙−∙ ∙−∙ ∙ − ∙−∙∙ −∙−−</div>
 </div>
 
 <div style="text-align:center;border-bottom:1px solid black;font-size:0.75em;padding:0.5em 8px">

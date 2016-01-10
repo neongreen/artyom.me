@@ -109,10 +109,7 @@ dd p {
     background-color: #eee; }
 
 #headerheader {
-    border-bottom: 1px solid black;
-    height: 1.8em;
-    line-height: 1.7em;
-    font-size: 2em; }
+    border-bottom: 1px solid black; }
 
 #main {
     padding: 1.5em 0 2.5em 0; }
