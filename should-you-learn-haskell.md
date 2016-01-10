@@ -101,7 +101,6 @@ Overly specialised languages are out as well:
 I'll leave only 1 language in each group of similar languages (where “similar” is subjective and I might well be mistaken):
 
   * Scheme, **Racket**
-  * Arc, **Clojure**
   * Forth, Joy, **Factor**
   * APL, **J**
   * Clean, **Haskell**
