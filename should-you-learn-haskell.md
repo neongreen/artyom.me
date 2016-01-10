@@ -89,8 +89,9 @@ First, Python, C++, Ruby, Java, and Javascript are out because they are mainstre
 
   * Kotlin (a better Java)
   * Coffeescript, Typescript, Dart (a better Javascript)
-  * C#, D (a better C++)
+  * D (a better C++)
   * Swift (a better Objective-C)
+  * C# (something of a mix between C++ and Java, but evolved)
 
 Overly specialised languages are out as well:
 
