@@ -12,7 +12,11 @@ from the Lisp/Scheme Family), Documenting This New Experience with Quite
 Unusual Honesty and Diligence, All the While Secretly Plotting to Steal the
 Good Bits Which Haskell Doesn't Currently Have*.
 
----
+-----------------------------------------------------------------------------
+
+Warning: as of January 2016, I have abandoned this series (the 1st post was written in February 2014). Sorry.
+
+-----------------------------------------------------------------------------
 
 Y'know, I always wanted to learn myself some Lisp for greater good and
 what-not. I've heard nice things about [Racket](@w(plang)) (don't ask when or
