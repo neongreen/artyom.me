@@ -19,7 +19,7 @@ Warning: as of January 2016, I have abandoned this series (the 1st post was writ
 -----------------------------------------------------------------------------
 
 Y'know, I always wanted to learn myself some Lisp for greater good and
-what-not. I've heard nice things about [Racket](@w(plang)) (don't ask when or
+what-not. I've heard nice things about [Racket](@w:Racket (programming language)) (don't ask when or
 where, I don't remember), so it's going to be the first Lisp I learn.
 
 Random facts about myself:
