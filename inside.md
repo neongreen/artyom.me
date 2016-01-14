@@ -251,6 +251,8 @@ on my laptop. First it queries current date, and then for each file with
 `.md` extension it runs Pandoc, passing to it variables `src` (name of file
 being processed) and `today`.
 
+You need [pandoc-contrib](@gh:aelve/pandoc-contrib) if you want [shortcut links](@gh:aelve/shortcut-links) to work.
+
 ## Uploading
 
 Uploading is done by [this][upload.sh] script, which is currently just one
