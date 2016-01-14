@@ -196,18 +196,6 @@ document.body.innerHTML = document.body.innerHTML.replace(/‾/g, "<span style='
 </script>
 
 <script src="https://cdn.rawgit.com/neongreen/orphus.js/3337c92943c662936c0b7a9969746c71c9f53581/orphus.js"></script>
-<script src="https://carnivalapp.io/sites/328/init.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  Carnival.init({
-    enabled: true,
-    article_author: "",
-    article_selector: "article",
-    block_selector: ":scope > p, :scope > pre, :scope > ul > li > p, :scope > ul > li > pre",
-    onNewComment: function(comment) { }
-  });
-});
-</script>
 
 </body>
 </html>

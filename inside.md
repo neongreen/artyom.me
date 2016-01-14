@@ -242,25 +242,6 @@ can't install anything on your server, you could also use
 
 By the by, I [don't hide my stats](/stats).
 
-## Comments
-
-Sidebar comments are powered by [Carnival][] (they are free for personal sites). By default comments aren't added to lists, so I modified their script a bit:
-
-[Carnival]: https://carnivalapp.io/
-
-~~~ javascript
-document.addEventListener("DOMContentLoaded", function() {
-  Carnival.init({
-    enabled: true,
-    article_author: "",
-    article_selector: "article",
-    block_selector: ":scope > p, :scope > pre, " +
-                    ":scope > ul > li > p, :scope > ul > li > pre",
-    onNewComment: function(comment) { }
-  });
-});
-~~~
-
 # Scripts
 
 ## Generation
