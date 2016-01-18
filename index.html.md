@@ -52,9 +52,9 @@ Several years ago I've been learning [Racket](@w:Racket (programming language)) 
 
   * [Macros, Macros and a Bit of Modules](/learning-racket-2). Another three days. Mostly macros, as you could've guessed.
 
-<div class="grey">
+<div class="gray">
 
-  * [list of topics to cover](/racket-topics). Grey because it can't be finished almost by definition.
+  * [list of topics to cover](/racket-topics). Gray because it can't be finished almost by definition.
 
 </div>
 

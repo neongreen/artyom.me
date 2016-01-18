@@ -102,7 +102,7 @@ $if(series.top)$
   $if(series.prev)$
     <a href="$series.prev$">&lt;&lt;&lt;</a>
   $else$
-    <span class="grey"><a href="$series.toplink$">&lt;&lt;&lt;</a></span>
+    <span class="gray"><a href="$series.toplink$">&lt;&lt;&lt;</a></span>
   $endif$
   
   <a href="$series.toplink$">$series.top$</a>
@@ -110,7 +110,7 @@ $if(series.top)$
   $if(series.next)$
     <a href="$series.next$">&gt;&gt;&gt;</a>
   $else$
-    <span class="grey"><a href="$series.toplink$">&gt;&gt;&gt;</a></span>
+    <span class="gray"><a href="$series.toplink$">&gt;&gt;&gt;</a></span>
   $endif$
 </div>
 $endif$
@@ -151,12 +151,12 @@ This happens due to this piece of CSS:
     margin: 1em 0; }
 ~~~
 
-In the same vein, making text “ghosted” (grey text, grey links) is done by
+In the same vein, making text “ghosted” (gray text, gray links) is done by
 
 ~~~ css
-.grey                 {color: #AAA;}
-.grey a:link          {color: #888;}
-.grey a:visited       {color: #777;}
+.gray                 {color: #AAA;}
+.gray a:link          {color: #888;}
+.gray a:visited       {color: #777;}
 ~~~
 
 ### Tables

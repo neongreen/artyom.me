@@ -40,7 +40,7 @@ doesn't work as expected or sets my laptop on fire, I might react with “this
 is unfortunate” but nothing beyond that. As long as [Node.js](@w) exists in
 this world, I can't truly hate anything else.
 
-<div class="grey">
+<div class="gray">
 
 (Hm. I know I shouldn't give in to hatred... But whenever I think about a
 language originally conceived to animate jumping monkeys on web pages now
