@@ -46,7 +46,7 @@ It's a work in progress; the future parts will mention:
 
 # Racket
 
-I've been learning [Racket](@w:Racket (programming language)) and making notes:
+Several years ago I've been learning [Racket](@w:Racket (programming language)) and making notes (which then became somewhat popular):
 
   * [Introduction](/learning-racket-1). First three days, no prior knowledge, getting a feel for the syntax... You get the idea.
 
@@ -57,6 +57,8 @@ I've been learning [Racket](@w:Racket (programming language)) and making notes:
   * [list of topics to cover](/racket-topics). Grey because it can't be finished almost by definition.
 
 </div>
+
+I'm not learning Racket anymore, but I might start again in the future.
 
 # Stuff I did
 
