@@ -1,8 +1,8 @@
 % Aeson: the tutorial
 
-[Skip to the actual tutorial][The actual tutorial] if you don't want to read a mini-rant.
+[Aeson](@hackage:aeson) is the most widely used library for parsing [JSON](@w) (in Haskell, of course, I'm not talking about the whole world). It's also hopelessly magical for people who try to learn it by looking at provided examples, and existing tutorials don't help that much, so I wrote my own. It's supposed to be the most comprehensive Aeson tutorial on the web; if there's anything missing from it, send me an email! (So far the only thing I haven't covered is using lenses with Aeson, but this is coming soon.)
 
-Here's also an incomplete list of things the tutorial covers (excluding basic stuff and “how it all works inside”):
+Here's an incomplete list of things the tutorial explains (excluding basic stuff and “how it all works inside”):
 
   * [how various types like `Bool`, `Map`, etc are represented by default](#fromjson-instances-for-other-types)
   * encoding/decoding records manually
@@ -23,61 +23,11 @@ Here's also an incomplete list of things the tutorial covers (excluding basic st
   * [parsing without creating extra types](#parsing-without-creating-extra-types)
   * [pretty-printing](#pretty-printing)
 
------------------------------------------------------------------------------
-
-[Aeson](@hackage:aeson) is the most widely used library for parsing [JSON](@w) (in Haskell, of course, I'm not talking about the whole world). It's also hopelessly magical for people who try to learn it by looking at provided examples, because...
-
-
-An analogy
-----------
-
-Examples in Aeson documentation:
-
-~~~ haskell
-f :: Int -> Int
-f 0 = 1
-f 1 = 2
-f 2 = 3
-~~~
-
-The user wants to write:
-
-~~~ haskell
-f :: Int -> Int
-f x = if even x then x `div` 2 else x*3 + 1
-~~~
-
-Failure. Confusion. Frustration. Pain. Anger.
-
-
-Other Aeson tutorials which are all less comprehensive
-------------------------------------------------------
-
-* [Parsing JSON with Aeson][tut-1]
-* [Yet another Aeson tutorial][tut-2]
-* [Parsing nested JSON in Haskell with Aeson][tut-3]
-* [JSON, Aeson and Template Haskell for fun and profit][tut-4]
-* [Easy JSON parsing in Haskell with Aeson][tut-5]
-* [24 days of Hackage: aeson][tut-6]
-
-[tut-1]: https://www.fpcomplete.com/school/starting-with-haskell/libraries-and-frameworks/text-manipulation/json
-[tut-2]: http://doingmyprogramming.com/2014/04/14/yet-another-aeson-tutorial/
-[tut-3]: http://the-singleton.com/2012/02/parsing-nested-json-in-haskell-with-aeson/
-[tut-4]: http://pltconfusion.com/2014/05/10/json_aeson_and_template_haskell_for_fun_and_profit/
-[tut-5]: http://blog.raynes.me/blog/2012/11/27/easy-json-parsing-in-haskell-with-aeson/
-[tut-6]: https://ocharles.org.uk/blog/posts/2012-12-07-24-days-of-hackage-aeson.html
-
-(I don't know of a tutorial that would be more comprehensive. If there is one, *please* tell me because I really want to keep this tutorial the most comprehensive and definite and everything. Thanks!)
-
-
-The actual tutorial
--------------------
-
-You probably should read it all, because some questions of the form “how to do something with Aeson” are hard to answer without understanding how Aeson works. Even if you know how Aeson works, you still probably should read it all – I tried to be as comprehensive as possible, and there are some idioms and bits of knowledge scattered around which aren't present in other tutorials, like `RecordWildCards`, and `Alternative`, and a list of default encodings for various types, and pretty-printing, and customising generic instances, and stuff.
+You probably should read it from beginning to end, because some questions of the form “how to do something with Aeson” are hard to answer without understanding how Aeson works. Even if you know how Aeson works, you still probably should read it all – there are some idioms and bits of knowledge scattered around that aren't present in other tutorials, like [`RecordWildCards`](@ghc-ext), and [`Alternative`][], and a list of default encodings for various types, and pretty-printing, and customising generic instances, and stuff.
 
 ### A note on string types
 
-For following examples to work, you need to enable the `OverloadedStrings` extension – either by writing `{-# LANGUAGE OverloadedStrings #-}` at the top of the module, or doing `:set -XOverloadedStrings` in GHCi prompt. The reason is:
+For following examples to work, you need to enable the [`OverloadedStrings`](@ghc-ext) extension – either by writing `{-# LANGUAGE OverloadedStrings #-}` at the top of the module, or doing `:set -XOverloadedStrings` in GHCi prompt. The reason is:
 
 * Most of the time you have JSON in a file or receive it over network, so JSON decoding/encoding functions work with [`ByteString`][] and not with [`String`][] or [`Text`][]. (If you need to convert JSON to/from `Text`, there's a possibility you're doing something wrong.)
 
@@ -436,9 +386,9 @@ instance ToJSON Person where
     "age"  .= age  p ]
 ~~~
 
-### `RecordWildCards`
+### [`RecordWildCards`](@ghc-ext)
 
-There is a slightly different style, however, which I think is better. It relies on the `RecordWildCards` extension, which does 2 transformations:
+There is a slightly different style, however, which I think is better. It relies on the [`RecordWildCards`](@ghc-ext) extension, which does 2 transformations:
 
 * instead of deconstructing the record like `f (Person name age) = ...`, you can write `f Person{..} = ...`
 
@@ -772,7 +722,7 @@ instance ToJSON Person
 instance FromJSON Person
 ~~~
 
-Starting from GHC 7.10, it's possible to simplify this even further by using the `DeriveAnyClass` extension (which still requires a `Generic` instance):
+Starting from GHC 7.10, it's possible to simplify this even further by using the [`DeriveAnyClass`](@ghc-ext) extension (which still requires a `Generic` instance):
 
 ~~~ haskell
 {-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
