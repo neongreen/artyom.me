@@ -10,7 +10,7 @@ code {
     font-family: monospace;
     background-color: #F7F7FA;
     padding: 2px 4px;
-    font-size: 110%; }
+    font-size: 105%; }
 
 pre.repl {
     border: 2px solid black;
@@ -68,7 +68,7 @@ h1 a, h2 a, h3 a, h4 a, h5 a {
 h1, h2, h3, h4, h5 {
     font-weight: bold;
     padding-bottom: 1px;
-    line-height: 120%;
+    line-height: 150%;
     border-bottom: 1px solid black; }
 
 h1 {
