@@ -8,21 +8,6 @@ series:
   next: /lens-over-tea-3
 ---
 
-I'm sorry for not posting it for so long, even tho it was mostly written
-several months ago.
-
-Next posts will be shorter.
-
-I'm not going to try to fill in (some of the) blanks my several-months-ago
-version left to myself. It might ~~somewhat~~ greatly diminish the value of
-this text, as well as readability, but whatever. And there are also notes at
-the end, which would've normally been kept away from readers' eyes.
-
-If you hate seeing unfinished things, you should skip the notes as well as
-the whole post.
-
------------------------------------------------------------------------------
-
 2 obligatory topics of every lens tutorial seem to be “wow, look how lenses
 compose, it's just like OOP” and “wow, look how lenses make working with
 records easy”. Until these 2 are covered, then, this tutorial can't be
@@ -110,8 +95,8 @@ from `b`.
              in  get _c b
 ~~~
 
-`modify'` is... simple as well. To modify `c` in `a`, first write a function
-which modifies `c` in `b`, and then use it to modify `b` in `a`.
+`modify'` is pretty simple as well. To modify `c` in `a`, first write a
+function which modifies `c` in `b`, and then use it to modify `b` in `a`.
 
 ~~~ haskell
     modify' f a = let modifyB :: b -> b
@@ -119,16 +104,17 @@ which modifies `c` in `b`, and then use it to modify `b` in `a`.
                   in  modify _b modifyB a
 ~~~
 
-I added the type signature for Extra Clarity. If you try to compile it, tho,
-you'll get a weird-looking error message saying `Couldn't match type ‘b’ with
-‘b1’`. This is because in `modifyB :: b -> b`, `b` could've been just as well
-replaced by `a` or `x` or `pony` – there's no relation to the `b` in `(@.)`'s
-type signature. So, we'll have to enable the [`ScopedTypeVariables`](@ghc-ext)
-extension, which does exactly what we want – it allows type variables to be
-*brought into scope* so that they can be used later. Finally, just enabling
-the extension doesn't do anything by itself, only *allows* variables to be
-brought into scope – you still have to do it yourself by specifying `forall
-b` in the signature:
+(I added the type signature for extra clarity.)
+
+If you try to compile it, tho, you'll get a weird-looking error message
+saying `Couldn't match type ‘b’ with ‘b1’`. This is because in `modifyB :: b
+-> b`, `b` could've been just as well replaced by `a` or `x` or `pony` –
+there's no relation to the `b` in `(@.)`'s type signature. So, we'll have to
+enable the [`ScopedTypeVariables`](@ghc-ext) extension, which does exactly
+what we want – it allows type variables to be *brought into scope* so that
+they can be used later. Finally, just enabling the extension doesn't do
+anything by itself, only *allows* variables to be brought into scope – you
+still have to do it yourself by specifying `forall b` in the signature:
 
 ~~~ haskell
 {-# LANGUAGE ScopedTypeVariables #-}
@@ -227,9 +213,7 @@ or surprising about their definitions anyway.
 ## Categories
 
 If you have been programming in Haskell long enough, you might've noticed
-that there's quite a number of things that can be composed (I haven't been
-programming long enough, so if you have more examples I missed, use
-<kbd>Ctrl</kbd>+<kbd>Enter</kbd> to send them).
+that there's quite a number of things that can be composed.
 
 Functions:
 
@@ -499,11 +483,12 @@ Not very illuminating. I'll add a couple of type synonyms to make it easier
 (warning: it won't compile due to type unification errors):
 
 ~~~ haskell
-type Mod = Functor f => a -> f a
-type TupleMod = Functor f => (a, x) -> f (a, x)
+type Modifier = Functor f => a -> f a
+type TupleModifier = Functor f => (a, x) -> f (a, x)
 
-_1  :: Mod -> TupleMod
-_1' :: (TupleMod -> c) -> Mod -> c
+_1  :: Modifier -> TupleModifier
+
+_1' :: (TupleModifier -> c) -> (Modifier -> c)
 ~~~
 
 Or in English:
@@ -522,22 +507,22 @@ another step-by-step explanation:
 ~~~ haskell
 -- These are the types for ordinary lenses.
 
-_1   :: Mod -> TupleMod
-ix 3 :: Mod -> ListMod
+_1   :: Modifer -> TupleModifier
+ix 3 :: Modifier -> ListModifier
 
 -- These are the types for new lenses.
 
-_1'   :: (TupleMod -> c) -> Mod -> c
-ix' 3 :: (ListMod  -> c) -> Mod -> c
+_1'   :: (TupleModifier -> c) -> (Modifier -> c)
+ix' 3 :: (ListModifier  -> c) -> (Modifier -> c)
 
 -- In order for «_1' . ix' 3» to work, the output type of «ix' 3» has to
 -- match the input type of «_1». So, here's the more specialised type:
 
-ix' 3 :: (ListTupleMod -> c) -> TupleMod -> c
+ix' 3 :: (ListTupleModifier -> c) -> (TupleModifier -> c)
 
 -- So, the composition has this type:
 
-_1' . ix' 3 :: (ListTupleMod -> c) -> Mod -> c
+_1' . ix' 3 :: (ListTupleModifier -> c) -> (Modifier -> c)
 ~~~
 
 ## Various stuff
@@ -546,15 +531,13 @@ There are a few things left to mention:
 
   * So far we've been assuming simple lenses – `Lens' s a`, and not `Lens s t
     a b`. However, the latter ones compose just as well, provided that the
-    types match, and I don't really think it requires any elaboration (but
-    please tell me if it does).
+    types match.
 
   * Traversals can be composed with lenses, as they have the same type
     (modulo `Functor`/`Applicative`). When you're composing 2 things of same
     types but with different constraints, the result is something which has
     both constraints – but since `Functor` is already a constraint of
-    `Applicative`, the resulting constraint is just `Applicative`. Again,
-    tell me if this needs elaboration.
+    `Applicative`, the resulting constraint is just `Applicative`.
 
 ## Recap
 
@@ -657,7 +640,7 @@ t pure ≡ pure
 ~~~
 
 And since nobody can forbid me to quote the definition of `Traversal` as many
-times as I please...
+times as I please:
 
 ~~~ haskell
 type Traversal s t a b = forall f. Applicative f => (a -> f b) -> s -> f t
@@ -705,8 +688,7 @@ only the first `n` elements:
 [1,2,3,4,5,-6,-7,-8,-9,-10]
 ~~~
 
-(I'll tell you how to implement these 2 in the next part, but you're of
-course perfectly welcome to try to do it now... good luck with that.)
+(Don't try to implement them yet, it's hard.)
 
 [`elementsOf`][] generalises `taking` and `dropping` to arbitrary index
 predicates:
@@ -1031,10 +1013,7 @@ lpaste or somewhere?
 07:00 <edwardk> puregreen: not handy
 ~~~
 
-so if you really need it, bug [Edward](@t:kmett) or
-[Russell](http://r6.ca/). (And don't mention me. Seriously, don't you dare to
-mention that *I* told you to bug either of these ~~great and terrible
-wizards~~ probably busy people.)
+So, if you really need it, bug [Edward](@t:kmett) or [Russell](http://r6.ca/).
 
 -----------------------------------------------------------------------------
 
@@ -1496,7 +1475,7 @@ compile-time error:
     *** Exception: (^?!): empty Fold
     ~~~
 
-# Reader, Writer, State... related stuff
+# Reader, Writer, State, related stuff
 
 There isn't much left to say about getters (without touching indexed getters,
 of course). However, if you browse the [`Control.Lens.Getter`][] module
@@ -1753,19 +1732,23 @@ sort' = do
 
 [Reddit qs]: http://www.reddit.com/r/programming/comments/2h0j2/real_quicksort_in_haskell/c2h196
 
-## `listening` and `listenings`
+## [`listening`][] and [`listenings`][]
 
-With `view` and `views` dealt with, it's time to look at [`listening`][] and
-[`listenings`][]:
+I haven't ever seen anybody use them, so I guess I'll just skip them. It's not that hard to figure out what they do by looking at the signatures and implementation, anyway:
 
 ~~~ haskell
-listening  :: MonadWriter w m => Getting u w u -> m a -> m (a, u)
+-- | This is a generalized form of 'listen' that only extracts the portion
+-- of the log that is focused on by a 'Getter'.
+listening :: MonadWriter w m => Getting u w u -> m a -> m (a, u)
+listening l m = do
+  (a, w) <- listen m
+  return (a, view l w)
+
 listenings :: MonadWriter w m => Getting v w u -> (u -> v) -> m a -> m (a, v)
+listenings l uv m = do
+  (a, w) <- listen m
+  return (a, views l uv w)
 ~~~
-
-First, what does the original [`listen`][] do? It lets you run a computation—
-
-A-a-and that's a blank I'm not filling.
 
 # Actions 101
 
@@ -1779,7 +1762,7 @@ asking questions or participating or something.
 paragraph.]
 
 Take a look at the [`Control.Lens.Action`][] module (that's what I'm doing
-right now). What questions could you ask?
+right now) (note that you need the [lens-action](@hackage) package for it). What questions could you ask?
 
 -----------------------------------------------------------------------------
 
@@ -2344,126 +2327,23 @@ As for `Effective`... I suspect that it's needed when you start implementing
 “indexed stuff”, but I can't be sure because I'm actively trying not to learn
 anything about it before time comes to write about it.
 
-## One last thing
-
-`Action` was split off to a [separate package](@hackage:lens-action).
-
 # `Getter` and `Setter` laws
 
 Getters have no laws, because they're just functions in disguise.
 
+> ~~~ haskell
 > set l y (set l x a) ≡ set l y a
-> 
-> You can't view a Setter in general, so the other two laws are irrelevant.
-> 
-> However, two Functor laws apply to a Setter:
-> 
->  over l id ≡ id
->  over l f . over l g ≡ over l (f . g)
-
-# Notes that don't make much sense
-
-> `gets`
-> 
-> also, mention Roman's alternative MonadReader
-
-This last bit about alternative `MonadReader` is due to the annoying fact
-that current lens doesn't work with any `MonadReader` but mtl's one, and I
-prefer Roman's library to mtl.
-
-> why `to` doesn't use Functor in the latest lens (4.5.1, on Github)
-
-Don't know. [Figure it out!](https://github.com/ekmett/lens/commit/3c53277ca3b8418765f1a45aca25474e97f658b5)
-
-> explain `(!!) <$> reverse`
-
-It's the same as `\s -> (reverse s !!)`, I think.
-
-> todo: maybe-style defaulting? How is it done in lens?
-> 
-> reask the question about `defaulting`:
-> 
->     defaulting x t = failing t (to (const x))
-
-That could be useful, yep.
-
 > ~~~
-> 02:29 <pingu> This is intuitive, and works:
-> 02:29 <pingu> (Map.empty :: Map String Int) & at "one" .~ Just 42
-> 02:29 <pingu> (Map.empty :: Map String (Map String Int)) & _ .~ Just 42
-> 02:30 <pingu> Now, what setter goes in the type hole to allow me to
->               "chain" an outer lookup with an inner one?
-> 02:31 <pingu> at "one" . _Just . at "two" might work for a read
->               but I want to set in the first then set in the second
-> 02:31 <shachaf> Perhaps: at "one" . non M.empty . at "two"
-> 02:33 <shachaf> Note that it means that if you e.g. have
->                 M.fromList [("one",M.fromList [("two", 5)])], and you set
->                 at "one" . non M.empty . at "two" to Nothing, then the
->                 whole inner map will be deleted.
+> 
+> You can't view a `Setter` in general, so the other two laws are irrelevant.
+> 
+> However, two `Functor` laws apply to a `Setter`:
+>
+> ~~~ haskell
+> over l id ≡ id
+> over l f . over l g ≡ over l (f . g)
 > ~~~
 
-I think there should be a special mini-post titled “how to do map lookups
-with `Maybe` and everything”. I'm not good at it myself, tho.
-
-In fact, there should just be a post titled “how to work with `Maybe`”. For instance, I only recently found out that `<|>` gives you a simple way to choose the `Maybe` which isn't empty:
-
-~~~ {.haskell .repl}
-> Nothing <|> Just 1
-Just 1
-
-> Nothing <|> Nothing
-Nothing
-~~~
-
-There are probably other funny things like that lurking in the sea of
-abstractions.
-
-> also, an excuse: I spent several days writing a CPS tutorial, but then...
-> 
-> and also mention ξζ-traversals
-
-It's most definitely not an excuse for a delay of *several months*.
-
-“ξζ-traversals” are something I had thought up when I realised that lenses
-aren't as good for getting as I would've liked. The funny name is because at
-the time I happened to remember that Haskell doesn't mind Unicode.
-
-> mention that if here `ix` is used instead of `at`, nothing can save this
-> from failing (is it really true, by the way?)
-> 
->     Map.fromList [(1,"Foo")] ^? at 1.or "" -- where “or” is actually “non”
-
-No idea.
-
-> todo: a library of harmful traversals (a comparison with classy-prelude
-> lacking head)
-
-**I should totally do this.**
-
-> explore ξζ-traversals (see `code/gets.hs` and `code/lot2.md`)
-
-Nah, not before I write my library of harmful traversals.
-
-Examples of useful (or just ridiculously harmful) traversals are very
-welcome.
-
-For instance, here's one I saw on IRC, aptly titled [“pese of shit”][]
-(courtesy of benzrf).
-
-[“pese of shit”]: http://lpaste.net/6917346607495118848
-
-> there's no conceptual difference between getters and setters, they're all
-> one and the same (because first you get one thing, then many things, then
-> shaped thing, and getting a shaped thing back is the same as setting)
-
-Okay, I won't pretend it's wise or insightful or anything. Or even true.
-
-But a question just occurred to me.
-
-Is `reverse` a getter or a setter? On one hand, it collects elements of the
-list for you, in reverse order. On another, it swaps elements... Or is it a
-question where “duh, it's just a function, stop talking nonsense” is the best
-answer?
 
 [`Compose`]: http://hackage.haskell.org/package/transformers/docs/Data-Functor-Compose.html#v:Compose
 [`Category`]: http://hackage.haskell.org/package/base/docs/Control-Category.html#t:Category

@@ -16,7 +16,7 @@ A series of articles (called “lens over tea”) about [lens](@hackage) and its
 
   * [part 1](/lens-over-tea-1) – lenses 101, traversals 101, a bit of implementation details (also lens operators, functor composition, `Const`, `Identity`, difference lists, monoids of endomorphisms under composition, default signatures for class methods, equality constraints, and irrefutable patterns).
 
-  * [part 2](/lens-over-tea-2) – composition, laws, getters/actions/setters (also history of lenses, categories, the way to write lenses which would compose “normally”, some links to `Reader`/`Writer`/`State` learning materials, `Void`, and useless notes for weird people (like me) who like seeing unfinished things).
+  * [part 2](/lens-over-tea-2) – composition, laws, getters/actions/setters (also history of lenses, categories, the way to write lenses which would compose “normally”, some links to `Reader`/`Writer`/`State` learning materials, `Void`).
 
   * [part 3](/lens-over-tea-3) – folds (also `Foldable`, `Apply`, a nice trick for combining folds, and `Fold1`).
 
