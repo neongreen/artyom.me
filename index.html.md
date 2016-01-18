@@ -39,10 +39,10 @@ It's a work in progress; the future parts will mention:
 
 ## Other stuff
 
-  * [Making a CTF task in Haskell](/haskell-ctf)
-  * [Some common and annoying mistakes in Haddocks](/haddock-mistakes)
   * [Aeson: the tutorial](/aeson)
   * [10 questions about Haskell: a shitpost](/haskell-10)
+  * [Making a CTF task in Haskell](/haskell-ctf)
+  * [Some common and annoying mistakes in Haddocks](/haddock-mistakes)
 
 # Racket
 
@@ -62,9 +62,9 @@ I'm not learning Racket anymore, but I might start again in the future.
 
 # Stuff I did
 
-  * [This site](/inside). Yes, it runs on a couple of shell scripts, but I thought I'd explain them anyway.
-
   * [microlens](@gh:aelve/microlens), a small lens-compatible library for lenses (in Haskell). Should be useful for library writers and stuff.
+
+  * [This site](/inside). Yes, it runs on a couple of shell scripts, but I thought I'd explain them anyway.
 
   * [/r/haskelltil](http://reddit.com/r/haskelltil), a subreddit for Haskell tips and tricks and code samples and oddities and curiosities and idioms and interesting facts and everything that is short enough that you'd be ashamed to submit it to [/r/haskell](http://reddit.com/r/haskell) or write about it at your blog. Okay, well, at least I started it.
 
