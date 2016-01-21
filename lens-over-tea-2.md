@@ -1603,12 +1603,12 @@ newtype Reader r a = Reader
 And then there's [`ReaderT`][], which is a monad transformer – it can be used
 to turn other monads into reader monads.
 
-So, basically, we make `view` work in any reader monad so that you wouldn't
-have to use `asks (view ...)`. At this point I could rant about how maybe
-*every* function should be made work in any reader monad – like, why not
-`length` too? if you want to abstract over such a thing as Getting A Function
-Argument, go on, abstract everywhere! – but I'm willing to accept that it's
-just for convenience. Ahem.
+So, we make `view` work in any reader monad so that you wouldn't have to use
+`asks (view ...)`. At this point I could rant about how maybe *every* function
+should be made work in any reader monad – like, why not `length` too? if you
+want to abstract over such a thing as Getting A Function Argument, go on,
+abstract everywhere! – but I'm willing to accept that it's just for
+convenience. Ahem.
 
 Old implementation:
 

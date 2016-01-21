@@ -284,7 +284,7 @@ I like this description of prisms Edward Kmett wrote somewhere recently and I ca
 >
 > On the other hand, a prism from `s` to `a` indicates there exists `c` such that `s` is isomorphic to `(Either c a)`.
 
-So basically lenses deconstruct [product types](@w:product type) and prisms deconstruct [sum types](@w:tagged union).
+In other words, lenses deconstruct [product types](@w:product type) and prisms deconstruct [sum types](@w:tagged union).
 
 -----------------------------------------------------------------------------
 
