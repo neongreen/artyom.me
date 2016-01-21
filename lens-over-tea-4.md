@@ -285,79 +285,119 @@ In other words, when you take a setter – `s -> b -> t` – -the part of `s` th
 
 -----------------------------------------------------------------------------
 
-To be able to write safe isomorphisms, we need some way to forbid them to look at `s` (more precisely: we have `(a -> f b) -> (s -> f t)`, and the resulting `s -> f t` function must be unable to look at `s` – if we can't do that, we can't ever be sure that it *won't* look).
-
-There's a pretty standard way to forbid anyone from doing anything in Haskell – just make a class and now *you* decide what it can and can't do. So, if we want to be able to forbid functions from inspecting their inputs, we can simply make a class for that:
-
-~~~ haskell
-class F p where
-  ...
-
-type Iso s t a b =
-  forall p f. (Functor f, F p) =>
-  p a (f b) -> p s (f t)
-~~~
-
-But what should we allow? Well, let's look at some iso (`enum` again, actually) to figure it out. Previously we would've written it like this:
+Here's how we would've written `enum` if it was a lens:
 
 ~~~ haskell
 enum :: Enum a => Lens' Int a
-enum afb = \s -> fromEnum <$> afb (toEnum s)
+enum f = \s -> fromEnum <$> f (toEnum s)
 ~~~
 
-However, this won't do if we want to make `enum` an iso – we're looking at `s` here, and we're not allowed to. *However*, what we know is that if we can't look at `s`, `afb` can't care about its input either – it must be a constant function. Basically, we feed `enum` a constant function, and want a constant function in return.
+Now let's consider 2 cases – the 1st is when we use it to turn `s` into `a`, the 2nd is when we use the iso to turn `b` into `t`. The definition we already have works well enough for the former case, but in the latter case `s` doesn't even exist:
 
-There's a type for constant functions, called [`Tagged`][] (in the [tagged](@hackage) package):
+~~~ haskell
+enum f = \_ -> fromEnum <$> f ???
+~~~
+
+Since `f` can't possibly get any input, it must be a constant function (and the result of `enum` is a constant function too). To be able to write safe isomorphisms, we need some way to *ensure* that `f` and the result of `enum` are constant functions – if we don't, how can we be sure that -the function that is the result of `enum`- won't look at its argument (of type `s`)?
+
+A constant function of type `a -> b` is isomorphic to `b`. We could create our own type for constant functions:
+
+~~~ haskell
+{-# LANGUAGE TypeOperators #-}
+
+-- We don't have to use “:->”, but it looks slighty better than something like
+-- “data ConstantFunc a b = ConstantFunc b” and I also wanted to show that
+-- this kind of thing is possible.
+data a :-> b = Always b
+~~~
+
+But there's already such a type, called [`Tagged`][] (in the [tagged](@hackage) package):
 
 ~~~ haskell
 newtype Tagged a b = Tagged {unTagged :: b}
-
-instance Functor (Tagged a) where
-  fmap f (Tagged b) = Tagged (f b)
-
-...
 ~~~
 
 > A `Tagged a b` value is a value `b` with an attached phantom type `a`. This can be used in place of the more traditional but less safe idiom of passing in an undefined value with the type, because unlike an `(a -> b)`, a `Tagged a b` can't try to use the argument `a` as a real value.
 
-(Well, actually it's useful for more things than constant functions – I guess – but whatever.)
-
-Now we can write an `enum` for `Tagged`:
+With `Tagged`, the definition of `enum` looks as follows:
 
 ~~~ haskell
-enum :: Enum a => Tagged a a -> Tagged Int Int
-enum (Tagged a) = Tagged (fromEnum a)
+enum :: Enum a => Tagged a (f a) -> Tagged Int (f Int)
+enum (Tagged fa) = Tagged (fromEnum <$> fa)
 ~~~
 
-Or like this:
+However, we have to support ordinary functions too, because there are 2 use cases (`s -> a` and `b -> t`) – when we want `s -> a`, we would give `enum` an ordinary function, and when we want `b -> t`, we would give `enum` a constant function. So, the following 2 definitions must be somehow compatible:
 
 ~~~ haskell
-enum a = retag (fromEnum <$> a)
+enum (Tagged fa) = Tagged (fromEnum <$> fa)
+enum f = \s -> fromEnum <$> f (toEnum s)
 ~~~
 
-[`retag`][] here is needed to change `Tagged a Int` to `Tagged Int Int`.
-
-So, we already know 2 things that we should be able to do and which don't require us to look at the value which might not even exist:
-
-* `p a (f b) -> p a (f t)`, to be able to apply `fromEnum` to the result – we might even change it to `p a b -> p a t` because then we can just apply `fmap fromEnum` instead.
-
-* `p a (f b) -> p s (f b)`, to be able to `retag` – but we can't do it if `p a (f b)` is *not* a constant function! The solution is to make something like `(s -> a) -> p a (f b) -> p s (f b)`, because then it can work for both ordinary functions and constant functions.
-
-These 2 things – put together – already let us get from `p a (f b)` to `p s (f t)`, and it means that nothing else is needed:
+Whenever a function can operate on 2 different types in Haskell, it probably means that we'd have to use a typeclass. So, if we want to be able to give `enum` either an ordinary function or a constant function, we can just create a typeclass for functions:
 
 ~~~ haskell
-class F p where
+class IsoFunction p where
+  ...
+
+type Iso s t a b =
+  forall p f. (Functor f, IsoFunction p) =>
+  p a (f b) -> p s (f t)
+~~~
+
+But what methods should that typeclass have? To find out, we have to unify the definitions I gave above:
+
+~~~ haskell
+enum (Tagged fa) = Tagged (fromEnum <$> a)
+enum afb = \s -> fromEnum <$> afb (toEnum s)
+~~~
+
+Okay, let's start unifying. First of all, get rid of the lambda:
+
+~~~ haskell
+enum (Tagged fa) = Tagged (fromEnum <$> fa)
+enum f = fmap fromEnum . f . toEnum
+~~~
+
+Then get rid of explicitly working with `Tagged` by noticing that:
+
+* `Tagged` is a functor
+* there's a function called [`retag :: Tagged x a -> Tagged y a`][`retag`] that can change the type of a constant function's “input” to anything
+
+~~~ haskell
+enum fa = fmap fromEnum <$> retag fa
+enum f = fmap fromEnum . f . toEnum
+~~~
+
+Then, let's observe some parallels:
+
+* In the case of the ordinary function, `fmap fromEnum .` changes its output; in the case of the constant function, `fmap fromEnum <$>` changes its output. 
+
+* In the case of the ordinary function, `. toEnum` changes its input; in the case of the constant function, `retag` changes the type of its nonexistent input.
+
+Let's rewrite the functions again to make it more obvious:
+
+~~~ haskell
+enum fa = (fmap fromEnum <$>) $ retag      $ fa
+enum f  = (fmap fromEnum .)   $ (. toEnum) $ f
+~~~
+
+In both cases we apply the same 2 operations: one that changes input, and another that changes output. Well, let's make them the methods of our typeclass:
+
+~~~ haskell
+class IsoFunction p where
   changeInput  :: (s -> a) -> p a b -> p s b
   changeOutput :: (b -> t) -> p a b -> p a t
 
-instance F (->) where
-  changeInput sa ab = \s -> ab (sa s)
-  changeOutput bt ab = \a -> bt (ab a)
+instance IsoFunction (->) where
+  changeInput f = (. f)
+  changeOutput f = (f .)
 
-instance F Tagged where
-  changeInput _ ab = retag ab
-  changeOutput bt b = bt <$> b
+instance IsoFunction Tagged where
+  changeInput _ = retag
+  changeOutput f = fmap f
 ~~~
+
+(Note that `changeInput` has to take a function even in case of `Tagged` – otherwise we wouldn't be able to unify the definitions.)
 
 Now we can define `enum`:
 
@@ -392,7 +432,7 @@ from i = iso bt sa
 
 # Profunctors and pure profunctor lenses
 
-Now guess what? The `F` class is actually called [`Profunctor`][], and its methods `changeInput` and `changeOutput` are actually called [`lmap`][] and [`rmap`][], and there's also a [`dimap`][] method which combines `lmap` and `rmap` and which I'm going to use from now on:
+Now guess what? The `IsoFunction` class is actually called [`Profunctor`][], and its methods `changeInput` and `changeOutput` are actually called [`lmap`][] and [`rmap`][], and there's also a [`dimap`][] method which combines `lmap` and `rmap` and which I'm going to use from now on:
 
 ~~~ haskell
 lmap :: Profunctor p => (a -> b) -> p b c -> p a c
@@ -410,7 +450,7 @@ If you want examples of profunctors in the wild, [this 24 Days Of Hackage post][
 
 -----------------------------------------------------------------------------
 
-You could've noticed a bit of asymmetry in the previous section – we used `Tagged a b` as a function which ignores its input, but we used `a -> Const a b` as a function that remembers its input and doesn't do anything else. Isn't there some type specifically created for that?
+You could've noticed a bit of asymmetry in the definition of `from` – we used a custom type (`Tagged a b`) as a function which ignores its input, but we used `a -> Const a b` as a function that remembers its input and doesn't do anything else. Isn't there some custom type for that too?
 
 How might such a type look?
 
