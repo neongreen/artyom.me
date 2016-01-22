@@ -1,10 +1,10 @@
 % Artyom Kazak
 
-This CV is available [on my site](http://artyom.me/cv), [as plain HTML](http://artyom.me/cv-plain.html), and [as PDF](http://artyom.me/cv.pdf).
+This CV is available [on my site](https://artyom.me/cv), [as plain HTML](https://artyom.me/cv-plain.html), and [as PDF](https://artyom.me/cv.pdf).
 
 ## Contacts
 
-  * site: <http://artyom.me>
+  * site: <https://artyom.me>
   * email: <yom@artyom.me>
   * Github: [\@neongreen](@gh:neongreen) (most of my code is under [\@aelve](@gh:aelve))
   * Telegram: [\@lightgreen](https://telegram.me/lightgreen)
@@ -27,15 +27,15 @@ I speak Russian and English.
 
 I've been studying and using Haskell for 6 years.
 
-My most used library is probably [microlens](@hackage), a minimal lens library compatible with [lens](@hackage). Speaking of lenses, I also wrote a [series of articles](http://artyom.me/#lens-over-tea) about the implementation of lens; as the Haskell wikibook [puts it](https://en.wikibooks.org/wiki/Haskell/Lenses_and_functional_references#Further_reading):
+My most used library is probably [microlens](@hackage), a minimal lens library compatible with [lens](@hackage). Speaking of lenses, I also wrote a [series of articles](https://artyom.me/#lens-over-tea) about the implementation of lens; as the Haskell wikibook [puts it](https://en.wikibooks.org/wiki/Haskell/Lenses_and_functional_references#Further_reading):
 
 > \[Several paragraphs above,\] we said that lens easily provides enough material for a full book. The closest thing to that we currently have is Artyom Kazak's "lens over tea" series of blog posts. It explores the implementation of functional references in lens and the concepts behind it in far more depth than what we are able to do here. Highly recommended reading.
 
-For a client, I wrote a backend for a static website hosting, a CLI tool for interacting with it, and parts of the server and [Liquid markup](http://liquidmarkup.org/) parser/renderer. For another client, I designed a [task](http://artyom.me/haskell-ctf) for a hacker competition.
+For a client, I wrote a backend for a static website hosting, a CLI tool for interacting with it, and parts of the server and [Liquid markup](http://liquidmarkup.org/) parser/renderer. For another client, I designed a [task](https://artyom.me/haskell-ctf) for a hacker competition.
 
 I have several yet-unreleased projects; the ones that I'm working on right now are a [character search tool](@gh:aelve/bob) that finds Unicode characters by a vague ASCII approximation, and a [minimalistic reminding tool](@gh:aelve/tom).
 
-Finally, I have written a pretty popular (and possibly the most comprehensive) [Aeson tutorial](http://artyom.me/aeson).
+Finally, I have written a pretty popular (and possibly the most comprehensive) [Aeson tutorial](https://artyom.me/aeson).
 
 ## Everything else
 
