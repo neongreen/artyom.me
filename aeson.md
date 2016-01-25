@@ -258,6 +258,12 @@ parseTuple (Object obj) = do
   return (a, b)
 ~~~
 
+<div class="note">
+
+This isn't how you should actually write JSON parsers! In the following several sections we'll simplify this parser drastically (in the end it'll be only 4 lines long) using functions and operators from Aeson. The reason I wrote this version of the parser first is that otherwise you wouldn't understand how Aeson works, and that would've bitten you later.
+
+</div>
+
 Parsing an array, in comparison, is much less messy:
 
 ~~~ haskell
@@ -309,7 +315,7 @@ Just [("hello",True),("world",False)]
 
 ### Avoiding manual type checks
 
-`parseTuple` was fairly big for such a simple task, and one reason for that is that we had to check for type mismatch manually. Instead of doing that, we can use the `with*` family of functions.
+One reason `parseTuple` was so big for such a simple task is that we had to check for type mismatch manually. Instead of doing that, we can use the `with*` family of functions.
 
 Look at both parsers again:
 
