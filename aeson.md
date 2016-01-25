@@ -150,22 +150,86 @@ You can combine it with `encode` and `decode`, if you want:
 
 Let's say our task is to parse an array of objects, each of which has fields "a" (a string) and "b" (a boolean), into a list of tuples. How shall we do it?
 
-First, let's write a parser for inner objects. In Aeson, a `Parser a` means pretty much the same as `Either String a` – you can get either `a` from it, or an error message. (The actual implementation is different, and uses CPS for speed, but it's not important.) So, a *parser* actually has the type `Value -> Parser a`; in our case, it shall be `Value -> Parser (String, Bool)`.
+First, let's write a parser for inner objects. But first first, read the following explanation – it's very important and if you don't understand it you *will* get problems later:
+
+* A parser is something that turns a JSON value into something else that you need (record, list of tuples, etc).
+
+* Aeson has a type called [`Parser`][], but it's *not* a type for parsers – it's a type for results of parsers. `Parser a` means pretty much the same as `Either String a` – it's either an `a` or an error message. (The actual implementation is different, and uses CPS for speed, but it's not important.)
+
+* (And there's also a type called [`Result`][] that is for results of parsers as well but doesn't use CPS. Don't worry about it for now.)
+
+* So, all parsers actually have the type `Value -> Parser a`.
+
+Since we're parsing a list of tuples, in our case the type would be `Value -> Parser (String, Bool)`:
+
+~~~ haskell
+import Data.Aeson.Types    -- that's where Parser comes from
+~~~
 
 ~~~ haskell
 parseTuple :: Value -> Parser (String, Bool)
 ~~~
 
-What now? Okay, we know that the `Value` has to be an `Object`, but what to do about other types? Well, we can just use [`fail`][] to signal an error:
+What now? Okay, we know that the `Value` has to be an `Object`, but what to do about other types? Well, we can just use [`fail`][] to signal an error (similarly to how we'd use `Left` to signal an error if `Parser` actually was `Either String a`):
 
 ~~~ haskell
 parseTuple (Object o) = ...
 parseTuple _          = fail "expected an object"
 ~~~
 
-The thing about `Parser` is that it's a monad (and also [`Applicative`][] and [`Alternative`][]), so we can use all the usual things on it; if you ever used [Parsec](@hackage:parsec), this shouldn't be too unfamiliar for you.
+<div class="note">
 
-Now we can already kinda write our function, by doing manual lookups in the object:
+`Parser`, just like `Either`, is a monad (and also [`Applicative`][] and [`Alternative`][]), so we can use all the usual things on it; if you ever used [Parsec](@hackage:parsec), this shouldn't be too unfamiliar for you. If you haven't, here's a crash course.
+
+You can chain `Parser`s using do notation. For instance, this:
+
+~~~ haskell
+do x <- parserX
+   y <- parserY
+   return (x, y)
+~~~
+
+is equivalent to the following pseudocode:
+
+~~~
+if parserX fails
+  then return its error message
+  else call its result “x” and proceed
+if parserY fails
+  then return its error message
+  else call its result “y” and proceed
+if neither of parsers failed
+  then return (x, y)
+~~~
+
+You can also apply a function to the result of a parser, while keeping the error message if the parser fails:
+
+~~~ haskell
+f <$> parserX
+~~~
+
+is equivalent to
+
+~~~
+if parserX fails
+  then return its error message
+  else return its result with “f” applied to it
+~~~
+
+If `f` takes several parameters, you can keep applying it with `<*>`:
+
+~~~ haskell
+getW :: X -> Y -> Z -> W
+~~~
+
+~~~ haskell
+parserW :: Parser W
+parserW = getW <$> parserX <*> parserY <*> parserZ
+~~~
+
+</div>
+
+Now we can already write our function, by doing manual lookups in the object:
 
 ~~~ haskell
 import qualified Data.HashMap.Strict as HM
@@ -182,21 +246,22 @@ parseTuple (Object obj) = do
   -- Extract the value from it, or fail if it's of the wrong type.
   a <- case fieldA of
     String x -> return (T.unpack x)
-    _        -> fail "wrong type of field 'a'"
+    _        -> fail "expected a string"
 
   -- Do all the same for "b" (in a slightly terser way, to save space):
   b <- case HM.lookup "b" obj of
     Just (Bool x) -> return x
-    Just _        -> fail "wrong type of field 'b'"
+    Just _        -> fail "expected a boolean"
     Nothing       -> fail "no field 'b'"
 
   -- That's all!
   return (a, b)
 ~~~
 
-Parsing an array of tuples is much easier:
+Parsing an array, in comparison, is much less messy:
 
 ~~~ haskell
+-- Vector is the type Aeson uses to represent JSON arrays
 import qualified Data.Vector as V
 
 parseArray :: Value -> Parser [(String, Bool)]
@@ -204,7 +269,9 @@ parseArray (Array arr) = mapM parseTuple (V.toList arr)
 parseArray _           = fail "expected an array"
 ~~~
 
-If this is confusing, just look at the type of [`mapM`][]:
+<div class="note">
+
+To understand what's going on, look at the type of [`mapM`][]:
 
 ~~~ haskell
 mapM :: Monad m => (a -> m b) -> [a] -> m [b]
@@ -212,73 +279,114 @@ mapM :: Monad m => (a -> m b) -> [a] -> m [b]
 
 (In GHC 7.10 and newer it's more general, but nothing changes if you consider this less general version.)
 
-`mapM` applies a function to a list (getting `[m a]`) and then “lumps together” all results. What “lumping together” means is different for each type, but in case of `Parser` it's simply “try getting the value out of all parsers, fail if there is any parser that fails, return the value otherwise”. So, in our case the type is:
+`mapM` applies a function to a list (resulting in `[m b]`) and then “lumps together” all results. What “lumping together” means is different for each type, but in case of `Parser` it's simply “try getting the value out of all parsers, fail if there is any parser that fails, return the list of values otherwise”. So, in our case the type is:
 
 ~~~ haskell
 mapM :: (Value -> Parser a) -> [Value] -> Parser [a]
 ~~~
 
-Finally, when we have a parser for arrays, there's a function called [`parseMaybe`][] in [`Data.Aeson.Types`][], which applies a parser to a value. You still have to `decode` the value before using `parseMaybe`; I wish there was a function in Aeson which would do both tasks, but for some reason there isn't. I guess Aeson wasn't really designed for parsing simple types. Anyway, here goes:
+</div>
+
+Finally, when we have a parser for arrays, there's a function called [`parseMaybe`][] in [`Data.Aeson.Types`][], which applies a parser to a value:
 
 ~~~ {.haskell .repl}
 > import qualified Data.Text.Lazy.IO as T
 > import qualified Data.Text.Lazy.Encoding as T
 
-> s <- T.encodeUtf8 <$> T.getLine      -- Going to enter input now.
+-- Enter some JSON:
+> s <- T.encodeUtf8 <$> T.getLine
 [{"a":"hello", "b":true}, {"a":"world", "b":false}]
 
-> parseMaybe parseArray =<< decode s   -- Using =<< to chain Maybes.
+-- Okay, let's look at the JSON we're going to parse:
+> decode s :: Maybe Value
+Just (Array [Object (fromList [("a",String "hello"),("b",Bool True)]),
+             Object (fromList [("a",String "world"),("b",Bool False)])])
+
+-- And finally parse it (using =<< to chain Maybes):
+> parseMaybe parseArray =<< decode s
 Just [("hello",True),("world",False)]
 ~~~
 
-(The reason I'm using `getLine` is that I'd have to escape all those quotation marks if I used a string literal, and I hate doing that.)
-
 ### Avoiding manual type checks
 
-`parseTuple` was fairly big for such a simple task, and one reason for that is that we had to check for type mismatch manually. Instead of doing that, we can use the `with*` family of functions, as well as [`parseJSON`][].
+`parseTuple` was fairly big for such a simple task, and one reason for that is that we had to check for type mismatch manually. Instead of doing that, we can use the `with*` family of functions.
 
-There are 5 functions in the `with*` family: [`withObject`][], [`withText`][], [`withArray`][], [`withScientific`][], and [`withBool`][] (there's also `withNumber`, but it's deprecated and will be removed one day. Instead of explaining what they do, I'll just show an example because this is easy and writing is hard.
-
-`parseArray`, manual version:
+Look at both parsers again:
 
 ~~~ haskell
-parseArray :: Value -> Parser [(String, Bool)]
+parseTuple (Object o) = ...
+parseTuple _          = fail "expected an object"
+~~~
+
+~~~ haskell
 parseArray (Array arr) = mapM parseTuple (V.toList arr)
 parseArray _           = fail "expected an array"
 ~~~
 
-`parseArray`, nicer version:
+They employ the same pattern: check that `Value` has some type; unwrap if yes, fail if not. This pattern is captured by `with*` functions:
+
+~~~ haskell
+withArray :: String -> (Array -> Parser a) -> Value -> Parser a
+withArray expected f (Array arr) = f arr
+withArray expected f value       = fail "expected ..."
+~~~
+
+(There also are [`withObject`][], [`withText`][], [`withScientific`][], and [`withBool`][].)
+
+The extra `String` parameter should be the name of thing you're parsing; `withArray` will use it to generate a nicer error message (e.g. “expected an array of tuples” instead of “expected an array”).
+
+With `withArray` our parser will look as follows:
 
 ~~~ haskell
 parseArray :: Value -> Parser [(String, Bool)]
-parseArray = withArray "array" $ \arr ->
+parseArray = withArray "array of tuples" $ \arr ->
                mapM parseTuple (V.toList arr)
 ~~~
 
-`withArray` just checks the type and generates an error message for you, that's all.
+### Avoiding manual parsing of primitive types
 
-[`parseJSON`][] is more interesting; basically, it's a universal parser for strings, integers, lists, and so on. It can be many things at once, because it's actually a method of the [`FromJSON`][] typeclass:
-
-~~~ haskell
-parseJSON :: FromJSON a => Value -> Parser a
-~~~
-
-For instance, take the code we used to parse the string field:
+Take the code we used to parse the string field:
 
 ~~~ haskell
   a <- case fieldA of
     String x -> return (T.unpack x)
-    _        -> fail "wrong type of field 'a'"
+    _        -> fail "expected a string"
 ~~~
 
-It just checks the type and either fails or returns the value. For comparison, here's the `FromJSON` instance for `String` (slightly rewritten):
+We can rewrite it with `withText`:
+
+~~~ haskell
+  a <- withText "string" $ \x -> return (T.unpack x)
+~~~
+
+However, it's still annoying that we have to do all this whenever we need to parse a field of type `String` (which can be quite often). We could write a parser for strings and reuse it:
+
+~~~ haskell
+parseString :: Value -> Parser String
+parseString = withText "string" $ \x -> return (T.unpack x)
+~~~
+
+But we don't need to, because Aeson already defines lots of parsers for popular types (strings, lists, numbers, maps, tuples, and so on) with its [`FromJSON`][] typeclass:
+
+~~~ haskell
+class FromJSON a where
+  parseJSON :: Value -> Parser a
+~~~
 
 ~~~ haskell
 instance FromJSON String where
-  parseJSON = withText "String" (\s -> return (T.unpack s))
+  parseJSON = withText "String" (\x -> return (T.unpack x))
+
+instance FromJSON Bool where
+  parseJSON = withText "Bool" return
+
+instance FromJSON a => FromJSON [a] where
+  parseJSON = withArray "[a]" $ mapM parseJSON . V.toList
+
+...
 ~~~
 
-The same thing, really (except that in case of failure it would say simply “expected String, got ...” instead of “wrong type of field 'a'”). We can use `parseJSON` for both fields, and get shorter code:
+Now our `parseTuple` can be simplified quite a bit:
 
 ~~~ haskell
 import qualified Data.HashMap.Strict as HM
@@ -304,26 +412,26 @@ The `lookup`-and-`parseJSON` pattern can be simplified too, by using the [`.:`][
 
 ~~~ haskell
 (.:) :: (FromJSON a) => Object -> Text -> Parser a
-obj .: key = case HM.lookup key obj of
-               Nothing -> fail ("key " ++ show key ++ " not present")
-               Just v  -> parseJSON v
+o .: key = case HM.lookup key o of
+             Nothing -> fail ("key " ++ show key ++ " not present")
+             Just v  -> parseJSON v
 ~~~
 
 So, the final form of `parseTuple` is:
 
 ~~~ haskell
-parseTuple = withObject "tuple" $ \obj -> do
-  a <- obj .: "a"
-  b <- obj .: "b"
+parseTuple = withObject "tuple" $ \o -> do
+  a <- o .: "a"
+  b <- o .: "b"
   return (a, b)
 ~~~
 
-Or, if you like writing things in the applicative style:
+Or, if you like the applicative style:
 
 ~~~ haskell
-parseTuple = withObject "tuple" $ \obj ->
-               (,) <$> obj .: "a"
-                   <*> obj .: "b"
+parseTuple = withObject "tuple" $ \o ->
+               (,) <$> o .: "a"
+                   <*> o .: "b"
 ~~~
 
 ### `FromJSON` instances for other types
@@ -372,9 +480,7 @@ data Person = Person {name :: String, age :: Int}
 
 instance FromJSON Person where
   parseJSON = withObject "person" $ \o ->
-    Person
-      <$> o .: "name"
-      <*> o .: "age"
+    Person <$> o .: "name" <*> o .: "age"
 ~~~
 
 The reverse is just as easy:
@@ -456,7 +562,7 @@ instance FromJSON Person where
     return Person{..}
 ~~~
 
-If there's a field which is optional and you want to put `Nothing` there even if the field is present but couldn't be parsed properly (because of type mismatch, for instance), use [`optional`][]:
+If there's a field which is optional and you want to put `Nothing` there even if the field *is* present but couldn't be parsed properly (because of type mismatch, for instance), use [`optional`][]:
 
 ~~~ haskell
     ...
@@ -1010,3 +1116,5 @@ There are some comments on [Reddit][Reddit comments]. In particular, you can fin
 [`withObject`]: http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:withObject
 [`withScientific`]: http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:withScientific
 [`withText`]: http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:withText
+[`Parser`]: http://hackage.haskell.org/package/aeson/docs/Data-Aeson-Types.html#t:Parser
+[`Result`]: http://hackage.haskell.org/package/aeson/docs/Data-Aeson-Types.html#t:Result
