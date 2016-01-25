@@ -42,14 +42,13 @@ blockquote blockquote {
     background: rgba(0,0,0,0.1);
     border: 1px solid rgba(0,0,0,0.1); }
 
-.dialog {
+.note {
     background: #CCE8FF;
     padding: 1px 1em;
-    margin-left: 0;
-    margin-right: 0;
+    margin: 1em 0;
     border: 1px solid #80C6FF; }
 
-.dialog p {
+.note p {
     margin: 0.5em 0; }
 
 a:link          {color: #008ACE; text-decoration: none;}

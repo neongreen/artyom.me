@@ -127,27 +127,25 @@ how to write CSS, so I mostly stole bits and pieces from other places.
 ### Custom classes
 
 I have a few custom classes. For instance, wrapping a piece of Markdown into
-`<div class="dialog"> ... </div>` results in this:
+`<div class="note"> ... </div>` results in this:
 
-<div class="dialog">
+<div class="note">
 
-— Hi!
-
-— Hello!
+This is a sidenote (which isn't actually a sidenote but whatever).
 
 </div>
 
 This happens due to this piece of CSS:
 
 ~~~ css
-.dialog {
+.note {
     background: #CCE8FF;
     padding: 1px 1em;
     margin-left: 0;
     margin-right: 0;
     border: 1px solid #80C6FF; }
 
-.dialog p {
+.note p {
     margin: 1em 0; }
 ~~~
 
