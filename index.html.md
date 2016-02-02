@@ -6,6 +6,10 @@ pagetitle: artyom.me
 
 I can do stuff and don't care about gym membership. Here's my [CV](/cv).
 
+# Rationality, humans, and relationships
+
+  * [Lack of empathy disguised as naive consequentialism](/empathy-consequentialism) – a small post about how you might be fucking up relationships with people while thinking it's perfectly justified
+
 # Haskell
 
 Haskell is awesome.

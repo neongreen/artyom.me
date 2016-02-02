@@ -7,6 +7,12 @@ RSS
          "https://artyom.me" Nothing Nothing Nothing]
   [ 
 
+  [ Title        "Lack of empathy disguised as naive consequentialism"
+  , Link         "https://artyom.me/empathy-consequentialism"
+  , Description  "A small post about how you might be fucking up relationships with people while thinking it's perfectly justified."
+  , Guid False   "empathy-consequentialism"
+  ] ,
+
   [ Title        "CV"
   , Link         "https://artyom.me/cv"
   , Description  "I finally have a CV online, just in case anybody ever wants to hire me."
