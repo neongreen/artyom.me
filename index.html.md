@@ -43,6 +43,10 @@ It's a work in progress; the future parts will mention:
   * pure profunctor lenses and traversals, [link 1](https://www.reddit.com/r/haskell/comments/1jeo0p/theres_a_massive_gap_between_the_average_and/cbe1ebv), [link 2](https://github.com/purescript-contrib/purescript-lens/issues/26), [link 3](http://lpaste.net/103359), [link 4](http://r6research.livejournal.com/27476.html), symmetric lenses (`(g a -> f b) -> g s -> f t`), [link](http://slbkbs.org/pr.hs)
   * `Control.Lens.Plated`, `Control.Lens.Level`, `Control.Lens.Zoom`
 
+## Comments on random stories on r/haskell
+
+  * [February 4, 2016](/haskell-reddit-1)
+
 ## Other stuff
 
   * [Aeson: the tutorial](/aeson)

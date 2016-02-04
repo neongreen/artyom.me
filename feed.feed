@@ -7,6 +7,12 @@ RSS
          "https://artyom.me" Nothing Nothing Nothing]
   [ 
 
+  [ Title        "Comments on random stories on r/haskell, part 1"
+  , Link         "https://artyom.me/haskell-reddit-1"
+  , Description  "Just random thoughts."
+  , Guid False   "haskell-reddit-1"
+  ] ,
+
   [ Title        "Polysemy in programming languages (particularly Haskell)"
   , Link         "https://artyom.me/polysemy"
   , Description  "A post about ambiguity and whether it's good or bad."
