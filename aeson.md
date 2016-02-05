@@ -27,15 +27,13 @@ You probably should read it from beginning to end, because some questions of the
 
 ### A note on string types
 
-For following examples to work, you need to enable the [`OverloadedStrings`](@ghc-ext) extension – either by writing `{-# LANGUAGE OverloadedStrings #-}` at the top of the module, or doing `:set -XOverloadedStrings` in GHCi prompt. The reason is:
+For following examples to work, you need to enable the [`OverloadedStrings`](@ghc-ext) extension – either by writing `{-# LANGUAGE OverloadedStrings #-}` at the top of the module, or doing `:set -XOverloadedStrings` in GHCi prompt.
 
-* Most of the time you have JSON in a file or receive it over network, so JSON decoding/encoding functions work with [`ByteString`][] and not with [`String`][] or [`Text`][]. (If you need to convert JSON to/from `Text`, there's a possibility you're doing something wrong.)
+The reason for this is that most of the time you have JSON in a file or receive it over network, so JSON decoding/encoding functions work with [`ByteString`][] and not with [`String`][] or [`Text`][]. (If you need to convert JSON to/from `Text`, there's a possibility you're doing something wrong.) And normally string literals like `"foo"` can only mean `String`, so you can't use Aeson's decoding functions on them – but the `OverloadedStrings` extension lifts this restriction and lets string literals be converted to `ByteString` or `Text` automatically (similarly to how `3` can be converted to `Int`, `Integer`, or `Double` automatically).
 
-* Normally string literals like `"foo"` can only mean `String`.
+The `-XOverloadedStrings` trick only applies when you're playing with Aeson in GHCi. If you want to read JSON from a file, for instance, you should read it with [`Data.ByteString.Lazy.readFile`][] and not with Prelude's [`readFile`][].
 
-* The `OverloadedStrings` extension lifts this restriction and lets string literals be converted to `ByteString` or `Text` automatically.
-
-So, if you want to read JSON from a file, for instance, you should read it with [`Data.ByteString.Lazy.readFile`][] and not with Prelude's [`readFile`][]. If you really need it for some reason, you can also convert a `ByteString` to/from `String` by using [`fromString`][] and [`toString`][] from [`Data.ByteString.Lazy.UTF8`][] in the [utf8-string](@hackage) package, or to/from `Text` by using [`encodeUtf8`][] and [`decodeUtf8`][] from [`Data.Text.Lazy.Encoding`][] – but don't expect good performance.
+However, if you *really* need it for some reason, you can also convert a `ByteString` to/from `String` by using [`fromString`][] and [`toString`][] from [`Data.ByteString.Lazy.UTF8`][] in the [utf8-string](@hackage) package, or to/from `Text` by using [`encodeUtf8`][] and [`decodeUtf8`][] from [`Data.Text.Lazy.Encoding`][] – but don't expect good performance.
 
 ### Very basic decoding and encoding
 
@@ -43,9 +41,18 @@ There are 2 main classes used in Aeson – [`FromJSON`][] and [`ToJSON`][]. A ty
 
 There are also 2 functions for actually doing “reading” and “showing”, which are called [`decode`][] and [`encode`][]. (`decode` differs from `read` a bit by returning `Nothing` if reading was unsuccessful, instead of throwing an exception – so, it's closer to [`readMaybe`][] in this regard.)
 
+An example of encoding a list of integers to JSON:
+
+~~~ {.haskell .repl}
+> encode [1,2,3]
+"[1,2,3]"
+~~~
+
 An example of decoding a list of integers from JSON:
 
 ~~~ {.haskell .repl}
+> :set -XOverloadedStrings
+
 > import Data.Aeson
 
 > decode "[1,2,3]" :: Maybe [Integer]
@@ -59,14 +66,17 @@ If you want to see the error too, use [`eitherDecode`][]:
 
 ~~~ {.haskell .repl}
 > eitherDecode "[]" :: Either String Integer
-Left "when expecting a Integral, encountered Array instead"
+Left "Error in $: expected Integral, encountered Array"
 ~~~
 
-An example of encoding a list of integers to JSON:
+`$` is the location of the error – here it just means “top-level value”, but it can be helpful in more complicated cases:
 
 ~~~ {.haskell .repl}
-> encode [1,2,3]
-"[1,2,3]"
+> eitherDecode "[1,2,[3,4]]" :: Either String (Int, Int, (Int, Bool))
+Left "Error in $[2][1]: expected Bool, encountered Number"
+
+> eitherDecode "[1,2,[3,true]]" :: Either String (Int, Int, (Int, Bool))
+Right (1,2,(3,True))
 ~~~
 
 ### Working directly with JSON
@@ -86,6 +96,8 @@ data Value
 So, if you want to construct JSON directly, you can do it by constructing a `Value` and then converting it to JSON with `encode`:
 
 ~~~ haskell
+import GHC.Exts    -- (fromList)
+
 val :: Value
 val = Object $ fromList [
   ("numbers", Array $ fromList [Number 1, Number 2, Number 3]),
@@ -100,15 +112,43 @@ val = Object $ fromList [
 {"boolean":true,"numbers":[1,2,3]}
 ~~~
 
-We had to use [`fromList`][] (which has to be imported from [`GHC.Exts`][]) 2 times – once to convert a list of pairs to [`Object`][`type Object`], another time to convert a list to [`Array`][]. These are just type synonyms – the actual types are [`HashMap`][] (for `Object`) and [`Vector`][] (for `Array`).
+We had to use [`fromList`][] (which has to be imported from [`GHC.Exts`][]) 2 times – once to convert a list of pairs to [`Object`][`type Object`], another time to convert a list to [`Array`][`type Array`]. These are just type synonyms – the actual types are [`HashMap`][] (for `Object`) and [`Vector`][] (for `Array`).
+
+~~~ haskell
+type Object = HashMap Text Value
+type Array = Vector Value
+~~~
+
+<div class="note">
+
+If you use GHC 7.8 or older (you can find out the version by running `ghc --version`), `fromList` might not work for you – in this case you'd have to use specialised versions from `Data.Vector` and `Data.HashMap.Strict`.
+
+~~~ haskell
+import qualified Data.Vector as V
+import qualified Data.HashMap.Strict as HM
+
+{-
+    V.fromList :: [a] -> Vector a
+    HM.fromList :: [(a, b)] -> HashMap a b
+
+Or, in context of Aeson:
+
+    V.fromList :: [Value] -> Array
+    HM.fromList :: [(Text, Value)] -> Object
+-}
+~~~
+
+</div>
 
 To make constructing JSON a bit easier, there is a function called [`object`][] (which accepts a list of pairs instead of a `HashMap`) and an operator called [`.=`][] (which is the same as `(,)` except that it also converts the value to JSON). So, this example could be rewritten like this:
 
 ~~~ haskell
 val :: Value
 val = object [
-  "numbers" .= [1,2,3],
-  "boolean" .= True ]
+  "boolean" .= True,
+  "numbers" .= [1,2,3::Int] ]    -- a type annotation is needed because
+                                 -- otherwise it's unclear whether it should
+                                 -- be Int or, say, Double or Rational
 ~~~
 
 Working with `Value` is easy as well, just keep in mind that
@@ -118,7 +158,7 @@ Working with `Value` is easy as well, just keep in mind that
   * a string is a `Text`
   * a number is [`Scientific`][] (because JSON doesn't specify precision and so a type which allows arbitrary precision is used)
 
-For instance, here's a function which reverses all strings in a `Value`:
+For instance, here's a function which reverses all strings anywhere in a `Value`; it's useless, but it shows how `Value`s can be transformed:
 
 ~~~ haskell
 import qualified Data.Text as T
@@ -138,6 +178,7 @@ You can combine it with `encode` and `decode`, if you want:
 ~~~ {.haskell .repl}
 > import qualified Data.Text.Lazy.IO as T
 > import qualified Data.Text.Lazy.Encoding as T
+> import Data.Maybe
 
 > let revJSON = encode . revStrings . fromJust . decode
 
@@ -152,13 +193,13 @@ Let's say our task is to parse an array of objects, each of which has fields "a"
 
 First, let's write a parser for inner objects. But first first, read the following explanation – it's very important and if you don't understand it you *will* get problems later:
 
-* A parser is something that turns a JSON value into something else that you need (record, list of tuples, etc).
+  * A parser is something that turns a JSON value into something else that you need (record, list of tuples, etc).
 
-* Aeson has a type called [`Parser`][], but it's *not* a type for parsers – it's a type for results of parsers. `Parser a` means pretty much the same as `Either String a` – it's either an `a` or an error message. (The actual implementation is different, and uses CPS for speed, but it's not important.)
+  * Aeson has a type called [`Parser`][], but it's *not* a type for parsers – it's a type for results of parsers. `Parser a` means pretty much the same as `Either String a` – it's either an `a` or an error message. (The actual implementation is different, and uses CPS for speed, but it's not important.)
 
-* (And there's also a type called [`Result`][] that is for results of parsers as well but doesn't use CPS. Don't worry about it for now.)
+  * (And there's also a type called [`Result`][] that is for results of parsers as well but doesn't use CPS. Don't worry about it for now.)
 
-* So, all parsers actually have the type `Value -> Parser a`.
+  * So, all parsers actually have the type `Value -> Parser a`.
 
 Since we're parsing a list of tuples, in our case the type would be `Value -> Parser (String, Bool)`:
 
@@ -1060,7 +1101,6 @@ There are some comments on [Reddit][Reddit comments]. In particular, you can fin
 [`<|>`]: http://hackage.haskell.org/package/base/docs/Control-Applicative.html#v:-60--124--62-
 [`Alternative`]: http://hackage.haskell.org/package/base/docs/Control-Applicative.html#t:Alternative
 [`Applicative`]: http://hackage.haskell.org/package/base/docs/Control-Applicative.html#t:Applicative
-[`Array`]: http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#t:Array
 [`ByteString`]: http://hackage.haskell.org/package/bytestring/docs/Data-ByteString-Lazy.html#t:ByteString
 [`Control.Monad`]: http://hackage.haskell.org/package/base/docs/Control-Monad.html
 [`Data.Aeson.Encode.Pretty`]: https://hackage.haskell.org/package/aeson-pretty/docs/Data-Aeson-Encode-Pretty.html
@@ -1114,6 +1154,7 @@ There are some comments on [Reddit][Reddit comments]. In particular, you can fin
 [`readMaybe`]: http://hackage.haskell.org/package/base/docs/Text-Read.html#v:readMaybe
 [`toString`]: http://hackage.haskell.org/package/utf8-string/docs/Data-ByteString-Lazy-UTF8.html#v:toString
 [`type Object`]: http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#t:Object
+[`type Array`]: http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#t:Array
 [`type Value`]: http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#t:Value
 [`value`]: http://hackage.haskell.org/package/aeson/docs/Data-Aeson-Parser.html#v:value
 [`when`]: http://hackage.haskell.org/package/base/docs/Control-Monad.html#v:when
