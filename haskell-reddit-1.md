@@ -173,7 +173,7 @@ Have I managed to shame you into considering to try it? Well, here's another thi
   * `Data.Time.Calendar.OrdinalDate` (which you need if you want something as simple as finding out what day of week is today)
   * `Data.Time.Clock.POSIX` (which you need if you have to deal with timestamps of any kind, including ones commonly encountered in JSON)
 
-And, you also won't get filepath, or random, or directory, or mtl, or aeson. Oh, right, but that wasn't the goal of the package!
+And, you also won't get filepath, or random, or directory, or aeson. Oh, right, but that wasn't the goal of the package!
 
 > The policy behind the package is only to reexport the non-ambiguous and non-controversial APIs, which the community has obviously settled on.
 
