@@ -109,9 +109,13 @@ Would be equally weird if there were no gaps in Haskell's available libraries, w
 
 On one hand, true, on another hand, that's what I would've written if I was desperate to write *anything* about Haskell.
 
-This is the only important thing in the post, and it's easy to miss if you have already switched to the skimming mode:
+-----------------------------------------------------------------------------
+
+This is the only important thing in the post, and it's easy to miss if you have already switched to the skimming mode. The important thing is that they explicitly say that memory leaks and performance *aren't* a problem – contrary to what everybody else says:
 
 > Fast enough under most circumstances. [...] Easy to optimize when needed. [...] We almost never have to address performance in our Haskell code. [...] There's a lot of talk about memory leaks caused by Haskell's lazy evaluation model. We run into this very infrequently in practice, and in those rare situations GHC's profiler has led us to solutions quickly.
+
+A hundred more quotes like this, and you'll be able to use Haskell at work. Probably.
 
 (As an aside, in an ideal world we'd have a page called “Haskell testimonials” that would collect quotes like this and sort them by topic (performance/space leaks/hiring/etc), trustworthiness, and year of publication, but we're not in an ideal world.)
 
