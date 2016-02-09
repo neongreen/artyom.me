@@ -2351,6 +2351,12 @@ And while I'm at it, here's a nice one for `<<%~`:
 (<<%~) l f = l ((,) <*> f)
 ~~~
 
+# P.S.
+
+[lens](@hackage) is a huge package, so I took a chunk out of it and put into a separate library – [microlens](@gh:aelve/microlens). It has no dependencies, it compiles in about 4 seconds, and in many cases it's a good replacement for lens (i.e. if you want to use the power of lenses in your library and don't like heavy dependencies).
+
+Don't use microlens for this series, tho; many of things I'm covering here are lens-specific (isomorphisms, prisms, indexed traversals, etc).
+
 [`Const`]: http://hackage.haskell.org/package/base/docs/Control-Applicative.html#v:Const
 [`Identity`]: http://hackage.haskell.org/package/base/docs/Data-Functor-Identity.html#t:Identity
 [`First`]: http://hackage.haskell.org/package/base/docs/Data-Monoid.html#t:First
