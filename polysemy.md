@@ -1,6 +1,24 @@
 % Polysemy in programming languages (particularly Haskell)
 
-In English words “do” and “make” have dozens of meanings. In Russian the word “идти” has dozens of meanings. I suspect that something like this exists in every language (by the way, it's called [polysemy](@w)).
+> [Polysemy](@w) is the capacity for a sign (such as a word, phrase, or symbol) to have multiple meanings (that is, multiple semes or sememes and thus multiple senses), usually related by contiguity of meaning within a semantic field.
+
+Examples: in English words “do” and “make” have dozens of meanings. In Russian the word “идти” has dozens of meanings. An example of a word with only several meanings is “man”:
+
+  * the human species (i.e. man vs. animal)
+  * males of the human species (i.e. man vs. woman)
+  * adult males of the human species (i.e. man vs. boy)
+
+Note how the definitions, while different, are still related to each other – in this particular case, they include each other. A man is a man is a man, or in other words, a man is a male is a human.
+
+Here are some traits of polysemic words (according to some paper linked on Wikipedia):
+
+  1. the various senses of a polysemous word have a central origin
+  2. the links between these senses form a network
+  3. understanding the ‘inner’ one contributes to understanding of the ‘outer’ one
+
+And here's a sample network for the word “run”:
+
+![](http://www.helsinki.fi/varieng/series/volumes/12/egan/egan_figure1.png)
 
 In programming some things, too, have got lots of meanings. For instance, `for` might be able to traverse lists, arrays, maps, vectors, and so on. `+` might be able to add integers, rational numbers, strings, etc. Again, something like this exists in pretty much every widespread language to some extent, and it seems good to me.
 
