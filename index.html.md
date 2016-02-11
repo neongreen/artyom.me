@@ -6,14 +6,6 @@ pagetitle: artyom.me
 
 Here's my [CV](/cv).
 
-# Psychology
-
-  * [Lack of empathy disguised as naive consequentialism](/empathy-consequentialism) – a small post about how you might be fucking up relationships with people while thinking it's perfectly justified
-
-# Linguistics
-
-  * [Polysemy in programming languages](/polysemy) – a post about ambiguity and whether it's good or bad
-
 # Haskell
 
 Haskell is awesome.
@@ -55,6 +47,14 @@ It's a work in progress; the future parts will mention:
   * [10 questions about Haskell: a shitpost](/haskell-10)
   * [Making a CTF task in Haskell](/haskell-ctf)
   * [Some common and annoying mistakes in Haddocks](/haddock-mistakes)
+
+# Stuff that is sort of related to psychology
+
+  * [Lack of empathy disguised as naive consequentialism](/empathy-consequentialism) – a small post about how you might be fucking up relationships with people while thinking it's perfectly justified
+
+# Stuff that is sort of related to linguistics
+
+  * [Polysemy in programming languages](/polysemy) – a post about ambiguity and whether it's good or bad
 
 # Racket
 
