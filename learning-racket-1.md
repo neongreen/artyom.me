@@ -7,44 +7,33 @@ series:
   next: /learning-racket-2
 ---
 
-Warning: as of January 2016, I have abandoned this series (the 1st post was written in February <u>2014</u>). Sorry.
-
-Also I don't have long hair anymore, have [some kind of a resume now](/cv) (which sucks but I don't think it actually lowers my chances of employment), and, finally, the bit about Node.js ma-ay have been a slight overstatement.
+Warning: as of January 2016, I have abandoned this series (the 1st post was written in February <u>2014</u>).
 
 -----------------------------------------------------------------------------
 
-Y'know, I always wanted to learn myself some Lisp for greater good and
-what-not. I've heard nice things about [Racket](@w:Racket (programming language)) (don't ask when or
-where, I don't remember), so it's going to be the first Lisp I learn.
+I always wanted to learn myself some Lisp for greater good and what-not, and
+I've heard nice things about [Racket](@w:Racket (programming language))
+(don't ask when or where, I don't remember), so it's going to be the first
+Lisp I learn.
 
-Random facts about myself:
+Also I'm tired of “how I spent one day learning [something] and found that it
+sucks horribly” posts, so let me state in advance that when something doesn't
+work as expected or sets my laptop on fire, I might react with “this is
+unfortunate” but nothing beyond that. As long as [Node.js](@w) exists in this
+world, I can't truly hate anything else.
 
-  * I spent a year learning Pascal and Delphi (yeah, `TButton1`), then
-    ditched it for Haskell, which is to Pascal as Bender's shiny metal ass is
-    to my dull meaty butt.
-  * 95% of what I know about Lisp is actually about configuring Emacs.
-  * I use Arch Linux, have long hair, love parentheses and hate
-    nondescriptive titles.
-  * Racket is about as old as I am.
-  * I'm learning it because learning things is fun, not because I want to add
-    it to my resume (which I don't have anyway).
+<div class="note">
 
-Finally, I'm tired of “how I spent one day learning [something] and found
-that it sucks horribly” posts, so let me state in advance that when something
-doesn't work as expected or sets my laptop on fire, I might react with “this
-is unfortunate” but nothing beyond that. As long as [Node.js](@w) exists in
-this world, I can't truly hate anything else.
-
-<div class="gray">
-
-(Hm. I know I shouldn't give in to hatred... But whenever I think about a
-language originally conceived to animate jumping monkeys on web pages now
-being used to power web-servers, my only reaction is “I don't want to live on
-this planet anymore”. Oh, and don't tell me “it doesn't matter what the
+Whenever I think about Javascript – the language originally conceived to
+animate jumping monkeys on web pages and now used to power web-servers – my
+only reaction is ~~“I don't want to live on this planet anymore”~~ “how did
+it all go so wrong”. Oh, and don't tell me “it doesn't matter what the
 original purpose was” – the problem with Javascript (and web in general) is
 that it's a hack on a hack and supported by a hack, like PHP (which is a
-[fractal of bad design](http://me.veekun.com/blog/2012/04/09/php-a-fractal-of-bad-design/)),
-except that PHP doesn't try to be fucking *everywhere* and Javascript does.)
+[fractal of bad design][]), except that PHP doesn't try to be fucking
+*everywhere* and Javascript does. Fuck Javascript.
+
+[fractal of bad design]: http://me.veekun.com/blog/2012/04/09/php-a-fractal-of-bad-design/
 
 </div>
 
