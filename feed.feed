@@ -13,7 +13,7 @@ RSS
   , Guid False   "haskell-reddit-1"
   ] ,
 
-  [ Title        "Polysemy in programming languages (particularly Haskell)"
+  [ Title        "Polysemy in programming languages"
   , Link         "https://artyom.me/polysemy"
   , Description  "A post about ambiguity and whether it's good or bad."
   , Guid False   "polysemy"

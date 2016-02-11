@@ -1,8 +1,8 @@
-% Polysemy in programming languages (particularly Haskell)
+% Polysemy in programming languages
 
 > [Polysemy](@w) is the capacity for a sign (such as a word, phrase, or symbol) to have multiple meanings (that is, multiple semes or sememes and thus multiple senses), usually related by contiguity of meaning within a semantic field.
 
-Examples: in English words “do” and “make” have dozens of meanings. In Russian the word “идти” has dozens of meanings. An example of a word with only several meanings is “man”:
+That is, polysemy is when a word has many meanings and those meanings are somehow connected (when they aren't connected at all, it's homonymy). Examples: in English words “do” and “make” have dozens of meanings. In Russian the word “идти” has dozens of meanings. An example of a word with only several meanings is “man”:
 
   * the human species (i.e. man vs. animal)
   * males of the human species (i.e. man vs. woman)
@@ -10,34 +10,43 @@ Examples: in English words “do” and “make” have dozens of meanings. In R
 
 Note how the definitions, while different, are still related to each other – in this particular case, they include each other. A man is a man is a man, or in other words, a man is a male is a human.
 
-Here are some traits of polysemic words (according to some paper linked on Wikipedia):
+Here's a network of meanings of the word “head” (the one for “make” is much more impressive, but I can't find it):
 
-  1. the various senses of a polysemous word have a central origin
-  2. the links between these senses form a network
-  3. understanding the ‘inner’ one contributes to understanding of the ‘outer’ one
+![](https://i.imgur.com/MJqS2GS.jpg){width=100%}
 
-And here's a sample network for the word “run”:
+We're not used to thinking that polysemic words *actually* have different meanings – it feels to us that there must be something that unites different meanings, and we just can't grasp it. Which is actually true, but it's also a trick your mind plays on you – if words for “head” and “thumb” were the same, your brain *would* find a way to unite them (it's actually pretty easy), but since the words aren't the same, you're willing to say that the meanings are different.
 
-![](http://www.helsinki.fi/varieng/series/volumes/12/egan/egan_figure1.png)
+Now consider these sentences:
 
-In programming some things, too, have got lots of meanings. For instance, `for` might be able to traverse lists, arrays, maps, vectors, and so on. `+` might be able to add integers, rational numbers, strings, etc. Again, something like this exists in pretty much every widespread language to some extent, and it seems good to me.
+  1. He gave me a book.
+  2. He gave me a strange look.
+  3. He gave me a hearing test.
+  4. He gave me hell.
 
-The trouble appears when people start trying to bring this “chaos” to order. For instance, “`+` should work for numbers but not for strings”. Or “let's not have a notion of default values, because who decides whether the default value for `Int` should be 0 or 1? And why the default value for a list is “empty list”?” The general sentiment, at least in Haskell community (I speak about Haskell because it's my primary language), seems to be “let's not have one name refer to several things unless we can state a clear set of laws uniting those things”.
+If you're a programmer, it should be easy for you to understand how different the meanings of “give” are in these sentences: try to imagine how `give` could be implemented if it was a function.
 
-This approach has several benefits. With a set of laws existing, you can safely do transformations on your program – transformations you wouldn't be able to do otherwise. You might also be able to [deduce things](http://www.haskellforall.com/2013/12/equational-reasoning.html) about your program. Finally, often your code becomes more easily understandable because the reader can just apply the law instead of figuring out what the operation does in this particular case.
+(There's not going to be any similarities, in case you're wondering.)
 
-However, there's also something people are forgetting:
+-----------------------------------------------------------------------------
 
-  * Human brains don't always work by logic. It's not correct that applying one of [monad laws](https://wiki.haskell.org/Monad_laws) is always easier than remembering that 0 is “arbitrarily” the default value for Int.
+If you're a Java programmer, `give` is probably going to be an interface method. (If you're a Haskell programmer – a typeclass method.) And people are using them all the time; even if your language doesn't have classes or objects, it probably still has an overloaded `+` (which you can use to add integers or floats or even strings). So, what's the point of this post?
 
-  * Humans mostly aren't malicious. If you don't specify a law that some function “openThingy” must obey, still nobody is going to purposefully create a function called “openThingy” that would actually close a thingy, or fire missiles, or whatever.
+Ah, but there's no point yet. The point only begins when I mention that people constantly try to give *laws* for overloaded functions – they are okay with the same name referring to 2 different things, as long as you can give some promises about those things. Moreover, Haskell is one of the languages where it goes much further – the laws are commonly considered to be the *definition* of what the laws refer to. What's a monad? Oh, it's just a type and 2 functions, and those functions have to satisfy 3 monad laws. Got it. The problem is that programming isn't math for most programmers, and a math-style definition-by-listing-properties is useless for them. Programmers are humans, they have networks of meanings in their heads, and if they don't have one for monads or `+` or `doTheThing` or whatever overloaded term you introduce, they won't be able to use it. The only way to build a network of meanings is to give people examples and wait until their brains connect them. Moreover, you [can't implant your network of meanings into someone else's head](https://byorgey.wordpress.com/2009/01/12/abstraction-intuition-and-the-monad-tutorial-fallacy/), that's called the monad tutorial fallacy and it's a fallacy. But don't think that
 
-In English, “do” is often a placeholder for “default action”. Do drugs? Consume drugs. Do an accent? Speak with an accent. Do 70km/h? Drive with speed 70km/h.
+> By examining concrete objects in detail, one begins to notice similarities and patterns, until one comes to understand on a more abstract, intuitive level.
 
-Are these meanings arbitrary? Sort of, yeah. (Especially if you remember that “do somebody” means either “have sex with somebody” or “kill somebody”.)
+(as the linked post claims), there's no abstract level – you just have a bigger network of meanings and so fitting new things into it (or noticing when new things could be fitted into it) becomes easier for you. The feeling that you *really grasp* what unites the things in your network of meanings is just that – a feeling.
 
-Are they useful? I'd say they are. (It's not a coincidence, by the way, that the shortest and easiest to pronounce words are also the ones that have dozens of meanings.) When you have a cluster of things with similar meanings, it's often better to have a single word for all those things even if there's no clear law uniting them, and it's true for natural and programming languages alike, because both kinds are *human languages*. I'm not arguing that programming languages are literally like natural ones; I'm arguing that the most general principles (and ambiguity resolution in context is one of them) apply to all languages, be it design or art or programming or math (those all have their own languages, right).
+(By the way, sorry for not giving examples from languages other than Haskell. I simply don't know other languages, that's all.)
 
-Sometimes arguments about programming language (and technical arguments in general) are really really annoying because technical people often make “logical” arguments about how human brains work (and nobody ever links to any actual research). It's logical that short names get read faster than long names! It's logical that things should be descriptive instead of having people guess stuff from context! It's logical that `foo_bar` reads better than `fooBar`, because “\_” looks like a space and we're used to reading spaces! It's logical that links should be underlined! It's logical that text should be black on white! It's logical that Lisp's syntax is the best, because there's almost no syntax to remember! It's logical that ambiguity is bad!
+-----------------------------------------------------------------------------
 
-Ye-eah, right.
+Back to laws and promises, and back to the point, which is: laws don't work. They say “screw networks of meanings, it's clearly easier to fit N laws into your head than some vague intuition”, which is wrong. (An aside: lots of arguments about programming language (and technical arguments in general) are really annoying because technical people often make “logical” arguments about how human brains work. Naive logic doesn't apply to brains, read any social psychology book for counterexamples. I liked Elliot Aronson's “The Social Animal”, for instance.)
+
+I *don't* mean that laws are useless – they let you prove things about your code (like in math) and they let you mechanically transform your code (again, like in math, just remember your trigonometry class). But they do little to aid understanding, and the absence of them doesn't mean that a typeclass is worthless.
+
+**Meaning doesn't come from laws – it comes from names and it comes from examples.** Or in other words, meaning comes from humans who read and use your code. It's all in their heads.
+
+And if you believe that it shouldn't be like this, that meaning should be enforceable by the compiler, that it's very wrong for names of things to *actually matter*, etc, etc, well, math is your perfect language. Math is also a language where all variables are one-letter variables and where they have more operators than all other programming languages put together. It's not a coincidence, it's the result of math [being the least human-related field of all fields][xkcd Purity].
+
+[xkcd Purity]: https://xkcd.com/435/

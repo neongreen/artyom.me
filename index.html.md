@@ -10,7 +10,7 @@ I can do stuff and don't care about gym membership. Here's my [CV](/cv).
 
   * [Lack of empathy disguised as naive consequentialism](/empathy-consequentialism) – a small post about how you might be fucking up relationships with people while thinking it's perfectly justified
 
-  * [Polysemy in programming languages (particularly Haskell)](/polysemy) – a post about ambiguity and whether it's good or bad
+  * [Polysemy in programming languages](/polysemy) – a post about ambiguity and whether it's good or bad
 
 # Haskell
 
