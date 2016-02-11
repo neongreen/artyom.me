@@ -45,7 +45,6 @@ Several years ago I've been actively participating in IOI/ACM-style programming 
   * All-Russian Team Olympiad (2011): 10th place, bronze
   * Moscow Open Olympiad in Programming (2012): silver
 
-I have basic knowledge of SQL, and Sqlite in particular (where “basic knowledge” means “enough to write a backend for a static website hosting”). I also know some C, Pascal, [Racket][], and [Nim][].
+I have basic knowledge of SQL, and Sqlite in particular (where “basic knowledge” means “enough to write a backend for a static website hosting”). I also know some C, Pascal, and [Nim][].
 
-[Racket]: http://racket-lang.org/
 [Nim]: http://nim-lang.org/
