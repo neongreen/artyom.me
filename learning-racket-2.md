@@ -1171,6 +1171,8 @@ G'night.
     than a year I'll write and open-source some medium-sized project
     in Racket. (And, of course, I'll be documenting the process.)
 
+    *(An update from 2 years after: the promise has been totally broken.)*
+
   * I need not say anything about macros at this point, do I.
 
   * This part turned out to be both shorter and more tangled than the

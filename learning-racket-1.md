@@ -7,14 +7,9 @@ series:
   next: /learning-racket-2
 ---
 
-Alternative title: *A Haskell Programmer Tries to Learn Racket (a Language
-from the Lisp/Scheme Family), Documenting This New Experience with Quite
-Unusual Honesty and Diligence, All the While Secretly Plotting to Steal the
-Good Bits Which Haskell Doesn't Currently Have*.
+Warning: as of January 2016, I have abandoned this series (the 1st post was written in February <u>2014</u>). Sorry.
 
------------------------------------------------------------------------------
-
-Warning: as of January 2016, I have abandoned this series (the 1st post was written in February 2014). Sorry.
+Also I don't have long hair anymore, have [some kind of a resume now](/cv) (which sucks but I don't think it actually lowers my chances of employment), and, finally, the bit about Node.js ma-ay have been a slight overstatement.
 
 -----------------------------------------------------------------------------
 
