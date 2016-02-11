@@ -4,7 +4,7 @@ pagetitle: artyom.me
 
 # Hire me please
 
-I can do stuff and don't care about gym membership. Here's my [CV](/cv).
+Here's my [CV](/cv).
 
 # Psychology
 
