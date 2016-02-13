@@ -50,7 +50,7 @@ It's a work in progress; the future parts will mention:
 
 # Stuff that is sort of related to psychology
 
-  * [Lack of empathy disguised as naive consequentialism](/empathy-consequentialism) – a small post about how you might be fucking up relationships with people while thinking it's perfectly justified
+  * [If justifications turn your empathy off, it's broken](/empathy-consequentialism)
 
 # Stuff that is sort of related to linguistics
 

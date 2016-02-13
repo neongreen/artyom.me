@@ -19,7 +19,7 @@ RSS
   , Guid False   "polysemy"
   ] ,
 
-  [ Title        "Lack of empathy disguised as naive consequentialism"
+  [ Title        "If justifications turn your empathy off, it's broken"
   , Link         "https://artyom.me/empathy-consequentialism"
   , Description  "A small post about how you might be fucking up relationships with people while thinking it's perfectly justified."
   , Guid False   "empathy-consequentialism"
