@@ -2,7 +2,7 @@
 pagetitle: artyom.me
 ---
 
-# Hire me please
+# Hire me maybe
 
 Here's my [CV](/cv).
 
