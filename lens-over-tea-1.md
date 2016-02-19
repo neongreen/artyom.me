@@ -1311,13 +1311,13 @@ appends that would happen (excluding appends to empty lists):
   * **`[1,2,3,4,0,0,0] <> [1,0,2,0,3,0,4]`**
   * `[0] <> [1,2,3,4,0,0,0,1,0,2,0,3,0,4]`
 
-Generally, for such a tree of depth $n$ (and containing $O(n)$ elements),
-there are $n$ “bold” appends – the $i$th append takes $O(i)$ time, and the
-total runtime is $O(n^2)$ for $O(n)$ elements. Ba-a-ad.
+Generally, for such a tree of depth N (and containing O(N) elements),
+there are N “bold” appends – the i-th append takes O(i) time, and the
+total runtime is O(N^2^) for O(N) elements. Ba-a-ad.
 
 ### Difference lists
 
-There's a well-known technique for making each append $O(1)$ when you have to
+There's a well-known technique for making each append O(1) when you have to
 do a lot of them, and it's called *difference lists*. I find existing
 explanations (e.g. in [Real World Haskell][RWH dlist] and on
 [StackOverflow][SO dlist]) slightly confusing, so I'll explain it myself.
@@ -2147,8 +2147,8 @@ strings shorter than one chunk.)
 
 Bonus stuff:
 
-  * Difference lists are easy to implement and give you $O(1)$ appends (but
-    $O(n)$ `head`).
+  * Difference lists are easy to implement and give you O(1) appends (but
+    O(N) `head`).
 
   * With default signatures there are more situations when you can add a
     default implementation to a method.

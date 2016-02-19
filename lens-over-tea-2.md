@@ -177,7 +177,7 @@ Final definition of `(@.)`:
 ~~~
 
 And here's an example of how to use lens composition to work with the 1st
-element of a pair in a nested list (row $x$, column $y$) [darn, so that's
+element of a pair in a nested list (row x, column y) [darn, so that's
 probably why tutorial writers start with records – to be able to use more
 interesting lenses in examples]. Assume that `^.` (reminding: that's
 `flip view`), `*~` (like `set` which multiplies instead of setting), `_1`,
@@ -2237,7 +2237,7 @@ like `Const`. How to prove it? By writing the `coerce` function:
 coerce :: (Functor f, Contravariant f) => f a -> f b
 ~~~
 
-You can't get $n$ values of type `b` out of thin air unless $n$ is 0, so the
+You can't get N values of type `b` out of thin air unless N is 0, so the
 existence of such function would prove it.
 
 Don't look ahead before trying to implement `coerce` on your own. Mindless
