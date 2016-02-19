@@ -34,8 +34,6 @@ Gurkenglas: The masterpiece of an article linked above, "lens over
 
 Or “know your enemy”. If you already know what `makeLenses` etc do, you can [skip this part][Template Haskell] and start reading about Template Haskell itself.
 
-(I'm not going to mention `makeClasses` and `makeWrapped` because they aren't used often, but you should still be aware that I haven't mentioned everything there was to mention.)
-
 ## [`makeLenses`][]
 
 Lens uses TH in order to provide [`makeLenses`][] (and related functions), which you can use to automatically generate lenses for your types. Let's see it in action:
@@ -108,12 +106,6 @@ th.hs:14:1-19: Splicing declarations
 There are other functions available, too. [`makeLensesFor`][] is like `makeLenses` but lets you name lenses differently:
 
 ~~~ haskell
-{-# LANGUAGE TemplateHaskell #-}
-
-module Test where
-
-import Control.Lens
-
 data Person = Person {
   name :: String,
   age :: Double }
@@ -142,9 +134,6 @@ FlexibleInstances
 module Test where
 
 import Control.Lens
-
--- import Language.Haskell.TH
--- import Language.Haskell.TH.Ppr
 
 data Person = Person {
   _personName :: String,
@@ -209,17 +198,73 @@ instance HasSpecies Animal String where
   {-# INLINE species #-}
 ~~~
 
+## [`makeClassy`][]
+
+[`makeClassy`][] is pretty similar to `makeLenses`, but it has an extra feature that makes it very useful in some situations. Like `makeFields`, it makes lenses methods of a class:
+
+~~~ haskell
+data Person = Person {
+  _name :: String,
+  _age :: Double }
+~~~
+
+~~~ haskell
+class HasPerson c where
+  person :: Lens' c Person
+
+  age :: Lens' c Double
+  age = person.age
+  {-# INLINE age #-}
+
+  name :: Lens' c String
+  name = person.name
+  {-# INLINE name #-}
+
+instance HasPerson Person where
+  person = id
+
+  name f (Person x1 x2) = fmap (\y -> Person y x2) (f x1)
+  {-# INLINE name #-}
+
+  age f (Person x1 x2) = fmap (\y -> Person x1 y) (f x2)
+  {-# INLINE age #-}
+~~~
+
+However, it doesn't create a separate class for each field – instead it creates a single class for the type, which normally wouldn't be more useful than `makeLenses`, but it becomes useful when you have a hierarchy of types. For instance, let's say that you have beings (which have an age), people (who have an age and a name), and workers (who have an age, a name, and a job, unlike me). If you used `makeFields`, you'd just create records with fields called `personAge`, `personName`, `workerAge`, `workerJob`, etc, and it'd work – but it feels somewhat ad-hoc. `makeClasses` lets us expicitly show that they are a hierarchy:
+
+~~~ haskell
+data Being = Being {
+  _age :: Double }
+
+data Person = Person {
+  _personBeing :: Being,
+  _name :: String }
+
+data Worker = Worker {
+  _workerPerson :: Person,
+  _job :: String }
+
+makeClassy ''Being
+makeClassy ''Person
+makeClassy ''Worker
+~~~
+
+The magic sauce is these 3 instances you have to define manually:
+
+~~~ haskell
+instance HasBeing Person where being = personBeing
+instance HasPerson Worker where person = workerPerson
+
+instance HasBeing Worker where being = person.being
+~~~
+
+Now you can use `age`/`name`/`job` to access age/name/job of anybody who has it, and you also can “downgrade” types (`Worker` to `Person`, or `Person` to `Being`, or `Worker` to `Being`) by using the `person` and `being` lenses.
+
 ## [`makePrisms`][]
 
 Next is [`makePrisms`][], which generates prisms for sum types (while `makeLenses` generates lenses for product types):
 
 ~~~ haskell
-{-# LANGUAGE TemplateHaskell #-}
-
-module Test where
-
-import Control.Lens
-
 data Foobar a
   = Foo a
   | Bar Int Char
@@ -272,12 +317,6 @@ _Bar = prism
 [`declareLenses`][] lets you make lenses for a record without creating record accessors (i.e. underscored fields). To do it, you have to pass the whole *declaration* to the function:
 
 ~~~ haskell
-{-# LANGUAGE TemplateHaskell #-}
-
-module Test where
-
-import Control.Lens
-
 declareLenses [d|
   data Person = Person {
     name :: String,
@@ -1321,6 +1360,7 @@ Thanks for caring about statistics.
 [`makeLensesFor`]: http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeLensesFor
 [`makeLensesWith`]: http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeLensesWith
 [`makeFields`]: http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeFields
+[`makeClassy`]: http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeClassy
 [`makePrisms`]: http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makePrisms
 [`declareLenses`]: http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:declareLenses
 [`LensRules`]: http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#t:LensRules
