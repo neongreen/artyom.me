@@ -24,12 +24,13 @@ A series of articles (called “lens over tea”) about [lens](@hackage) and its
 
   * [part 5](/lens-over-tea-5) – prisms (also a recap of isomorphisms with diagrams, a bit about affine traversals, `Pointed`, and `coerce`).
 
+  * [part 6](/lens-over-tea-6) – Template Haskell, aka “write your own `makeLenses`”
+
 It's a work in progress; the future parts will mention:
 
   * indexed things
   * `Bazaar`/`Magma`/`Molten`/`Mafic`, traversal stuff like `partsOf`, `taking`
   * `fusing` and `confusing`
-  * Template Haskell used in lens
   * benchmarks (`view _1` vs `fst`? how much does `fusing` help? etc)
   * vertical composition, [link](http://stackoverflow.com/a/17529470/615030)
   * `ala`, `AlongsideLeft`

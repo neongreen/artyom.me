@@ -7,6 +7,12 @@ RSS
          "https://artyom.me" Nothing Nothing Nothing]
   [ 
 
+  [ Title        "lens over tea #6: Template Haskell"
+  , Link         "https://artyom.me/lens-over-tea-6"
+  , Description  "Template Haskell (aka “write your own makeLenses”)"
+  , Guid False   "lens-over-tea-6"
+  ] ,
+
   [ Title        "Comments on random stories on r/haskell, part 1"
   , Link         "https://artyom.me/haskell-reddit-1"
   , Description  "Just random thoughts."

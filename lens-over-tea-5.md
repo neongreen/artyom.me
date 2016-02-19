@@ -5,6 +5,7 @@ series:
   top: “lens over tea”
   toplink: /#lens-over-tea
   prev: /lens-over-tea-4
+  next: /lens-over-tea-6
 ---
 
 The exploration of lenses continues! Today we'll finally figure out how prisms are implemented and what they are for. Also there are more exercises than in the previous posts, so perhaps you should read it with GHCi running (and not on your phone).
