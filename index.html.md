@@ -55,6 +55,8 @@ It's a work in progress; the future parts will mention:
 
 # Stuff that is sort of related to linguistics
 
+  * [Why you don't want “irregardless” to be a word](/irregardless)
+
   * [Polysemy in programming languages](/polysemy) – a post about ambiguity and whether it's good or bad
 
 # Racket

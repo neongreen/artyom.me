@@ -7,6 +7,12 @@ RSS
          "https://artyom.me" Nothing Nothing Nothing]
   [ 
 
+  [ Title        "Why you don't want “irregardless” to be a word"
+  , Link         "https://artyom.me/irregardless"
+  , Description  "Spoiler: not because you're awesome."
+  , Guid False   "irregardless"
+  ] ,
+
   [ Title        "lens over tea #6: Template Haskell"
   , Link         "https://artyom.me/lens-over-tea-6"
   , Description  "Template Haskell (aka “write your own makeLenses”)"
