@@ -144,12 +144,13 @@ dd p {
     text-align: center; }
 
 hr {
-    height: 1px;
-    border-bottom: 1px solid grey;
+    height: 2px;
+    width: 30%;
+    border-bottom: 1.5px solid black;
     border-top: none;
     border-left: none;
     border-right: none;
-    margin: 1.25em 0; }
+    margin: 2em auto; }
 
 th, td {
     padding: 1px 8px; }
