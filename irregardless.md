@@ -61,3 +61,29 @@ Forget about legitimacy, it's vague and ill-defined. What's the *biggest, most o
 You don't hate the word, you hate people who use it – and you don't want it to be legitimised, because it means that ignorance would be legitimised, and *oh no, they would win*. You wish English was more logical, but in the meantime you'll be punishing and condemning everyone who doesn't conform to the rules, even tho it's impossible to make English more logical without conforming to the rules. When somebody writes “sheeps”, or “shrinked”, or “PIN number”, or especially “u” or “k”, your brain automatically imagines that ne's dumb (and the same happens when you see a foreigner who can't speak English well), and only then you reject the word. Not before.
 
 And you know what? Normally, illogical things and exceptions would die on their own – they aren't useful to stupid people, and there are more stupid people than smart ones. But since you're motivated by “not looking stupid” above “not being stupid”, and since you are more scared of being judged than of doing something wrong, and since some illogical things are useful to you (they let you signal that you're not stupid, after all), ultimately it's going to be *you* who keeps them alive.
+
+## Related links
+
+[“Word rage – not!”](http://itre.cis.upenn.edu/~myl/languagelog/archives/004167.html) discusses the same thing but from a slightly different viewpoint – it's not merely about being smart or stupid, but also about being *somebody who cares about such things*. (And once you have made something a [part of your identity][identity], you lose the ability to think about it clearly.)
+
+[identity]: http://www.paulgraham.com/identity.html
+
+> But for pop grammarians like Truss, you can't help feeling that the self-mockery is a cover for self-congratulation. She may make fun of herself as a stickler, but she clearly considers herself to be one of an elect – someone whose sleep is troubled by a misplaced apostrophe even if it's twenty mattresses down.
+
+<!-- -->
+
+> That's the theme I keep hearing in all those outbursts of language rage. The melodramatic tone may be intended to stave off the charge that you take these matters too seriously, but it's also a way of affirming your solidarity with the thin red line of people who pride themselves on taking this stuff very seriously indeed. 
+
+[“The social psychology of linguistic naming and shaming”](http://itre.cis.upenn.edu/~myl/languagelog/archives/004244.html) further explains how “grammar nazism” is a social phenomenon and not a linguistic one:
+
+> By *social annoyance* I mean a distaste for the way someone looks or acts that sees its object as an instance of a type. Someone's appearance or behavior gets under your skin, and it's not just that particular person, it's the whole class of people who look like that or act like that. [...]
+>
+> By *public griping* I mean the process of sharing your annoyance with a sympathetic group. You might trade anecdotes around the coffee machine or the dinner table, or write a letter to the editor. People enjoy listening in groups to skillful expressions of social annoyance, and so stand-up comedians do a lot of this. [...]
+
+<!-- -->
+
+> Linguistic sins, real or imaginary, are not really what's driving [the process of griping]. And the original emotion of irritation, though sometimes expressed in colorful displays of (mock?) disgust and anger, is also secondary, I think. The real key is the public ritual that Christopher Howse called “naming and shaming”, which helps the group to converge on a set of norms. (While giving everyone a good deal of pleasure along the way, apparently.)
+
+<!-- -->
+
+> While social annoyance is sometimes an original emotion, public griping reinforces it and in many cases creates it out of nothing. This is especially true for the linguistic forms of this process. Sentence-initial “however”, for example, annoys many people who would never have noticed it if they hadn't been trained to do so by the public griping about this alleged abuse that Will Strunk started a hundred years ago. [...]
