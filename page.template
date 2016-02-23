@@ -2,6 +2,7 @@
 <html$if(lang)$ lang="$lang$"$endif$>
 <head>
   <meta charset="utf-8">
+  $if(unfinished)$<meta name="robots" content="noindex">$endif$
   <meta name="google-site-verification" content="y-gj-eNGiiocXI1nd6EPlywGEfhW90jeeFO__ePHvbg" />
   <meta name="generator" content="pandoc">
   <meta name="viewport" 
