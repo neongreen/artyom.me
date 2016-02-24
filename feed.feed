@@ -25,9 +25,9 @@ RSS
   , Guid False   "haskell-reddit-1"
   ] ,
 
-  [ Title        "Polysemy in programming languages"
+  [ Title        "Polysemy (i.e. overloading) in programming"
   , Link         "https://artyom.me/polysemy"
-  , Description  "A post about ambiguity and whether it's good or bad."
+  , Description  "A post about overloading and whether it's good or bad."
   , Guid False   "polysemy"
   ] ,
 
