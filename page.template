@@ -181,6 +181,12 @@ $endif$
 
 </div>
 
+$if(latest-post-link)$
+<div id="latest-post">
+Latest post: <a href="$latest-post-link$">$latest-post-title$</a>
+</div>
+$endif$
+
 <div id="footer">
 
 <div style="text-align:center;font-size:0.9em;padding:0.5em 8px">
