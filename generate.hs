@@ -29,52 +29,52 @@ main = do
   let shortcutLinks = home </> "code/pandoc-contrib"
                            </> ".cabal-sandbox/bin/pandoc-shortcut-links"
 
-  putStrLn "generating RSS feed"
   rss <- read <$> readFile "feed.feed"
   let latestPost = head $ getRssItems rss
       latestPostTitle = head [x | Title x <- latestPost]
       latestPostLink  = head [x | Link x <- latestPost]
       latestPostGuid  = head [x | Guid _ x <- latestPost]
 
-  writeFile "feed.xml" (showXML $ rssToXML rss)
+  let generateRss = do
+        putStrLn "generating RSS feed"
+        writeFile "feed.xml" (showXML $ rssToXML rss)
 
-  putStrLn "converting:"
-  posts <- filter ((== ".md") . takeExtension) <$> getDirectoryContents "."
-  for_ posts $ \f -> do
-    let outf = dropExtension f
-    printf "  * %s\n" outf
-    callProcess "pandoc" $ concat [
-      ["-f", "markdown",
-       "-t", "html5",
-       "--mathjax",
-       "-o", outf,
-       "-V", printf "src:%s" f,
-       "-V", printf "today:%s" today],
-      if outf `elem` ["index.html", "cv", latestPostGuid] then [] else
-       ["-V", printf "latest-post-title:%s" latestPostTitle,
-        "-V", printf "latest-post-link:%s" (show latestPostLink)],
-      ["--template=page.template",
-       "--standalone",
-       "--css", "/css.css",
-       "--filter", shortcutLinks,
-       f ]]
+  let pandoc input output args =
+        callProcess "pandoc" $
+          args ++
+          ["-f", "markdown", "--filter", shortcutLinks] ++
+          ["-o", output, input]
+  let pandocHtml input output args =
+        pandoc input output (args ++ ["-t", "html5", "--standalone"])
 
-  callProcess "pandoc" [
-    "-f", "markdown",
-    "-t", "latex",
-    "-V", "links-as-notes",
-    "-V", "geometry:margin=1.5in",
-    "-o", "cv.pdf",
-    "--filter", shortcutLinks,
-    "cv.md" ]
+  let generateCv = do
+        pandocHtml "cv.md" "cv-plain-html" []
+        pandoc "cv.md" "cv.pdf" [
+          "-t", "latex",
+          "-V", "links-as-notes",
+          "-V", "geometry:margin=1.5in" ]
 
-  callProcess "pandoc" [
-    "-f", "markdown",
-    "-t", "html5",
-    "-o", "cv-plain.html",
-    "--standalone",
-    "--filter", shortcutLinks,
-    "cv.md" ]
+  let generatePost f = do
+        let outf = dropExtension f
+        printf "  * %s\n" outf
+        pandocHtml f outf $ concat [
+          ["--mathjax"],
+          ["--template=page.template", "--css", "/css.css"],
+          ["-V", "src:" ++ f],
+          ["-V", "today:" ++ today],
+          if outf `elem` ["index.html", "cv", latestPostGuid]
+            then []
+            else ["-V", "latest-post-title:" ++ latestPostTitle,
+                  "-V", "latest-post-link:" ++ show latestPostLink]]
+
+  args <- getArgs
+  case args of
+    [f] -> generatePost f
+    [] -> do
+      generateRss
+      generateCv
+      posts <- filter ((== ".md") . takeExtension) <$> getDirectoryContents "."
+      mapM_ generatePost posts
 
 instance Read URI where
   readsPrec p s = mapMaybe one $ readsPrec p s
