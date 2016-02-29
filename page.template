@@ -187,6 +187,23 @@ Read next: <a href="$latest-post-link$">$latest-post-title$</a>
 </div>
 $endif$
 
+$if(comments-enabled)$
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+this.page.url = "https://artyom.me/$url$";
+this.page.identifier = "$url$";
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//artyomkazak.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+$endif$
+
 <div id="footer">
 
 <div style="text-align:center;font-size:0.9em;padding:0.5em 8px">
@@ -194,7 +211,7 @@ $endif$
 <a class="vert" href="/inside">how it's made</a>
 <a class="vert" href="/cv">hire me</a>
 <a class="vert" href="/stats">stats</a>
-<a class="vert" href="mailto:yom@artyom.me?subject=Regarding $src$">comment by email</a>
+<a class="vert" href="mailto:yom@artyom.me?subject=Regarding $url$">comment by email</a>
 <a class="vert" href="/curiosity">curiosity killed the cat</a>
 </div>
 

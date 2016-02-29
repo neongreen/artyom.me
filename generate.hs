@@ -61,11 +61,15 @@ main = do
           ["--mathjax"],
           ["--template=page.template", "--css", "/css.css"],
           ["-V", "src:" ++ f],
+          ["-V", "url:" ++ outf],
           ["-V", "today:" ++ today],
           if outf `elem` ["index.html", "cv", latestPostGuid]
             then []
             else ["-V", "latest-post-title:" ++ latestPostTitle,
-                  "-V", "latest-post-link:" ++ show latestPostLink]]
+                  "-V", "latest-post-link:" ++ show latestPostLink],
+          if outf `elem` ["index.html", "cv"]
+            then []
+            else ["-V", "comments-enabled"]]
 
   args <- getArgs
   case args of
