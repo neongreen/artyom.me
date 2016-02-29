@@ -183,7 +183,7 @@ $endif$
 
 $if(latest-post-link)$
 <div id="latest-post">
-Latest post: <a href="$latest-post-link$">$latest-post-title$</a>
+Read next: <a href="$latest-post-link$">$latest-post-title$</a>
 </div>
 $endif$
 
