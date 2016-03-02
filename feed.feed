@@ -31,9 +31,9 @@ RSS
   , Guid False   "polysemy"
   ] ,
 
-  [ Title        "If justifications turn your empathy off, it's broken"
+  [ Title        "Unconditional empathy"
   , Link         "https://artyom.me/empathy-consequentialism"
-  , Description  "A small post about how you might be fucking up relationships with people while thinking it's perfectly justified."
+  , Description  "Empathy could prevent all the evils."
   , Guid False   "empathy-consequentialism"
   ] ,
 

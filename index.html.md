@@ -51,7 +51,7 @@ It's a work in progress; the future parts will mention:
 
 # Stuff that is sort of related to psychology
 
-  * [If justifications turn your empathy off, it's broken](/empathy-consequentialism)
+  * [Unconditional empathy](/empathy-consequentialism)
 
 # Stuff that is sort of related to linguistics
 
