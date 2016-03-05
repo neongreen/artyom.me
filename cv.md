@@ -26,15 +26,15 @@ I speak Russian and English.
 
 I've been studying and using Haskell for 6 years. I have experience with:
 
-  * **lenses:** wrote a [series of articles](https://artyom.me/#lens-over-tea) explaining in detail how [lens](@hackage) is implemented and the theory behind it; my most used library is [microlens](@hackage), a minimal lens library compatible with lens
+  * **Lenses:** wrote a [series of articles](https://artyom.me/#lens-over-tea) explaining in detail how [lens](@hackage) is implemented and the theory behind it; my most used library is [microlens](@hackage), a minimal lens library compatible with lens
+
+  * **Server-side programming:** for a client, I wrote a backend for a static website hosting, a CLI tool for interacting with it, and parts of the server and [Liquid markup](http://liquidmarkup.org/) parser/renderer
+
+  * **API interfacing:** wrote a [bot for Telegram](@gh:neongreen/untilbot) together with a binding for Telegram API
 
   * **Template Haskell:** rewrote a huge TH module for my yet-unreleased Aeson fork
 
   * **GUI:** have written several utilities using GTK
-
-  * **interfacing with APIs:** wrote a [bot for Telegram](@gh:neongreen/untilbot) together with a binding for Telegram API
-
-  * **server-side programming:** for a client, I wrote a backend for a static website hosting, a CLI tool for interacting with it, and parts of the server and [Liquid markup](http://liquidmarkup.org/) parser/renderer
 
 I have several yet-unreleased projects; the ones that I'm working on right now are a [site for collaborative notes on Haskell libraries](@gh:aelve/guide), an [Aeson fork with more features and better usability](@gh:aelve/json-x), and a [minimalistic reminding tool](@gh:aelve/tom).
 
