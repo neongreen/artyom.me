@@ -48,7 +48,7 @@ main = do
         pandoc input output (args ++ ["-t", "html5", "--standalone"])
 
   let generateCv = do
-        pandocHtml "cv.md" "cv-plain-html" []
+        pandocHtml "cv.md" "cv-plain.html" []
         pandoc "cv.md" "cv.pdf" [
           "-t", "latex",
           "-V", "links-as-notes",
