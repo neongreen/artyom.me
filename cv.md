@@ -20,22 +20,25 @@ I speak Russian and English.
 
   * I dropped out of university after half a year
   * I've only been employed once, and unofficially
-  * I have no experience with any kind of web apps (or mobile apps)
   * I don't really know any languages besides Haskell
 
 ## Haskell
 
-I've been studying and using Haskell for 6 years.
+I've been studying and using Haskell for 6 years. I have experience with:
 
-My most used library is probably [microlens](@hackage), a minimal lens library compatible with [lens](@hackage). Speaking of lenses, I also wrote a [series of articles](https://artyom.me/#lens-over-tea) about the implementation of lens; as the Haskell wikibook [puts it](https://en.wikibooks.org/wiki/Haskell/Lenses_and_functional_references#Further_reading):
+  * **lenses:** wrote a [series of articles](https://artyom.me/#lens-over-tea) explaining in detail how [lens](@hackage) is implemented and the theory behind it; my most used library is [microlens](@hackage), a minimal lens library compatible with lens
 
-> \[Several paragraphs above,\] we said that lens easily provides enough material for a full book. The closest thing to that we currently have is Artyom Kazak's "lens over tea" series of blog posts. It explores the implementation of functional references in lens and the concepts behind it in far more depth than what we are able to do here. Highly recommended reading.
+  * **Template Haskell:** rewrote a huge TH module for my yet-unreleased Aeson fork
 
-For a client, I wrote a backend for a static website hosting, a CLI tool for interacting with it, and parts of the server and [Liquid markup](http://liquidmarkup.org/) parser/renderer. For another client, I designed a [task](https://artyom.me/haskell-ctf) for a hacker competition.
+  * **GUI:** have written several utilities using GTK
 
-I have several yet-unreleased projects; the ones that I'm working on right now are a [character search tool](@gh:aelve/bob) that finds Unicode characters by a vague ASCII approximation, and a [minimalistic reminding tool](@gh:aelve/tom).
+  * **interfacing with APIs:** wrote a [bot for Telegram](@gh:neongreen/untilbot) together with a binding for Telegram API
 
-Finally, I have written a pretty popular (and possibly the most comprehensive) [Aeson tutorial](https://artyom.me/aeson).
+  * **server-side programming:** for a client, I wrote a backend for a static website hosting, a CLI tool for interacting with it, and parts of the server and [Liquid markup](http://liquidmarkup.org/) parser/renderer
+
+I have several yet-unreleased projects; the ones that I'm working on right now are a [site for collaborative notes on Haskell libraries](@gh:aelve/guide), an [Aeson fork with more features and better usability](@gh:aelve/json-x), and a [minimalistic reminding tool](@gh:aelve/tom).
+
+Additionally, I have written perhaps the most popular [Aeson tutorial](https://artyom.me/aeson)), and once I designed a [Haskell task](https://artyom.me/haskell-ctf) for a hacker competition.
 
 ## Everything else
 
