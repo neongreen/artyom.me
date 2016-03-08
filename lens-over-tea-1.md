@@ -624,10 +624,11 @@ you still insist that it *is* a box of humanitarian aid (merely containing 0
 items) and therefore you are entitled to a free delivery (because your
 country has a law stating that every citizen can use post services free of
 charge if ne's sending humanitarian aid). Your parcel is accepted, but the
-post workers hate you. You don't care – your grandpa in Africa would *love*
-to get your letter, and nothing else matters. “Now, I've noticed a tendency
-for this article to get rather silly”... so here are the definitions of
-`Const` and `Storey` for you to compare, and after that we will move on.
+post workers hate you. You don't care – your grandpa in Africa would love
+to get your letter, nothing else matters.
+
+Here are the definitions of `Const` and `Storey` for you to compare, and
+after that we will move on.
 
 ~~~ haskell
 data Storey x f a  = Storey x (f a)
