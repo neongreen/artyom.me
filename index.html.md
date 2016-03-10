@@ -52,6 +52,7 @@ It's a work in progress; the future parts will mention:
 # Stuff that is sort of related to psychology
 
   * [Unconditional empathy](/empathy-consequentialism)
+  * [The YX problem](/yx)
 
 # Stuff that is sort of related to linguistics
 

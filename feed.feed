@@ -7,6 +7,12 @@ RSS
          "https://artyom.me" Nothing Nothing Nothing]
   [ 
 
+  [ Title        "The YX problem"
+  , Link         "https://artyom.me/yx"
+  , Description  ""
+  , Guid False   "yx"
+  ] ,
+
   [ Title        "Why you don't want “irregardless” to be a word"
   , Link         "https://artyom.me/irregardless"
   , Description  "Spoiler: not because you're awesome."
