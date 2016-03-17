@@ -828,34 +828,6 @@ instance ToJSON RussianName where
 
 That's where the understanding of Aeson's inner model pays off.
 
-### Pecularities of parsing top-level values
-
-**The following only applies to versions of Aeson earlier than 0.9; in 0.9 the top-level values restriction was lifted.**
-
-In the past, some Javascript implementations abused the fact that JSON uses Javascript's syntax, and parsed JSON by simply doing `eval`, which was a horrible security breach because anyone could give some code instead of JSON and get it executed by the “parser”. The solution was to forbid parsing of any top-level value which isn't an array or object, and so this fails:
-
-~~~ {.haskell .repl}
-> decode "3" :: Maybe Int
-Nothing
-~~~
-
-And so does this:
-
-~~~ {.haskell .repl}
-> decode "3" :: Maybe Value
-Nothing
-~~~
-
-To get around it, you have to use the [`value`][] parser (which is an actual Attoparsec parser):
-
-~~~ {.haskell .repl}
-> import Data.Attoparsec.ByteString
-> import Data.Aeson.Parser
-
-> parseOnly value "3"
-Right (Number 3.0)
-~~~
-
 ### Records and JSON: generics
 
 When you don't care about doing any postprocessing, or handling optional fields, or anything of the sort, you can use generics to make your types instances of `ToJSON` and `FromJSON` without writing *any* boilerplate code, which is really nice. (This trick depends on GHC knowing the internals of your data types and willing to share them with Aeson.)
