@@ -2217,18 +2217,18 @@ use... Anyway, here's the first bunch.
 
     ~~~ {.haskell .repl}
     > [0..10] & ix 10 <%~ negate
-    (-10, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, -10])
+    (-10, [0,1,2,3,4,5,6,7,8,9,-10])
     ~~~
 
     As there's no single “new” value in case of a traversal, you can't use
     `<%~` on traversals (well, or you can but you'll stumble upon the
     `Monoid` problem).
 
-  * `<<%~` is `over` which returns the *old* value:
+  * `<<%~` is like `<%~`, but it returns the *old* value:
 
     ~~~ {.haskell .repl}
-    > [0..10] & ix 10 <%~ negate
-    (10, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, -10])
+    > [0..10] & ix 10 <<%~ negate
+    (10, [0,1,2,3,4,5,6,7,8,9,-10])
     ~~~
 
   * Instead of `%`, you can put in `+`, `-`, `*`, `//`, `^`, `||`, `<>` and
@@ -2331,8 +2331,6 @@ Oh, and the answer to the bonus points exercise is this:
 (<%~) l f s = l ((,) <$> f <*> f) s
 ~~~
 
-(Maybe it even looks better with a lambda, I'm not sure.)
-
 And here's an even better-looking solution if you are willing to use [`&&&`][]:
 
 ~~~ haskell
@@ -2345,12 +2343,31 @@ And here's another one that I got by email after the post was published:
 (<%~) l f = l (join (,) . f)
 ~~~
 
-And while I'm at it, here's a nice one for `<<%~`:
+It's also faster because it computes the value-you-are-setting only once. All previous variants were doing this:
+
+~~~ haskell
+(<%~) l f = l (\x -> (f x, f x))
+~~~
+
+But the right thing to do is one of these:
+
+~~~ haskell
+(<%~) l f = l (\x -> let fx = f x in (fx, fx))
+
+(<%~) l f = l $ (\t -> (t, t)) . f
+~~~
+
+Okay, and while I'm at it, here's a nice one for `<<%~`:
 
 ~~~ haskell
 (<<%~) :: Lens s t a b -> (a -> b) -> s -> (a, t)
 (<<%~) l f = l ((,) <*> f)
+
+-- equivalent to ((,) <$> id <*> f)
+-- equivalent to (\x -> (x, f x))
 ~~~
+
+The answers to all other exercises are [here](http://lpaste.net/6450842794700308480).
 
 # P.S.
 
