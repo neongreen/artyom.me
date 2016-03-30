@@ -13,6 +13,7 @@ import System.FilePath
 import Text.Printf
 import Data.Time
 import Data.Foldable
+import Control.Monad
 
 import Text.RSS
 import Data.Maybe
@@ -77,7 +78,11 @@ main = do
     [] -> do
       generateRss
       generateCv
-      posts <- filter ((== ".md") . takeExtension) <$> getDirectoryContents "."
+      -- We need doesFileExist because getDirectoryContents can return
+      -- symbolic links (like “.#post.md”) that Emacs creates for some reason
+      -- and that can't be read
+      posts <- filter ((== ".md") . takeExtension) <$>
+                 (filterM doesFileExist =<< getDirectoryContents ".")
       mapM_ generatePost posts
 
 instance Read URI where
