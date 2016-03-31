@@ -6,6 +6,10 @@ pagetitle: artyom.me
 
 Here's my [CV](/cv).
 
+# Also look at my Telegram channel
+
+[Where I post stuff that is too small to be posted here.](https://telegram.me/lightgreen_life)
+
 # Haskell
 
 Haskell is awesome.
