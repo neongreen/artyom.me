@@ -1054,6 +1054,8 @@ encodePretty' (Config 8 (keyOrder ["id"])) ...
 
 (If you want more examples of [`keyOrder`][] usage, see the docs.)
 
+One last thing: by default your fields in the output won't be sorted as they are in your `data` declaration – instead, they will be sorted somewhat randomly. Unfortunately, there's no way to change it other than hardcoding the field order with `keyOrder`.
+
 ### Strictness
 
 Just for completeness, I'll also mention that there is function called [`decode'`][] which performs strict decoding of JSON, and that the documentation claims that you should use `decode` when you don't plan to access all of parsed data, and `decode'` – when you do. I haven't checked, but I believe the author.
