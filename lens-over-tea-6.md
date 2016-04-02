@@ -5,6 +5,7 @@ series:
   top: “lens over tea”
   toplink: /#lens-over-tea
   prev: /lens-over-tea-5
+  next: /lens-over-tea-7
 ---
 
 Let's take a break from weird typeclasses and delve into [Template Haskell](@w) that lens uses fairly extensively; in the end we'll have a simple implementation of `makeLenses`. This post is fairly standalone and you don't have to have read the previous 5 posts – in fact, you don't even need to know any TH. The only thing you need to know that Template Haskell is a way to generate code while your program is compiling.
