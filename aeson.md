@@ -2,6 +2,8 @@
 
 [Aeson](@hackage:aeson) is the most widely used library for parsing [JSON](@w) (in Haskell, of course, I'm not talking about the whole world). It's also hopelessly magical for people who try to learn it by looking at provided examples, and existing tutorials don't help that much, so I wrote my own. It's supposed to be the most comprehensive Aeson tutorial on the web; if there's anything missing from it, send me an email! (So far the only thing I haven't covered is using lenses with Aeson, but this is coming soon.)
 
+Note that knowing all this is *not* needed if you want to parse JSON in Haskell; if you just want to get it done – fast – then skip to the [generics](#records-and-json-generics) section. However, if you're doing some tricker JSON processing, then read it all.
+
 Here's an incomplete list of things the tutorial explains (excluding basic stuff and “how it all works inside”):
 
   * [how various types like `Bool`, `Map`, etc are represented by default](#fromjson-instances-for-other-types)
