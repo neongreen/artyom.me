@@ -7,6 +7,12 @@ RSS
          "https://artyom.me" Nothing Nothing Nothing]
   [ 
 
+  [ Title        "Telegram channel"
+  , Link         "https://telegram.me/lightgreen_life"
+  , Description  "I've got a Telegram channel where I post ideas/observations/quotes/links/etc <a href=\"https://telegram.me/lightgreen_life\">here</a>."
+  , Guid False   "Telegram/lightgreen_life"
+  ] ,
+
   [ Title        "The YX problem"
   , Link         "https://artyom.me/yx"
   , Description  ""
