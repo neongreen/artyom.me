@@ -11,11 +11,20 @@ Okay, so I never could really understand how [lens](@hackage) works. This is
 an attempt to understand lens as completely as possible, including the ideas
 behind it, the implementation, and the design choices.
 
-**Warning:** what follows is a “full page (or page and a half?) of
-disclaimers and prefaces and apologies, [which are] kinda entertaining, but
-probably a bit long” (not my quote, but I fully agree). If you don't
-*particularly* want to read disclaimers, prefaces, apologies, requirements,
-links to other tutorials and so on, you should probably
+There's also a study group on lenses [here][haskell-learning]. It's a Slack
+room where people who have passed rigorous training (i.e. bothered to send an
+email saying that they want to join) answer all your lens questions. Lenses
+are complicated and this tutorial is rather haphazard and so, if you want to
+*actually* understand lenses, going there and asking questions (or admitting
+that you're confused) is a totally rational thing to do. Also, I promise I'll
+send a postcard to everyone who joins (and tells me – I'm @neongreen there).
+
+[haskell-learning]: https://github.com/haskell-learning-group/haskell-learning-group
+
+**Warning:** what follows is a full page of disclaimers and prefaces and
+apologies, which are kinda entertaining, but probably a bit long. If you
+don't *particularly* want to read disclaimers, prefaces, apologies,
+requirements, links to other tutorials and so on, you should probably
 [skip them](#lenses-101).
 
 ---
