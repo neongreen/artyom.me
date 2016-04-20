@@ -190,6 +190,14 @@ Read next: <a href="$latest-post-link$">$latest-post-title$</a>
 </div>
 $endif$
 
+<div id="ad">
+<a href="https://github.com/haskell-learning-group/haskell-learning-group">
+Get a Haskell mentor
+</a>
+<br>
+(or help us teach other people if you don't need a mentor)
+</div>
+
 $if(comments-enabled)$
 <div id="disqus_thread"></div>
 <script>
