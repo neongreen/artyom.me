@@ -16,6 +16,7 @@ Here's an incomplete list of things the tutorial explains (excluding basic stuff
   * [representing types with many constructors](#types-with-many-constructors)
   * [dealing with nested datatypes](#nested-records)
   * [dealing with datatypes which are subsets of other datatypes](#extended-records)
+  * [dealing with unknown field names](#unknown-field-names)
   * generic encoding/decoding
       * [with generics](#records-and-json-generics)
       * [with Template Haskell](#records-and-json-template-haskell)
@@ -829,6 +830,76 @@ instance ToJSON RussianName where
 ~~~
 
 That's where the understanding of Aeson's inner model pays off.
+
+### Unknown field names
+
+Let's say you have the following data:
+
+~~~ json
+{
+    "website1.com": {
+        "/page1": 3,
+        "/page2": 4
+    },
+    "website2.com": {
+        "/page": 10
+    }
+}
+~~~
+
+And you want to parse it into a list of `Referer`s, where a `Referer` is something like this:
+
+~~~ haskell
+data Referer = Referer {
+  domain       :: String,
+  pathAccesses :: [(String, Int)] }
+  deriving (Show)
+~~~
+
+How could you do that? `.:` won't work because you don't know the field names. So, what to do?
+
+One solution would be using `parseJSON` to parse our object as a `HashMap` of `HashMap`s of `Int`s, and then apply a simple function to turn it into a list of `Referer`s:
+
+~~~ haskell
+import Data.Aeson
+import Data.Aeson.Types
+import qualified Data.HashMap.Strict as HM
+
+parseReferers :: Value -> Parser [Referer]
+parseReferers p =
+  -- Convert each “accesses” object to a list of pairs, and create a Referrer.
+  map (\(domain, accesses) -> Referer domain (HM.toList accesses)) .
+  -- Turn the HashMap into a list of (domain, accesses) pairs.
+  -- Each “accesses” object looks like {"/page1": 3, ...}.
+  HM.toList <$>
+  -- Parse our data into a HashMap String (HashMap String Int).
+  parseJSON p
+~~~
+
+Another solution involves processing the `Object` (i.e. a `HashMap Text Value`) directly – this way we can avoid the intermediate step of converting a `HashMap Text` to a `HashMap String`, which makes the code faster:
+
+~~~ haskell
+import Data.Traversable
+import Data.Aeson
+import Data.Aeson.Types
+import qualified Data.Text as T
+import qualified Data.HashMap.Strict as HM
+
+parseReferers :: Value -> Parser [Referer]
+parseReferers =
+  -- We're expecting an object: {"website1.com": {...}, ...}
+  withObject "referers" $ \o ->
+    -- Now we have 'o', which is a HashMap. We can use HM.toList to turn it
+    -- into a list of pairs (domain, referer) and then parse each referer:
+    for (HM.toList o) $ \(domain, referer) -> do
+      -- accesses :: [(Text, Int)]
+      accesses <- HM.toList <$> parseJSON referer
+      -- accesses' :: [(String, Int)]
+      let accesses' = map (\(page, n) -> (T.unpack page, n)) accesses
+      return $ Referer {
+        domain       = T.unpack domain,
+        pathAccesses = accesses' }
+~~~
 
 ### Records and JSON: generics
 
