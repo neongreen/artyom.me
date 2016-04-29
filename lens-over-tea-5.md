@@ -106,15 +106,15 @@ After `lmap` it would look like this:
           ‾‾‾‾‾|   |aaaaaaaa
                x-----------x
 
-So, we'll give this box to the iso, the iso would apply `s -> a` to it, and we would have an `s -> a` pipe in our disposal.
+So, we'll give this box to the iso, the iso would apply `s -> a` to it, and we would have an `s -> a` pipe at our disposal.
 
 Here's the same thing but without pictures:
 
 ~~~ haskell
-lmap :: (s -> a) -> p a (f b) -> p s (f t)
+lmap :: (s -> a) -> p a (f b) -> p s (f b)
 ~~~
 
-The result, `p s (f t)`, has to hold `s -> a` somewhere and can ignore `(f t)`. Our box, `Foo`, shall look as follows:
+The result, `p s (f b)`, has to hold `s -> a` somewhere and can ignore `(f b)`. Our box, `Foo`, shall look as follows:
 
 ~~~ haskell
 -- “s” = input
@@ -128,10 +128,10 @@ unFoo :: Foo a s x -> (s -> a)
 Replacing `p` with `Foo a` makes `lmap` look like this:
 
 ~~~ haskell
-lmap :: (s -> a) -> Foo a a (f b) -> Foo a s (f t)
+lmap :: (s -> a) -> Foo a a (f b) -> Foo a s (f b)
 ~~~
 
-We can get `Foo a a (f b)` by wrapping `id` into `Foo`, and we can get `s -> a` out of `Foo a s (f t)` by using `unFoo`. Cool.
+We can get `Foo a a (f b)` by wrapping `id` into `Foo`, and we can get `s -> a` out of `Foo a s (f b)` by using `unFoo`. Cool.
 
 `Foo` is actually called [`Forget`][], by the way.
 
