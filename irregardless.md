@@ -64,6 +64,12 @@ And you know what? Normally, illogical things and exceptions would die on their 
 
 ## Related links
 
+Steven Pinker's “The Language Instinct” has [a chapter](http://www.sociolinguistics.uottawa.ca/lin7942/readings/Pinker.1994.pdf) dedicated to this:
+
+> Imagine that you are watching a nature documentary. The video shows the usual gorgeous footage of animals in their natural habitats. But the voiceover reports some troubling facts. Dolphins do not execute their swimming strokes properly. White-crowned sparrows carelessly debase their calls. Chickadees' nests are incorrectly constructed, pandas hold bamboo in the wrong paw, the song of the humpback whale contains several well-known errors, and monkeys' cries have been in a state of chaos and degeneration for hundreds of years. Your reaction would probably be, What on earth could it mean for the song of the humpback whale to contain an “error”? Isn't the song of the humpback whale whatever the humpback whale decides to sing? Who is this announcer, anyway?
+>
+> But for human language, most people think that the same pronouncements not only are meaningful but are cause for alarm. Johnny can't construct a grammatical sentence. As educational standards decline and pop culture disseminates the inarticulate ravings and unintelligible patois of surfers, jocks, and valley girls, we are turning into a nation of functional illiterates: misusing *hopefully*, confusing *lie* and *lay*, treating *data* as a singular noun, letting our participles dangle. English itself will steadily decay unless we get back to basics and start to respect our language again.
+
 [“Word rage – not!”](http://itre.cis.upenn.edu/~myl/languagelog/archives/004167.html) discusses the same thing but from a slightly different viewpoint – it's not merely about being smart or stupid, but also about being *somebody who cares about such things*. (And once you have made something a [part of your identity][identity], you lose the ability to think about it clearly.)
 
 [identity]: http://www.paulgraham.com/identity.html
