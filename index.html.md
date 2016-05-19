@@ -12,7 +12,13 @@ Here's my [CV](/cv).
 
 # Haskell
 
-Haskell is awesome.
+I've written some libraries:
+
+  * [microlens](@gh:aelve/microlens), a small lens-compatible library for lenses. Should be useful for library writers and stuff.
+
+  * [ilist](@gh:aelve/ilist), a library with optimised index-related functions for lists – you don't need those often, but if you do, this library is probably the best place to get them.
+
+I also started the [/r/haskelltil](http://reddit.com/r/haskelltil) subreddit (for Haskell tips and tricks and code samples and oddities and curiosities and idioms and interesting facts and everything that is short enough that you'd be ashamed to submit it to [/r/haskell](http://reddit.com/r/haskell) or write about it at your blog). It didn't catch on.
 
 ## lens over tea
 
@@ -81,11 +87,7 @@ I'm not learning Racket anymore, but I might start again in the future.
 
 # Stuff I did
 
-  * [microlens](@gh:aelve/microlens), a small lens-compatible library for lenses (in Haskell). Should be useful for library writers and stuff.
-
   * [This site](/inside). Yes, it runs on a couple of shell scripts, but I thought I'd explain them anyway.
-
-  * [/r/haskelltil](http://reddit.com/r/haskelltil), a subreddit for Haskell tips and tricks and code samples and oddities and curiosities and idioms and interesting facts and everything that is short enough that you'd be ashamed to submit it to [/r/haskell](http://reddit.com/r/haskell) or write about it at your blog. Okay, well, at least I started it.
 
 # Mindless compilations
 
