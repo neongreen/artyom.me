@@ -8,7 +8,33 @@ Here's my [CV](/cv).
 
 # Also look at my Telegram channel
 
-[Where I post stuff that is too small to be posted here.](https://telegram.me/lightgreen_life)
+[Here it is.](https://telegram.me/lightgreen_life)
+
+Some of the posts:
+
+  * [How discounts, loyalty cards and customer questionnaires only exists for the needs of the business, not because they're being nice](https://telegram.me/lightgreen_life/8)
+
+  * [A long, multi-part rant about how bureaucracy has infected programming](https://telegram.me/lightgreen_life/73)
+
+  * [A comparison of Haskell and guitar](https://telegram.me/lightgreen_life/56)
+
+  * [An ELI5 explanation of list fusion in Haskell](https://telegram.me/lightgreen_life/58)
+
+  * [An amazing lifehack](https://telegram.me/lightgreen_life/60)
+
+  * [A theory of boundaries](https://telegram.me/lightgreen_life/44)
+
+  * An ad for Homestuck: [in all games invertory is basically an array, what if it was some other data structure?](https://telegram.me/lightgreen_life/15)
+
+  * [How people feel about cultural appropriation](https://telegram.me/lightgreen_life/28) (and it makes sense)
+
+  * [Some night photos](https://telegram.me/lightgreen_life/69)
+
+  * App/site/project/etc ideas:
+      [one](https://telegram.me/lightgreen_life/31),
+      [two](https://telegram.me/lightgreen_life/25),
+      [three](https://telegram.me/lightgreen_life/38),
+      [four-five-six](https://telegram.me/lightgreen_life/64)
 
 # Haskell
 
