@@ -2389,7 +2389,7 @@ Don't use microlens for this series, tho; many of things I'm covering here are l
 [`First`]: http://hackage.haskell.org/package/base/docs/Data-Monoid.html#t:First
 [`Any`]: http://hackage.haskell.org/package/base/docs/Data-Monoid.html#t:Any
 [`Endo`]: http://hackage.haskell.org/package/base/docs/Data-Monoid.html#t:Endo
-[`Compose`]: http://hackage.haskell.org/package/transformers/docs/Data-Functor-Compose.html#t:Compose
+[`Compose`]: https://hackage.haskell.org/package/base/docs/Data-Functor-Compose.html#t:Compose
 [`Product`]: http://hackage.haskell.org/package/transformers/docs/Data-Functor-Product.html#t:Product
 [`traverse`]: http://hackage.haskell.org/package/base/docs/Data-Traversable.html#v:traverse
 [`Traversal`]: http://hackage.haskell.org/package/lens/docs/Control-Lens-Traversal.html#t:Traversal
