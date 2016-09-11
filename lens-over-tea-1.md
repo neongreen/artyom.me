@@ -9,25 +9,7 @@ series:
 
 Okay, so I never could really understand how [lens](@hackage) works. This is
 an attempt to understand lens as completely as possible, including the ideas
-behind it, the implementation, and the design choices.
-
-There's also a study group on lenses [here][haskell-learning]. It's a Slack
-room where people who have passed rigorous training (i.e. bothered to send an
-email saying that they want to join) answer all your lens questions. Lenses
-are complicated and this tutorial is rather haphazard and so, if you want to
-*actually* understand lenses, going there and asking questions (or admitting
-that you're confused) is a totally rational thing to do. Also, I promise I'll
-send a postcard to everyone who joins (and tells me – I'm @neongreen there).
-
-[haskell-learning]: https://github.com/haskell-learning-group/haskell-learning-group
-
-**Warning:** what follows is a full page of disclaimers and prefaces and
-apologies, which are kinda entertaining, but probably a bit long. If you
-don't *particularly* want to read disclaimers, prefaces, apologies,
-requirements, links to other tutorials and so on, you should probably
-[skip them](#lenses-101).
-
----
+behind it, the implementation, and the design choices. (A later update: it's not that good for actually learning how to use lenses, and frankly should be fully rewritten, but I don't have the time.)
 
 There are already articles which explain how to *use* lenses and how to
 *make* basic lenses, but some things don't seem to be explained well
@@ -64,25 +46,13 @@ you don't know these either, read
 [adit.io FAM]: http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html
 
 To be honest, tho, you probably shouldn't be touching lens until you know
-those things... unless you only need lenses to do record updates and other
+those things – unless you only need lenses to do record updates and other
 simple stuff, in which case read
 [Gabriel Gonzales's lens tutorial][haskellforall lenses] and the
 [Wikibook chapter on lenses][Wikibook lenses] (which is actually a good lenses tutorial in general).
 
 [haskellforall lenses]: http://www.haskellforall.com/2013/05/program-imperatively-using-haskell.html
 [Wikibook lenses]: https://en.wikibooks.org/wiki/Haskell/Lenses_and_functional_references
-
-By the way, I dislike sentences which take more than 1 try to parse. If
-anything took you more than 1 try, tell me and I'll try to fix it. The
-easiest way to complain (if you haven't noticed the banner on the top of this
-page) is to select the offending text and press Ctrl-Enter. If you couldn't understand some explanation from the 1st try, complain as well.
-
-(Unless you're sleepy/tired, of course, in which case it's your own fault
-that you can't understand anything and you should go to sleep instead of
-reading articles about lenses. ~~Don't be such a nerd~~ Nerds are obviously
-cool, so *be* a nerd, just don't forget to sleep from time to time.)
-
-[Full disclosure: the previous paragraph was written at 5am.]
 
 # Disclaimers
 
