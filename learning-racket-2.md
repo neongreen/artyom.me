@@ -1184,7 +1184,7 @@ G'night.
 
 ...has posted a
 [comment](https://news.ycombinator.com/item?id=7652680) in which
-ne's nitpicking about `define-syntax-rule`; in particular, it seems to
+they're nitpicking about `define-syntax-rule`; in particular, it seems to
 be that `define-syntax-rule` works with patterns just fine.
 
 Hm!

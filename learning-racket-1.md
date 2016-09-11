@@ -7,7 +7,7 @@ series:
   next: /learning-racket-2
 ---
 
-Warning: as of January 2016, I have abandoned this series (the 1st post was written in February <u>2014</u>).
+Warning: as of January 2016, I have abandoned this series (the first post was written in February <u>2014</u>).
 
 -----------------------------------------------------------------------------
 
@@ -1530,7 +1530,7 @@ nonsense. It doesn't work.
 
 ## Philippe Meunier
 
-...has somehow found this draft and sent me a letter, in which ne noticed
+...has somehow found this draft and sent me a letter, in which he noticed
 that:
 
   * > If you want “let with argument order reversed”, you can write a macro.
@@ -1548,7 +1548,7 @@ that:
 
 ...has posted a
 [comment](http://www.reddit.com/r/Racket/comments/231sph/a_haskell_programmers_enthusiastic_foray_into/cgst4s2)
-on Reddit, in which ne notes that:
+on Reddit, in which he notes that:
 
   * > Modern Racket style leans on nested `define` instead of the various
     forms of `let`.

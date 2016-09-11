@@ -603,7 +603,7 @@ map2TH = [signature, function]
     (xPat, xExp) = (VarP (mkName "x"), VarE (mkName "x"))
     (xsPat, xsExp) = (VarP (mkName "xs"), VarE (mkName "xs"))
 
-    -- 1st equation
+    -- first equation
     eq1 = Clause
             -- arguments
             [fPat, InfixP xPat '(:) xsPat]
@@ -614,7 +614,7 @@ map2TH = [signature, function]
             -- no “where” block
             []
 
-    -- 2nd equation
+    -- second equation
     eq2 = Clause [WildP, ConP '[] []]
                  (NormalB (ConE '[]))
                  []
@@ -648,7 +648,7 @@ Now you should be ~~expecting me to tell you answers to~~ asking yourself severa
   2. What kind of a non-informative name is that?
   3. Also, why `[d| |]` instead of `[| |]` as the quote says?
 
-The answer to the 3rd question is easy. There are 5 types of brackets:
+The answer to the third question is easy. There are 5 types of brackets:
 
   * `[| |]` (and `[e| |]`) parse their contents as an expression, and return `Q Exp`
 
@@ -660,9 +660,9 @@ The answer to the 3rd question is easy. There are 5 types of brackets:
 
   * `[someFunc| |] ` calls `someFunc` to parse the contents and generate code; the contents themselves don't have to be Haskell code, they can be HTML, or C code, or a regular expression, or whatever
 
-The answer to the 2nd question is easy too (I think) – my theory is that TH code is usually messy and awkward and awful, and things with `Q` occur very often there, so the shortest name possible was chosen. In fact, even `Q [Dec]` is too long – we have a type synonym for that, [`DecsQ`][]. (Try to guess the synonyms for `Q Exp` and `Q Pat`.)
+The answer to the second question is easy too (I think) – my theory is that TH code is usually messy and awkward and awful, and things with `Q` occur very often there, so the shortest name possible was chosen. In fact, even `Q [Dec]` is too long – we have a type synonym for that, [`DecsQ`][]. (Try to guess the synonyms for `Q Exp` and `Q Pat`.)
 
-Now we come to the 1st question. What's `Q`?
+Now we come to the first question. What's `Q`?
 
 ## The `Q` monad
 

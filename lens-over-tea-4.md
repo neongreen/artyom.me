@@ -292,7 +292,7 @@ enum :: Enum a => Lens' Int a
 enum f = \s -> fromEnum <$> f (toEnum s)
 ~~~
 
-Now let's consider 2 cases – the 1st is when we use it to turn `s` into `a`, the 2nd is when we use the iso to turn `b` into `t`. The definition we already have works well enough for the former case, but in the latter case `s` doesn't even exist:
+Now let's consider 2 cases – the first is when we use it to turn `s` into `a`, the second is when we use the iso to turn `b` into `t`. The definition we already have works well enough for the former case, but in the latter case `s` doesn't even exist:
 
 ~~~ haskell
 enum f = \_ -> fromEnum <$> f ???

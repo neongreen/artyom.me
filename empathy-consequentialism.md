@@ -18,11 +18,11 @@ In fact, I went even further – I said that I'd agree to experience any amount 
 
 What I also remember is why I held this position. It wasn't conceived as a way to get easy money – rather, it was a reaction to my dad's answer to the same question. To be more precise,
 
-  * first I randomly asked my dad whether ne'd agree to experience pain for money if later it was erased from nir memory
+  * first I randomly asked my dad whether he'd agree to experience pain for money if later it was erased from his memory
 
   * then dad said “of course not”
 
-  * and only then I decided that a) dad was stupid and didn't have any arguments against it, b) wasn't even a consequentialist, and c) but I wasn't like nem, and I would agree, because hey, easy money
+  * and only then I decided that a) dad was stupid and didn't have any arguments against it, b) wasn't even a consequentialist, and c) but I wasn't like him, and I would agree, because hey, easy money
 
 This bit is important. I didn't randomly think “getting tortured could be a good way to make money, I wish somebody offered that deal to me”; I had to decide that in order to maintain consistency. In reality I *thought* that anybody who wouldn't agree was stupid, but I wasn't wishing “oh if only somebody would come and offer me this choice”.
 
@@ -53,8 +53,8 @@ And now let's see how it all falls apart.
 The same logic allows us to torture old ladies who live alone:
 
   * Initial state: an old lady lives alone
-  * State A: a week later, the old lady is dead (and you have tortured nem meanwhile)
-  * State B: a week later, the old lady is dead (and you haven't done anything to nem)
+  * State A: a week later, the old lady is dead (and you have tortured her meanwhile)
+  * State B: a week later, the old lady is dead (and you haven't done anything to her)
 
 In fact, it allows *anything:*
 
@@ -87,7 +87,7 @@ Here's a laundry list of things empathy can prevent/mitigate:
 
 But most people aren't psychopaths, they do have empathy. How could've empathy prevented slavery?
 
-And the answer is: while most people do have empathy, there are situations when it can turn off. Psychopaths [can turn it off at will][empathy BBC]; for most people empathy depends on proximity (that's why you'd spend effort to save a drowning child personally but won't bother to donate money to save a child in Africa), or being able to see the other person (which is why articles about starving children always have photos of those children); but even if you know the other person and ne's near you, the empathy can still turn off in presence of a *justification*. Take the rape scenario – the details of how the magic drug works don't matter, what matters is that saying “assume she'll be given a magic drug” is perceived as “assume that in this scenario you can disregard rape”, and once the brain thinks it *can disregard*, the empathy is off.
+And the answer is: while most people do have empathy, there are situations when it can turn off. Psychopaths [can turn it off at will][empathy BBC]; for most people empathy depends on proximity (that's why you'd spend effort to save a drowning child personally but won't bother to donate money to save a child in Africa), or being able to see the other person (which is why articles about starving children always have photos of those children); but even if you know the other person and they're near you, the empathy can still turn off in presence of a *justification*. Take the rape scenario – the details of how the magic drug works don't matter, what matters is that saying “assume she'll be given a magic drug” is perceived as “assume that in this scenario you can disregard rape”, and once the brain thinks it *can disregard*, the empathy is off.
 
 [empathy BBC]: http://www.bbc.com/news/science-environment-23431793
 
@@ -97,16 +97,16 @@ More scenarios:
 
   * Similarly, after making that sexist joke you could be worried about upsetting someone, but, luckily, women aren't quite people (they only think about shoes and other girly things), so you can keep laughing.
 
-  * And if you don't think that women aren't quite people, you can still tell them that they are wrong to be upset because everything you said is true. How convenient that you don't feel bad about upsetting someone if ne's *wrong* to be upset, isn't it. (I'm not even talking about the opposite thing feminists have about men and the patriarchy.)
+  * And if you don't think that women aren't quite people, you can still tell them that they are wrong to be upset because everything you said is true. How convenient that you don't feel bad about upsetting someone if they're *wrong* to be upset, isn't it. (I'm not even talking about the opposite thing feminists have about men and the patriarchy.)
 
   * Homophobes are savages, so their feelings are completely irrelevant. Would be really nice if they all were fired from their jobs, too. (Yes, I'm talking about Brendan Eich.) Even if some of them aren't savages, they are still evil people who deserve it.
 
-  * Your child doesn't want to play violin, but it's alright, ne'll thank you later – and ne hates the summer camp so far but ne'll probably start liking it after a while, so it's okay too.
+  * Your child doesn't want to play violin, but it's alright, they'll thank you later – and they hate the summer camp so far but they'll probably start liking it after a while, so it's okay too.
 
-  * Another instance of “you'll thank me later” being an effective justification: your boyfriend has social anxiety, but you keep pushing nem to talk to people more and you always remind nem that if ne keeps ordering pizza online (and not by phone) ne'll be stuck with nir fear of people forever. This eventually leads to your boyfriend breaking up with you, which is totally not your fault – you wanted nem to become better, after all.
+  * Another instance of “you'll thank me later” being an effective justification: your boyfriend has social anxiety, but you keep pushing him to talk to people more and you always remind him that if he keeps ordering pizza online (and not by phone) he'll be stuck with his fear of people forever. This eventually leads to your boyfriend breaking up with you, which is totally not your fault – you wanted him to become better, after all.
 
   * You told me something scary, and then it turned out that it was a joke. Yes, I was scared for a while, but since it was temporary (you admitted that it was a joke in about half an hour), you don't feel guilty.
 
-  * Finally, you told your sister that there are worms living in nir gut, and if if ne doesn't believe you ne can google it. Ne believed you, and was disgusted and sort of upset afterwards. You laughed at nem for being silly and so bothered about something that *shouldn't* bother nem.
+  * Finally, you told your sister that there are worms living in her gut, and if if she doesn't believe you she can google it. She believed you, and was disgusted and sort of upset afterwards. You laughed at her for being silly and so bothered about something that *shouldn't* bother her.
 
 The point isn't that you can't boycott homophobes for being homophobes. The point is that if your empathy didn't automatically turn off, you probably *wouldn't have*, despite still thinking that homophobia is bad. And before you say “then maybe empathy isn't so good after all”, consider that the very same empathy would've prevented homophobes from hating gays, too. Yes, you could make an Official List Of Acceptable Targets – homophobia is bad, hating homophobes is good – but the message you're sending to the next generation is “it's okay to hate people when your hatred is justified”, and this is *exactly* the reason why homophobia and all other prejudices can exist. The only way out is to promote unconditional empathy. Everything else is just a symptom.

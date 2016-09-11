@@ -51,7 +51,7 @@ A bit of history:
   * Then Russel O'Connor [noticed][O'Connor lens] that van Laarhoven lenses
     could be easily generalised by changing the type from `(a -> f a) -> s ->
     f s` to `(a -> f b) -> s -> f t`, and Edward Kmett developed the concept
-    in nir [Mirrored Lenses][] post (introducing `Getting` and `Setting`
+    in his [Mirrored Lenses][] post (introducing `Getting` and `Setting`
     along the way).
 
 [Laarhoven lens]: http://www.twanvl.nl/blog/haskell/cps-functional-references
@@ -176,7 +176,7 @@ Final definition of `(@.)`:
   , modify = modify _b . modify _c }
 ~~~
 
-And here's an example of how to use lens composition to work with the 1st
+And here's an example of how to use lens composition to work with the first
 element of a pair in a nested list (row x, column y) [darn, so that's
 probably why tutorial writers start with records – to be able to use more
 interesting lenses in examples]. Assume that `^.` (reminding: that's
@@ -390,8 +390,8 @@ order of composed lenses):
 , [ (0,3), (1,3), (2,3), (3  ,3) ] ]
 ~~~
 
-Now the flow is right – in the 1st example `field` “goes” to `ix 1`, then to
-`ix 3`, then to `_1` and we get the result. In the 2nd example `* 100`
+Now the flow is right – in the first example `field` “goes” to `ix 1`, then to
+`ix 3`, then to `_1` and we get the result. In the second example `* 100`
 “passes” thru a chain of lenses which turn it into a more and more complex
 modifier, until it finally gets applied to `field`.
 
@@ -647,7 +647,7 @@ type Traversal s t a b = forall f. Applicative f => (a -> f b) -> s -> f t
 ~~~
 
 Now, what this law implies is that you can't change the shape of the
-structure. Omitting every 2nd element of a list isn't okay; duplicating
+structure. Omitting every second element of a list isn't okay; duplicating
 elements isn't okay either; even things which technically don't change the
 shape are wrong – for instance, a traversal of a list can't reverse it (but
 it can process the list in reversed order or even random order).
@@ -787,7 +787,7 @@ it... Aha! [Here it is.][SO failing question]
 
 [SO failing question]: http://stackoverflow.com/questions/27138856/why-does-failing-from-lens-produce-invalid-traversals
 
-I'll retell it here for you; all credit goes to— do I link to Twitter, or SO profile, or Github? and do I use nir real name or just nick? decisions, decisions— whatever, [bennofs][].
+I'll retell it here for you; all credit goes to— do I link to Twitter, or SO profile, or Github? and do I use their real name or just nick? decisions, decisions— whatever, [bennofs][].
 
 [bennofs]: http://stackoverflow.com/users/2494803/bennofs
 
@@ -837,7 +837,7 @@ And now unwrap it:
 
 We should've gotten `[Wrapped Toy]` back, but got just `[Toy]`. Ouch.
 
-Now, what does it all have to do with the 2nd traversal law? Well, let's
+Now, what does it all have to do with the second traversal law? Well, let's
 rewrite the example using definitions of `.~` and `^..`:
 
 ~~~ haskell
@@ -997,10 +997,10 @@ traverseTwice f = T.traverse (\x -> f x *> f x)
 is disallowed.
 
 This remark was added in version 2.4, and previously “no visiting the same
-entry twice” was a separate law. [The commit][lens 3rd law] introducing the
+entry twice” was a separate law. [The commit][lens third law] introducing the
 remark is kinda concise:
 
-[lens 3rd law]: https://github.com/ekmett/lens/commit/3a2e053ea78e6d45d32da3101fc693b0ae0fd1e0
+[lens third law]: https://github.com/ekmett/lens/commit/3a2e053ea78e6d45d32da3101fc693b0ae0fd1e0
 
 > removed the third traversal law. roconnor proved it can't be infringed
 
@@ -1008,7 +1008,7 @@ I asked Edward to send me the proof, but...
 
 ~~~
 06:56 <puregreen> edwardk: have you still got that roconnor's proof that
-the (former) 3rd traversal law follows from the 2nd law? could you put it on
+the (former) 3rd traversal law follows from the second law? could you put it on
 lpaste or somewhere?
 07:00 <edwardk> puregreen: not handy
 ~~~
@@ -1062,10 +1062,10 @@ sleep deprivation. Whatever. Let's go.
 >     set l v' (set l v s) ≡ set l v' s
 >     ~~~
 
-The 3rd law seems to follow from the 2nd traversal law. I don't see why it
+The third law seems to follow from the second traversal law. I don't see why it
 doesn't. Tell me if it doesn't, so that I could be properly embarrassed.
 
-The 2nd law is not even applicable to traversals, and the 1st law is almost
+The second law is not even applicable to traversals, and the first law is almost
 not applicable.
 
 Study the 3 laws and be wise in your ways.
@@ -1105,7 +1105,7 @@ Study the 3 laws and be wise in your ways.
   * A traversal shouldn't traverse the same element twice.
 
   * Lens laws are as follows: you get what you put in, if you put what you
-    get the whole thing is still the same, and the 2nd put overwrites the 1st
+    get the whole thing is still the same, and the second put overwrites the first
     one.
 
 # Getters
@@ -1167,7 +1167,7 @@ Nothing
 "*** Exception: (^?!): empty Fold
 ~~~
 
-Okay, now you want to take the 1st key group of the binding:
+Okay, now you want to take the first key group of the binding:
 
 ~~~ {.haskell .repl}
 > takeWhile (not . isSpace) $ bindings ^?! ix "save"
@@ -1336,7 +1336,7 @@ things.
 
 Lens solves this problem by providing a (mostly) uniform vocabulary. Getting
 can fail? Use `^?`. Can't fail? `^.`. Possibly can, but you don't care?
-`^?!`. Want all elements and not only the 1st one? `^..`. After that, it's
+`^?!`. Want all elements and not only the first one? `^..`. After that, it's
 just a combination of predefined traversals, lenses, prisms, simple functions
 used with `to`, and -functions ending in `Of`- (no idea how to call
 them). The “what happens in case of a failure” and “how do I get the value”

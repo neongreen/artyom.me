@@ -4,15 +4,11 @@
 unfinished: true
 ---
 
-First of all: this isn't going to be Haskell propaganda. I like Haskell, but it's not the primary reason I'm writing this:
-
-  * I hate stupid “Haskell is so awesome” spiels (you can find a lot of them out there) so I wanted to write something more-or-less objective
-
-  * I like writing, especially when it only requires typing and doesn't require that much thinking (as long as I notice whenever I try to use weasel words)
+First of all: this isn't going to be Haskell propaganda. I like Haskell, but the primary reason I'm writing this is that I dislike “Haskell is so awesome it'll expand your mind and concurrency is so simple you should totally learn it” spiels (you can find a lot of them out there) so I wanted to try writing something less biased.
 
 -----------------------------------------------------------------------------
 
-A technically correct but useless answer to the question of whether you should learn Haskell or not is that you shouldn't – there are most likely much better things in terms of cost/utility for you to spend your time on (things not related to programming or even computers). So, I'm going to assume that you want to learn *some* programming language, and go from there.
+It's hard to say whether you should learn Haskell (or any programming language, for that matter) when the alternatives include  So, I'm going to assume that you want to learn *some* programming language, and go from there.
 
 # Would you like Haskell?
 
@@ -38,7 +34,7 @@ On the other hand, for many people an important factor is “how easy it is to g
 
 * Writing small, one-off programs/scripts is often annoying, because:
 
-    * libraries are optimised too much for “professional” usage and not enough – for messing around
+    * libraries are optimised too much for “professional” usage and not enough for exploring/messing around
     * mutable variables are inconvenient to use
     * there's no automatic coercion between e.g. numeric types
     * you have to import a dozen modules to write anything remotely complicated

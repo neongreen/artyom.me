@@ -181,7 +181,7 @@ users of the interpreter, they can't open any files which aren't in the
 current directory; but if they also have access to [generics][`Data.Data`],
 they can in theory replace the stored file path in abstract `File` datatype,
 even if actual constructors aren't exported. For example, this evil function
-replaces `Int`s (only the ones on the “1st level”) with `666`:
+replaces `Int`s (only the ones on the “first level”) with `666`:
 
 ~~~ haskell
 import Data.Data
@@ -257,7 +257,7 @@ Or perhaps I can write an flawed import list parser which disallows almost all i
 
 This isn't even an “idea” as much as a “wish”, but still... It would be nice
 if the attacker had to find a Pretty Clever Way to generate some constant
-before ne can read the file. Using tricky math or something.
+before they can read the file. Using tricky math or something.
 
 Hm.
 
@@ -471,7 +471,7 @@ Phew, I've got a list of imports, now I can use it to Keep Evil Stuff Off:
 It can be easily done using only `elem` and a list of “separator” characters,
 but I'm going to use a regex instead. Why? Well, I can't use [`isSpace`][],
 because it *does* recognise Unicode spaces, but using something like
-`"... \r\n\t"` instead would be suspicious – “why is ne using this when
+`"... \r\n\t"` instead would be suspicious – “why are they using this when
 there's `isSpace`? Hm-m...”. Regexes aren't suspicious because I'm already
 using them for everything else, and not everybody knows that `[:space:]` and
 `isSpace` have different behavior.
@@ -492,7 +492,7 @@ the string and count words:
 Now, how big should be the word limit? With non-breaking spaces, `import
 Data.ByteString.Internal` is one “word”. `answer =` is another. After that
 should follow something like `inlinePerformIO $ readFile "flag"`, which (with
-spaces removed) would be the 3rd word... Y'know, I think ~~640 kB~~ 3 words
+spaces removed) would be the third word... Y'know, I think ~~640 kB~~ 3 words
 ought to be enough for anybody.
 
 ~~~

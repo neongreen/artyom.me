@@ -22,11 +22,11 @@ okay, so there was a thread with questions on r/haskell recently, and someone wh
 > 
 > 10) Who's ass is it most prudent to kiss in the haskell community?
 
-of course, ne got downvoted into oblivion and people were responding like this:
+of course, they got downvoted into oblivion and people were responding like this:
 
 > overall i think you will find your general attitude in this comment is not how this community operates. you should pay attention to the mores of a community before stomping in
 
-I, for one, enjoyed that delightfully out-of-place shitpost (I need a healthy dose of 4chan in my life, really), upvoted it (which made no difference whatsoever), and started writing a response, but it got too long and I also got afraid that nobody would ever see it, so I decided to publish it here, because maybe – just maybe – I'm not the only person who needs 4chan in nir life
+I, for one, enjoyed that delightfully out-of-place shitpost (I need a healthy dose of 4chan in my life, really), upvoted it (which made no difference whatsoever), and started writing a response, but it got too long and I also got afraid that nobody would ever see it, so I decided to publish it here, because maybe – just maybe – I'm not the only person who needs 4chan in his life
 
 (I wouldn't ever dare submit it on r/haskell, but I do wonder what the comments would be if I did)
 
@@ -76,7 +76,7 @@ I'll just stop here
 
 not generally, no. unless they are lucky or not mediocre (I am lucky, for instance). you might get lucky too if there's a Haskell job near you and they don't let people work remotely, or if you're the only haskeller in your country, or something like that, but generally there's a lot of people who are good at Haskell and are desperate to escape the world of javatards
 
-I think some guy recently posted a Haskell job on reddit and then said that out of 40 candidates ne could pick like *anyone* and they were all good and oh how much better it is than ruby where out of 200 candidates 150 would be shitty. yeah, it's awesome, but for you it means that at any moment there are 40 good haskellers around who try to snatch all Haskell jobs (and I don't think you're going to beat them)
+I think some guy recently posted a Haskell job on reddit and then said that out of 40 candidates they could pick like *anyone* and they were all good and oh how much better it is than ruby where out of 200 candidates 150 would be shitty. yeah, it's awesome, but for you it means that at any moment there are 40 good haskellers around who try to snatch all Haskell jobs (and I don't think you're going to beat them)
 
 > 7) How to subtly tell non-haskellers that you're better than them without looking like a dickwad?
 
@@ -94,7 +94,7 @@ mention a couple of times how Haskell is an awesome first language and that the 
 
 > 8) Top 3 (different) haskell books/resources?
 
-1. bitemyapp's [guide](https://github.com/bitemyapp/learnhaskell) is probably the ultimate meta-resource, and ne's also writing a [book](http://haskellbook.com/) which is going to be the Best Pedagogically Sound Book Ever but I haven't read it yet so I won't be recommending it (bitemyapp also likes to complain about LYAH and RWH but RWH seemed pretty fine to me, so I don't know)
+1. bitemyapp's [guide](https://github.com/bitemyapp/learnhaskell) is probably the ultimate meta-resource, and he's also writing a [book](http://haskellbook.com/) which is going to be the Best Pedagogically Sound Book Ever but I haven't read it yet so I won't be recommending it (bitemyapp also likes to complain about LYAH and RWH but RWH seemed pretty fine to me, so I don't know)
 
 2. [Haskell Fast & Hard](https://www.fpcomplete.com/school/starting-with-haskell/haskell-fast-hard) doesn't look bad
 
@@ -121,12 +121,12 @@ I guess I'd know if I spent more time on #haskell or attending hackathons and ot
 
 that's a sorta vague question and I wish I knew how to interpret “prudent” here... okay, let's see
 
-there's Gabriel Gonzalez (aka Tekmo), who is known for proving nir code in nir head / using a piece of paper (which sounds cool and “nice, this guy is actually proving nir code before releasing it”) as well as writing [pipes](@hackage) and being the underdog of the pipes–conduit competition. [conduit](@hackage) is a similar library written by Michael Snoyman, who is
+there's Gabriel Gonzalez (aka Tekmo), who is known for proving his code in his head / using a piece of paper (which sounds cool and “nice, this guy is actually proving his code before releasing it”) as well as writing [pipes](@hackage) and being the underdog of the pipes–conduit competition. [conduit](@hackage) is a similar library written by Michael Snoyman, who is
 
   * not as young
   * not as humble
-  * isn't widely known to prove code in nir head
-  * is automatically vaguely evil because ne works for dirty capitalists, i.e. [FPComplete](https://fpcomplete.com) (while Tekmo is a Twitter engineer but doesn't advertise it much so it doesn't count)
+  * isn't widely known to prove code in his head
+  * is automatically vaguely evil because he works for dirty capitalists, i.e. [FPComplete](https://fpcomplete.com) (while Tekmo is a Twitter engineer but doesn't advertise it much so it doesn't count)
   * is additionally evil for caring about “production” too much which results in messy enterprisey web frameworks like Yesod (while everything Tekmo writes is pure, proven, self-contained, non-messy, precise, and mathematical – which we all love, or at least I do)
 
 we've also got Edward Kmett who maintains [more libraries than everyone else](http://hackage.haskell.org/user/EdwardKmett) and also covers *too darn much* with those libraries:
@@ -140,7 +140,7 @@ we've also got Edward Kmett who maintains [more libraries than everyone else](ht
   * [an alternative to pipes/conduit](@hackage:machines) which nobody knows how to use but everyone secretly hopes is going to blow pipes/conduit out of water
   * [a linear algebra package](@hackage:linear)
 
-ne's like Leonardo da Vinci a bit but without that huge beard
+he's like Leonardo da Vinci a bit but without that huge beard
 
 (also there's a whole irc channel – #haskell-lens – devoted to things Edward does or plays with)
 

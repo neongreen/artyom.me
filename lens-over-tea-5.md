@@ -502,7 +502,7 @@ So, a prism adds 2 parts to the original `a -> b` box:
   * an output filter that turns `b` into `t`
   * a mechanism that lets us bypass the box
 
-We already know how to do the 1st thing – just use `rmap`. The 2nd thing is new; we could write it like this:
+We already know how to do the first thing – just use `rmap`. The second thing is new; we could write it like this:
 
 ~~~ haskell
 class Bypass p where

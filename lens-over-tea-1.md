@@ -174,7 +174,7 @@ ix index f list
 
   * [`second`][] is a function from `Data.Bifunctor` (you can find it in
     [bifunctors](@hackage) if you're not on GHC 7.10 or later yet), which can
-    be used to apply a function to the 2nd element of a tuple (among other
+    be used to apply a function to the second element of a tuple (among other
     things):
 
     ~~~ {.haskell .repl}
@@ -474,7 +474,7 @@ type Lens' s a = Functor f => (a -> f a) -> s -> f s
 
 You might wonder: shouldn't it be possible to somehow reuse the `(,)`
 instance for `Functor`? After all, the functor instance for `(,)` applies the
-function to the 2nd part of the tuple:
+function to the second part of the tuple:
 
 ~~~ {.haskell .repl}
 > fmap not (1, False)
@@ -602,7 +602,7 @@ that... there's no humanitarian aid, because the box is too small for it. But
 you still insist that it *is* a box of humanitarian aid (merely containing 0
 items) and therefore you are entitled to a free delivery (because your
 country has a law stating that every citizen can use post services free of
-charge if ne's sending humanitarian aid). Your parcel is accepted, but the
+charge if they're sending humanitarian aid). Your parcel is accepted, but the
 post workers hate you. You don't care – your grandpa in Africa would love
 to get your letter, nothing else matters.
 
@@ -1077,7 +1077,7 @@ a list of lists?
 
 A-ha, so *this* is how we can find out what values `_all'` is operating on.
 To make this more convenient, let's define 2 helper functions – `toListOf`
-(to get all values) and `preview` (to get just the 1st value). Additionally,
+(to get all values) and `preview` (to get just the first value). Additionally,
 I'd like to be able to check whether there is *any* value to operate on, so I
 also want to write `has`.
 
@@ -1401,14 +1401,14 @@ toListOf l = doAppends . getConst . l (\x -> Const (JustList [x]))
 A cool thing is that the compiler already does this reordering-stuff – when
 it simplifies expressions. Let's say we're evaluating `(x ++ y) ++ z`:
 
-  * The 2nd `++` says: “let me look at the 1st element of `x ++ y` – if it
+  * The second `++` says: “let me look at the first element of `x ++ y` – if it
     exists, I'll emit it”.
 
-  * The 1st `++` says: “let me look at the 1st element of `x`”.
+  * The first `++` says: “let me look at the first element of `x`”.
 
   * Then it passes the element to the outer `++`.
 
-  * Then the outer `++` emits it and proceeds with the 2nd element.
+  * Then the outer `++` emits it and proceeds with the second element.
 
 After all this, *each* element of `x` is “looked at” twice.
 
@@ -1424,8 +1424,8 @@ with bogus steps (e.g. `[a]` being “evaluated” into `a : []`) omitted.
 First, the normal version:
 
 > * `([a, b] ++ [c, d]) ++ [e, f]`
-> * `(a : [b] ++ [c, d]) ++ [e, f]` ← Here `a` has gone thru the 1st `++`...
-> * `a : ([b] ++ [c, d]) ++ [e, f]` ← ...and only here – thru the 2nd.
+> * `(a : [b] ++ [c, d]) ++ [e, f]` ← Here `a` has gone thru the first `++`...
+> * `a : ([b] ++ [c, d]) ++ [e, f]` ← ...and only here – thru the second.
 > * `a : (b : [] ++ [c, d]) ++ [e, f]` ← Same with `b` –
 > * `a : b : ([] ++ [c, d]) ++ [e, f]` ← there are as many steps as `++`s.
 > * `a : b : [c, d] ++ [e, f]`
@@ -1617,7 +1617,7 @@ library. “What a waste of time”, you might be thinking... Sorry.
 The reason for our `each` being different from lens's `each` is that the
 `Traversable` instance for tuples isn't quite what we want – it's more
 general (`Traversable ((,) a)`), but the price to pay is that `traverse` can
-only work with the 2nd element. Just in case, here's the definition:
+only work with the second element. Just in case, here's the definition:
 
 ~~~ haskell
 instance Traversable ((,) a) where
@@ -1818,7 +1818,7 @@ default each :: (Traversable g, s ~ g a, t ~ g b)
 Why isn't the latter used instead of the former?
 
 Instead of spending a day thinking about it and testing various theories, I
-asked Edward Kmett on `#haskell-lens` (well, I asked *anybody,* but it was ne
+asked Edward Kmett on `#haskell-lens` (well, I asked *anybody,* but it was he
 who happened to answer):
 
 ~~~
@@ -2004,8 +2004,8 @@ each f ~(a,b) = (,) <$> f a <*> f b
     ~~~
 
   * A less silly example is `each` (as well as [`***`][], `first`, `second`,
-    [`bimap`][] and other tuple-related functions). Let's say we set the 1st
-    element of a tuple to `False`, and the 2nd to `True`. Do you expect the
+    [`bimap`][] and other tuple-related functions). Let's say we set the first
+    element of a tuple to `False`, and the second to `True`. Do you expect the
     result to always be `(False, True)`?
 
     ~~~ {.haskell .repl}
@@ -2067,7 +2067,7 @@ _head f []     = pure []
 _head f (x:xs) = (:) <$> f x <*> pure xs
 ~~~
 
-You might be wondering: “defining `_head` for lists is easy, why wouldn't ne
+You might be wondering: “defining `_head` for lists is easy, why wouldn't he
 show how to define it for `Text` instead?”. Indeed, initially I wanted to
 define it for `Text` in a more efficient way than unconsing-and-consing, and
 was starting to feel bad when I couldn't think of a way to do it – but then I
@@ -2237,7 +2237,7 @@ use... Anyway, here's the first bunch.
     [1, 2]               -- `each` looks at all elements.
 
     > [] ^.. _head
-    []                   -- `_head` looks at the 1st element, if it exists.
+    []                   -- `_head` looks at the first element, if it exists.
 
     > [0..10] ^.. _head
     [0]                  -- `[0..10]` has only 1 first element (surprise!).
