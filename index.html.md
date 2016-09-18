@@ -2,11 +2,15 @@
 pagetitle: artyom.me
 ---
 
-# Hire me maybe
+# This previously said “hire me maybe”
 
-Here's my [CV](/cv).
+Here's my [CV](/cv), but I work for [Serokell](https://serokell.io/) at the moment (among other things we're writing a [Bitcoin analog for banks](https://github.com/input-output-hk/rscoin-haskell)) and so probably won't agree to work for you right now. But hey, you can still write me and maybe in a year or so I'll be yours if you:
 
-# Also look at my Telegram channel
+* are awesomer
+* aren't awesomer but pay substantially more
+* or you offer relocation to some nice European country
+
+# Look at my Telegram channel
 
 [Here it is.](https://telegram.me/lightgreen_life)
 
@@ -38,13 +42,17 @@ Some of the posts:
 
 # Haskell
 
-I've written some libraries:
+I'm [teaching a bunch of people Haskell](https://github.com/neongreen/haskell-ex) by giving them tasks to solve (and then we collectively discuss solutions). You can join too!
+
+I've also written some libraries:
 
   * [microlens](@gh:aelve/microlens), a small lens-compatible library for lenses. Should be useful for library writers and stuff.
 
   * [ilist](@gh:aelve/ilist), a library with optimised index-related functions for lists – you don't need those often, but if you do, this library is probably the best place to get them.
 
-I also started the [/r/haskelltil](http://reddit.com/r/haskelltil) subreddit (for Haskell tips and tricks and code samples and oddities and curiosities and idioms and interesting facts and everything that is short enough that you'd be ashamed to submit it to [/r/haskell](http://reddit.com/r/haskell) or write about it at your blog). It didn't catch on.
+I also started the [/r/haskelltil](http://reddit.com/r/haskelltil) subreddit (for Haskell tips and tricks and code samples and oddities and curiosities and idioms and interesting facts and everything that is short enough that you'd be ashamed to submit it to [/r/haskell](http://reddit.com/r/haskell) or write about it at your blog). It didn't catch on but some content there is still useful.
+
+Finally, right now I'm busy working on [Aelve Guide](https://github.com/aelve/guide), a wiki-like guide to Haskell ecosystem and community. You can help.
 
 ## lens over tea
 
