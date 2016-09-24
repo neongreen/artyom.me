@@ -16,8 +16,6 @@ I'm a self-taught Haskeller with one year of professional experience (6 years ov
 
 I enjoy writing tutorials and documenting things, and I care about usability more than I care about principles.
 
-I'm not one of those people who seem okay at the interview but then start making crude jokes in Slack and saying “okay mr boss whatever I'll do it if you want :)) but FYI I still think it's stupid :)))))” when you ask them to do something.
-
 I speak Russian and English.
 
 ## Potential dealbreakers
