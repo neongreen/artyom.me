@@ -824,9 +824,13 @@ The `ToJSON` instance is less peculiar – it just concatenates hashmaps:
 ~~~ haskell
 instance ToJSON RussianName where
   toJSON RussianName{..} = Object $
-    toJSON russianName <>
-    fromList [
-      "patronymic" .= russianPatronymic ]
+    toObject russianName <>
+    fromList ["patronymic" .= russianPatronymic]
+
+toObject :: ToJSON a => a -> Object
+toObject a = case toJSON a of
+  Object o -> o
+  _        -> error "toObject: value isn't an Object"
 ~~~
 
 That's where the understanding of Aeson's inner model pays off.
