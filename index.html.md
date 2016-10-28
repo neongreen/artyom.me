@@ -118,7 +118,3 @@ I'm not learning Racket anymore, but I might start again in the future.
 # Stuff I did
 
   * [This site](/inside). Yes, it runs on a couple of shell scripts, but I thought I'd explain them anyway.
-
-# Mindless compilations
-
-  * [Flattrs of Popular Software Projects](/flattrs).
