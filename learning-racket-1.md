@@ -19,23 +19,7 @@ Lisp I learn.
 Also I'm tired of “how I spent one day learning [something] and found that it
 sucks horribly” posts, so let me state in advance that when something doesn't
 work as expected or sets my laptop on fire, I might react with “this is
-unfortunate” but nothing beyond that. As long as [Node.js](@w) exists in this
-world, I can't truly hate anything else.
-
-<div class="note">
-
-Whenever I think about Javascript – the language originally conceived to
-animate jumping monkeys on web pages and now used to power web-servers – my
-only reaction is ~~“I don't want to live on this planet anymore”~~ “how did
-it all go so wrong”. Oh, and don't tell me “it doesn't matter what the
-original purpose was” – the problem with Javascript (and web in general) is
-that it's a hack on a hack and supported by a hack, like PHP (which is a
-[fractal of bad design][]), except that PHP doesn't try to be fucking
-*everywhere* and Javascript does. Fuck Javascript.
-
-[fractal of bad design]: http://me.veekun.com/blog/2012/04/09/php-a-fractal-of-bad-design/
-
-</div>
+unfortunate” but nothing beyond that.
 
 # Day 1
 
