@@ -754,7 +754,7 @@ data Story = Story {
 Doing this is rather simple; just use the fact that you can use `.:` to get an object out, and then use `.:` on it again. An example:
 
 ~~~ haskell
-instance ParseJSON Story where
+instance FromJSON Story where
   parseJSON = withObject "story" $ \o -> do
     name <- o .: "name"
     -- authorO :: Object
