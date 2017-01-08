@@ -353,7 +353,7 @@ And with `.>`, we can write non-empty folds. Such as [`iterated`][], for instanc
 ~~~
 
 ~~~ haskell
-iterated :: Fold1 a a
+iterated :: (a -> a) -> Fold1 a a
 iterated f g a = go a
   where go a = g a .> go (f a)
 ~~~
