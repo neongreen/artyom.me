@@ -787,8 +787,8 @@ So, `RussianName` is just a `Name` with patronymic added to it. However, we also
 ~~~ json
 {
     "name":"Сергей",
-    "surname":"Михайлович",
-    "patronymic":"Брин"
+    "patronymic":"Михайлович",
+    "surname":"Брин"
 }
 ~~~
 
