@@ -2,43 +2,17 @@
 pagetitle: artyom.me
 ---
 
-# This previously said “hire me maybe”
+# Maybe you want to hire me sometime later
 
-Here's my [CV](/cv), but I work for [Serokell](https://serokell.io/) at the moment (among other things we're writing a [Bitcoin analog for banks](https://github.com/input-output-hk/rscoin-haskell)) and so probably won't agree to work for you right now. But hey, you can still write me and maybe in a year or so I'll be yours if you:
+Here's my [CV](/cv), but I work for [Serokell](https://serokell.io/) at the moment (and we're writing a [cryptocurrency in Haskell](https://github.com/input-output-hk/cardano-sl)). Most likely, I won't agree to work for you right now. But hey, you can still write me and maybe in a year or so I'll be yours if you:
 
 * are awesomer
 * aren't awesomer but pay substantially more
-* or you offer relocation to some nice European country
+* or offer relocation to some nice country
 
 # Look at my Telegram channel
 
 [Here it is.](https://telegram.me/lightgreen_life)
-
-Some of the posts:
-
-  * [How discounts, loyalty cards and customer questionnaires only exists for the needs of the business, not because they're being nice](https://telegram.me/lightgreen_life/8)
-
-  * [A long, multi-part rant about how bureaucracy has infected programming](https://telegram.me/lightgreen_life/73)
-
-  * [A comparison of Haskell and guitar](https://telegram.me/lightgreen_life/56)
-
-  * [An ELI5 explanation of list fusion in Haskell](https://telegram.me/lightgreen_life/58)
-
-  * [An amazing lifehack](https://telegram.me/lightgreen_life/60)
-
-  * [A theory of boundaries](https://telegram.me/lightgreen_life/44)
-
-  * An ad for Homestuck: [in all games invertory is basically an array, what if it was some other data structure?](https://telegram.me/lightgreen_life/15)
-
-  * [How people feel about cultural appropriation](https://telegram.me/lightgreen_life/28) (and it makes sense)
-
-  * [Some night photos](https://telegram.me/lightgreen_life/69)
-
-  * App/site/project/etc ideas:
-      [one](https://telegram.me/lightgreen_life/31),
-      [two](https://telegram.me/lightgreen_life/25),
-      [three](https://telegram.me/lightgreen_life/38),
-      [four-five-six](https://telegram.me/lightgreen_life/64)
 
 # Haskell
 
