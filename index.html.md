@@ -16,17 +16,11 @@ Here's my [CV](/cv), but I work for [Serokell](https://serokell.io/) at the mome
 
 # Haskell
 
-I'm [teaching a bunch of people Haskell](https://github.com/neongreen/haskell-ex) by giving them tasks to solve (and then we collectively discuss solutions). You can join too!
-
-I've also written some libraries:
-
-  * [microlens](@gh:aelve/microlens), a small lens-compatible library for lenses. Should be useful for library writers and stuff.
-
-  * [ilist](@gh:aelve/ilist), a library with optimised index-related functions for lists – you don't need those often, but if you do, this library is probably the best place to get them.
+I've written some libraries – you can see the list at [aelve.com](https://aelve.com).
 
 I also started the [/r/haskelltil](http://reddit.com/r/haskelltil) subreddit (for Haskell tips and tricks and code samples and oddities and curiosities and idioms and interesting facts and everything that is short enough that you'd be ashamed to submit it to [/r/haskell](http://reddit.com/r/haskell) or write about it at your blog). It didn't catch on but some content there is still useful.
 
-Finally, right now I'm busy working on [Aelve Guide](https://github.com/aelve/guide), a wiki-like guide to Haskell ecosystem and community. You can help.
+Finally, right now I'm busy working on [Aelve Guide](https://github.com/aelve/guide), a wiki-like guide to Haskell ecosystem and community.
 
 ## lens over tea
 
