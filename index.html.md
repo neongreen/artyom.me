@@ -10,6 +10,10 @@ Here's my [CV](/cv), but I work for [Serokell](https://serokell.io/) at the mome
 * aren't awesomer but pay substantially more
 * or offer relocation to some nice country
 
+# Shitty Haskell consultancy
+
+Just for $100/mo I will hang out in your Slack and answer questions like “why doesn't this compile”, “suggest me a library for X”, “can I rewrite this code using lenses?” and so on. (Years of reading Reddit lead to approximate knowledge of many things, though I've been kinda ignoring databases and webdev. Well, it's not called “shitty consultancy” for nothing.)
+
 # Look at my Telegram channel
 
 [Here it is.](https://telegram.me/lightgreen_life)
