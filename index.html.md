@@ -4,11 +4,7 @@ pagetitle: artyom.me
 
 # Maybe you want to hire me sometime later
 
-Here's my [CV](/cv), but I work for [Serokell](https://serokell.io/) at the moment (and we're writing a [cryptocurrency in Haskell](https://github.com/input-output-hk/cardano-sl)). Most likely, I won't agree to work for you right now. But hey, you can still write me and maybe in a year or so I'll be yours if you:
-
-* are awesomer
-* aren't awesomer but pay substantially more
-* or offer relocation to some nice country
+Here's my [CV](/cv), but I work for [Wire](https://wire.com/) at the moment. We're writing an end-to-end encrypted messenger. Most likely, I won't agree to work for you right now. But you can write me anyway so that if I do end up looking for another job, I would know that you exist :)
 
 # Look at my Telegram channel
 
