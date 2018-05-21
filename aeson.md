@@ -599,10 +599,15 @@ A common situation is that some field can be optional, and if it's not present y
 
 ~~~ haskell
 (.:?) :: FromJSON a => Object -> Text -> Parser (Maybe a)
+
 (.!=) :: Parser (Maybe a) -> a -> Parser a
 ~~~
 
-`.:?` is just like `.:`, but doesn't fail if the field wasn't found (it does fail if the field was found but has a different type, however). `.!=` takes a parser returning `Maybe a` and supplies it with some default value to be returned if the parser returns `Nothing`. They can be used together like this:
+`.:?` simply returns `Nothing` if the field wasn't found or was a `null`. Keep in mind that if the field *was* found but had a wrong type, it will fail just like `.:`.
+
+`.!=` takes a parser returning `Maybe a` and supplies it with some default value to be returned if the parser returns `Nothing`.
+
+They can be used together like this:
 
 ~~~ haskell
 instance FromJSON Person where
