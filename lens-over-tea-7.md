@@ -468,6 +468,30 @@ infixr 9 <.>
 
 Exercise: write `<.` and `.>`.
 
+## `Bazaar`
+
+Lens has some more advanced functions that work on traversals. For instance, [`taking`][]:
+
+~~~ {.haskell .repl}
+> [1..10] & taking 5 each %~ negate
+[-1,-2,-3,-4,-5,6,7,8,9,10]
+~~~
+
+
+22:54 <bennofs> puregreen: isn't Conjoined just a performance hack? I think you can implement everything without conjoined, it just wont be as efficient
+22:54 <shachaf> Yes, that's the intent.
+22:54 <shachaf> (It can let you implement completely different indexed and non-indexed traversals, of course, but you're not supposed to do that.)
+22:56 <puregreen> yeah, I kinda forgot about that (and then remembered and then forgot again)
+-!- Day changed to Saturday, June 18, 2016
+00:21 <edwardk> puregreen: they are all consequences of it being a profunctor on hask that is both representable and corepresentable
+00:22 <edwardk> that is to say with those superclasses you have all the power and consequences of being able to 'slop' all the information in the profunctor to the left or right hand side of an (->)
+00:22 <shachaf> Which is to say, of it being isomorphic to (e,a) -> b
+00:30 <edwardk> yeah we have a boring category with only one adjunction in it
+00:31 <edwardk> i care about that way of thinking a bit more when i start thinking about 'pure profunctor lenses' in richer categories
+01:00 <Taneb> edwardk, has anyone ever thought about lenses in poorer categories?
+02:12 <dolio> Really, the 'richer' categories are actually poorer.
+02:13 <dolio> Since you can do basically every construction on Set/Hask, they end up being boring.
+
 # `Conjoined`
 
 [`Conjoined`]: http://hackage.haskell.org/package/lens/docs/Control-Lens-Internal-Indexed.html#t:Conjoined
@@ -481,3 +505,5 @@ Exercise: write `<.` and `.>`.
 [`<.`]: http://hackage.haskell.org/package/lens/docs/Control-Lens-Indexed.html#v:-60-.
 [`<.>`]: http://hackage.haskell.org/package/lens/docs/Control-Lens-Indexed.html#v:-60-.-62-
 [`.>`]: http://hackage.haskell.org/package/lens/docs/Control-Lens-Indexed.html#v:.-62-
+[`taking`]: http://hackage.haskell.org/package/lens/docs/Control-Lens-Traversal.html#v:taking
+
