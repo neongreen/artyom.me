@@ -39,20 +39,24 @@ main = do
 
   let generateRss = do
         putStrLn "generating RSS feed"
-        writeFile "feed.xml" (showXML $ rssToXML rss)
+        writeFile "output/feed.xml" (showXML $ rssToXML rss)
 
-  let generateCv = do
-        renderCV_Plain "cv.md" "cv-plain.html"
-        renderCV_PDF "cv.md" "cv.pdf"
+  let generateCV = do
+        renderPage CV (latestPostTitle, latestPostLink)
+          "cv.md" "output/cv" "cv"
+        renderCV_Plain "cv.md" "output/cv-plain.html"
+        renderCV_PDF "cv.md" "output/cv.pdf"
 
-  let generatePost f = do
-        let outf = dropExtension f
-        printf "  * %s\n" outf
-        let pageType
-              | outf == "index.html" = Index
-              | outf == "cv" = CV
-              | otherwise = Post (IsLatest (outf == latestPostGuid))
-        renderPage pageType (latestPostTitle, latestPostLink) f outf
+  let generateIndex = do
+        renderPage Index (latestPostTitle, latestPostLink)
+          "index.md" "output/index.html" "index.html"
+
+  -- Post ID is something like "aeson" or "foo/bar"
+  let generatePost postId = do
+        printf "  * posts/%s\n" postId
+        let pageType = Post (IsLatest (postId == latestPostGuid))
+        renderPage pageType (latestPostTitle, latestPostLink)
+          ("posts" </> postId <.> "md") ("output" </> postId) postId
 {-
   let generateMusic ts f = do
         let ident = takeBaseName f
@@ -82,12 +86,15 @@ main = do
     [f] -> generatePost f
     [] -> do
       generateRss
-      generateCv
+      generateIndex
+      generateCV
       -- We need doesFileExist because getDirectoryContents can return
       -- symbolic links (like “.#post.md”) that Emacs creates for some reason
       -- and that can't be read
-      posts <- filter ((== ".md") . takeExtension) <$>
-                 (filterM doesFileExist =<< getDirectoryContents ".")
+      posts <-
+        fmap (map dropExtension) .
+        filterM (\f -> doesFileExist ("posts" </> f)) =<<
+        getDirectoryContents "posts"
       mapM_ generatePost posts
       -- do ts <- compileMustacheDir "" "music/"
       --    ps <- compileMustacheDir "" "music/partials/"
@@ -120,14 +127,15 @@ renderPage
   :: PageType
   -> (String, URI)     -- ^ Latest post title and link
   -> FilePath          -- ^ Input file (has to be relative because it's also a Github link)
-  -> FilePath          -- ^ Output file (has to be relative because it's also URL)
+  -> FilePath          -- ^ Output file
+  -> String            -- ^ Page URL (without slash prefix)
   -> IO ()
-renderPage pageType (latestPostTitle, latestPostLink) input output = do
+renderPage pageType (latestPostTitle, latestPostLink) input output url = do
   template <- readFile "page.template"
   today <- formatTime defaultTimeLocale "%B %-d, %Y" <$> getCurrentTime
   let vars = concat
         [ [("src", input)]
-        , [("url", output)]
+        , [("url", url)]
         , [("today", today)]
         , [("css", "/css.css")]
         , case pageType of

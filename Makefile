@@ -6,10 +6,14 @@ build:
   stack build
 
 generate:
+  rm -rf output/
+  mkdir output/
   stack exec generate
+  cp -R assets/* output/
+  cp -R html/* output/
 
 serve:
-  node serve.js
+  (cd output; node ../serve.js)
 
 upload:
-  rsync --exclude '.git' --exclude '.stack-work' -PLcr . artyom.me:/var/artyom.me/
+  rsync -PLcr output/ artyom.me:/var/artyom.me/

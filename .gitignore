@@ -1,13 +1,7 @@
-*
-!/**/
-!*.*
 *~
 *#
 .#*
-index.html
-feed.xml
-!curiosity
-!stats
-!j
 .stack-work
-!Makefile
+TAGS
+artyom-me.cabal
+output/
