@@ -172,10 +172,8 @@ ix index f list
                          else second (old:) $ ix (index-1) f rest
 ~~~
 
-  * [`second`][] is a function from `Data.Bifunctor` (you can find it in
-    [bifunctors](@hackage) if you're not on GHC 7.10 or later yet), which can
-    be used to apply a function to the second element of a tuple (among other
-    things):
+  * [`second`][] is a function from `Data.Bifunctor`, which can be used to
+    apply a function to the second element of a tuple (among other things):
 
     ~~~ {.haskell .repl}
     > second ("second " ++) (True, "element")
@@ -2372,9 +2370,9 @@ Don't use microlens for this series, tho; many of things I'm covering here are l
 [`both`]: http://hackage.haskell.org/package/lens/docs/Control-Lens-Traversal.html#v:both
 [`Bazaar`]: http://hackage.haskell.org/package/lens/docs/Control-Lens-Traversal.html#t:Bazaar
 [`Data.Tree`]: http://hackage.haskell.org/package/containers/docs/Data-Tree.html
-[`Data.Bifunctor`]: http://hackage.haskell.org/package/bifunctors/docs/Data-Bifunctor.html
-[`second`]: http://hackage.haskell.org/package/bifunctors/docs/Data-Bifunctor.html#v:second
-[`bimap`]: http://hackage.haskell.org/package/bifunctors/docs/Data-Bifunctor.html#v:bimap
+[`Data.Bifunctor`]: http://hackage.haskell.org/package/base/docs/Data-Bifunctor.html
+[`second`]: http://hackage.haskell.org/package/base/docs/Data-Bifunctor.html#v:second
+[`bimap`]: http://hackage.haskell.org/package/base/docs/Data-Bifunctor.html#v:bimap
 [`***`]: http://hackage.haskell.org/package/base/docs/Control-Arrow.html#v:-42--42--42-
 [`&&&`]: http://hackage.haskell.org/package/base/docs/Control-Arrow.html#v:-38--38--38-
 [`liftM`]: http://hackage.haskell.org/package/base/docs/Control-Monad.html#v:liftM
