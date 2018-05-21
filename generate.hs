@@ -1,77 +1,82 @@
-#!/usr/bin/env runghc
+{-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE NoImplicitPrelude #-}
 
-{-# LANGUAGE
-StandaloneDeriving,
-ScopedTypeVariables
-  #-}
-
--- dependencies: network-uri, rss
-
-import System.Process
+import BasePrelude
 import System.Directory
 import System.FilePath
 import Text.Printf
 import Data.Time
 import Data.Foldable
-import Control.Monad
-
-import Text.RSS
-import Data.Maybe
+import Text.RSS as RSS
 import Network.URI
 import Text.Read
 import System.Environment
+-- import Text.Mustache.Plus
+import Data.Aeson
+import qualified Data.Text.Lazy.IO as TL
+import qualified Data.ByteString.Lazy as BSL
+import qualified Data.ByteString.Lazy.Char8 as BS8
+import Text.Pandoc as Pandoc
+import Text.Pandoc.PDF as Pandoc
+import Text.Pandoc.Walk as Pandoc
+import Text.Pandoc.Filters.ShortcutLinks
+
 
 getRssItems :: RSS -> [Item]
 getRssItems (RSS _ _ _ _ items) = items
 
 main = do
-  today <- formatTime defaultTimeLocale "%B %-d, %Y" <$> getCurrentTime
   home <- getHomeDirectory
-  let shortcutLinks = home </> "code/pandoc-contrib"
-                           </> ".cabal-sandbox/bin/pandoc-shortcut-links"
 
   rss <- read <$> readFile "feed.feed"
   let latestPost = head $ getRssItems rss
-      latestPostTitle = head [x | Title x <- latestPost]
-      latestPostLink  = head [x | Link x <- latestPost]
-      latestPostGuid  = head [x | Guid _ x <- latestPost]
+      latestPostTitle = head [x | RSS.Title x <- latestPost]
+      latestPostLink  = head [x | RSS.Link x <- latestPost]
+      latestPostGuid  = head [x | RSS.Guid _ x <- latestPost]
 
   let generateRss = do
         putStrLn "generating RSS feed"
         writeFile "feed.xml" (showXML $ rssToXML rss)
 
-  let pandoc input output args =
-        callProcess "pandoc" $
-          args ++
-          ["-f", "markdown", "--filter", shortcutLinks] ++
-          ["-o", output, input]
-  let pandocHtml input output args =
-        pandoc input output (args ++ ["-t", "html5", "--standalone"])
-
   let generateCv = do
-        pandocHtml "cv.md" "cv-plain.html" []
-        pandoc "cv.md" "cv.pdf" [
-          "-t", "latex",
-          "-V", "links-as-notes",
-          "-V", "geometry:margin=1.5in" ]
+        renderCV_Plain "cv.md" "cv-plain.html"
+        renderCV_PDF "cv.md" "cv.pdf"
 
   let generatePost f = do
         let outf = dropExtension f
         printf "  * %s\n" outf
-        pandocHtml f outf $ concat [
-          ["--mathjax"],
-          ["--template=page.template", "--css", "/css.css"],
+        let pageType
+              | outf == "index.html" = Index
+              | outf == "cv" = CV
+              | otherwise = Post (IsLatest (outf == latestPostGuid))
+        renderPage pageType (latestPostTitle, latestPostLink) f outf
+{-
+  let generateMusic ts f = do
+        let ident = takeBaseName f
+        let outf = dropExtension f
+        printf "  * %s\n" outf
+        -- when (takeExtension f == ".mustache") $ do
+        --   let (rendered, warnings) =
+        --         renderMustache mempty
+        --         ts{templateActual = fromString ident} Null
+        --   mapM_ putStrLn warnings
+        --   TL.writeFile (outf <.> "md") rendered
+        pandocHtml (outf <.> "md") outf $ concat [
+          ["--template=page.template",
+           "--css", "/css.css",
+           "--css", "/music/css.css",
+           "--css", "/jouele/jouele.css",
+           "--css", "/jouele/jouele-skin.css" ],
+          ["-H", "jouele/jouele.script"],
           ["-V", "src:" ++ f],
           ["-V", "url:" ++ outf],
-          ["-V", "today:" ++ today],
-          if outf `elem` ["index.html", "cv", latestPostGuid]
-            then []
-            else ["-V", "latest-post-title:" ++ latestPostTitle,
-                  "-V", "latest-post-link:" ++ show latestPostLink],
-          if outf `elem` ["index.html", "cv"]
-            then []
-            else ["-V", "comments-enabled"]]
-
+          ["-V", "today:" ++ today] ]
+        -- when (takeExtension f == ".mustache") $ do
+        --   removeFile (outf <.> "md")
+-}
   args <- getArgs
   case args of
     [f] -> generatePost f
@@ -84,6 +89,14 @@ main = do
       posts <- filter ((== ".md") . takeExtension) <$>
                  (filterM doesFileExist =<< getDirectoryContents ".")
       mapM_ generatePost posts
+      -- do ts <- compileMustacheDir "" "music/"
+      --    ps <- compileMustacheDir "" "music/partials/"
+      --    music <- filter ((`elem` [".md", ".mustache"]) . takeExtension) <$>
+      --               (filterM doesFileExist . map ("music" </>) =<<
+      --                getDirectoryContents "music")
+      --    mapM_ (generateMusic (ts <> ps)) music
+
+  putStrLn "Done generating!"
 
 instance Read URI where
   readsPrec p s = mapMaybe one $ readsPrec p s
@@ -94,3 +107,109 @@ deriving instance Read CloudProtocol
 deriving instance Read ChannelElem
 deriving instance Read ItemElem
 deriving instance Read RSS
+
+----------------------------------------------------------------------------
+-- Page rendering
+----------------------------------------------------------------------------
+
+newtype IsLatest = IsLatest { isLatest :: Bool }
+
+data PageType = Post IsLatest | Index | CV
+
+renderPage
+  :: PageType
+  -> (String, URI)     -- ^ Latest post title and link
+  -> FilePath          -- ^ Input file (has to be relative because it's also a Github link)
+  -> FilePath          -- ^ Output file (has to be relative because it's also URL)
+  -> IO ()
+renderPage pageType (latestPostTitle, latestPostLink) input output = do
+  template <- readFile "page.template"
+  today <- formatTime defaultTimeLocale "%B %-d, %Y" <$> getCurrentTime
+  let vars = concat
+        [ [("src", input)]
+        , [("url", output)]
+        , [("today", today)]
+        , [("css", "/css.css")]
+        , case pageType of
+            Post (IsLatest False) ->
+              [("latest-post-title", latestPostTitle)
+              ,("latest-post-link", show latestPostLink)]
+            _ -> []
+        , case pageType of
+            Post _ ->
+              [("comments-enabled", "true")]
+            _ -> []
+        ]
+  mdToHTML
+    id
+    (\o -> o { writerHTMLMathMethod = KaTeX katexJS katexCSS
+             , writerTemplate = template
+             , writerVariables = vars
+             })
+    input
+    output
+  where
+    katexCSS = "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css"
+    katexJS  = "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js"
+
+renderCV_Plain :: FilePath -> FilePath -> IO ()
+renderCV_Plain = mdToHTML id id
+
+renderCV_PDF :: FilePath -> FilePath -> IO ()
+renderCV_PDF =
+  mdToPDF
+    id
+    (\o -> o { writerVariables =
+                 [ ("links-as-notes", "true")
+                 , ("geometry", "margin=0.8in") ] })
+
+----------------------------------------------------------------------------
+-- Pandoc utils
+----------------------------------------------------------------------------
+
+-- | Read Markdown.
+readMD
+  :: (ReaderOptions -> ReaderOptions)
+  -> FilePath
+  -> IO Pandoc
+readMD fReader input = do
+  let readerOpts = fReader def
+  walkM shortcutLinks
+    =<< either throw pure . readMarkdown readerOpts
+    =<< readFile input
+
+-- | Convert Markdown to HTML.
+mdToHTML
+  :: (ReaderOptions -> ReaderOptions)
+  -> (WriterOptions -> WriterOptions)
+  -> FilePath
+  -> FilePath
+  -> IO ()
+mdToHTML fReader fWriter input output = do
+  template <- either throw pure =<< getDefaultTemplate Nothing "html5"
+  let writerOpts = fWriter $ def
+        { writerHtml5 = True
+        , writerStandalone = True
+        , writerTemplate = template
+        , writerHighlight = True
+        }
+  writeFile output . writeHtmlString writerOpts
+    =<< readMD fReader input
+
+-- | Convert Markdown to a PDF.
+mdToPDF
+  :: (ReaderOptions -> ReaderOptions)
+  -> (WriterOptions -> WriterOptions)
+  -> FilePath
+  -> FilePath
+  -> IO ()
+mdToPDF fReader fWriter input output = do
+  template <- either throw pure =<< getDefaultTemplate Nothing "latex"
+  let writerOpts = fWriter $ def
+        { writerStandalone = True
+        , writerTemplate = template
+        }
+  ast <- readMD fReader input
+  makePDF "pdflatex" writeLaTeX writerOpts ast >>= \case
+    Left err -> error (BS8.unpack err)
+    Right bs -> BSL.writeFile output bs

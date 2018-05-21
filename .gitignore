@@ -1,7 +1,6 @@
 *
 !/**/
 !*.*
-
 *~
 *#
 .#*
@@ -10,3 +9,5 @@ feed.xml
 !curiosity
 !stats
 !j
+.stack-work
+!Makefile

@@ -1,0 +1,21 @@
+name: artyom-me
+version: 1.0
+synopsis: A generator for artyom.me
+
+executables:
+  generate:
+    main: generate.hs
+    dependencies:
+      - base
+      - directory
+      - filepath
+      - time
+      - network-uri
+      - aeson
+      - text
+      - rss
+      - pandoc
+      - pandoc-contrib
+      - bytestring
+      - pandoc-types
+      - base-prelude
