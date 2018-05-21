@@ -42,8 +42,6 @@ $for(header-includes)$
   $header-includes$
 $endfor$
 
-<!-- I'm watching you, mwa-ha-ha... ha-ha. Hm. Hm-m. -->
-
 <!-- Piwik -->
 <script type="text/javascript">
   var _paq = _paq || [];
@@ -59,13 +57,6 @@ $endfor$
   })();
 </script>
 <!-- End Piwik Code -->
-
-<!-- 
-— I'm sorry.
-— Don't apologise.
-— But, but at least I let you watch each other too!
-— It's even worse.
--->
 
 </head>
 
