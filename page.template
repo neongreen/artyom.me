@@ -190,14 +190,6 @@ Read next: <a href="$latest-post-link$">$latest-post-title$</a>
 </div>
 $endif$
 
-<div id="ad">
-<a href="https://github.com/haskell-learning-group/haskell-learning-group">
-Get a Haskell mentor
-</a>
-<br>
-(or help us teach other people if you don't need a mentor)
-</div>
-
 $if(comments-enabled)$
 <div id="disqus_thread"></div>
 <script>
@@ -232,7 +224,7 @@ $endif$
 document.body.innerHTML = document.body.innerHTML.replace(/‾/g, "<span style='text-decoration: overline'> </span>");
 </script>
 
-<script src="https://cdn.rawgit.com/neongreen/orphus.js/3337c92943c662936c0b7a9969746c71c9f53581/orphus.js"></script>
+<script src="https://cdn.rawgit.com/neongreen/orphus.js/5c4d87c4/orphus.js"></script>
 
 </body>
 </html>

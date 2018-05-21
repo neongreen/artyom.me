@@ -3,6 +3,8 @@
 ---
 header-includes:
   - \usepackage[bottom]{footmisc}
+documentclass: extarticle
+fontsize: 12pt
 ...
 
 NB. This CV is available [on my site][cv-web], [as plain HTML][cv-plain],
