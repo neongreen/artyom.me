@@ -63,47 +63,37 @@ $endfor$
 <body>
 
 <div id="header">
-<div style="position:relative;height:4em;background-color:$if(unfinished)$#eb2142$else$#19e672$endif$" id="headerheader">
-  <div style="width:100%;text-align:center;position:absolute;top:53%;transform:translateY(-50%)"><a style="text-decoration:none;color:black;font-size:2em;" href="/">[artyom.me]</a></div>
-  <div style="width:100%;text-align:center;position:absolute;bottom:0px;line-height:0px;font-size:6pt;color:transparent">∙∙ ∙−−−−∙ −− ∙− −∙−∙ ∙− − ∙∙∙ ∙ −∙−∙ ∙−∙ ∙ − ∙−∙∙ −∙−−</div>
-  <a href="/feed.xml"><img style="float:right;top:50%;position:relative;transform:translateY(-50%);max-height:3em;right:0.5em" src="/feed-icon.svg" alt="feed"></a>
+  <a href="/">Artyom Kazak</a>
+  <a href="/feed.xml"><img src="/feed-icon.svg" alt="feed"></a>
 </div>
 
-<div style="text-align:center;border-bottom:1px solid black;font-size:0.75em;padding:0.5em 8px">
-Hello, I'm Artyom.
-You can write me at <a href="mailto:yom@artyom.me">yom@artyom.me</a>, 
-in Telegram (<a href="http://telegram.me/lightgreen">@lightgreen</a>), 
-Skype (<a href="skype:mayangreen?chat">mayangreen</a>), 
-or in IRC (puregreen at freenode).
-You can write me if you're bored, I like chatting with random people.
-Or you can <a href="/cv">hire me</a>.
-I'm also <a href="http://github.com/neongreen">on Github</a>
-(but most of the projects are <a href="http://github.com/aelve">here</a>).
-And I've got a <a href="http://telegram.me/lightgreen_life">Telegram channel</a>
-where I'm posting stuff that is too small to be posted here,
-as well as links, quotes, and so on.
-</div>
-
-<div style="text-align:center;border-bottom:1px solid black;font-size:0.75em;padding:0.5em 8px">
-This site was last updated on <b>$today$</b>
-under intriguing and mysterious circumstances.
-If you're unsure whether I'm alive (or at least have internet), see my 
-<a href="http://last.fm/user/mantisgreen">Last.FM</a>. 
-Here's a
-<a href="http://tvtropes.org/pmwiki/randomitem.php?p=1">random TVTrope</a>,
-<a href="http://dynamic.xkcd.com/random/comic/">xkcd comic</a>, and
-<a href="http://thecatapi.com/api/images/get?format=src&type=jpg">kitten</a>
-for you.
-</div>
-
-<div style="text-align:center;padding:0.5em 8px;font-size:0.9em">
-typo? bad phrasing? mistake?
-select and press Ctrl-Enter or
-<button type="button" onclick="orphus.reportSelected();"
-        style="padding:0.2em">this button</button>
-(or <a href="https://github.com/neongreen/artyom.me/issues">open an issue on Github</a>)
-</div>
-
+<div id="details">
+  <p>
+    Hi! I'm a backend developer at <a href="https://wire.com">Wire</a>, a
+    Haskeller, and a keypress event generator. I live in Berlin, but
+    originally I'm
+    from <a href="https://en.wikipedia.org/wiki/Belarus">Belarus</a> (bonus
+    points if you've ever heard of it).
+  </p>
+  <p>
+    If you just want to talk or find out how my life's going or whatever,
+    you can write me at <a href="mailto:yom@artyom.me">yom@artyom.me</a>
+    or <a href="http://t.me/lightgreen">in Telegram</a>. If you want to (try
+    to) hire me, here's my <a href="/cv">resume</a>. You can also peek at
+    <a href="http://github.com/neongreen">my Github</a> (but most of the
+    projects are <a href="http://github.com/aelve">here</a>). And I've got
+    a <a href="http://telegram.me/lightgreen_life">Telegram channel</a> with
+    links, short posts and what-not.
+  </p>
+  <p>
+    This site was last updated on <strong>$today$</strong> under intriguing
+    and mysterious circumstances. If you're unsure whether I'm alive, see my
+    <a href="http://last.fm/user/mantisgreen">Last.fm</a>. Here's a
+    <a href="http://tvtropes.org/pmwiki/randomitem.php?p=1">random TVTrope</a>,
+    <a href="http://dynamic.xkcd.com/random/comic/">xkcd comic</a>, and
+    <a href="http://thecatapi.com/api/images/get?format=src&type=jpg">kitten</a>
+    for you. Have fun!
+  </p>
 </div>
 
 <div id="main">
@@ -214,8 +204,6 @@ $endif$
 <script>
 document.body.innerHTML = document.body.innerHTML.replace(/‾/g, "<span style='text-decoration: overline'> </span>");
 </script>
-
-<script src="https://cdn.rawgit.com/neongreen/orphus.js/5c4d87c4/orphus.js"></script>
 
 </body>
 </html>

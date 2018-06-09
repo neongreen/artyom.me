@@ -83,6 +83,7 @@ main = do
 -}
   args <- getArgs
   case args of
+    ["index"] -> generateIndex
     [f] -> generatePost f
     [] -> do
       generateRss
