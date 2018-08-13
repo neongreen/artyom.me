@@ -430,7 +430,7 @@ res = InfixE
 Patterns are represented by the type [`Pat`][]:
 
 ~~~ haskell
-data Exp
+data Pat
   = VarP Name
   | ConP Name [Pat]
   | InfixP Pat Name Pat
