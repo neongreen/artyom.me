@@ -7,106 +7,90 @@ documentclass: extarticle
 fontsize: 12pt
 ...
 
-NB. This CV is available [on my site][cv-web], [as plain HTML][cv-plain],
+NB: This CV is available [on my site][cv-web], [as plain HTML][cv-plain],
 and [as PDF][cv-pdf].
 
 [cv-web]: https://artyom.me/cv
 [cv-plain]: https://artyom.me/cv-plain.html
 [cv-pdf]: https://artyom.me/cv.pdf
 
-## Summary
+## tl;dr
 
-**Who I am:** a Haskeller with seven years of experience (working for two
-years). I have pretty good knowledge of the ecosystem and tooling – right
-now I'm writing a [book about Haskell][IH], and I'm also doing consulting
-at [Dirt Cheap Haskell][].
+I'm a Haskeller with eight years of experience (working for three years). I
+have spent substantial time dealing with REST APIs (client and server),
+parsing, serialization, FFI, GUIs, and implementing protocols. I have
+delivered talks about lenses, Template Haskell, and type-level programming.
 
-[IH]: https://intermediatehaskell.com
-[Dirt Cheap Haskell]: https://dirtcheaphaskell.io
+I used to be a cryptocurrency developer; nowadays I'm a backend engineer for
+an end-to-end-encrypted messenger. I have several side projects, including a
+book about Haskell and a software consultancy.
 
-**Where I work:** at [Serokell][] – I'm one of core developers
-of [Cardano][], a 30 kLOC cryptocurrency with dozens of devs on the team.
-See pretty [commit stats][]. Other than writing a substantial part of the
-code and doing bug-hunting, I was involved in many architectural and design
-decisions.
+I have enough background knowledge about various tricky topics (Unicode,
+algorithms and data structures, cryptography) that I can often prevent
+people from doing silly things with them.
+
+Potential dealbreaker: I don't have higher education.
+
+## Where I work
+
+Right now I work at [Wire][]. Our [backend][wire-server] is fully
+open-source and written in Haskell. I'm busy implementing enhancements,
+writing specs, and doing prototyping for novel features. I'm also doing some
+devops work (Cassandra, AWS, Ansible, Kubernetes), but there I wouldn't
+survive for long without my teammates' expertise.
+
+Our protocol libraries are written in Rust and I contribute to them. Some of
+the aforementioned novel features also involve writing Rust libraries. I'd
+say that I'm an advanced Rust beginner – comfortable with the core language,
+but without experience in tricky topics like concurrency.
+
+Previously I worked at [Serokell][], where I was one of core developers of
+[Cardano][], a hugely successful cryptocurrency with dozens of devs on the
+team. Other than writing a substantial part of the code and doing
+bug-hunting, I was involved in many architectural and design decisions.
+
+I am also a co-founder of [Monadfix][], a Haskell-and-Agda software
+consultancy. I manage the business and research clients' problems.
+
+[Wire]: https://wire.com
+[wire-server]: https://github.com/wireapp/wire-server
 
 [Serokell]: https://serokell.io
 [Cardano]: https://iohk.io/projects/cardano
-[commit stats]: https://github.com/input-output-hk/cardano-sl/graphs/contributors
 
-**Open-source work:** my Github is [\@neongreen][]. I also maintain a bunch
-of libraries on Hackage (<https://hackage.haskell.org/user/Artyom>) – the
-two bigger ones are [fmt](@hackage) and [microlens](@hackage).
+[Monadfix]: https://monadfix.io
 
-[\@neongreen]: @gh:neongreen
+## Open-source and community
 
-**Contacts:** you can contact me here (in English or in Russian):
+I'm writing [Intermediate Haskell][IH] – a book about
+intermediate-to-advanced Haskell topics. I also maintain several Haskell
+libraries; the two bigger ones are [fmt](@hackage) and
+[microlens](@hackage).
 
-  * email: yom@artyom.me
-  * Telegram: \@lightgreen
-  * Skype: mayangreen
+[IH]: https://intermediatehaskell.com
 
-## Potential dealbreakers
+In addition to that, I have two non-trivial side-projects:
 
-I have dropped out of university. Depending on your hiring policies and your
-country's visa policies, this might be a dealbreaker.
+  * [Codesearch][] – a search engine for code, supporting regular
+    expressions. I have not contributed to the code but I hired developers
+    and currently I serve as a CTO and product manager.
 
-## Haskell
+  * [Guide][] – a wiki engine and a Haskell documentation site. In addition
+    to managing the project, I've also written a large part of the backend.
 
-Other than my work for Serokell:
+[Codesearch]: https://codesearch.aelve.com
+[Guide]: https://guide.aelve.com
 
-  * **Server-side:** for a client, I wrote a backend for a static website
-    hosting (with Snap and SQLite), a CLI tool for interacting with it, and
-    parts of the server and Liquid markup parser/renderer. I also wrote
-    the backend for a personal project – a [Haskell wiki][Guide].
-
-    [Guide]: https://guide.aelve.com/haskell
-
-  * **Parsing:** I designed a small JSONPath-like language for extracting
-    data from JSON and MessagePack logs and wrote a parser and an intepreter
-    for it. Not opensourced :(
-
-  * **REST APIs:** I have written a [bot][] for Telegram and a binding for
-    Telegram API. (I started using servant only recently and haven't yet had
-    a chance to use it in non-Serokell code.)
-
-    [bot]: @gh:neongreen/untilbot
-
-  * **Lenses:** I wrote a [series of articles][lens over tea] explaining in
-    detail how `lens` is implemented and the theory behind it, and I also
-    wrote [`microlens`](@hackage) (a minimalistic, well-documented lenses
-    library).
-
-    [lens over tea]: https://artyom.me/#lens-over-tea
-
-  * **Template Haskell:** I know it pretty well and even (masochistically)
-    enjoy writing it – for instance, I implemented a [version][makeLenses] of
-    `makeLenses` for a blog post, and another example
-    is [migration-generating code][migrate] that I wrote for `safecopy`.
-
-    [makeLenses]: https://artyom.me/lens-over-tea-6#the-answer-4
-    [migrate]: http://hackage.haskell.org/package/safecopy-migrate-0.1.0.0/docs/src/Data-SafeCopy-Migrate.html#changelog
-
-  * **GUI:** have written several utilities using GTK.
-
-  * **FFI:** have written [code][fake-type] for simulating keypresses on
-    Linux. It binds to X11 in a non-trivial way.
-
-    [fake-type]: https://github.com/aelve/fake-type/blob/master/lib/FakeType.hs
-
-Additionally, I have written perhaps the most popular [Aeson tutorial][] and
-I used to be teaching people Haskell at [Haskell Learning Group][HLG].
+I have written perhaps the most popular [Aeson tutorial][] and I used to be
+teaching people Haskell at [Haskell Learning Group][HLG]. I have given
+several different talks on Haskell-related topics, and I plan to do more.
 
 [Aeson tutorial]: https://artyom.me/aeson
 [HLG]: https://github.com/haskell-learning-group/haskell-learning-group
 
-## Oh, also algorithms
+## Contacts
 
-I've been actively participating in IOI/ACM-style programming competitions:
+You can contact me here (in English or in Russian):
 
-  * Belarusian National Olympiad (2012): 15th place, silver
-  * All-Russian Team Olympiad (2011): 10th place, bronze
-  * Moscow Open Olympiad in Programming (2012): silver
-
-That was several years ago, but I can refresh my knowledge if needed.
-
+  * Telegram or Wire: \@lightgreen
+  * email: yom@artyom.me
