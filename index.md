@@ -49,7 +49,6 @@ It's a work in progress; the future parts will mention:
 ## Other stuff
 
   * [Aeson: the tutorial](/aeson)
-  * [10 questions about Haskell: a shitpost](/haskell-10)
   * [Making a CTF task in Haskell](/haskell-ctf)
   * [Some common and annoying mistakes in Haddocks](/haddock-mistakes)
 

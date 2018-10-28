@@ -5,7 +5,7 @@ RSS
   [Language "en-us",
    Image "https://artyom.me/ame256.png" ""
          "https://artyom.me" Nothing Nothing Nothing]
-  [ 
+  [
 
   [ Title        "Telegram channel"
   , Link         "https://telegram.me/lightgreen_life"
@@ -59,12 +59,6 @@ RSS
   , Link         "https://artyom.me/lens-over-tea-4"
   , Description  "Isomorphisms and a bunch of things that got me interested while I was figuring out isomorphisms. (Prisms seem more interesting to me, but we need isomorphisms to be able to understand prisms.)"
   , Guid False   "lens-over-tea-4"
-  ] ,
-
-  [ Title        "10 questions about Haskell: a shitpost"
-  , Link         "https://artyom.me/haskell-10"
-  , Description  "An attempt to answer a troll on r/haskell – so, in other words, an overgrown shitty Reddit comment. You've been warned."
-  , Guid False   "haskell-10"
   ] ,
 
   [ Title        "lens over tea #3: folds"
