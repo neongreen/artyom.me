@@ -200,7 +200,6 @@ $endif$
 
 <div style="text-align:center;font-size:0.9em;padding:0.5em 8px">
 <a class="vert" href="https://github.com/neongreen/artyom.me/blob/master/$src$">view source</a>
-<a class="vert" href="/inside">how it's made</a>
 <a class="vert" href="/cv">hire me</a>
 <a class="vert" href="/stats">stats</a>
 <a class="vert" href="mailto:yom@artyom.me?subject=Regarding $url$">comment by email</a>

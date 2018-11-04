@@ -109,12 +109,6 @@ RSS
   , Guid False   "learning-racket-2"
   ] ,
 
-  [ Title        "How to Build Your Own Static Site from Matches and Acorns"
-  , Link         "https://artyom.me/inside"
-  , Description  "It's all in the title."
-  , Guid False   "inside"
-  ] ,
-
   [ Title        "Learning Racket #1: Introduction"
   , Link         "https://artyom.me/learning-racket-1"
   , Description  "I'm learning Racket! In this post: syntax, factorial, list functions, Quicksort, rants and musings."

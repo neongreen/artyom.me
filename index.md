@@ -75,7 +75,3 @@ Several years ago I've been learning [Racket](@w:Racket (programming language)) 
 </div>
 
 I'm not learning Racket anymore, but I might start again in the future.
-
-# Stuff I did
-
-  * [This site](/inside). Yes, it runs on a couple of shell scripts, but I thought I'd explain them anyway.
