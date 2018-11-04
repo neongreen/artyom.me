@@ -72,7 +72,7 @@ h1 a, h2 a, h3 a, h4 a, h5 a, #header a {
     color: black; }
 
 h1, h2, h3, h4, h5 {
-    font-weight: 600;
+    font-weight: 500;
     padding-bottom: 1px;
     line-height: 150%;
 }
@@ -114,12 +114,11 @@ dd p {
     margin-top: 0; }
 
 #header {
-    background-color: #56f39a;
     font-size: 300%;
-    height: 3ex;
-    padding: 1.5rem 1rem;
-    border: 1px solid #29c96e;
-    border-top: none;
+    font-weight: 300;
+    height: 5ex;
+    padding: 3rem 0px;
+    border-bottom: 0.2em solid #56f39a;
 }
 
 #header img {
