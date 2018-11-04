@@ -58,10 +58,11 @@ blockquote blockquote {
 .note p {
     margin: 0.5em 0; }
 
-a:link          {color: #008ACE; text-decoration: none;}
-a:visited       {color: #B40EB4; text-decoration: none;}
-a:hover         {text-decoration: underline;}
-a:active        {text-decoration: underline;}
+a:link, .blue-links a:visited
+            {color: #008ACE; text-decoration: none;}
+a:visited   {color: #B40EB4; text-decoration: none;}
+a:hover     {text-decoration: underline;}
+a:active    {text-decoration: underline;}
 
 .gray                 {color: #AAA;}
 .gray a:link          {color: #888;}
@@ -148,8 +149,6 @@ dd p {
     background-color: #56f39a;
 }
 
-#details .badge a:visited {color: #008ACE;}
-
 #main {
     padding: 1.5em 0 2.5em 0; }
 
@@ -182,13 +181,11 @@ dd p {
     background-color: rgb(218, 243, 255) }
 
 #footer {
-    border: 1px solid #ccc;
-    border-bottom: none;
-    background-color: #eee;
-    width: 100%; }
-
-#footer .vert {
-    margin: 0px 10px; }
+    width: 100%;
+    text-align:center;
+    font-size:0.9em;
+    padding:0.5em 8px;
+}
 
 .footnotes {
     margin: 3em 0;

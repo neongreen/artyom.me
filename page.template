@@ -67,7 +67,7 @@ $endfor$
   <a href="/feed.xml"><img src="/feed-icon.svg" alt="feed"></a>
 </div>
 
-<div id="details">
+<div id="details" class="blue-links">
   <div class="badge">
     <i class="fas fa-envelope"></i>
     <a href="mailto:yom@artyom.me">yom@artyom.me</a>
@@ -196,14 +196,8 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 $endif$
 
-<div id="footer">
-
-<div style="text-align:center;font-size:0.9em;padding:0.5em 8px">
-<a class="vert" href="https://github.com/neongreen/artyom.me/blob/master/$src$">view source</a>
-<a class="vert" href="/cv">hire me</a>
-<a class="vert" href="/stats">stats</a>
-<a class="vert" href="mailto:yom@artyom.me?subject=Regarding $url$">comment by email</a>
-<a class="vert" href="/curiosity">curiosity killed the cat</a>
+<div id="footer" class="blue-links">
+<a href="https://github.com/neongreen/artyom.me/blob/master/$src$">view source</a>—<a href="mailto:yom@artyom.me?subject=Comment on $url$">comment by email</a>—<a href="/curiosity">curiosity killed the cat</a>
 </div>
 
 </div>
