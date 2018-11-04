@@ -1006,7 +1006,7 @@ remark is kinda concise:
 
 The proofs are here:
 
-> Richard Bird's proof: http://www.cs.ox.ac.uk/jeremy.gibbons/publications/uitbaf.pdf
+> Richard Bird's proof: <http://www.cs.ox.ac.uk/jeremy.gibbons/publications/uitbaf.pdf>
 >
 > Russell O'Connor's proof: <http://r6.ca/blog/20121209T182914Z.html> in coq: <https://raw.githubusercontent.com/oconnorr/traversable-fincontainer/master/decompose_traversal.v>
 >
