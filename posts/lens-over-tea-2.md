@@ -751,10 +751,10 @@ newtype Compose f g a = Compose {getCompose :: f (g a)}
 
 -- And some easy-to-write instances:
 (Functor     f, Functor     g) => Functor     (Compose f g)	where ...
-(Applicative f, Applicative g) => Applicative (Compose f g)	where ... 
-(Foldable    f, Foldable    g) => Foldable    (Compose f g)	where ... 
-(Traversable f, Traversable g) => Traversable (Compose f g)	where ... 
-(Alternative f, Applicative g) => Alternative (Compose f g)	where ... 
+(Applicative f, Applicative g) => Applicative (Compose f g)	where ...
+(Foldable    f, Foldable    g) => Foldable    (Compose f g)	where ...
+(Traversable f, Traversable g) => Traversable (Compose f g)	where ...
+(Alternative f, Applicative g) => Alternative (Compose f g)	where ...
 ~~~
 
 Armed with this knowledge, we can infer the type of `Compose . fmap f . g`:
@@ -1004,16 +1004,15 @@ remark is kinda concise:
 
 > removed the third traversal law. roconnor proved it can't be infringed
 
-I asked Edward to send me the proof, but...
+The proofs are here:
 
-~~~
-06:56 <puregreen> edwardk: have you still got that roconnor's proof that
-the (former) 3rd traversal law follows from the second law? could you put it on
-lpaste or somewhere?
-07:00 <edwardk> puregreen: not handy
-~~~
-
-So, if you really need it, bug [Edward](@t:kmett) or [Russell](http://r6.ca/).
+> Richard Bird's proof: http://www.cs.ox.ac.uk/jeremy.gibbons/publications/uitbaf.pdf
+>
+> Russell O'Connor's proof: <http://r6.ca/blog/20121209T182914Z.html> in coq: <https://raw.githubusercontent.com/oconnorr/traversable-fincontainer/master/decompose_traversal.v>
+>
+> Both of these show you can separate "shape" from data in every legal
+> traversal, ruling out the multiple visit scenario Gibbons feared in the
+> Essence of the Iterator Pattern.
 
 -----------------------------------------------------------------------------
 
@@ -1045,19 +1044,19 @@ sleep deprivation. Whatever. Let's go.
 [Harry the Hufflepuff]: https://www.fanfiction.net/s/6466185/2/Harry-the-Hufflepuff
 
 >   1. You get back what you put in:
-> 
+>
 >     ~~~ haskell
 >     view l (set l v s) ≡ v
 >     ~~~
-> 
+>
 >   2. Putting back what you got doesn't change anything:
-> 
+>
 >     ~~~ haskell
 >     set l (view l s) s ≡ s
 >     ~~~
-> 
+>
 >   3. Setting twice is the same as setting once:
-> 
+>
 >     ~~~ haskell
 >     set l v' (set l v s) ≡ set l v' s
 >     ~~~
@@ -1287,7 +1286,7 @@ something from a structure, you have to consider this:
         `undefined`, so you have to wrap everything into some data type
         (`Identity` won't do because it's a `newtype`) and unwrap afterwards
         if you want to preserve semantics:
-        
+
         ~~~ {.haskell .repl}
         > head [undefined]
         *** Exception: Prelude.undefined
@@ -1437,7 +1436,7 @@ compile-time error:
 
   * `to` makes a getter out of an “ordinary getting function”. A getter is
     something which fits any `Getting r s a`:
-    
+
     ~~~ haskell
     type Getter s a = forall r . Getting r s a
     ~~~
@@ -1806,7 +1805,7 @@ What do `effective` and `ineffective` do?
 -----------------------------------------------------------------------------
 
 > `acts`: a self-running `Action`, analogous to `join`.
-> 
+>
 > ~~~ haskell
 > acts ≡ act id
 > ~~~
@@ -1826,7 +1825,7 @@ Again, need examples of usage.
 > ~~~ haskell
 > type Acting m r s a = LensLike (Effect m r) s s a a
 > ~~~
-> 
+>
 > Used to evaluate an `Action`.
 
 `Acting` to `Action` is the same as `Getting` to `Getter`, right?
@@ -1836,7 +1835,7 @@ Again, need examples of usage.
 > ~~~ haskell
 > class (Monad m, Functor f, Contravariant f) => Effective m r f | f -> m r
 > ~~~
-> 
+>
 > An `Effective` `Functor` ignores its argument and is isomorphic to a
 > `Monad` wrapped around a value.
 
@@ -1845,7 +1844,7 @@ Ignores its argument... Um, like `Const`? Is `Const (m r)` an `Effective`?
 -----------------------------------------------------------------------------
 
 > Instances:
-> 
+>
 >   * `Effective Identity r (Const r)`
 >   * `Monad m => Effective m r (Effect m r)`
 
@@ -2334,9 +2333,9 @@ Getters have no laws, because they're just functions in disguise.
 > ~~~ haskell
 > set l y (set l x a) ≡ set l y a
 > ~~~
-> 
+>
 > You can't view a `Setter` in general, so the other two laws are irrelevant.
-> 
+>
 > However, two `Functor` laws apply to a `Setter`:
 >
 > ~~~ haskell
