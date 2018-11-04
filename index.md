@@ -2,21 +2,19 @@
 pagetitle: artyom.me
 ---
 
-# Maybe you want to hire me sometime later
+# If you want to hire me
 
-Here's my [CV](/cv), but I work for [Wire](https://wire.com/) at the moment. We're writing an end-to-end encrypted messenger. Most likely, I won't agree to work for you right now. But you can write me anyway so that if I do end up looking for another job, I would know that you exist :)
+I'm not planning to leave Wire at the moment, but you can write me anyway so that if I do end up looking for another job, I would know that you exist.
 
-# Look at my Telegram channel
-
-[Here it is.](https://telegram.me/lightgreen_life)
+Here's my [resume](/cv).
 
 # Haskell
 
-I've written some libraries – you can see the list at [aelve.com](https://aelve.com).
+I've written some libraries, see <https://hackage.haskell.org/users/Artyom>.
 
-I also started the [/r/haskelltil](http://reddit.com/r/haskelltil) subreddit (for Haskell tips and tricks and code samples and oddities and curiosities and idioms and interesting facts and everything that is short enough that you'd be ashamed to submit it to [/r/haskell](http://reddit.com/r/haskell) or write about it at your blog). It didn't catch on but some content there is still useful.
+I also started the [/r/haskelltil](http://reddit.com/r/haskelltil) subreddit (for Haskell tips and tricks and code samples and oddities and curiosities and idioms and interesting facts and everything that is short enough that you'd be ashamed to submit it to [/r/haskell](http://reddit.com/r/haskell) or write about it in a blog). It didn't catch on but some content there is still useful.
 
-Finally, right now I'm busy working on [Aelve Guide](https://github.com/aelve/guide), a wiki-like guide to Haskell ecosystem and community.
+Right now I'm busy working on [Aelve Guide](https://github.com/aelve/guide), a wiki-like guide to Haskell ecosystem and community.
 
 ## lens over tea
 

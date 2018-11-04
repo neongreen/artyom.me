@@ -78,7 +78,7 @@ h1, h2, h3, h4, h5 {
 }
 
 h1 {
-    font-size: 160%;
+    font-size: 165%;
     margin-top: 2em;
     border-bottom: 1px solid #bbb;
 }
@@ -86,6 +86,7 @@ h1 {
 h2 {
     font-size: 130%;
     margin-top: 1.5em;
+    margin-bottom: -0.2em;
     width: 50%;
     border-bottom: 1px solid #bbb;
 }
@@ -117,8 +118,7 @@ dd p {
     font-size: 300%;
     font-weight: 300;
     height: 5ex;
-    padding: 3rem 0px;
-    border-bottom: 0.2em solid #56f39a;
+    padding: 3.4rem 0px;
 }
 
 #header img {
@@ -131,12 +131,24 @@ dd p {
 
 #details {
     margin-top: 1rem;
-    border: 1px solid #ccc;
-    background-color: #eee;
     font-size: 90%;
-    line-height: 130%;
-    padding: 0 1rem;
+    line-height: 140%;
 }
+
+#details .badge {
+    display: inline-block;
+    border-radius: 0.2em;
+    padding: 0.2em 0.5em;
+    background-color: #eee;
+    margin-right: 0.3em;
+    margin-bottom: 0.5em;
+}
+
+#details .badge.attention {
+    background-color: #56f39a;
+}
+
+#details .badge a:visited {color: #008ACE;}
 
 #main {
     padding: 1.5em 0 2.5em 0; }

@@ -5,14 +5,14 @@
   $if(unfinished)$<meta name="robots" content="noindex">$endif$
   <meta name="google-site-verification" content="y-gj-eNGiiocXI1nd6EPlywGEfhW90jeeFO__ePHvbg" />
   <meta name="generator" content="pandoc">
-  <meta name="viewport" 
+  <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=yes">
 $if(keywords)$
   <meta name="keywords" content="$keywords$">
 $endif$
   <link rel="icon" type="image/png" href="/ame256.png">
   <link rel="alternate" type="application/rss+xml" href="/feed.xml"
-        title="RSS"> 
+        title="RSS">
 $for(author-meta)$
   <meta name="author" content="$author-meta$">
 $endfor$
@@ -34,6 +34,7 @@ $endif$
 $for(css)$
   <link rel="stylesheet" href="$css$">
 $endfor$
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 $if(math)$
   $math$
 $endif$
@@ -67,32 +68,40 @@ $endfor$
 </div>
 
 <div id="details">
-  <p>
-    Hi! I'm a backend developer at <a href="https://wire.com">Wire</a>, a
-    Haskeller, and a keypress event generator. I live in Berlin, but
-    originally I'm
-    from <a href="https://en.wikipedia.org/wiki/Belarus">Belarus</a> (bonus
-    points if you've ever heard of it).
-  </p>
-  <p>
-    If you just want to talk or find out how my life's going or whatever,
-    you can write me at <a href="mailto:yom@artyom.me">yom@artyom.me</a>
-    or <a href="http://t.me/lightgreen">in Telegram</a>. If you want to (try
-    to) hire me, here's my <a href="/cv">resume</a>. You can also peek at
-    <a href="http://github.com/neongreen">my Github</a> (but most of the
-    projects are <a href="http://github.com/aelve">here</a>). And I've got
-    a <a href="http://telegram.me/lightgreen_life">Telegram channel</a> with
-    links, short posts and what-not.
-  </p>
-  <p>
-    This site was last updated on <strong>$today$</strong> under intriguing
-    and mysterious circumstances. If you're unsure whether I'm alive, see my
-    <a href="http://last.fm/user/mantisgreen">Last.fm</a>. Here's a
-    <a href="http://tvtropes.org/pmwiki/randomitem.php?p=1">random TVTrope</a>,
-    <a href="http://dynamic.xkcd.com/random/comic/">xkcd comic</a>, and
-    <a href="http://thecatapi.com/api/images/get?format=src&type=jpg">kitten</a>
-    for you. Have fun!
-  </p>
+  <div class="badge">
+    <i class="fas fa-envelope"></i>
+    <a href="mailto:yom@artyom.me">yom@artyom.me</a>
+  </div>
+  <div class="badge">
+    <i class="fab fa-telegram"></i>
+    <a href="http://t.me/lightgreen">lightgreen</a>
+  </div>
+  <div class="badge">
+    <i class="fab fa-github"></i>
+    <a href="http://github.com/neongreen">neongreen</a>
+  </div>
+
+  <div class="badge">
+    Backend dev at <a href="https://wire.com">Wire</a>
+  </div>
+  <div class="badge">
+    Founder of <a href="https://aelve.com">Aelve</a>
+  </div>
+  <div class="badge">
+    Haskell consultant at <a href="https://monadfix.io">Monadfix</a>
+  </div>
+
+  <div class="badge">
+    Living in Berlin (come hang out!)
+  </div>
+
+  <div class="badge attention">
+    <i class="fas fa-exclamation-triangle"></i>
+    This badge grabs your attention
+  </div>
+  <div class="badge">
+    I'm sorry for doing this
+  </div>
 </div>
 
 <div id="main">
