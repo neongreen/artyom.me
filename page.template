@@ -97,10 +97,7 @@ $endfor$
 
   <div class="badge attention">
     <i class="fas fa-exclamation-triangle"></i>
-    This badge grabs your attention
-  </div>
-  <div class="badge">
-    I'm sorry for doing this
+    Grabbed your attention
   </div>
 </div>
 
