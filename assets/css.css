@@ -5,7 +5,7 @@ body {
     margin: auto;
     padding: 0 1em;
     max-width: 800px;
-    font-family: sans-serif;
+    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
     line-height: 150%; }
 
 code {
@@ -140,17 +140,17 @@ dd p {
 
 #details {
     margin-top: 1rem;
-    font-size: 90%;
+    font-size: 85%;
     line-height: 140%;
 }
 
 #details .badge {
     display: inline-block;
     border-radius: 0.2em;
-    padding: 0.2em 0.5em;
+    padding: 0.2em 0.45em;
     background-color: #eee;
-    margin-right: 0.3em;
-    margin-bottom: 0.5em;
+    margin-right: 0.25em;
+    margin-bottom: 0.45em;
 }
 
 #details .badge.attention {
