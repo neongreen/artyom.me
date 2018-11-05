@@ -141,16 +141,15 @@ dd p {
 #details {
     margin-top: 1rem;
     font-size: 85%;
-    line-height: 140%;
 }
 
 #details .badge {
     display: inline-block;
     border-radius: 0.2em;
-    padding: 0.2em 0.45em;
+    padding: 0px 0.45em;
     background-color: #eee;
-    margin-right: 0.25em;
-    margin-bottom: 0.45em;
+    margin-right: 0.45em;
+    margin-bottom: 0.40em;
 }
 
 #details .badge.attention {

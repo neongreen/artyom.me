@@ -71,31 +71,31 @@ $endfor$
   <div class="badge">
     <i class="fas fa-envelope"></i>
     <a href="mailto:yom@artyom.me">yom@artyom.me</a>
-  </div>
-  <div class="badge">
+  </div
+  ><div class="badge">
     <i class="fab fa-telegram"></i>
     <a href="http://t.me/lightgreen">lightgreen</a>
-  </div>
-  <div class="badge">
+  </div
+  ><div class="badge">
     <i class="fab fa-github"></i>
     <a href="http://github.com/neongreen">neongreen</a>
-  </div>
+  </div
 
-  <div class="badge">
+  ><div class="badge">
     Backend dev at <a href="https://wire.com">Wire</a>
-  </div>
-  <div class="badge">
+  </div
+  ><div class="badge">
     Founder of <a href="https://aelve.com">Aelve</a>
-  </div>
-  <div class="badge">
+  </div
+  ><div class="badge">
     Haskell consultant at <a href="https://monadfix.io">Monadfix</a>
-  </div>
+  </div
 
-  <div class="badge">
+  ><div class="badge">
     Living in Berlin (come hang out!)
-  </div>
+  </div
 
-  <div class="badge attention">
+  ><div class="badge attention">
     Attention-bait
   </div>
 </div>
