@@ -62,6 +62,10 @@ blockquote blockquote {
 .note p {
     margin: 0.5em 0; }
 
+ul, ol {
+    padding-left: 1.6em;
+}
+
 a:link, .blue-links a:visited
             {color: #008ACE; text-decoration: none;}
 a:visited   {color: #B40EB4; text-decoration: none;}
