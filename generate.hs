@@ -124,11 +124,12 @@ renderPage
 renderPage pageType input output url = do
   template <- readFile "page.template"
   today <- formatTime defaultTimeLocale "%B %-d, %Y" <$> getCurrentTime
+  isoToday <- formatTime defaultTimeLocale "%F" <$> getCurrentTime
   let vars = concat
         [ [("src", input)]
         , [("url", url)]
         , [("today", today)]
-        , [("css", "/css.css")]
+        , [("css", "/css.css?date=" ++ isoToday)]
         , case pageType of
             Post ->
               [("comments-enabled", "true")]
