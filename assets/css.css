@@ -169,14 +169,13 @@ dd p {
     background-color: #e7e3fc;
     font-size: 1.5em; }
 
-#latest-post {
-    width: 75%;
+#monadfix {
     margin: 0 auto 2.5em auto;
-    padding: 1em 0;
-    padding-bottom: 1em;
-    text-align: center;
-    border: 1px solid black;
-    background-color: rgb(222, 255, 218) }
+    padding: 1px 1em;
+    padding-bottom: 0.5em;
+    border-radius: 0.2em;
+    background-color: #eee;
+}
 
 #ad {
     width: 75%;

@@ -169,11 +169,25 @@ $endif$
 
 </div>
 
-$if(latest-post-link)$
-<div id="latest-post">
-Read next: <a href="$latest-post-link$">$latest-post-title$</a>
+<div id="monadfix" class="blue-links">
+  <h3>Now doing software consulting!</h3>
+  <p>
+    Nowadays I'm running an FP consultancy at
+    <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
+    Clojure, and Agda. Some of them (1) are also me, but most of them are
+    not. Huh.
+  </p>
+  <p>
+    We do training and code reviews, write libraries that don't exist in the
+    ecosystem yet, send you links to cool papers that solve all your
+    problems, and recommend practices that make your code less likely to
+    become a horrible unmaintainable mess in two years.
+  </p>
+  <p>
+    (Also we are really easy to work with, our fees are listed right on the
+    site, and if you're not satisfied we simply won't bill you.)
+  </p>
 </div>
-$endif$
 
 $if(comments-enabled)$
 <div id="disqus_thread"></div>

@@ -32,30 +32,23 @@ main = do
   home <- getHomeDirectory
 
   rss <- read <$> readFile "feed.feed"
-  let latestPost = head $ getRssItems rss
-      latestPostTitle = head [x | RSS.Title x <- latestPost]
-      latestPostLink  = head [x | RSS.Link x <- latestPost]
-      latestPostGuid  = head [x | RSS.Guid _ x <- latestPost]
 
   let generateRss = do
         putStrLn "generating RSS feed"
         writeFile "output/feed.xml" (showXML $ rssToXML rss)
 
   let generateCV = do
-        renderPage CV (latestPostTitle, latestPostLink)
-          "cv.md" "output/cv" "cv"
+        renderPage CV "cv.md" "output/cv" "cv"
         renderCV_Plain "cv.md" "output/cv-plain.html"
         renderCV_PDF "cv.md" "output/cv.pdf"
 
   let generateIndex = do
-        renderPage Index (latestPostTitle, latestPostLink)
-          "index.md" "output/index.html" "index.html"
+        renderPage Index "index.md" "output/index.html" "index.html"
 
   -- Post ID is something like "aeson" or "foo/bar"
   let generatePost postId = do
         printf "  * posts/%s\n" postId
-        let pageType = Post (IsLatest (postId == latestPostGuid))
-        renderPage pageType (latestPostTitle, latestPostLink)
+        renderPage Post
           ("posts" </> postId <.> "md") ("output" </> postId) postId
 {-
   let generateMusic ts f = do
@@ -120,18 +113,15 @@ deriving instance Read RSS
 -- Page rendering
 ----------------------------------------------------------------------------
 
-newtype IsLatest = IsLatest { isLatest :: Bool }
-
-data PageType = Post IsLatest | Index | CV
+data PageType = Post | Index | CV
 
 renderPage
   :: PageType
-  -> (String, URI)     -- ^ Latest post title and link
   -> FilePath          -- ^ Input file (has to be relative because it's also a Github link)
   -> FilePath          -- ^ Output file
   -> String            -- ^ Page URL (without slash prefix)
   -> IO ()
-renderPage pageType (latestPostTitle, latestPostLink) input output url = do
+renderPage pageType input output url = do
   template <- readFile "page.template"
   today <- formatTime defaultTimeLocale "%B %-d, %Y" <$> getCurrentTime
   let vars = concat
@@ -140,12 +130,7 @@ renderPage pageType (latestPostTitle, latestPostLink) input output url = do
         , [("today", today)]
         , [("css", "/css.css")]
         , case pageType of
-            Post (IsLatest False) ->
-              [("latest-post-title", latestPostTitle)
-              ,("latest-post-link", show latestPostLink)]
-            _ -> []
-        , case pageType of
-            Post _ ->
+            Post ->
               [("comments-enabled", "true")]
             _ -> []
         ]
