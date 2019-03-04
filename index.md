@@ -10,7 +10,7 @@ Here's my [resume](/cv).
 
 # Haskell
 
-I've written some libraries, see <https://hackage.haskell.org/users/Artyom>.
+I've written some libraries, see <https://hackage.haskell.org/user/Artyom>.
 
 I also started the [/r/haskelltil](http://reddit.com/r/haskelltil) subreddit (for Haskell tips and tricks and code samples and oddities and curiosities and idioms and interesting facts and everything that is short enough that you'd be ashamed to submit it to [/r/haskell](http://reddit.com/r/haskell) or write about it in a blog). It didn't catch on but some content there is still useful.
 
