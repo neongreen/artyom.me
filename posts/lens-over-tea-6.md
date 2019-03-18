@@ -231,7 +231,7 @@ instance HasPerson Person where
   {-# INLINE age #-}
 ~~~
 
-However, it doesn't create a separate class for each field – instead it creates a single class for the type, which normally wouldn't be more useful than `makeLenses`, but it becomes useful when you have a hierarchy of types. For instance, let's say that you have beings (which have an age), people (who have an age and a name), and workers (who have an age, a name, and a job, unlike me). If you used `makeFields`, you'd just create records with fields called `personAge`, `personName`, `workerAge`, `workerJob`, etc, and it'd work – but it feels somewhat ad-hoc. `makeClasses` lets us expicitly show that they are a hierarchy:
+However, it doesn't create a separate class for each field – instead it creates a single class for the type, which normally wouldn't be more useful than `makeLenses`, but it becomes useful when you have a hierarchy of types. For instance, let's say that you have beings (which have an age), people (who have an age and a name), and workers (who have an age, a name, and a job, unlike me). If you used `makeFields`, you'd just create records with fields called `personAge`, `personName`, `workerAge`, `workerJob`, etc, and it'd work – but it feels somewhat ad-hoc. `makeClassy` lets us expicitly show that they are a hierarchy:
 
 ~~~ haskell
 data Being = Being {
