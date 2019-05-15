@@ -82,9 +82,6 @@ $endfor$
   </div
 
   ><div class="badge">
-    Backend dev at <a href="https://wire.com">Wire</a>
-  </div
-  ><div class="badge">
     Founder of <a href="https://aelve.com">Aelve</a>
   </div
   ><div class="badge">
@@ -170,22 +167,12 @@ $endif$
 </div>
 
 <div id="monadfix" class="blue-links">
-  <h3>Now doing software consulting!</h3>
+  <h3>I'm doing software consulting!</h3>
   <p>
-    Nowadays I'm running an FP consultancy at
+    Nowadays I'm running a functional programming consultancy at
     <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
-    Clojure, and Agda. Some of them (1) are also me, but most of them are
-    not. Huh.
-  </p>
-  <p>
-    We do training and code reviews, write libraries that don't exist in the
-    ecosystem yet, send you links to cool papers that solve all your
-    problems, and recommend practices that make your code less likely to
-    become a horrible unmaintainable mess in two years.
-  </p>
-  <p>
-    (Also we are really easy to work with, our fees are listed right on the
-    site, and if you're not satisfied we simply won't bill you.)
+    PureScript, Clojure, and Agda. We are looking for more clients and more
+    consultants!
   </p>
 </div>
 
