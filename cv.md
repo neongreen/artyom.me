@@ -1,4 +1,4 @@
-% Artyom Kazak: CV
+% Artyom Kazak – curriculum vitae
 
 ---
 header-includes:
@@ -13,38 +13,18 @@ CV links: [pretty][cv-web] | [plain][cv-plain] | [PDF][cv-pdf].
 [cv-plain]: https://artyom.me/cv-plain.html
 [cv-pdf]: https://artyom.me/cv.pdf
 
-## Who I am
-
-I'm a Haskeller with nine years of experience. I have spent substantial time
-dealing with REST APIs (client and server), parsing, serialization, FFI,
-GUIs, and implementing protocols. I have delivered talks about lenses,
-Template Haskell, and type-level programming.
-
-I used to be a cryptocurrency developer, and a backend engineer for an
-end-to-end-encrypted messenger. Right now I'm focusing on my own projects,
-including a software consultancy and a collaborative workspace for research
-teams.
-
 ## What I do
 
-Right now I'm working on [Aelve Guide][], improving state-of-the-art for
-research collaboration.
+_2017–now:_ founder of Aelve. I am managing [Aelve Guide][], a collaborative workspace for large research teams, and [Aelve Codesearch][], a regex-based code search engine.
 
-I am also a co-founder of [Monadfix][], a functional programming
-consultancy.
+_2017–now:_ co-founder of [Monadfix][], a functional programming consultancy.
 
-Previously I worked at [Wire][]. Our [backend][wire-server] is fully
-open-source and written in Haskell. I was busy implementing enhancements,
-writing specs, and doing prototyping for novel features, as well as some
-devops work (Cassandra, AWS, Ansible, Kubernetes).
+_2018–2019:_ backend engineer at [Wire][]. The [backend][wire-server] is fully open-source and written in Haskell. I was involved with development, writing specs, doing prototyping for novel features, operations (Cassandra, AWS, Ansible, Kubernetes), and hiring.
 
-Even more previously I worked at [Serokell][], where I was one of core
-developers of [Cardano][], a hugely successful cryptocurrency with dozens of
-devs on the team. Other than writing a substantial part of the code and
-doing bug-hunting, I was involved in many architectural and design
-decisions.
+_2016–2018:_ software engineer at [Serokell][]. I was one of core developers of [Cardano][], a hugely successful cryptocurrency with dozens of devs on the team. I was involved in many architectural and design decisions, and wrote a substantial part of the codebase.
 
 [Aelve Guide]: https://guide.aelve.com
+[Aelve Codesearch]: https://codesearch.aelve.com
 
 [Wire]: https://wire.com
 [wire-server]: https://github.com/wireapp/wire-server
@@ -57,6 +37,7 @@ decisions.
 ## Contact me
 
   * Telegram or Wire: \@lightgreen
-  * email: yom@artyom.me
+  * consulting inquiries: hi@monadfix.io
+  * personal email: yom@artyom.me
 
 I speak English and Russian.
