@@ -38,6 +38,6 @@ _2016–2018:_ software engineer at [Serokell][]. I was one of core developers o
 
   * Telegram or Wire: \@lightgreen
   * consulting inquiries: hi@monadfix.io
-  * personal email: yom@artyom.me
+  * personal email: artyom@aelve.com
 
 I speak English and Russian.

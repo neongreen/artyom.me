@@ -1,12 +1,10 @@
 ---
-pagetitle: artyom.me
+pagetitle: Artyom Kazak
 ---
 
 # If you want to hire me
 
-I'm not planning to leave Wire at the moment, but you can write me anyway so that if I do end up looking for another job, I would know that you exist.
-
-Here's my [resume](/cv).
+The best way to hire me is by hiring [Monadfix](https://monadfix.io) services. I'm also open to other opportunities, especially in sales engineering and marketing roles. Here's my [resume](/cv).
 
 # Haskell
 
