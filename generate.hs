@@ -38,7 +38,7 @@ main = do
         writeFile "output/feed.xml" (showXML $ rssToXML rss)
 
   let generateCV = do
-        renderPage CV "cv.md" "output/cv" "cv"
+        renderPage CV "cv.md" "output/cv.html" "cv"
         renderCV_Plain "cv.md" "output/cv-plain.html"
         renderCV_PDF "cv.md" "output/cv.pdf"
 
@@ -49,7 +49,7 @@ main = do
   let generatePost postId = do
         printf "  * posts/%s\n" postId
         renderPage Post
-          ("posts" </> postId <.> "md") ("output" </> postId) postId
+          ("posts" </> postId <.> "md") ("output" </> postId <.> "html") postId
 {-
   let generateMusic ts f = do
         let ident = takeBaseName f
