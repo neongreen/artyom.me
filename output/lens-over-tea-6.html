@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <meta name="google-site-verification" content="y-gj-eNGiiocXI1nd6EPlywGEfhW90jeeFO__ePHvbg" />
+  <meta name="generator" content="pandoc">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="icon" type="image/png" href="/ame256.png">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml"
+        title="RSS">
+  <title>lens over tea #6: Template Haskell</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/css.css?date=2019-06-21">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154447441-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-154447441-1');
+</script>
+
+</head>
+
+<body>
+
+<div id="header">
+  <a href="/">Artyom Kazak</a>
+  <a href="/feed.xml"><img src="/feed-icon.svg" alt="feed"></a>
+</div>
+
+<div id="details" class="blue-links">
+  <div class="badge">
+    <i class="fas fa-envelope"></i>
+    <a href="mailto:artyom@aelve.com">artyom@aelve.com</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-telegram"></i>
+    <a href="http://t.me/lightgreen">lightgreen</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-github"></i>
+    <a href="http://github.com/neongreen">neongreen</a>
+  </div
+
+  ><div class="badge">
+    Founder of <a href="https://aelve.com">Aelve</a>
+  </div
+  ><div class="badge">
+    Co-founder of <a href="https://monadfix.io">Monadfix</a>
+  </div
+
+  ><div class="badge">
+    Living in Moscow (come hang out!)
+  </div>
+</div>
+
+<div id="main">
+
+
+
+<div id="series">
+      <a href="/lens-over-tea-5">&lt;&lt;&lt;</a>
+
+  <a href="/#lens-over-tea">“lens over tea”</a>
+
+      <a href="/lens-over-tea-7">&gt;&gt;&gt;</a>
+  </div>
+
+
+<article>
+<h1 class="title">lens over tea #6: Template Haskell</h1>
+
+<p>Let's take a break from weird typeclasses and delve into <a href="https://en.wikipedia.org/wiki/Template_Haskell">Template Haskell</a> that lens uses fairly extensively; in the end we'll have a simple implementation of <code>makeLenses</code>. This post is fairly standalone and you don't have to have read the previous 5 posts – in fact, you don't even need to know any TH. The only thing you need to know that Template Haskell is a way to generate code while your program is compiling.</p>
+<p>And before we begin, some funny quotes:</p>
+<pre><code>monochrom: Lens over Tea is really long. this is Lens over A Feast
+           Spanning 5 Days
+    ReinH: Or &quot;Lens Over Teas&quot;
+    ReinH: Speaking of which, I should drink some tea.
+monochrom: and each day the fabled Italian dinner which lasts 3 hours
+           and 10 courses or something
+monochrom: unless you&#39;re like the minister of education of Hong Kong.
+           he claims he reads 30 books every month</code></pre>
+<pre><code>Gurkenglas: The masterpiece of an article linked above, &quot;lens over
+            tea&quot;, whose writing style (sacrificing &quot;ease for some to
+            understand what you are talking about&quot; for appeal to those
+            who would write the same way if they sacrificed the same)
+            quickly rubbed off on me, case in point.</code></pre>
+<h1 id="functions-in-lens-that-use-template-haskell">Functions in lens that use Template Haskell</h1>
+<p>Or “know your enemy”. If you already know what <code>makeLenses</code> etc do, you can <a href="#template-haskell">skip this part</a> and start reading about Template Haskell itself.</p>
+<h2 id="makelenses"><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeLenses"><code>makeLenses</code></a></h2>
+<p>Lens uses TH in order to provide <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeLenses"><code>makeLenses</code></a> (and related functions), which you can use to automatically generate lenses for your types. Let's see it in action:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE TemplateHaskell #-}</span>
+
+<span class="kw">module</span> <span class="dt">Test</span> <span class="kw">where</span>  <span class="co">-- would be needed later</span>
+
+<span class="kw">import </span><span class="dt">Control.Lens</span>
+
+<span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {
+  _<span class="ot">name ::</span> <span class="dt">String</span>,          <span class="co">-- the underscores show for which</span>
+  _<span class="ot">age ::</span> <span class="dt">Double</span> }          <span class="co">-- fields the lenses should be created</span>
+
+makeLenses <span class="ch">&#39;&#39;</span><span class="dt">Person</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="fu">:</span>t name
+<span class="ot">name ::</span> <span class="dt">Functor</span> f <span class="ot">=&gt;</span> (<span class="dt">String</span> <span class="ot">-&gt;</span> f <span class="dt">String</span>) <span class="ot">-&gt;</span> <span class="dt">Person</span> <span class="ot">-&gt;</span> f <span class="dt">Person</span>
+
+<span class="co">-- Or alternatively,</span>
+<span class="co">--   name :: Lens&#39; Person String</span></code></pre></div>
+<p>Here's what happened. <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeLenses"><code>makeLenses</code></a> is a function that takes a name of a datatype and produces some code.</p>
+<p><code>''Person</code> is a special syntax enabled by <code>{-# LANGUAGE TemplateHaskell #-}</code>. <code>''</code> prepended to any type or class turns it into <code>Name</code>:</p>
+<ul>
+<li><code>Maybe</code> – a type constructor</li>
+<li><code>&quot;Maybe&quot;</code> – a string</li>
+<li><code>''Maybe</code> – a name (behaves similarly to a string but is guaranteed to refer to something in the code)</li>
+</ul>
+<p>The produced code is “inserted” into the file during complation (it doesn't actually get written into the file, just treated as if it was there). In this case, the code looks like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">age ::</span> <span class="dt">Lens&#39;</span> <span class="dt">Person</span> <span class="dt">Double</span>
+age f (<span class="dt">Person</span> x1 x2) <span class="fu">=</span> fmap (\y <span class="ot">-&gt;</span> <span class="dt">Person</span> x1 y) (f x2)
+<span class="ot">{-# INLINE age #-}</span>
+
+<span class="ot">name ::</span> <span class="dt">Lens&#39;</span> <span class="dt">Person</span> <span class="dt">String</span>
+name f (<span class="dt">Person</span> x1 x2) <span class="fu">=</span> fmap (\y <span class="ot">-&gt;</span> <span class="dt">Person</span> y x2) (f x1)
+<span class="ot">{-# INLINE name #-}</span></code></pre></div>
+<p>You can see the produced code by compiling your program with <code>-ddump-splices</code> (that's what we needed <code>module Test</code> for – otherwise GHC would've tried to compile it as a program and we'd have to add a <code>main</code> action):</p>
+<pre><code>&gt; ghc -ddump-splices th.hs
+
+[1 of 1] Compiling Test             ( th.hs, th.o )
+th.hs:14:1-19: Splicing declarations
+    makeLenses &#39;&#39;Person
+  ======&gt;
+    age :: Lens&#39; Person Double
+    age f_a6gx (Person x_a6gy x_a6gz)
+      = fmap (\ y_a6gA -&gt; Person x_a6gy y_a6gA) (f_a6gx x_a6gz)
+    {-# INLINE age #-}
+    name :: Lens&#39; Person String
+    name f_a6gB (Person x_a6gC x_a6gD)
+      = fmap (\ y_a6gE -&gt; Person y_a6gE x_a6gD) (f_a6gB x_a6gC)
+    {-# INLINE name #-}</code></pre>
+<p>(The names of variables look like this because GHC likes making all names unique.)</p>
+<h2 id="makelensesfor"><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeLensesFor"><code>makeLensesFor</code></a></h2>
+<p>There are other functions available, too. <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeLensesFor"><code>makeLensesFor</code></a> is like <code>makeLenses</code> but lets you name lenses differently:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {
+<span class="ot">  name ::</span> <span class="dt">String</span>,
+<span class="ot">  age ::</span> <span class="dt">Double</span> }
+
+makeLensesFor [(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;nameLens&quot;</span>)] <span class="ch">&#39;&#39;</span><span class="dt">Person</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">nameLens ::</span> <span class="dt">Lens&#39;</span> <span class="dt">Person</span> <span class="dt">String</span>
+nameLens f (<span class="dt">Person</span> x1 x2) <span class="fu">=</span> fmap (\y <span class="ot">-&gt;</span> <span class="dt">Person</span> y x2) (f x1)
+<span class="ot">{-# INLINE nameLens #-}</span></code></pre></div>
+<h2 id="makefields"><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeFields"><code>makeFields</code></a></h2>
+<p><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeFields"><code>makeFields</code></a> additionally turns generated lenses into class methods (which means that now you can have records with same-named fields... well, sort of):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">{-# LANGUAGE</span>
+<span class="co">TemplateHaskell,</span>
+<span class="co">MultiParamTypeClasses,     -- all these extensions are needed</span>
+<span class="co">FunctionalDependencies,    -- for generated instances</span>
+<span class="co">FlexibleInstances</span>
+<span class="co">  #-}</span>
+
+<span class="kw">module</span> <span class="dt">Test</span> <span class="kw">where</span>
+
+<span class="kw">import </span><span class="dt">Control.Lens</span>
+
+<span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {
+  _<span class="ot">personName ::</span> <span class="dt">String</span>,
+  _<span class="ot">personAge ::</span> <span class="dt">Double</span> }
+
+<span class="kw">data</span> <span class="dt">Animal</span> <span class="fu">=</span> <span class="dt">Animal</span> {
+  _<span class="ot">animalSpecies ::</span> <span class="dt">String</span>,
+  _<span class="ot">animalName ::</span> <span class="dt">Maybe</span> <span class="dt">String</span>,
+  _<span class="ot">animalAge ::</span> <span class="dt">Double</span> }
+
+makeFields <span class="ch">&#39;&#39;</span><span class="dt">Person</span>
+makeFields <span class="ch">&#39;&#39;</span><span class="dt">Animal</span></code></pre></div>
+<p>Before showing you generated code, here's an example of usage:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="dt">Person</span> <span class="st">&quot;Donald&quot;</span> <span class="dv">11</span> <span class="fu">^.</span> name
+<span class="st">&quot;Donald&quot;</span>
+
+<span class="fu">&gt;</span> <span class="dt">Animal</span> <span class="st">&quot;lion&quot;</span> <span class="dt">Nothing</span> <span class="dv">4</span> <span class="fu">^.</span> name
+<span class="dt">Nothing</span>
+
+<span class="fu">&gt;</span> <span class="fu">:</span>t name
+<span class="ot">name ::</span> (<span class="dt">Functor</span> f, <span class="dt">HasName</span> s a) <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> f a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f s</code></pre></div>
+<p>And now the code:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">HasAge</span> s a <span class="fu">|</span> s <span class="ot">-&gt;</span> a <span class="kw">where</span>
+<span class="ot">  age ::</span> <span class="dt">Lens&#39;</span> s a
+
+<span class="kw">instance</span> <span class="dt">HasAge</span> <span class="dt">Person</span> <span class="dt">Double</span> <span class="kw">where</span>
+  age f (<span class="dt">Person</span> x1 x2) <span class="fu">=</span> fmap (\y <span class="ot">-&gt;</span> <span class="dt">Person</span> x1 y) (f x2)
+  <span class="ot">{-# INLINE age #-}</span>
+
+<span class="kw">instance</span> <span class="dt">HasAge</span> <span class="dt">Animal</span> <span class="dt">Double</span> <span class="kw">where</span>
+  age f (<span class="dt">Animal</span> x1 x2 x3) <span class="fu">=</span> fmap (\y <span class="ot">-&gt;</span> <span class="dt">Animal</span> x1 x2 y) (f x3)
+  <span class="ot">{-# INLINE age #-}</span>
+
+<span class="fu">--------------------</span>
+
+<span class="kw">class</span> <span class="dt">HasName</span> s a <span class="fu">|</span> s <span class="ot">-&gt;</span> a <span class="kw">where</span>
+<span class="ot">  name ::</span> <span class="dt">Lens&#39;</span> s a
+
+<span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Person</span> <span class="dt">String</span> <span class="kw">where</span>
+  name f (<span class="dt">Person</span> x1 x2) <span class="fu">=</span> fmap (\y <span class="ot">-&gt;</span> <span class="dt">Person</span> y x2) (f x1)
+  <span class="ot">{-# INLINE name #-}</span>
+
+<span class="kw">instance</span> <span class="dt">HasName</span> <span class="dt">Animal</span> (<span class="dt">Maybe</span> <span class="dt">String</span>) <span class="kw">where</span>
+  name f (<span class="dt">Animal</span> x1 x2 x3) <span class="fu">=</span> fmap (\y <span class="ot">-&gt;</span> <span class="dt">Animal</span> x1 y x3) (f x2)
+  <span class="ot">{-# INLINE name #-}</span>
+
+<span class="fu">--------------------</span>
+
+<span class="kw">class</span> <span class="dt">HasSpecies</span> s a <span class="fu">|</span> s <span class="ot">-&gt;</span> a <span class="kw">where</span>
+<span class="ot">  species ::</span> <span class="dt">Lens&#39;</span> s a
+
+<span class="kw">instance</span> <span class="dt">HasSpecies</span> <span class="dt">Animal</span> <span class="dt">String</span> <span class="kw">where</span>
+  species f (<span class="dt">Animal</span> x1 x2 x3) <span class="fu">=</span> fmap (\y <span class="ot">-&gt;</span> <span class="dt">Animal</span> y x2 x3) (f x1)
+  <span class="ot">{-# INLINE species #-}</span></code></pre></div>
+<h2 id="makeclassy"><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeClassy"><code>makeClassy</code></a></h2>
+<p><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeClassy"><code>makeClassy</code></a> is pretty similar to <code>makeLenses</code>, but it has an extra feature that makes it very useful in some situations. Like <code>makeFields</code>, it makes lenses methods of a class:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {
+  _<span class="ot">name ::</span> <span class="dt">String</span>,
+  _<span class="ot">age ::</span> <span class="dt">Double</span> }</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">HasPerson</span> c <span class="kw">where</span>
+<span class="ot">  person ::</span> <span class="dt">Lens&#39;</span> c <span class="dt">Person</span>
+
+<span class="ot">  age ::</span> <span class="dt">Lens&#39;</span> c <span class="dt">Double</span>
+  age <span class="fu">=</span> person<span class="fu">.</span>age
+  <span class="ot">{-# INLINE age #-}</span>
+
+<span class="ot">  name ::</span> <span class="dt">Lens&#39;</span> c <span class="dt">String</span>
+  name <span class="fu">=</span> person<span class="fu">.</span>name
+  <span class="ot">{-# INLINE name #-}</span>
+
+<span class="kw">instance</span> <span class="dt">HasPerson</span> <span class="dt">Person</span> <span class="kw">where</span>
+  person <span class="fu">=</span> id
+
+  name f (<span class="dt">Person</span> x1 x2) <span class="fu">=</span> fmap (\y <span class="ot">-&gt;</span> <span class="dt">Person</span> y x2) (f x1)
+  <span class="ot">{-# INLINE name #-}</span>
+
+  age f (<span class="dt">Person</span> x1 x2) <span class="fu">=</span> fmap (\y <span class="ot">-&gt;</span> <span class="dt">Person</span> x1 y) (f x2)
+  <span class="ot">{-# INLINE age #-}</span></code></pre></div>
+<p>However, it doesn't create a separate class for each field – instead it creates a single class for the type, which normally wouldn't be more useful than <code>makeLenses</code>, but it becomes useful when you have a hierarchy of types. For instance, let's say that you have beings (which have an age), people (who have an age and a name), and workers (who have an age, a name, and a job, unlike me). If you used <code>makeFields</code>, you'd just create records with fields called <code>personAge</code>, <code>personName</code>, <code>workerAge</code>, <code>workerJob</code>, etc, and it'd work – but it feels somewhat ad-hoc. <code>makeClassy</code> lets us expicitly show that they are a hierarchy:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Being</span> <span class="fu">=</span> <span class="dt">Being</span> {
+  _<span class="ot">age ::</span> <span class="dt">Double</span> }
+
+<span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {
+  _<span class="ot">personBeing ::</span> <span class="dt">Being</span>,
+  _<span class="ot">name ::</span> <span class="dt">String</span> }
+
+<span class="kw">data</span> <span class="dt">Worker</span> <span class="fu">=</span> <span class="dt">Worker</span> {
+  _<span class="ot">workerPerson ::</span> <span class="dt">Person</span>,
+  _<span class="ot">job ::</span> <span class="dt">String</span> }
+
+makeClassy <span class="ch">&#39;&#39;</span><span class="dt">Being</span>
+makeClassy <span class="ch">&#39;&#39;</span><span class="dt">Person</span>
+makeClassy <span class="ch">&#39;&#39;</span><span class="dt">Worker</span></code></pre></div>
+<p>The magic sauce is these 3 instances you have to define manually:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">HasBeing</span> <span class="dt">Person</span> <span class="kw">where</span> being <span class="fu">=</span> personBeing
+<span class="kw">instance</span> <span class="dt">HasPerson</span> <span class="dt">Worker</span> <span class="kw">where</span> person <span class="fu">=</span> workerPerson
+
+<span class="kw">instance</span> <span class="dt">HasBeing</span> <span class="dt">Worker</span> <span class="kw">where</span> being <span class="fu">=</span> person<span class="fu">.</span>being</code></pre></div>
+<p>Now you can use <code>age</code>/<code>name</code>/<code>job</code> to access age/name/job of anybody who has it, and you also can “downgrade” types (<code>Worker</code> to <code>Person</code>, or <code>Person</code> to <code>Being</code>, or <code>Worker</code> to <code>Being</code>) by using the <code>person</code> and <code>being</code> lenses.</p>
+<h2 id="makeprisms"><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makePrisms"><code>makePrisms</code></a></h2>
+<p>Next is <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makePrisms"><code>makePrisms</code></a>, which generates prisms for sum types (while <code>makeLenses</code> generates lenses for product types):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Foobar</span> a
+  <span class="fu">=</span> <span class="dt">Foo</span> a
+  <span class="fu">|</span> <span class="dt">Bar</span> <span class="dt">Int</span> <span class="dt">Char</span>
+  <span class="kw">deriving</span> <span class="dt">Show</span>
+
+makePrisms <span class="ch">&#39;&#39;</span><span class="dt">Foobar</span></code></pre></div>
+<p>Again, an example first:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="dt">Bar</span> <span class="dv">3</span> <span class="ch">&#39;a&#39;</span> <span class="fu">^?</span> _<span class="dt">Foo</span>
+<span class="dt">Nothing</span>
+
+<span class="fu">&gt;</span> <span class="dt">Bar</span> <span class="dv">3</span> <span class="ch">&#39;a&#39;</span> <span class="fu">^?</span> _<span class="dt">Bar</span>
+<span class="dt">Just</span> (<span class="dv">3</span>,<span class="ch">&#39;a&#39;</span>)
+
+<span class="fu">&gt;</span> <span class="dt">Bar</span> <span class="dv">3</span> <span class="ch">&#39;a&#39;</span> <span class="fu">^?</span> _<span class="dt">Bar</span><span class="fu">.</span>_1
+<span class="dt">Just</span> <span class="dv">3</span>
+
+<span class="fu">&gt;</span> _<span class="dt">Foo</span> <span class="fu">#</span> <span class="dt">False</span>
+<span class="dt">Foo</span> <span class="dt">False</span></code></pre></div>
+<p>And now generated code:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- prism :: (b -&gt; t) -&gt; (s -&gt; Either t a) -&gt; Prism s t a b</span>
+
+_<span class="dt">Foo</span><span class="ot"> ::</span> <span class="dt">Prism</span> (<span class="dt">Foobar</span> a) (<span class="dt">Foobar</span> b) a b
+_<span class="dt">Foo</span> <span class="fu">=</span> prism (\x <span class="ot">-&gt;</span> <span class="dt">Foo</span> x)
+             (\x <span class="ot">-&gt;</span> <span class="kw">case</span> x <span class="kw">of</span>
+                      <span class="dt">Foo</span> y <span class="ot">-&gt;</span> <span class="dt">Right</span> y
+                      <span class="dt">Bar</span> y1 y2 <span class="ot">-&gt;</span> <span class="dt">Left</span> (<span class="dt">Bar</span> y1 y2))
+
+_<span class="dt">Bar</span><span class="ot"> ::</span> <span class="dt">Prism&#39;</span> (<span class="dt">Foobar</span> a) (<span class="dt">Int</span>, <span class="dt">Char</span>)
+_<span class="dt">Bar</span> <span class="fu">=</span> prism
+         (\(x1, x2) <span class="ot">-&gt;</span> <span class="dt">Bar</span> x1 x2)
+         (\x <span class="ot">-&gt;</span> <span class="kw">case</span> x <span class="kw">of</span>
+                  <span class="dt">Bar</span> y1 y2 <span class="ot">-&gt;</span> <span class="dt">Right</span> (y1, y2)
+                  _ <span class="ot">-&gt;</span> <span class="dt">Left</span> x)</code></pre></div>
+<h2 id="makelenseswith"><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeLensesWith"><code>makeLensesWith</code></a></h2>
+<p><code>makeLenses</code>, <code>makeLensesFor</code>, and <code>makeFields</code> all call <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeLensesWith"><code>makeLensesWith</code></a> under the hood. It takes a record with settings, and produces lenses according to those settings. (The settings include “whether or not make classes”, “how to call resulting lenses”, etc.) We'll look at those settings later; you can see the list of them <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#t:LensRules">here</a> (scroll down a bit, to the “configuration accessors” section).</p>
+<h2 id="declarelenses"><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:declareLenses"><code>declareLenses</code></a></h2>
+<p><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:declareLenses"><code>declareLenses</code></a> lets you make lenses for a record without creating record accessors (i.e. underscored fields). To do it, you have to pass the whole <em>declaration</em> to the function:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">declareLenses [d<span class="fu">|</span>
+  <span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {
+<span class="ot">    name ::</span> <span class="dt">String</span>,
+<span class="ot">    age ::</span> <span class="dt">Double</span> }
+  <span class="fu">|</span>]</code></pre></div>
+<p>Similarly to how <code>''Person</code> isn't a type but a <code>Name</code>, any code in <code>[| |]</code> brackets isn't code, but <em>representation</em> of that code. <code>declareLenses</code> inspects that representation, generates lenses based on it, changes it, and the result is added to the file. In this case, the result is this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> <span class="dt">String</span> <span class="dt">Double</span>
+
+<span class="ot">name ::</span> <span class="dt">Lens&#39;</span> <span class="dt">Person</span> <span class="dt">String</span>
+name f (<span class="dt">Person</span> x1 x2) <span class="fu">=</span> fmap (\y <span class="ot">-&gt;</span> <span class="dt">Person</span> y x2) (f x1)
+<span class="ot">{-# INLINE name #-}</span>
+
+<span class="ot">age ::</span> <span class="dt">Lens&#39;</span> <span class="dt">Person</span> <span class="dt">Double</span>
+age f (<span class="dt">Person</span> x1 x2) <span class="fu">=</span> fmap (\y <span class="ot">-&gt;</span> <span class="dt">Person</span> x1 y) (f x2)
+<span class="ot">{-# INLINE age #-}</span></code></pre></div>
+<p>(The drawback of <code>declareLenses</code> in comparison to <code>makeLenses</code> is that now in order to construct <code>Person</code> you have to write <code>Person x y</code> instead of more understandable and less error-prone <code>Person {_name = x, _age = y}</code>.)</p>
+<h1 id="template-haskell">Template Haskell</h1>
+<p>Any Haskell code can be represented as a <em>value</em> of one of the types from <a href="https://hackage.haskell.org/package/template-haskell">template-haskell</a> (specifically, from the <a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html"><code>Language.Haskell.TH</code></a> module). There are separate types for expressions, for patterns, for declarations, for types, and for other things.</p>
+<p>For a while this piece of code is going to be our case study:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">map2 ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [b]
+map2 f (x<span class="fu">:</span>xs) <span class="fu">=</span> f x <span class="fu">:</span> map2 f xs
+map2 _ [] <span class="fu">=</span> []</code></pre></div>
+<p><code>[]</code> and <code>f x : map2 f xs</code> are expressions, <code>f</code>, <code>_</code>, <code>[]</code>, and <code>(x:xs)</code> are patterns, <code>(a -&gt; b) -&gt; [a] -&gt; [b]</code> is a type, and the whole thing is a declaration (well, actually 2 declarations – the type signature and the function itself).</p>
+<h2 id="expressions">Expressions</h2>
+<p>Let's start with expressions, because I like them most – they're doing all the work and the rest is just supporting cast. Expressions are represented by the type <a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#t:Exp"><code>Exp</code></a>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Exp</span>
+  <span class="fu">=</span> <span class="dt">VarE</span> <span class="dt">Name</span>
+  <span class="fu">|</span> <span class="dt">ConE</span> <span class="dt">Name</span>
+  <span class="fu">|</span> <span class="dt">AppE</span> <span class="dt">Exp</span> <span class="dt">Exp</span>
+  <span class="fu">|</span> <span class="dt">InfixE</span> (<span class="dt">Maybe</span> <span class="dt">Exp</span>) <span class="dt">Exp</span> (<span class="dt">Maybe</span> <span class="dt">Exp</span>)
+  <span class="fu">|</span> <span class="dt">LitE</span> <span class="dt">Lit</span>
+  <span class="fu">...</span></code></pre></div>
+<ul>
+<li><p><code>VarE</code> is any variable or function name: <code>f</code>, <code>x</code>, <code>xs</code>, and <code>map2</code></p></li>
+<li><p><code>ConE</code> is any constructor: <code>:</code> and <code>[]</code></p></li>
+<li><p><code>AppE</code> is application of a function to a value: <code>f x</code> and <code>map2 f xs</code></p></li>
+<li><p><code>InfixE</code> is used for operators and operator sections: the middle <code>Exp</code> is the operator, and <code>Maybe Exp</code>s to the left and right of it are arguments; in case of a section one of them would be <code>Nothing</code>. In our example it's <code>f x : map2 f xs</code></p></li>
+<li><p><code>LitE</code> is a literal (string, character, or a number)</p></li>
+</ul>
+<p>To create new <code>Name</code>s, you can use <a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#v:mkName"><code>mkName</code></a>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">mkName ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Name</span></code></pre></div>
+<p>To refer to already existing things in scope, use <code>'</code>. For instance, <code>'id</code> refers to <code>id</code> from <code>Prelude</code>, and <code>'(:)</code> refers to the list constructor.</p>
+<p>Okay, now you know everything you need to write <code>f x : map2 f xs</code> as an <code>Exp</code>. (Yeah, this is an exercise.) If you've done everything correctly, you should be able to use <a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#v:pprint"><code>pprint</code></a> (short for “pretty-print”) on your expression to see the code:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> pprint <span class="fu">$</span> <span class="fu">...</span>
+<span class="st">&quot;f x GHC.Types.: map2 f xs&quot;</span></code></pre></div>
+<p>(The reason you're oing to see <code>GHC.Types.:</code> instead of <code>:</code> is that all names generated by TH (excluding the ones defined in the current module) are qualified, and <code>:</code> is exported by <code>Prelude</code> but originally it's from <a href="http://hackage.haskell.org/package/ghc-prim/docs/GHC-Types.html"><code>GHC.Types</code></a>.)</p>
+<p>Okay, so, have you done it?</p>
+<p>The result should look like this if you hate typing repetitive things over and over again:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">var <span class="fu">=</span> <span class="dt">VarE</span> <span class="fu">.</span> mkName
+(<span class="fu">$$</span>) <span class="fu">=</span> <span class="dt">AppE</span>
+
+res <span class="fu">=</span> <span class="dt">InfixE</span>
+  (<span class="dt">Just</span> (var <span class="st">&quot;f&quot;</span> <span class="fu">$$</span> var <span class="st">&quot;x&quot;</span>))
+  (<span class="dt">VarE</span> <span class="ch">&#39;(:))</span>
+  (<span class="dt">Just</span> (var <span class="st">&quot;map2&quot;</span> <span class="fu">$$</span> var <span class="st">&quot;f&quot;</span> <span class="fu">$$</span> var <span class="st">&quot;xs&quot;</span>))</code></pre></div>
+<p>Or like this if you don't mind:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">res <span class="fu">=</span> <span class="dt">InfixE</span>
+  (<span class="dt">Just</span> (<span class="dt">AppE</span> (<span class="dt">VarE</span> (mkName <span class="st">&quot;f&quot;</span>))
+              (<span class="dt">VarE</span> (mkName <span class="st">&quot;x&quot;</span>))))
+  (<span class="dt">VarE</span> <span class="ch">&#39;(:))</span>
+  (<span class="dt">Just</span> (<span class="dt">AppE</span> (<span class="dt">AppE</span> (<span class="dt">VarE</span> (mkName <span class="st">&quot;map2&quot;</span>))
+                    (<span class="dt">VarE</span> (mkName <span class="st">&quot;f&quot;</span>)))
+              (<span class="dt">VarE</span> (mkName <span class="st">&quot;xs&quot;</span>))))</code></pre></div>
+<h2 id="patterns">Patterns</h2>
+<p>Patterns are represented by the type <a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#t:Pat"><code>Pat</code></a>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Pat</span>
+  <span class="fu">=</span> <span class="dt">VarP</span> <span class="dt">Name</span>
+  <span class="fu">|</span> <span class="dt">ConP</span> <span class="dt">Name</span> [<span class="dt">Pat</span>]
+  <span class="fu">|</span> <span class="dt">InfixP</span> <span class="dt">Pat</span> <span class="dt">Name</span> <span class="dt">Pat</span>
+  <span class="fu">|</span> <span class="dt">WildP</span>
+  <span class="fu">|</span> <span class="dt">LitP</span> <span class="dt">Lit</span>
+  <span class="fu">|</span> <span class="dt">TupP</span> [<span class="dt">Pat</span>]
+  <span class="fu">|</span> <span class="dt">ListP</span> [<span class="dt">Pat</span>]
+  <span class="fu">...</span></code></pre></div>
+<ul>
+<li><p><code>VarP</code> is a variable</p></li>
+<li><p><code>ConP</code> is a constructor (followed by a list of patterns that serve as its arguments – e.g. in <code>f (Just x)</code> the constructor is <code>Just</code> and the list of arguments is <code>[x]</code>)</p></li>
+<li><p><code>InfixP</code> is used for constructors that are operators</p></li>
+<li><p><code>WildP</code> is a wildcard</p></li>
+<li><p><code>LitP</code> is a literal</p></li>
+<li><p><code>TupP</code> is used for tuples, <code>ListP</code> – for lists</p></li>
+</ul>
+<h2 id="types">Types</h2>
+<p>Types are represented by the type <a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#t:Type"><code>Type</code></a>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Type</span>
+  <span class="fu">=</span> <span class="dt">ForallT</span> [<span class="dt">TyVarBndr</span>] <span class="dt">Cxt</span> <span class="dt">Type</span>
+  <span class="fu">|</span> <span class="dt">AppT</span> <span class="dt">Type</span> <span class="dt">Type</span>
+  <span class="fu">|</span> <span class="dt">VarT</span> <span class="dt">Name</span>
+  <span class="fu">|</span> <span class="dt">ConT</span> <span class="dt">Name</span>
+  <span class="fu">|</span> <span class="dt">ArrowT</span>
+  <span class="fu">|</span> <span class="dt">ListT</span>
+  <span class="fu">...</span></code></pre></div>
+<p><code>AppT</code> and <code>VarT</code> should be obvious; <code>ConT</code> refers to type constructors (like <code>Int</code> or <code>Maybe</code>); <code>ArrowT</code> is a special name for <code>-&gt;</code> (but you still have to apply it to types with <code>AppT</code>), and <code>ListT</code> is a special name for <code>[]</code>. <code>ForallT</code> is the <code>forall</code> in this type signature:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">id<span class="ot"> ::</span> forall a<span class="fu">.</span> a <span class="ot">-&gt;</span> a
+id x <span class="fu">=</span> x</code></pre></div>
+<p>You can omit it when you write ordinary Haskell, but you can't omit it when you're creating a <code>Type</code> – so, whenever you use a <code>VarT</code>, the variable must first be declared by a <code>ForallT</code>.</p>
+<p><code>ForallT</code> takes 3 arguments – a list of variables, context (e.g. <code>Ord a</code>) (so, just a list of constraints), and a type. Variables can be defined like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">TyVarBndr</span>
+  <span class="fu">=</span> <span class="dt">PlainTV</span> <span class="dt">Name</span>
+  <span class="fu">|</span> <span class="dt">KindedTV</span> <span class="dt">Name</span> <span class="dt">Kind</span></code></pre></div>
+<p>Here <code>PlainTV</code> is what we need (and <code>KindedTV</code> is for variables with kinds but variables almost always don't have explicit kind annotations so it doesn't matter right now).</p>
+<p>Ugh, that was a lot of details. To make it a bit easier, I'll write down the type of <code>id</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">idT <span class="fu">=</span> <span class="dt">ForallT</span>
+        [<span class="dt">PlainTV</span> (mkName <span class="st">&quot;a&quot;</span>)]
+        []
+        (<span class="dt">ArrowT</span> <span class="ot">`AppT`</span> <span class="dt">VarT</span> (mkName <span class="st">&quot;a&quot;</span>) <span class="ot">`AppT`</span> <span class="dt">VarT</span> (mkName <span class="st">&quot;a&quot;</span>))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> pprint idT
+<span class="st">&quot;forall a . a -&gt; a&quot;</span></code></pre></div>
+<p>And now that you know all that, try to encode <code>map2</code>'s type by yourself.</p>
+<h2 id="declarations">Declarations</h2>
+<p>Declarations are represented by <a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#t:Dec"><code>Dec</code></a>, and pretty much everything is a declaration:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Dec</span>
+  <span class="fu">=</span> <span class="dt">FunD</span> <span class="dt">Name</span> [<span class="dt">Clause</span>]                            <span class="co">-- functions</span>
+  <span class="fu">|</span> <span class="dt">ValD</span> <span class="dt">Pat</span> <span class="dt">Body</span> [<span class="dt">Dec</span>]                           <span class="co">-- values</span>
+  <span class="fu">|</span> <span class="dt">DataD</span> <span class="dt">Cxt</span> <span class="dt">Name</span> [<span class="dt">TyVarBndr</span>] [<span class="dt">Con</span>] [<span class="dt">Name</span>]       <span class="co">-- datatypes</span>
+  <span class="fu">|</span> <span class="dt">NewtypeD</span> <span class="dt">Cxt</span> <span class="dt">Name</span> [<span class="dt">TyVarBndr</span>] <span class="dt">Con</span> [<span class="dt">Name</span>]      <span class="co">-- newtypes</span>
+  <span class="fu">|</span> <span class="dt">TySynD</span> <span class="dt">Name</span> [<span class="dt">TyVarBndr</span>] <span class="dt">Type</span>                  <span class="co">-- type synonyms</span>
+  <span class="fu">|</span> <span class="dt">ClassD</span> <span class="dt">Cxt</span> <span class="dt">Name</span> [<span class="dt">TyVarBndr</span>] [<span class="dt">FunDep</span>] [<span class="dt">Dec</span>]    <span class="co">-- classes</span>
+  <span class="fu">|</span> <span class="dt">InstanceD</span> <span class="dt">Cxt</span> <span class="dt">Type</span> [<span class="dt">Dec</span>]                      <span class="co">-- instances</span>
+  <span class="fu">|</span> <span class="dt">SigD</span> <span class="dt">Name</span> <span class="dt">Type</span>                                <span class="co">-- signatures</span>
+  <span class="fu">...</span></code></pre></div>
+<p>We're only going to use <code>FunD</code> and <code>SigD</code> right now, so let's look at <a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#t:Clause"><code>Clause</code></a> and <a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#t:Body"><code>Body</code></a>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Clause</span> <span class="fu">=</span> <span class="dt">Clause</span> [<span class="dt">Pat</span>] <span class="dt">Body</span> [<span class="dt">Dec</span>]
+
+<span class="kw">data</span> <span class="dt">Body</span>
+  <span class="fu">=</span> <span class="dt">GuardedB</span> [(<span class="dt">Guard</span>, <span class="dt">Exp</span>)]
+  <span class="fu">|</span> <span class="dt">NormalB</span> <span class="dt">Exp</span></code></pre></div>
+<p>A <code>Clause</code> is a single equation in a function declaration – it includes function arguments and <code>where</code>, but doesn't include the function name. A <code>Body</code> is either an expression or a bunch of guards-and-expressions, but we're not going to look at guards because they're another rabbit hole leading to lots of new types that we don't need right now.</p>
+<h2 id="putting-it-all-together">Putting it all together</h2>
+<p>First you try, then I'll show you the code. Your task is to write <code>map2TH</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">map2TH ::</span> [<span class="dt">Dec</span>]
+map2TH <span class="fu">=</span> <span class="fu">...</span></code></pre></div>
+<p>that would, when you pretty-print it (<code>putStrLn . pprint</code>), produce the following code:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">map2 ::</span> forall a b <span class="fu">.</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [b]
+map2 f (x <span class="fu">GHC.Types.:</span> xs) <span class="fu">=</span> f x <span class="fu">GHC.Types.:</span> map2 f xs
+map2 _ (<span class="dt">GHC.Types</span><span class="fu">.</span>[]) <span class="fu">=</span> <span class="dt">GHC.Types</span><span class="fu">.</span>[]</code></pre></div>
+<p>Just in case, without annoying <code>GHC.Types.</code> it looks like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">map2 ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [b]
+map2 f (x<span class="fu">:</span>xs) <span class="fu">=</span> f x <span class="fu">:</span> map2 f xs
+map2 _ [] <span class="fu">=</span> []</code></pre></div>
+<p>When you're done, you should be able to inject it into GHCi and test it. You'd have to use GHCi, because you can't just write <code>map2TH</code> on a separate line and have it work the same way <code>makeLenses</code> works – a restriction of TH is that the generated code and the <em>generating</em> code have to be in different modules. Here's how to test TH code in GHCi:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">data</span> <span class="dt">X</span>; return map2TH    <span class="co">-- don&#39;t worry about “data X” now</span>
+
+<span class="fu">&gt;</span> map2 (<span class="fu">+</span><span class="dv">1</span>) [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]
+[<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>]</code></pre></div>
+<p>Finally, here are some utilities that might save you typing:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(<span class="ot">-&gt;</span><span class="fu">&gt;</span>) a b <span class="fu">=</span> <span class="dt">ArrowT</span> <span class="ot">`AppT`</span> a <span class="ot">`AppT`</span> b
+<span class="kw">infixr</span> <span class="dv">9</span> <span class="ot">-&gt;</span><span class="fu">&gt;</span>
+
+(<span class="fu">$$</span>) f a <span class="fu">=</span> <span class="dt">AppE</span> f a
+<span class="kw">infixl</span> <span class="dv">9</span> <span class="fu">$$</span></code></pre></div>
+<h2 id="the-answer">The answer</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(<span class="ot">-&gt;</span><span class="fu">&gt;</span>) a b <span class="fu">=</span> <span class="dt">ArrowT</span> <span class="ot">`AppT`</span> a <span class="ot">`AppT`</span> b
+<span class="kw">infixr</span> <span class="dv">9</span> <span class="ot">-&gt;</span><span class="fu">&gt;</span>
+
+(<span class="fu">$$</span>) f a <span class="fu">=</span> <span class="dt">AppE</span> f a
+<span class="kw">infixl</span> <span class="dv">9</span> <span class="fu">$$</span>
+
+<span class="ot">map2TH ::</span> [<span class="dt">Dec</span>]
+map2TH <span class="fu">=</span> [signature, function]
+  <span class="kw">where</span>
+    <span class="co">-- Names</span>
+    map2 <span class="fu">=</span> mkName <span class="st">&quot;map2&quot;</span>
+
+    <span class="co">-- Type signature</span>
+    a <span class="fu">=</span> <span class="dt">VarT</span> (mkName <span class="st">&quot;a&quot;</span>)
+    b <span class="fu">=</span> <span class="dt">VarT</span> (mkName <span class="st">&quot;b&quot;</span>)
+    type&#39; <span class="fu">=</span> <span class="dt">ForallT</span> [<span class="dt">PlainTV</span> (mkName <span class="st">&quot;a&quot;</span>), <span class="dt">PlainTV</span> (mkName <span class="st">&quot;b&quot;</span>)] [] <span class="fu">$</span>
+              (a <span class="ot">-&gt;</span><span class="fu">&gt;</span> b) <span class="ot">-&gt;</span><span class="fu">&gt;</span> <span class="dt">AppT</span> <span class="dt">ListT</span> a <span class="ot">-&gt;</span><span class="fu">&gt;</span> <span class="dt">AppT</span> <span class="dt">ListT</span> b
+    signature <span class="fu">=</span> <span class="dt">SigD</span> map2 type&#39;
+
+    <span class="co">-- Variables and patterns</span>
+    (fPat, fExp) <span class="fu">=</span> (<span class="dt">VarP</span> (mkName <span class="st">&quot;f&quot;</span>), <span class="dt">VarE</span> (mkName <span class="st">&quot;f&quot;</span>))
+    (xPat, xExp) <span class="fu">=</span> (<span class="dt">VarP</span> (mkName <span class="st">&quot;x&quot;</span>), <span class="dt">VarE</span> (mkName <span class="st">&quot;x&quot;</span>))
+    (xsPat, xsExp) <span class="fu">=</span> (<span class="dt">VarP</span> (mkName <span class="st">&quot;xs&quot;</span>), <span class="dt">VarE</span> (mkName <span class="st">&quot;xs&quot;</span>))
+
+    <span class="co">-- first equation</span>
+    eq1 <span class="fu">=</span> <span class="dt">Clause</span>
+            <span class="co">-- arguments</span>
+            [fPat, <span class="dt">InfixP</span> xPat <span class="ch">&#39;(:) xsPat]</span>
+            <span class="co">-- result</span>
+            (<span class="dt">NormalB</span> (<span class="dt">InfixE</span> (<span class="dt">Just</span> (fExp <span class="fu">$$</span> xExp))
+                             (<span class="dt">ConE</span> <span class="ch">&#39;(:))</span>
+                             (<span class="dt">Just</span> (<span class="dt">VarE</span> map2 <span class="fu">$$</span> fExp <span class="fu">$$</span> xsExp))))
+            <span class="co">-- no “where” block</span>
+            []
+
+    <span class="co">-- second equation</span>
+    eq2 <span class="fu">=</span> <span class="dt">Clause</span> [<span class="dt">WildP</span>, <span class="dt">ConP</span> <span class="ch">&#39;[] []]</span>
+                 (<span class="dt">NormalB</span> (<span class="dt">ConE</span> <span class="ch">&#39;[]))</span>
+                 []
+
+    <span class="co">-- Function body</span>
+    function <span class="fu">=</span> <span class="dt">FunD</span> map2 [eq1, eq2]</code></pre></div>
+<h2 id="oxford-brackets-or-s">Oxford brackets (or <code>[| |]</code>s)</h2>
+<p>If you're used to Lisp macros, this might seem horrible to you, and it <em>is</em> pretty horrible indeed. Why are we writing the <a href="https://en.wikipedia.org/wiki/Abstract_Syntax_Tree">AST</a> by hand when we have a <em>compiler</em> that can parse Haskell into a syntax tree for us?</p>
+<p>Well, we don't have to, and I actually have mentioned it earlier in this post:</p>
+<blockquote>
+<p>any code in <code>[| |]</code> brackets isn't code, but <em>representation</em> of that code</p>
+</blockquote>
+<p>In other words, that whole thing could've just been replaced with this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">map2TH ::</span> <span class="dt">Q</span> [<span class="dt">Dec</span>]
+map2TH <span class="fu">=</span> [d<span class="fu">|</span>
+<span class="ot">  map2 ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [b]
+  map2 f (x<span class="fu">:</span>xs) <span class="fu">=</span> f x <span class="fu">:</span> map2 f xs
+  map2 _ [] <span class="fu">=</span> []
+  <span class="fu">|</span>]</code></pre></div>
+<p>Now you should be <del>expecting me to tell you answers to</del> asking yourself several questions:</p>
+<ol type="1">
+<li>What does <a href="https://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#t:Q"><code>Q</code></a> do?</li>
+<li>What kind of a non-informative name is that?</li>
+<li>Also, why <code>[d| |]</code> instead of <code>[| |]</code> as the quote says?</li>
+</ol>
+<p>The answer to the third question is easy. There are 5 types of brackets:</p>
+<ul>
+<li><p><code>[| |]</code> (and <code>[e| |]</code>) parse their contents as an expression, and return <code>Q Exp</code></p></li>
+<li><p><code>[t| |]</code> parses its contents as a type, and returns <code>Q Type</code></p></li>
+<li><p><code>[p| |]</code> parses its contents as a pattern, and returns <code>Q Pat</code></p></li>
+<li><p><code>[d| |]</code> parses its contents as a number of declaration, and returns <code>Q [Dec]</code></p></li>
+<li><p><code>[someFunc| |]</code> calls <code>someFunc</code> to parse the contents and generate code; the contents themselves don't have to be Haskell code, they can be HTML, or C code, or a regular expression, or whatever</p></li>
+</ul>
+<p>The answer to the second question is easy too (I think) – my theory is that TH code is usually messy and awkward and awful, and things with <code>Q</code> occur very often there, so the shortest name possible was chosen. In fact, even <code>Q [Dec]</code> is too long – we have a type synonym for that, <a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH-Lib.html#t:DecsQ"><code>DecsQ</code></a>. (Try to guess the synonyms for <code>Q Exp</code> and <code>Q Pat</code>.)</p>
+<p>Now we come to the first question. What's <code>Q</code>?</p>
+<h2 id="the-q-monad">The <code>Q</code> monad</h2>
+<p>The <a href="https://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#t:Q"><code>Q</code></a> monad is a monad for generating code. The difference between it and just writing-an-AST-by-hand is that in the <code>Q</code> monad you can:</p>
+<ul>
+<li>query information about values and types in scope</li>
+<li>generate new names that are guaranteed to be unique (so that there wouldn't be any name conflicts between TH-generated code and “outside” code)</li>
+<li>get current -location in the source-</li>
+<li>do IO</li>
+<li>report errors</li>
+</ul>
+<p>Note that the IO is going to happen <em>during compilation</em>, because that's when TH is run). This is pretty useful, but it also should make you a tiny bit nervous because it means that any package from Hackage can remove your home directory when you do <code>cabal install</code>. (There are <a href="http://abstrusegoose.com/479">worse things</a> that others could do to you, tho.)</p>
+<p>Anyway, the next task is generating a simple lens for a 2-tuple:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- The name should be configurable</span>
+<span class="fu">&lt;</span>some name<span class="fu">&gt;</span><span class="ot"> ::</span> <span class="dt">Lens</span> (a, x) (b, x) a b
+<span class="fu">&lt;</span>some name<span class="fu">&gt;</span> f (a, x) <span class="fu">=</span> (\b <span class="ot">-&gt;</span> (b, x)) <span class="fu">&lt;$&gt;</span> f a</code></pre></div>
+<p>Here are some notes that should help you:</p>
+<ul>
+<li><p>To generate unique names, you can use <code>newName</code>; names generated by <code>mkName</code> would be preserved as-is. For instance, if you're generating a function called <code>fstLens</code>, you'd want to use <code>mkName</code> to generate the name of the function (because otherwise it'll look like <code>fstLens_0</code> or something), but you'd use <code>newName</code> for variables used inside of the function.</p></li>
+<li><p>Since everything happens in <code>Q</code> now, you can't use <code>VarE</code>, <code>FunD</code>, etc verbatim – you either have to lift them (<code>VarE &lt;$&gt; ...</code>), which is annoying, or you can use lifted variants (<a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#v:varE"><code>varE</code></a>, <a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#v:funD"><code>funD</code></a>, etc):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">FunD</span><span class="ot"> ::</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> [<span class="dt">Clause</span>] <span class="ot">-&gt;</span> <span class="dt">Dec</span>
+<span class="ot">funD ::</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> [<span class="dt">ClauseQ</span>] <span class="ot">-&gt;</span> <span class="dt">DecQ</span></code></pre></div></li>
+<li><p><code>tupP</code> is going to be useful to generate the <code>(a, x)</code> pattern:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">tupP ::</span> [<span class="dt">PatQ</span>] <span class="ot">-&gt;</span> <span class="dt">PatQ</span></code></pre></div></li>
+<li><p>You can mix code generated manually and code generated with <code>[| |]</code>. For instance, if you want to generate <code>negate 1</code>, you can write any of these:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- fully manual:</span>
+<span class="co">--   appE :: ExpQ -&gt; ExpQ -&gt; ExpQ</span>
+<span class="co">--   varE :: Name -&gt; ExpQ</span>
+<span class="co">--   litE :: Lit -&gt; ExpQ</span>
+<span class="co">--   integerL :: Integer -&gt; Lit</span>
+appE (varE <span class="ch">&#39;negate) (litE (integerL 1))</span>
+
+<span class="co">-- &#39;negate&#39; is generated with [| |]</span>
+appE [<span class="fu">|</span>negate<span class="fu">|</span>] (litE (integerL <span class="dv">1</span>))
+
+<span class="co">-- the literal is generated with [| |] too</span>
+appE [<span class="fu">|</span>negate<span class="fu">|</span>] [<span class="fu">|</span><span class="dv">1</span><span class="fu">|</span>]
+
+<span class="co">-- the whole thing is generated</span>
+[<span class="fu">|</span>negate <span class="dv">1</span><span class="fu">|</span>]</code></pre></div></li>
+<li><p>You can also <em>include</em> generated code into <code>[| |]</code>s by using <code>$</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- &#39;negate&#39; is generated manually</span>
+[<span class="fu">|$</span>(varE <span class="ch">&#39;negate) 1|]</span>
+
+<span class="co">-- same but with a “let”:</span>
+<span class="kw">let</span> negateE <span class="fu">=</span> varE <span class="ch">&#39;negate in [|$negateE 1|]</span></code></pre></div>
+<p>In short, any piece of code that has the required type (<code>VarQ</code>, <code>TypeQ</code>, <code>PatQ</code>) can be put into <code>$()</code> and included into the brackets. (This is called splicing.) By the way, you can use splices outside of the brackets, too:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">let</span> x <span class="fu">=</span> <span class="fu">$</span>(litE (integerL <span class="dv">3</span>))
+
+<span class="fu">&gt;</span> x
+<span class="dv">3</span></code></pre></div></li>
+<li><p>Without the “name should be configurable” condition, the exercise would be trivial – you could just put the whole thing in <code>[d| |]</code> and be done with it. However, TH doesn't let you splice <em>names</em>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- All of these are allowed:</span>
+[d<span class="fu">|</span><span class="ot">x ::</span> <span class="dt">Int</span>; x <span class="fu">=</span> <span class="dv">3</span><span class="fu">|</span>]
+[d<span class="fu">|</span><span class="ot">x ::</span> <span class="fu">$</span>(conT <span class="ch">&#39;&#39;</span><span class="dt">Int</span>); x <span class="fu">=</span> <span class="dv">3</span><span class="fu">|</span>]
+[d<span class="fu">|</span><span class="ot">x ::</span> <span class="dt">Int</span>; x <span class="fu">=</span> <span class="fu">$</span>(litE (integerL <span class="dv">3</span>))<span class="fu">|</span>]
+
+<span class="co">-- But this isn&#39;t:</span>
+[d<span class="fu">|$</span>(mkName <span class="st">&quot;x&quot;</span>)<span class="ot"> ::</span> <span class="dt">Int</span>; x <span class="fu">=</span> <span class="dv">3</span><span class="fu">|</span>]</code></pre></div>
+<p>Thanks to this, you'll have to generate the signature and the body of the lens by hand (you still can use Oxford brackets for the <em>type</em> of the function and the right hand of the equation, tho).</p></li>
+<li><p>Code generated in <code>Q</code> doesn't get spliced automatically; you can't do something like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">fstLensTH <span class="fu">=</span> <span class="kw">do</span>
+  generateSignature
+  generateBody</code></pre></div>
+<p>You have to explicitly return the definitions you want to be spliced:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">fstLensTH <span class="fu">=</span> <span class="kw">do</span>
+  sig <span class="ot">&lt;-</span> generateSignature
+  body <span class="ot">&lt;-</span> generateBody
+  return [sig, body]</code></pre></div></li>
+<li><p>You can get generated code out with <code>runQ</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="co">-- runQ :: Q a -&gt; IO a</span>
+
+<span class="fu">&gt;</span> putStrLn <span class="fu">.</span> pprint <span class="fu">=&lt;&lt;</span> runQ [<span class="fu">|</span>negate <span class="dv">1</span><span class="fu">|</span>]
+GHC.Num.negate <span class="dv">1</span></code></pre></div>
+<p>This may be useful when debugging.</p></li>
+</ul>
+<p>When you're done, test it:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">data</span> <span class="dt">X</span>; fstLensTH <span class="st">&quot;fstL&quot;</span>
+
+<span class="fu">&gt;</span> (<span class="dv">1</span>,<span class="dv">2</span>) <span class="fu">^.</span> fstL
+<span class="dv">1</span></code></pre></div>
+<h2 id="the-answer-1">The answer</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">mkVars ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Q</span> (<span class="dt">PatQ</span>, <span class="dt">ExpQ</span>)
+mkVars name <span class="fu">=</span> <span class="kw">do</span>
+  x <span class="ot">&lt;-</span> newName name
+  return (varP x, varE x)
+
+<span class="ot">fstLensTH ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">DecsQ</span>
+fstLensTH lensName <span class="fu">=</span> <span class="kw">do</span>
+  <span class="co">-- Generate the signature</span>
+  signature <span class="ot">&lt;-</span> sigD (mkName lensName)
+                    [t<span class="fu">|</span>forall a b x<span class="fu">.</span> <span class="dt">Lens</span> (a, x) (b, x) a b<span class="fu">|</span>]
+
+  <span class="co">-- Generate the body of the function</span>
+  (f_, f) <span class="ot">&lt;-</span> mkVars <span class="st">&quot;f&quot;</span>
+  (a_, a) <span class="ot">&lt;-</span> mkVars <span class="st">&quot;a&quot;</span>
+  (b_, b) <span class="ot">&lt;-</span> mkVars <span class="st">&quot;b&quot;</span>
+  (x_, x) <span class="ot">&lt;-</span> mkVars <span class="st">&quot;x&quot;</span>
+  body <span class="ot">&lt;-</span> funD (mkName lensName) [
+            clause [f_, tupP [a_, x_]]
+                   (normalB [<span class="fu">|</span>(\ <span class="fu">$</span>b_ <span class="ot">-&gt;</span> (<span class="fu">$</span>b, <span class="fu">$</span>x)) <span class="fu">&lt;$&gt;</span> <span class="fu">$</span>f <span class="fu">$</span>a<span class="fu">|</span>])
+                   []
+            ]
+
+  <span class="co">-- Return the signature and the body</span>
+  return [signature, body]</code></pre></div>
+<h2 id="the-explanation-of-the-data-x-thing">The explanation of the <code>data X</code> thing</h2>
+<p>When you're compiling a module, you don't have to use any <code>data X</code> to splice generated code into it; you can just write this and generated definitions would be spliced into the file:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">fstLensTH <span class="st">&quot;fstL&quot;</span>
+<span class="co">-- or this</span>
+<span class="fu">$</span>(fstLensTH <span class="st">&quot;fstL)</span></code></pre></div>
+<p>However, for whatever reason GHCi can't normally guess when you want to splice something:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> fstLensTH <span class="st">&quot;fstL&quot;</span>
+
+<span class="fu">&lt;</span>interactive<span class="fu">&gt;:</span>
+    <span class="dt">No</span> <span class="kw">instance</span> for (<span class="dt">Show</span> <span class="dt">DecsQ</span>)
+      arising from a use <span class="kw">of</span> ‘print’
+    <span class="dt">In</span> a stmt <span class="kw">of</span> an interactive <span class="dt">GHCi</span> command<span class="fu">:</span> print it
+
+<span class="fu">&gt;</span> <span class="fu">$</span>(fstLensTH <span class="st">&quot;fstL&quot;</span>)
+
+<span class="fu">&lt;</span>interactive<span class="fu">&gt;:</span><span class="dv">513</span><span class="fu">:</span><span class="dv">3</span><span class="fu">:</span>
+    <span class="dt">Couldn&#39;t</span> match <span class="kw">type</span> ‘[<span class="dt">Dec</span>]’ with ‘<span class="dt">Exp</span>’
+    <span class="dt">Expected</span> <span class="kw">type</span><span class="fu">:</span> <span class="dt">ExpQ</span>
+      <span class="dt">Actual</span> <span class="kw">type</span><span class="fu">:</span> <span class="dt">DecsQ</span>
+    <span class="dt">In</span> the expression<span class="fu">:</span> fstLensTH <span class="st">&quot;fstL&quot;</span>
+    <span class="dt">In</span> the splice<span class="fu">:</span> <span class="fu">$</span>(fstLensTH <span class="st">&quot;fstL&quot;</span>)</code></pre></div>
+<p>And <code>data X</code> is needed to hint GHCi that it's being given <em>declarations</em> and thus should treat the splice as yet another declaration. It's ad-hoc, but <a href="https://www.reddit.com/r/haskelltil/comments/3ghacj/you_can_use_template_haskell_functions_like/">it works</a>.</p>
+<h2 id="another-exercise">Another exercise</h2>
+<p>Modify <code>fstLensTH</code> to generate a lens for a n-tuple:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- &gt;&gt;&gt; fstLensTH &quot;fst4&quot; 4</span>
+<span class="co">-- fst4 :: forall a b x1 x2 x3. Lens (a, x1, x2, x3) (b, x1, x2, x3) a b</span>
+<span class="co">-- fts4 f (a, x1, x2, x3) = (\b -&gt; (b, x1, x2, x3)) &lt;$&gt; f a</span>
+
+<span class="ot">fstLensTH ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">DecsQ</span></code></pre></div>
+<p>Notes:</p>
+<ul>
+<li><p>There's no <code>tupT</code> similar to <a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#v:tupE"><code>tupE</code></a> or <a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#v:tupP"><code>tupP</code></a>. If you want to generate a tuple type, you have to use <a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#v:tupleT"><code>tupleT</code></a> together with <code>appT</code> (possibly used several times).</p></li>
+<li><p>To generate an empty context (<code>Cxt</code>), either use <code>return []</code> or (preferred) <code>cxt []</code>.</p></li>
+</ul>
+<h2 id="the-answer-2">The answer</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Data.Traversable</span>
+
+<span class="ot">mkVars ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Q</span> (<span class="dt">PatQ</span>, <span class="dt">ExpQ</span>)
+mkVars name <span class="fu">=</span> <span class="kw">do</span>
+  x <span class="ot">&lt;-</span> newName name
+  return (varP x, varE x)
+
+<span class="co">-- &gt;&gt;&gt; fstType 4</span>
+<span class="co">-- forall a b x1 x2 x3. Lens (a, x1, x2, x3) (b, x1, x2, x3) a b</span>
+<span class="ot">fstType ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">TypeQ</span>
+fstType n <span class="fu">=</span> <span class="kw">do</span>
+  xs <span class="ot">&lt;-</span> for [<span class="dv">1</span><span class="fu">..</span>n<span class="fu">-</span><span class="dv">1</span>] (\i <span class="ot">-&gt;</span> newName (<span class="st">&quot;x&quot;</span> <span class="fu">++</span> show i))
+  a <span class="ot">&lt;-</span> newName <span class="st">&quot;a&quot;</span>
+  b <span class="ot">&lt;-</span> newName <span class="st">&quot;b&quot;</span>
+  <span class="co">-- foldl appT (tupleT n) :: [TypeQ] -&gt; TypeQ</span>
+  <span class="kw">let</span> tupleA <span class="fu">=</span> foldl appT (tupleT n) (map varT (a<span class="fu">:</span>xs))
+      tupleB <span class="fu">=</span> foldl appT (tupleT n) (map varT (b<span class="fu">:</span>xs))
+  forallT (map <span class="dt">PlainTV</span> (a<span class="fu">:</span>b<span class="fu">:</span>xs))
+          (cxt [])
+          [t<span class="fu">|</span><span class="dt">Lens</span> <span class="fu">$</span>tupleA <span class="fu">$</span>tupleB <span class="fu">$</span>(varT a) <span class="fu">$</span>(varT b)<span class="fu">|</span>]
+
+<span class="co">-- &gt;&gt;&gt; fstClause 4</span>
+<span class="co">-- ? f (a, x1, x2, x3) = (\b -&gt; (b, x1, x2, x3)) &lt;$&gt; f a</span>
+<span class="ot">fstClause ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">ClauseQ</span>
+fstClause n <span class="fu">=</span> <span class="kw">do</span>
+  (f_, f) <span class="ot">&lt;-</span> mkVars <span class="st">&quot;f&quot;</span>
+  (a_, a) <span class="ot">&lt;-</span> mkVars <span class="st">&quot;a&quot;</span>
+  (b_, b) <span class="ot">&lt;-</span> mkVars <span class="st">&quot;b&quot;</span>
+  <span class="co">-- Generate x1, x2, ..., xn</span>
+  (xs_, xs) <span class="ot">&lt;-</span> unzip <span class="fu">&lt;$&gt;</span> for [<span class="dv">1</span><span class="fu">..</span>n<span class="fu">-</span><span class="dv">1</span>] (\i <span class="ot">-&gt;</span> mkVars (<span class="st">&quot;x&quot;</span> <span class="fu">++</span> show i))
+  clause [f_, tupP (a_<span class="fu">:</span>xs_)]
+         (normalB [<span class="fu">|</span>(\ <span class="fu">$</span>b_ <span class="ot">-&gt;</span> <span class="fu">$</span>(tupE (b<span class="fu">:</span>xs))) <span class="fu">&lt;$&gt;</span> <span class="fu">$</span>f <span class="fu">$</span>a<span class="fu">|</span>])
+         []
+
+<span class="ot">fstLensTH ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">DecsQ</span>
+fstLensTH lensName n <span class="fu">=</span> <span class="kw">do</span>
+  signature <span class="ot">&lt;-</span> sigD (mkName lensName) (fstType n)
+  body <span class="ot">&lt;-</span> funD (mkName lensName) [fstClause n]
+  return [signature, body]</code></pre></div>
+<h2 id="getting-information-about-types">Getting information about types</h2>
+<p>The next step to <code>makeLenses</code> is getting information about a type. This is done by <a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#v:reify"><code>reify</code></a>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">reify ::</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">Q</span> <span class="dt">Info</span></code></pre></div>
+<p><a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#t:Info"><code>Info</code></a> is a structure that looks like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Info</span>
+  <span class="fu">=</span> <span class="dt">ClassI</span> <span class="dt">Dec</span> [<span class="dt">InstanceDec</span>]              <span class="co">-- Class and its instances</span>
+  <span class="fu">|</span> <span class="dt">TyConI</span> <span class="dt">Dec</span>                            <span class="co">-- Type constructor</span>
+  <span class="fu">|</span> <span class="dt">DataConI</span> <span class="dt">Name</span> <span class="dt">Type</span> <span class="dt">ParentName</span> <span class="dt">Fixity</span>  <span class="co">-- Data constructor</span>
+  <span class="fu">|</span> <span class="dt">ClassOpI</span> <span class="dt">Name</span> <span class="dt">Type</span> <span class="dt">ParentName</span> <span class="dt">Fixity</span>  <span class="co">-- Class method</span>
+  <span class="fu">|</span> <span class="dt">VarI</span> <span class="dt">Name</span> <span class="dt">Type</span> (<span class="dt">Maybe</span> <span class="dt">Dec</span>) <span class="dt">Fixity</span>     <span class="co">-- Variable/function</span>
+  <span class="fu">...</span></code></pre></div>
+<p>(Unfortunately, you can't actually get definitions of functions using <code>VarI</code>, but we won't need it anyway so it doesn't matter.)</p>
+<p>Let's try <code>reify</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> runQ (reify <span class="ch">&#39;&#39;</span><span class="dt">Bool</span>)
+<span class="dt">Template</span> <span class="dt">Haskell</span> error<span class="fu">:</span> <span class="dt">Can&#39;t</span> <span class="kw">do</span> <span class="ot">`reify&#39; in the IO monad</span>
+<span class="ot">*** Exception: user error (Template Haskell failure)</span></code></pre></div>
+<p>Ouch.</p>
+<p>The reason for the error is that GHC only provides information about types/values to splices, so we'd have to run <code>reify</code> inside a splice. That's not hard to do:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="fu">$</span>(reify <span class="ch">&#39;&#39;</span><span class="dt">Bool</span>)
+
+<span class="fu">&lt;</span>interactive<span class="fu">&gt;:</span>
+    <span class="dt">Couldn&#39;t</span> match <span class="kw">type</span> ‘<span class="dt">Info</span>’ with ‘<span class="dt">Exp</span>’
+    <span class="dt">Expected</span> <span class="kw">type</span><span class="fu">:</span> <span class="dt">ExpQ</span>
+      <span class="dt">Actual</span> <span class="kw">type</span><span class="fu">:</span> <span class="dt">Q</span> <span class="dt">Info</span>
+    <span class="dt">In</span> the expression<span class="fu">:</span> reify <span class="ch">&#39;&#39;</span><span class="dt">Bool</span>
+    <span class="dt">In</span> the splice<span class="fu">:</span> <span class="fu">$</span>(reify <span class="ch">&#39;&#39;</span><span class="dt">Bool</span>)</code></pre></div>
+<p>No, wait, we need <code>Exp</code>, right. Well, let's pretty-print <code>Info</code> and then turn it into a string literal:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="fu">$</span>(stringE <span class="fu">.</span> pprint <span class="fu">=&lt;&lt;</span> reify <span class="ch">&#39;&#39;</span><span class="dt">Bool</span>)
+<span class="st">&quot;data GHC.Types.Bool = GHC.Types.False | GHC.Types.True&quot;</span></code></pre></div>
+<p>Hm, pretty-printing is actually not that helpful in this case. Just use <code>show</code>, then:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="fu">$</span>(stringE <span class="fu">.</span> show <span class="fu">=&lt;&lt;</span> reify <span class="ch">&#39;&#39;</span><span class="dt">Bool</span>)
+<span class="st">&quot;TyConI (DataD</span>
+<span class="st">           []                              -- no constaints</span>
+<span class="st">           GHC.Types.Bool                  -- “Bool =”</span>
+<span class="st">           []                              -- no type variables</span>
+<span class="st">           [ NormalC GHC.Types.False [],   -- False |</span>
+<span class="st">             NormalC GHC.Types.True  [] ]  -- True</span>
+<span class="st">           [])&quot;</span>                            <span class="co">-- not deriving anything</span>
+                                           <span class="co">--   (TH lies to us in this</span>
+                                           <span class="co">--   case, but whatever)</span></code></pre></div>
+<p>(Indentation is mine.)</p>
+<p>What would happen if we used a record?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {
+<span class="ot">  name ::</span> <span class="dt">String</span>,
+<span class="ot">  age ::</span> <span class="dt">Double</span> }</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="fu">$</span>(stringE <span class="fu">.</span> show <span class="fu">=&lt;&lt;</span> reify <span class="ch">&#39;&#39;</span><span class="dt">Person</span>)
+<span class="st">&quot;TyConI (DataD</span>
+<span class="st">           []</span>
+<span class="st">           Test.Person</span>
+<span class="st">           []</span>
+<span class="st">           [RecC Test.Person</span>
+<span class="st">              [ (Test.name,NotStrict,ConT GHC.Base.String),</span>
+<span class="st">                (Test.age ,NotStrict,ConT GHC.Types.Double) ] ]</span>
+<span class="st">           [])&quot;</span></code></pre></div>
+<p>Okay, now you should be able to write a function that takes a record name and returns a list of its fields. <code>nameBase</code> would be useful (it takes a <code>Name</code> and returns just the name without the module).</p>
+<p>If you've written it correctly, here's how you can test it:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="fu">$</span>(listE <span class="fu">.</span> map stringE <span class="fu">=&lt;&lt;</span> listFields <span class="ch">&#39;&#39;</span><span class="dt">Person</span>)
+[<span class="st">&quot;Person.name&quot;</span>,<span class="st">&quot;Person.age&quot;</span>]</code></pre></div>
+<hr />
+<p>The answer:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">listFields ::</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">Q</span> [<span class="dt">String</span>]
+listFields name <span class="fu">=</span> <span class="kw">do</span>
+  <span class="co">-- A warning: with GHC 8, you&#39;ll have to add an extra “_” before “cons”</span>
+  <span class="dt">TyConI</span> (<span class="dt">DataD</span> _ _ _ cons _) <span class="ot">&lt;-</span> reify name
+  return [nameBase conName <span class="fu">++</span> <span class="st">&quot;.&quot;</span> <span class="fu">++</span> nameBase fieldName
+         <span class="fu">|</span> <span class="dt">RecC</span> conName fields <span class="ot">&lt;-</span> cons
+         , (fieldName, _, _) <span class="ot">&lt;-</span> fields]</code></pre></div>
+<h2 id="writing-a-very-simple-version-of-makelenses">Writing a very simple version of <code>makeLenses</code></h2>
+<p>For now let's only look at records with 1 constructor and no type variables. The goal is to take</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {
+  _<span class="ot">name ::</span> <span class="dt">String</span>,
+  _<span class="ot">age ::</span> <span class="dt">Double</span> }</code></pre></div>
+<p>and write something that would generate the following (skip the fields that don't begin with a <code>_</code>):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">age ::</span> <span class="dt">Lens&#39;</span> <span class="dt">Person</span> <span class="dt">Double</span>
+age f (<span class="dt">Person</span> x1 x2) <span class="fu">=</span> fmap (\y <span class="ot">-&gt;</span> <span class="dt">Person</span> x1 y) (f x2)
+
+<span class="ot">name ::</span> <span class="dt">Lens&#39;</span> <span class="dt">Person</span> <span class="dt">String</span>
+name f (<span class="dt">Person</span> x1 x2) <span class="fu">=</span> fmap (\y <span class="ot">-&gt;</span> <span class="dt">Person</span> y x2) (f x1)</code></pre></div>
+<p>You might find the following 2 functions slightly useful:</p>
+<ul>
+<li><p><a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#v:lam1E"><code>lam1E</code></a> creates a lambda:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">lam1E ::</span> <span class="dt">PatQ</span> <span class="ot">-&gt;</span> <span class="dt">ExpQ</span> <span class="ot">-&gt;</span> <span class="dt">ExpQ</span>
+lam1E arg res <span class="fu">=</span> [<span class="fu">|</span>\ <span class="fu">$</span>arg <span class="ot">-&gt;</span> <span class="fu">$</span>res<span class="fu">|</span>]</code></pre></div></li>
+<li><p><a href="http://hackage.haskell.org/package/template-haskell/docs/Language-Haskell-TH.html#v:appsE"><code>appsE</code></a> applies an expression to a list of arguments:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">appsE ::</span> [<span class="dt">ExpQ</span>] <span class="ot">-&gt;</span> <span class="dt">ExpQ</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="fu">$</span>(stringE <span class="fu">.</span> pprint <span class="fu">=&lt;&lt;</span> appsE [ [<span class="fu">|</span>max<span class="fu">|</span>], [<span class="fu">|</span><span class="dv">1</span><span class="fu">|</span>], [<span class="fu">|</span><span class="dv">2</span><span class="fu">|</span>] ])
+<span class="st">&quot;GHC.Classes.max 1 2&quot;</span></code></pre></div></li>
+</ul>
+<p>Also, if you need a hint, here it is: if you split it into <code>makeLenses</code> and <code>makeLens</code>, the signature of <code>makeLens</code> would look approximately like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">makeLens
+<span class="ot">  ::</span> <span class="dt">Name</span>    <span class="co">-- ^ Type name</span>
+  <span class="ot">-&gt;</span> <span class="dt">Name</span>    <span class="co">-- ^ Constructor name</span>
+  <span class="ot">-&gt;</span> <span class="dt">Name</span>    <span class="co">-- ^ Lens name</span>
+  <span class="ot">-&gt;</span> <span class="dt">Type</span>    <span class="co">-- ^ Field type</span>
+  <span class="ot">-&gt;</span> <span class="dt">Int</span>     <span class="co">-- ^ Field position in the constructor</span>
+  <span class="ot">-&gt;</span> <span class="dt">Int</span>     <span class="co">-- ^ Overall fields amount</span>
+  <span class="ot">-&gt;</span> <span class="dt">DecsQ</span></code></pre></div>
+<h2 id="the-answer-3">The answer</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">makeLenses ::</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">DecsQ</span>
+makeLenses typeName <span class="fu">=</span> <span class="kw">do</span>
+  <span class="co">-- Get constructors:</span>
+  <span class="fu">--</span>
+  <span class="co">--   cons :: [Con]</span>
+  <span class="dt">TyConI</span> (<span class="dt">DataD</span> _ _ [] cons _) <span class="ot">&lt;-</span> reify typeName
+
+  <span class="co">-- Get the constructor name and its fields:</span>
+  <span class="fu">--</span>
+  <span class="co">--   conName :: Name</span>
+  <span class="co">--   fields  :: [VarStrictType] :: [(Name, Strict, Type)]</span>
+  [<span class="dt">RecC</span> conName fields] <span class="ot">&lt;-</span> return cons
+
+  <span class="co">-- Make the lenses (concat is needed because for is going to return Q</span>
+  <span class="co">-- [[Dec]], and we need just Q [Dec])</span>
+  fmap concat <span class="fu">$</span>
+    for (zip fields [<span class="dv">0</span><span class="fu">..</span>]) <span class="fu">$</span> \((fieldName, _, fieldType), fieldPos) <span class="ot">-&gt;</span>
+      <span class="kw">case</span> nameBase fieldName <span class="kw">of</span>
+        (<span class="ch">&#39;_&#39;</span><span class="fu">:</span>rest) <span class="ot">-&gt;</span> makeLens typeName conName (mkName rest)
+                               fieldType fieldPos (length fields)
+        _ <span class="ot">-&gt;</span> return []
+
+makeLens
+<span class="ot">  ::</span> <span class="dt">Name</span>    <span class="co">-- ^ Type name</span>
+  <span class="ot">-&gt;</span> <span class="dt">Name</span>    <span class="co">-- ^ Constructor name</span>
+  <span class="ot">-&gt;</span> <span class="dt">Name</span>    <span class="co">-- ^ Lens name</span>
+  <span class="ot">-&gt;</span> <span class="dt">Type</span>    <span class="co">-- ^ Field type</span>
+  <span class="ot">-&gt;</span> <span class="dt">Int</span>     <span class="co">-- ^ Field position in the constructor</span>
+  <span class="ot">-&gt;</span> <span class="dt">Int</span>     <span class="co">-- ^ Overall fields amount</span>
+  <span class="ot">-&gt;</span> <span class="dt">DecsQ</span>
+makeLens typeName conName lensName fieldType fieldPos fieldCount <span class="fu">=</span> <span class="kw">do</span>
+  <span class="co">-- The signature</span>
+  <span class="kw">let</span> type_ <span class="fu">=</span> [t<span class="fu">|</span><span class="dt">Lens&#39;</span> <span class="fu">$</span>(conT typeName) <span class="fu">$</span>(return fieldType)<span class="fu">|</span>]
+  signature <span class="ot">&lt;-</span> sigD lensName type_
+
+  <span class="co">-- The lens</span>
+  (f_, f) <span class="ot">&lt;-</span> mkVars <span class="st">&quot;f&quot;</span>
+  (y_, y) <span class="ot">&lt;-</span> mkVars <span class="st">&quot;y&quot;</span>
+  (xs_, xs) <span class="ot">&lt;-</span> unzip <span class="fu">&lt;$&gt;</span> for [<span class="dv">0</span><span class="fu">..</span>fieldCount<span class="fu">-</span><span class="dv">1</span>] (\i <span class="ot">-&gt;</span> mkVars (<span class="st">&quot;x&quot;</span> <span class="fu">++</span> show i))
+  <span class="co">-- lam  = (\y -&gt; Con ...)</span>
+  <span class="co">-- pats = ? f (Con x1 x2 ...)</span>
+  <span class="co">-- rhs  = fmap lam (f xi)</span>
+  <span class="kw">let</span> lam  <span class="fu">=</span> lam1E y_ (appsE (conE conName <span class="fu">:</span> (xs <span class="fu">&amp;</span> ix fieldPos <span class="fu">.~</span> y)))
+      pats <span class="fu">=</span> [f_, conP conName xs_]
+      rhs  <span class="fu">=</span> [<span class="fu">|</span>fmap <span class="fu">$</span>lam (<span class="fu">$</span>f <span class="fu">$</span>(xs <span class="fu">!!</span> fieldPos))<span class="fu">|</span>]
+  body <span class="ot">&lt;-</span> funD lensName [clause pats (normalB rhs) []]
+
+  <span class="co">-- All together</span>
+  return [signature, body]
+
+<span class="ot">mkVars ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Q</span> (<span class="dt">PatQ</span>, <span class="dt">ExpQ</span>)
+mkVars name <span class="fu">=</span> <span class="kw">do</span>
+  x <span class="ot">&lt;-</span> newName name
+  return (varP x, varE x)</code></pre></div>
+<p>By the way, the <code>fmap concat</code> trick is also useful when you want to create lenses for several types – instead of writing</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">makeLenses <span class="ch">&#39;&#39;</span><span class="dt">A</span>
+makeLenses <span class="ch">&#39;&#39;</span><span class="dt">B</span>
+makeLenses <span class="ch">&#39;&#39;</span><span class="dt">C</span></code></pre></div>
+<p>you can write</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">concat <span class="fu">&lt;$&gt;</span> mapM makeLenses [<span class="ch">&#39;&#39;</span><span class="dt">A</span>, <span class="ch">&#39;&#39;</span><span class="dt">B</span>, <span class="ch">&#39;&#39;</span><span class="dt">C</span>]</code></pre></div>
+<h2 id="type-variables">Type variables</h2>
+<p>At the moment our <code>makeLenses</code> won't work for something like this (in particular, it's going to fail with a pattern match failure):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Person</span> a <span class="fu">=</span> <span class="dt">Person</span> {
+  _<span class="ot">name ::</span> a,
+  _<span class="ot">age ::</span> <span class="dt">Double</span> }
+  <span class="kw">deriving</span> (<span class="dt">Show</span>)</code></pre></div>
+<p>Notes:</p>
+<ul>
+<li><p>To make it work, you'll have to take into account type variables when generating the type of the lens. In particular, <code>conT typeName</code> here would have to be replaced with something that would generate <code>Person a</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> type_ <span class="fu">=</span> [t<span class="fu">|</span><span class="dt">Lens&#39;</span> <span class="fu">$</span>(conT typeName) <span class="fu">$</span>(return fieldType)<span class="fu">|</span>]</code></pre></div>
+<p>For that, <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Internal-TH.html#v:conAppsT"><code>conAppsT</code></a> from <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Internal-TH.html"><code>Control.Lens.Internal.TH</code></a> would be pretty useful:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">conAppsT ::</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> [<span class="dt">Type</span>] <span class="ot">-&gt;</span> <span class="dt">Type</span>
+conAppsT conName <span class="fu">=</span> foldl <span class="dt">AppT</span> (<span class="dt">ConT</span> conName)</code></pre></div>
+<p>(Yep, it's this thing with <code>foldl</code> that we used before. I wanted to show you how to use <code>foldl</code> with <code>AppT</code> before showing that <code>conAppsT</code> exists, especially since it lives in lens and not in template-haskell.)</p></li>
+<li><p>Another useful thing is [<code>name</code>][] – a lens from <a href="http://hackage.haskell.org/package/lens/docs/Language-Haskell-TH-Lens.html"><code>Language.Haskell.TH.Lens</code></a> that extracts a name from anything that has one (including type variables). So, the construction of the full type would look like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">fullType <span class="fu">=</span> typeName <span class="ot">`conAppsT`</span> [<span class="dt">VarT</span> (v <span class="fu">^.</span> name) <span class="fu">|</span> v <span class="ot">&lt;-</span> vars]</code></pre></div>
+<p>The reason it's not enough to just do <code>[VarT v | PlainTV v &lt;- vars]</code> is that a “plain” type variable is the same as a kinded type variable with kind <code>*</code>, so <code>reify</code> can return either a list of <code>PlainTV</code>s or a list of <code>KindedTV</code>s, and it's easier to just use <code>name</code> to extract the name of the type variable from whatever you might be getting. (If you want to know more about kinds, read <a href="https://wiki.haskell.org/Kind">here</a>. In a nutshell: concrete types have kind <code>*</code>, type constructors like <code>Maybe</code> have kinds like <code>* -&gt; *</code>. Since <code>a</code> is a plain type variable, you can have <code>Person Int</code>, but you can't have <code>Person Maybe</code>. For an example of type variables that aren't <code>*</code>, see e.g. <code>ReaderT r m a</code>, where <code>r</code> and <code>a</code> have kind <code>*</code>, but <code>m</code> has kind <code>* -&gt; *</code>.)</p></li>
+<li><p>Also keep in mind that any variables in the type of the lens have to be mentioned in a <code>forall</code>. Instead of adding them manually, you can use <code>quantifyType</code> – it's not exported from anywhere but it's used in the internals of lens and you can just steal it:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">quantifyType ::</span> <span class="dt">Type</span> <span class="ot">-&gt;</span> <span class="dt">Type</span>
+quantifyType t <span class="fu">=</span> <span class="dt">ForallT</span> vs [] t
+  <span class="kw">where</span>
+    vs <span class="fu">=</span> map <span class="dt">PlainTV</span> (nub (t <span class="fu">^..</span> typeVars))</code></pre></div>
+<p><a href="http://hackage.haskell.org/package/lens/docs/Language-Haskell-TH-Lens.html#v:typeVars"><code>typeVars</code></a> is another thing from <a href="http://hackage.haskell.org/package/lens/docs/Language-Haskell-TH-Lens.html"><code>Language.Haskell.TH.Lens</code></a> – a traversal that traverses all free variables in a type.</p></li>
+</ul>
+<h2 id="the-answer-4">The answer</h2>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">makeLenses ::</span> <span class="dt">Name</span> <span class="ot">-&gt;</span> <span class="dt">DecsQ</span>
+makeLenses typeName <span class="fu">=</span> <span class="kw">do</span>
+  <span class="co">-- Get constructors and variables:</span>
+  <span class="fu">--</span>
+  <span class="co">--   cons :: [Con]</span>
+  <span class="co">--   vars :: [TyVarBndr]</span>
+  <span class="dt">TyConI</span> (<span class="dt">DataD</span> _ _ vars cons _) <span class="ot">&lt;-</span> reify typeName
+
+  <span class="co">-- The full type, thus, is:</span>
+  <span class="kw">let</span><span class="ot"> fullType ::</span> <span class="dt">Type</span>
+      fullType <span class="fu">=</span> typeName <span class="ot">`conAppsT`</span> [<span class="dt">VarT</span> (v <span class="fu">^.</span> name) <span class="fu">|</span> v <span class="ot">&lt;-</span> vars]
+
+  <span class="co">-- Get the constructor name and its fields:</span>
+  <span class="fu">--</span>
+  <span class="co">--   conName :: Name</span>
+  <span class="co">--   fields  :: [VarStrictType] :: [(Name, Strict, Type)]</span>
+  [<span class="dt">RecC</span> conName fields] <span class="ot">&lt;-</span> return cons
+
+  <span class="co">-- Make the lenses (concat is needed because for is going to return Q</span>
+  <span class="co">-- [[Dec]], and we need just Q [Dec])</span>
+  fmap concat <span class="fu">$</span>
+    for (zip fields [<span class="dv">0</span><span class="fu">..</span>]) <span class="fu">$</span> \((fieldName, _, fieldType), fieldPos) <span class="ot">-&gt;</span>
+      <span class="kw">case</span> nameBase fieldName <span class="kw">of</span>
+        (<span class="ch">&#39;_&#39;</span><span class="fu">:</span>rest) <span class="ot">-&gt;</span> makeLens fullType conName (mkName rest)
+                               fieldType fieldPos (length fields)
+        _ <span class="ot">-&gt;</span> return []
+
+makeLens
+<span class="ot">  ::</span> <span class="dt">Type</span>    <span class="co">-- ^ Type</span>
+  <span class="ot">-&gt;</span> <span class="dt">Name</span>    <span class="co">-- ^ Constructor name</span>
+  <span class="ot">-&gt;</span> <span class="dt">Name</span>    <span class="co">-- ^ Lens name</span>
+  <span class="ot">-&gt;</span> <span class="dt">Type</span>    <span class="co">-- ^ Field type</span>
+  <span class="ot">-&gt;</span> <span class="dt">Int</span>     <span class="co">-- ^ Field position in the constructor</span>
+  <span class="ot">-&gt;</span> <span class="dt">Int</span>     <span class="co">-- ^ Overall fields amount</span>
+  <span class="ot">-&gt;</span> <span class="dt">DecsQ</span>
+makeLens fullType conName lensName fieldType fieldPos fieldCount <span class="fu">=</span> <span class="kw">do</span>
+  <span class="co">-- The signature</span>
+  <span class="kw">let</span> type_ <span class="fu">=</span> quantifyType (conAppsT <span class="ch">&#39;&#39;</span><span class="dt">Lens&#39;</span> [fullType, fieldType])
+  <span class="co">-- (We could have “type_” in the Q monad and use [| |], but there&#39;s no</span>
+  <span class="co">-- reason to do it and I also wanted to showcase conAppsT)</span>
+  <span class="kw">let</span> signature <span class="fu">=</span> <span class="dt">SigD</span> lensName type_
+
+  <span class="co">-- The lens</span>
+  (f_, f) <span class="ot">&lt;-</span> mkVars <span class="st">&quot;f&quot;</span>
+  (y_, y) <span class="ot">&lt;-</span> mkVars <span class="st">&quot;y&quot;</span>
+  (xs_, xs) <span class="ot">&lt;-</span> unzip <span class="fu">&lt;$&gt;</span> for [<span class="dv">0</span><span class="fu">..</span>fieldCount<span class="fu">-</span><span class="dv">1</span>] (\i <span class="ot">-&gt;</span> mkVars (<span class="st">&quot;x&quot;</span> <span class="fu">++</span> show i))
+  <span class="co">-- lam  = (\y -&gt; Con ...)</span>
+  <span class="co">-- pats = ? f (Con x1 x2 ...)</span>
+  <span class="co">-- rhs  = fmap lam (f xi)</span>
+  <span class="kw">let</span> lam  <span class="fu">=</span> lam1E y_ (appsE (conE conName <span class="fu">:</span> (xs <span class="fu">&amp;</span> ix fieldPos <span class="fu">.~</span> y)))
+      pats <span class="fu">=</span> [f_, conP conName xs_]
+      rhs  <span class="fu">=</span> [<span class="fu">|</span>fmap <span class="fu">$</span>lam (<span class="fu">$</span>f <span class="fu">$</span>(xs <span class="fu">!!</span> fieldPos))<span class="fu">|</span>]
+  body <span class="ot">&lt;-</span> funD lensName [clause pats (normalB rhs) []]
+
+  <span class="co">-- All together</span>
+  return [signature, body]
+
+<span class="ot">quantifyType ::</span> <span class="dt">Type</span> <span class="ot">-&gt;</span> <span class="dt">Type</span>
+quantifyType t <span class="fu">=</span> <span class="dt">ForallT</span> vs [] t
+  <span class="kw">where</span>
+    vs <span class="fu">=</span> map <span class="dt">PlainTV</span> (nub (t <span class="fu">^..</span> typeVars))
+
+<span class="ot">mkVars ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Q</span> (<span class="dt">PatQ</span>, <span class="dt">ExpQ</span>)
+mkVars name <span class="fu">=</span> <span class="kw">do</span>
+  x <span class="ot">&lt;-</span> newName name
+  return (varP x, varE x)</code></pre></div>
+<h2 id="what-to-do-next">What to do next</h2>
+<p>Okay, now you can write your own simple <code>makeLenses</code>! How is it different from lens's <code>makeLenses</code>?</p>
+<p>Most of lens's TH code (excluding code that generates prisms) lives in <a href="http://hackage.haskell.org/package/lens/docs/src/Control-Lens-Internal-FieldTH.html"><code>Control.Lens.Internal.FieldTH</code></a>. If you want your <code>makeLenses</code> to be close to lens's <code>makeLenses</code>, you should:</p>
+<ul>
+<li><p>Allow newtypes (which can be single-field records). In lens it's done by <code>makeFieldOpticsForDec</code>.</p></li>
+<li><p>Handle records with several constructors; generate lenses for fields that are present in all constructors, and traversals otherwise. In lens, the decision whether to create a lens or a traversal is made by <code>buildScaffold</code>, which is kinda confusing and so I'll comment on some of its local functions/variables.</p>
+<p>This is a list of constructors, together with types of all their fields. <code>Left</code> means “not the field we're currently making a lens for”, <code>Right</code> means the opposite:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">consForDef ::</span> [(<span class="dt">Name</span>, [<span class="dt">Either</span> <span class="dt">Type</span> <span class="dt">Type</span>])]
+consForDef <span class="fu">=</span> over (mapped <span class="fu">.</span> _2 <span class="fu">.</span> mapped) categorize cons</code></pre></div>
+<p>This line checks that the field is present in all constructors; if not, we'll generate a traversal:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">lensCase ::</span> <span class="dt">Bool</span>
+lensCase <span class="fu">=</span> all (\x <span class="ot">-&gt;</span> lengthOf (_2 <span class="fu">.</span> folded <span class="fu">.</span> _<span class="dt">Right</span>) x <span class="fu">==</span> <span class="dv">1</span>) consForDef</code></pre></div>
+<p>It's all more complicated than it could be because lens permits a generated traversal to update several fields of the same constructor, as the documentation for <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-TH.html#v:makeLensesFor"><code>makeLensesFor</code></a> says:</p>
+<blockquote>
+<p>If you map multiple names to the same label, and it is present in the same constructor then this will generate a <code>Traversal</code>.</p>
+</blockquote>
+<p>Anyway, the actual lens/traversal is generated by <code>makeFieldClauses</code>, which takes a list like <code>[(Name, Int, [Int])]</code> (name, amount of fields, field positions) and generates the clauses (or equations). Each clause is generated by <code>makeFieldOpticClause</code>, which should look very vaguely familiar to you (at least it does to me).</p></li>
+<li><p>Create an <code>Iso</code> when the record has only 1 constructor with 1 field in it.</p></li>
+<li><p>Create <code>Getter</code>/<code>Fold</code> instead of <code>Lens</code>/<code>Traversal</code> when the type of the field is existential (has a <code>forall</code> in it). This is determined in <code>buildScaffold</code>, too.</p></li>
+<li><p>Handle data families (no idea how or what or why, I haven't ever used them).</p></li>
+<li><p>Generate type-changing lenses where possible (to do that, look at <code>buildStab</code>).</p>
+<p>Here's the code that determines the type variables (<code>unfixedTypeVars</code>) that don't belong to any of the other fields (and therefore can be changed):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(fixedFields, targetFields) <span class="fu">=</span> partitionEithers categorizedFields
+fixedTypeVars               <span class="fu">=</span> setOf typeVars fixedFields
+unfixedTypeVars             <span class="fu">=</span> setOf typeVars s <span class="dt">Set</span><span class="fu">.</span>\\ fixedTypeVars</code></pre></div>
+<p>This generates a fresh name for each of the variables:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sub <span class="ot">&lt;-</span> T.sequenceA (fromSet (newName <span class="fu">.</span> nameBase) unfixedTypeVars)</code></pre></div>
+<p>This substitutes variables with their new counterparts in <code>s</code> and <code>a</code>, producing <code>t</code> and <code>b</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">let</span> (t,b) <span class="fu">=</span> over both (substTypeVars sub) (s&#39;,a)</code></pre></div>
+<p>Finally, <code>buildScaffold</code> checks whether <code>s == t</code> and <code>a == b</code> and generates either a <code>Lens'</code> or a <code>Lens</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Generate simple Lens and Traversal where possible</span>
+<span class="fu">|</span> _simpleLenses rules <span class="fu">||</span> s&#39; <span class="fu">==</span> t <span class="fu">&amp;&amp;</span> a <span class="fu">==</span> b <span class="fu">=</span>
+    <span class="kw">let</span> optic <span class="fu">|</span> isoCase <span class="fu">&amp;&amp;</span> _allowIsos rules <span class="fu">=</span> iso&#39;TypeName
+              <span class="fu">|</span> lensCase                    <span class="fu">=</span> lens&#39;TypeName
+              <span class="fu">|</span> otherwise                   <span class="fu">=</span> traversal&#39;TypeName
+    <span class="kw">in</span> <span class="dt">OpticSa</span> [] optic s&#39; a</code></pre></div></li>
+<li><p>Generate inline pragmas (look at <code>inlinePragma</code>, which has 3 ways of generating pragmas for various versions of GHC).</p></li>
+</ul>
+<p>And that's pretty much all (unless you also want to generate classes, in which case it's not).</p>
+<h1 id="p.s.">P.S.</h1>
+<p>Here's a <a href="http://strawpoll.de/33gfe25">poll</a> about possibly maybe turning lens over tea into a book when it's finished. Please fill it; if you don't, the sample would be really really skewed and the poll would be worthless. (Well, it's already moderately worthless since you have to be reading this in order to participate, but if you read this and don't participate it would be <em>totally</em> worthless.)</p>
+<p>Thanks for caring about statistics.</p>
+</article>
+
+
+<div id="series">
+      <a href="/lens-over-tea-5">&lt;&lt;&lt;</a>
+
+  <a href="/#lens-over-tea">“lens over tea”</a>
+
+      <a href="/lens-over-tea-7">&gt;&gt;&gt;</a>
+  </div>
+
+</div>
+
+<div id="monadfix" class="blue-links">
+  <h3>I'm doing software consulting!</h3>
+  <p>
+    Nowadays I'm running a functional programming consultancy at
+    <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
+    PureScript, Clojure, and Agda. We are looking for more clients and more
+    consultants!
+  </p>
+</div>
+
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+this.page.url = "https://artyom.me/lens-over-tea-6";
+this.page.identifier = "lens-over-tea-6";
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//artyomkazak.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<div id="footer" class="blue-links">
+<a href="https://github.com/neongreen/artyom.me/blob/master/posts/lens-over-tea-6.md">view source</a>—<a href="mailto:artyom@aelve.com?subject=Comment on lens-over-tea-6">comment by email</a>—<a href="/curiosity">curiosity killed the cat</a>
+</div>
+
+</div>
+
+<script>
+document.body.innerHTML = document.body.innerHTML.replace(/‾/g, "<span style='text-decoration: overline'> </span>");
+</script>
+
+</body>
+</html>

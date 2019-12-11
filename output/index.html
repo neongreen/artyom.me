@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <meta name="google-site-verification" content="y-gj-eNGiiocXI1nd6EPlywGEfhW90jeeFO__ePHvbg" />
+  <meta name="generator" content="pandoc">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="icon" type="image/png" href="/ame256.png">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml"
+        title="RSS">
+  <title>Artyom Kazak</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="/css.css?date=2019-06-21">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154447441-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-154447441-1');
+</script>
+
+</head>
+
+<body>
+
+<div id="header">
+  <a href="/">Artyom Kazak</a>
+  <a href="/feed.xml"><img src="/feed-icon.svg" alt="feed"></a>
+</div>
+
+<div id="details" class="blue-links">
+  <div class="badge">
+    <i class="fas fa-envelope"></i>
+    <a href="mailto:artyom@aelve.com">artyom@aelve.com</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-telegram"></i>
+    <a href="http://t.me/lightgreen">lightgreen</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-github"></i>
+    <a href="http://github.com/neongreen">neongreen</a>
+  </div
+
+  ><div class="badge">
+    Founder of <a href="https://aelve.com">Aelve</a>
+  </div
+  ><div class="badge">
+    Co-founder of <a href="https://monadfix.io">Monadfix</a>
+  </div
+
+  ><div class="badge">
+    Living in Moscow (come hang out!)
+  </div>
+</div>
+
+<div id="main">
+
+
+
+
+
+<article>
+
+<h1 id="if-you-want-to-hire-me">If you want to hire me</h1>
+<p>The best way to hire me is by hiring <a href="https://monadfix.io">Monadfix</a> services. I'm also open to other opportunities, especially in sales engineering and marketing roles. Here's my <a href="/cv">resume</a>.</p>
+<h1 id="haskell">Haskell</h1>
+<p>I've written some libraries, see <a href="https://hackage.haskell.org/user/Artyom" class="uri">https://hackage.haskell.org/user/Artyom</a>.</p>
+<p>I also started the <a href="http://reddit.com/r/haskelltil">/r/haskelltil</a> subreddit (for Haskell tips and tricks and code samples and oddities and curiosities and idioms and interesting facts and everything that is short enough that you'd be ashamed to submit it to <a href="http://reddit.com/r/haskell">/r/haskell</a> or write about it in a blog). It didn't catch on but some content there is still useful.</p>
+<p>Right now I'm busy working on <a href="https://github.com/aelve/guide">Aelve Guide</a>, a wiki-like guide to Haskell ecosystem and community.</p>
+<h2 id="lens-over-tea">lens over tea</h2>
+<p>A series of articles (called “lens over tea”) about <a href="https://hackage.haskell.org/package/lens">lens</a> and its implementation.</p>
+<ul>
+<li><p><a href="/lens-over-tea-1">part 1</a> – lenses 101, traversals 101, a bit of implementation details (also lens operators, functor composition, <code>Const</code>, <code>Identity</code>, difference lists, monoids of endomorphisms under composition, default signatures for class methods, equality constraints, and irrefutable patterns).</p></li>
+<li><p><a href="/lens-over-tea-2">part 2</a> – composition, laws, getters/actions/setters (also history of lenses, categories, the way to write lenses which would compose “normally”, some links to <code>Reader</code>/<code>Writer</code>/<code>State</code> learning materials, <code>Void</code>).</p></li>
+<li><p><a href="/lens-over-tea-3">part 3</a> – folds (also <code>Foldable</code>, <code>Apply</code>, a nice trick for combining folds, and <code>Fold1</code>).</p></li>
+<li><p><a href="/lens-over-tea-4">part 4</a> – isomorphisms, some profunctors, lens families (also <code>Forget</code>, <code>Tagged</code>, <code>Proxy</code>, a bit about pure profunctor lenses, existential types, algebra of types, and a cat video).</p></li>
+<li><p><a href="/lens-over-tea-5">part 5</a> – prisms (also a recap of isomorphisms with diagrams, a bit about affine traversals, <code>Pointed</code>, and <code>coerce</code>).</p></li>
+<li><p><a href="/lens-over-tea-6">part 6</a> – Template Haskell, aka “write your own <code>makeLenses</code>”</p></li>
+</ul>
+<p>It's a work in progress; the future parts will mention:</p>
+<ul>
+<li>indexed things</li>
+<li><code>Bazaar</code>/<code>Magma</code>/<code>Molten</code>/<code>Mafic</code>, traversal stuff like <code>partsOf</code>, <code>taking</code></li>
+<li><code>fusing</code> and <code>confusing</code></li>
+<li>benchmarks (<code>view _1</code> vs <code>fst</code>? how much does <code>fusing</code> help? etc)</li>
+<li>vertical composition, <a href="http://stackoverflow.com/a/17529470/615030">link</a></li>
+<li><code>ala</code>, <code>AlongsideLeft</code></li>
+<li><code>upon</code>, <a href="http://stackoverflow.com/q/17006679/615030">link</a></li>
+<li>pure profunctor lenses and traversals, <a href="https://www.reddit.com/r/haskell/comments/1jeo0p/theres_a_massive_gap_between_the_average_and/cbe1ebv">link 1</a>, <a href="https://github.com/purescript-contrib/purescript-lens/issues/26">link 2</a>, <a href="http://lpaste.net/103359">link 3</a>, <a href="http://r6research.livejournal.com/27476.html">link 4</a>, symmetric lenses (<code>(g a -&gt; f b) -&gt; g s -&gt; f t</code>), <a href="http://slbkbs.org/pr.hs">link</a></li>
+<li><code>Control.Lens.Plated</code>, <code>Control.Lens.Level</code>, <code>Control.Lens.Zoom</code></li>
+</ul>
+<h2 id="other-stuff">Other stuff</h2>
+<ul>
+<li><a href="/aeson">Aeson: the tutorial</a></li>
+<li><a href="/haskell-ctf">Making a CTF task in Haskell</a></li>
+<li><a href="/haddock-mistakes">Some common and annoying mistakes in Haddocks</a></li>
+</ul>
+<h1 id="stuff-that-is-sort-of-related-to-psychology">Stuff that is sort of related to psychology</h1>
+<ul>
+<li><a href="/empathy-consequentialism">Unconditional empathy</a></li>
+<li><a href="/yx">The YX problem</a></li>
+</ul>
+<h1 id="stuff-that-is-sort-of-related-to-linguistics">Stuff that is sort of related to linguistics</h1>
+<ul>
+<li><a href="/irregardless">Why you don't want “irregardless” to be a word</a></li>
+<li><a href="/polysemy">Polysemy (i.e. overloading) in programming</a></li>
+</ul>
+<h1 id="racket">Racket</h1>
+<p>Several years ago I've been learning <a href="https://en.wikipedia.org/wiki/Racket_(programming_language)">Racket</a> and making notes (which then became somewhat popular):</p>
+<ul>
+<li><p><a href="/learning-racket-1">Introduction</a>. First three days, no prior knowledge, getting a feel for the syntax... You get the idea.</p></li>
+<li><p><a href="/learning-racket-2">Macros, Macros and a Bit of Modules</a>. Another three days. Mostly macros, as you could've guessed.</p></li>
+</ul>
+<div class="gray">
+<ul>
+<li><a href="/racket-topics">list of topics to cover</a>. Gray because it can't be finished almost by definition.</li>
+</ul>
+</div>
+<p>I'm not learning Racket anymore, but I might start again in the future.</p>
+</article>
+
+
+
+</div>
+
+<div id="monadfix" class="blue-links">
+  <h3>I'm doing software consulting!</h3>
+  <p>
+    Nowadays I'm running a functional programming consultancy at
+    <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
+    PureScript, Clojure, and Agda. We are looking for more clients and more
+    consultants!
+  </p>
+</div>
+
+
+<div id="footer" class="blue-links">
+<a href="https://github.com/neongreen/artyom.me/blob/master/index.md">view source</a>—<a href="mailto:artyom@aelve.com?subject=Comment on index.html">comment by email</a>—<a href="/curiosity">curiosity killed the cat</a>
+</div>
+
+</div>
+
+<script>
+document.body.innerHTML = document.body.innerHTML.replace(/‾/g, "<span style='text-decoration: overline'> </span>");
+</script>
+
+</body>
+</html>

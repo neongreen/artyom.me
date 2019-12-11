@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <meta name="google-site-verification" content="y-gj-eNGiiocXI1nd6EPlywGEfhW90jeeFO__ePHvbg" />
+  <meta name="generator" content="pandoc">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="icon" type="image/png" href="/ame256.png">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml"
+        title="RSS">
+  <title>Learning Racket #2: Macros, Macros and a Bit of Modules</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/css.css?date=2019-06-21">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154447441-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-154447441-1');
+</script>
+
+</head>
+
+<body>
+
+<div id="header">
+  <a href="/">Artyom Kazak</a>
+  <a href="/feed.xml"><img src="/feed-icon.svg" alt="feed"></a>
+</div>
+
+<div id="details" class="blue-links">
+  <div class="badge">
+    <i class="fas fa-envelope"></i>
+    <a href="mailto:artyom@aelve.com">artyom@aelve.com</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-telegram"></i>
+    <a href="http://t.me/lightgreen">lightgreen</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-github"></i>
+    <a href="http://github.com/neongreen">neongreen</a>
+  </div
+
+  ><div class="badge">
+    Founder of <a href="https://aelve.com">Aelve</a>
+  </div
+  ><div class="badge">
+    Co-founder of <a href="https://monadfix.io">Monadfix</a>
+  </div
+
+  ><div class="badge">
+    Living in Moscow (come hang out!)
+  </div>
+</div>
+
+<div id="main">
+
+
+
+<div id="series">
+      <a href="/learning-racket-1">&lt;&lt;&lt;</a>
+
+  <a href="/#racket">“Learning Racket” series</a>
+
+      <a href="/learning-racket-3">&gt;&gt;&gt;</a>
+  </div>
+
+
+<article>
+<h1 class="title">Learning Racket #2: Macros, Macros and a Bit of Modules</h1>
+
+<p>After spending two days doing nothing but sleeping, waking up, watching the visitor counter, reading <a href="https://news.ycombinator.com/item?id=7595098">comments</a> on HN and falling asleep again... Okay, here we go.</p>
+<h1 id="day-4">Day 4</h1>
+<h2 id="let-vs.-define"><code>let</code> vs. <code>define</code></h2>
+<p>As I mentioned before, I'm going to switch to using internal <code>define</code>s wherever possible instead of <code>let</code>-forms. However, my plan is a <em>bit</em> more complicated; first I need to learn some things.</p>
+<h2 id="how-to-make-an-alias-for-define">How to make an alias for <code>define</code>?</h2>
+<p>The thing is, “define” is too long. Why not use <code>def</code> instead? And the name doesn't seem to be taken already.</p>
+<p>Will the same way that I used to define an alias for <code>lambda</code> work now?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (define-syntax-rule (def id body) (<span class="kw">define</span><span class="fu"> id </span>body))
+
+<span class="kw">&gt;</span> (def name <span class="st">&quot;Artyom&quot;</span>)
+
+<span class="kw">&gt;</span> name
+<span class="st">&quot;Artyom&quot;</span></code></pre></div>
+<p>I have a feeling, however, that it won't work if body consists of <em>multiple</em> expressions. Let's check.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(def (vector-swap vec i j)
+  (def t (<span class="kw">vector-ref</span> vec i))
+  (<span class="kw">vector-set!</span> vec i (<span class="kw">vector-ref</span> vec j))
+  (<span class="kw">vector-set!</span> vec j t))</code></pre></div>
+<p>And indeed I get an error message :(</p>
+<pre><code>def: use does not match pattern: (def id body) in: (def (vector-swap
+vec i j) (def t (vector-ref vec i)) (vector-set! vec i (vector-ref vec
+j)) (vector-set! vec j t))</code></pre>
+<p>Okay. <code>define-syntax-rule</code> is, as the docs <a href="http://docs.racket-lang.org/reference/stx-patterns.html#%28form._%28%28lib._racket%2Fprivate%2Fmisc..rkt%29._define-syntax-rule%29%29">say</a>, a special form, and probably allows more interesting patterns than <code>id</code>. Let's skip some (okay, more than a dozen) chapters and read about...</p>
+<h2 id="trg-16.1.-pattern-based-macros">TRG: 16.1. Pattern-Based Macros</h2>
+<blockquote>
+<p>A <em>pattern-based macro</em> replaces any code that matches a pattern to an expansion that uses parts of the original syntax that match parts of the pattern.</p>
+</blockquote>
+<p>I wonder what would happen if I define two macros in terms of each other. Will it work? In what order are macros applied? (Oh darn, now I'm curious about how Lisp interpreters work in general. Don't think about it, don't think about it...)</p>
+<blockquote>
+<p>The simplest way to create a macro is to use <code>define-syntax-rule</code>:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(define-syntax-rule pattern template)</code></pre></div>
+<p>As a running example, consider the <code>swap</code> macro, which swaps the values stored in two variables. It can be implemented using <code>define-syntax-rule</code> as follows:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(define-syntax-rule (swap x y)
+  (<span class="kw">let</span> ([tmp x])
+    (set! x y)
+    (set! y tmp)))</code></pre></div>
+</blockquote>
+<p>So <em>that's</em> how to swap two variables in Racket. <a href="http://en.wikipedia.org/wiki/Evaluation_strategy#Call_by_value">Call-by-value</a>, right.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">let</span> ([x &#39;x] [y &#39;y])
+    (swap x y)
+    (<span class="kw">list</span> x y))
+
+&#39;(y x)</code></pre></div>
+<p>Cool. What about misuse-resistance?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">let</span> ([x &#39;x] [y &#39;y])
+    (swap (add1 x) (sub1 y))
+    (<span class="kw">list</span> x y))
+
+set!: <span class="kw">not</span> an identifier in: (add1 x)</code></pre></div>
+<p>Not cool – this error is as misleading as Haskell's infamous <code>*** Exception: Prelude.head: empty list</code> which pops whenever <em>somewhere</em> somebody tries to extract the first element of an empty list. Can I at least restrict <code>swap</code> to just single identifiers?</p>
+<p>What patterns am I allowed to use?</p>
+<p>Where's the big blinking link saying “10 Amazing Racket Macro Patterns You Didn't Know About”?</p>
+<p>What do docs say about <a href="http://docs.racket-lang.org/reference/stx-patterns.html#%28form._%28%28lib._racket%2Fprivate%2Fmisc..rkt%29._define-syntax-rule%29%29"><code>define-syntax-rule</code></a>?</p>
+<blockquote>
+<p>Equivalent to</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> id</span>
+  (<span class="kw">syntax-rules</span> ()
+   [(id . pattern) template]))</code></pre></div>
+</blockquote>
+<p>Ni-ice. What about <a href="http://docs.racket-lang.org/reference/stx-patterns.html#%28form._%28%28lib._racket%2Fprivate%2Fstxcase-scheme..rkt%29._syntax-rules%29%29"><code>syntax-rules</code></a>?</p>
+<blockquote>
+<p>Equivalent to</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">lambda</span> (stx)
+  (syntax-case stx (literal-id ...)
+    [(generated-id . pattern) (syntax-protect #&#39;template)]  ...))</code></pre></div>
+</blockquote>
+<p>Further down the rabbit hole. <a href="http://docs.racket-lang.org/reference/stx-patterns.html#%28form._%28%28lib._racket%2Fprivate%2Fstxcase-scheme..rkt%29._syntax-case%29%29"><code>syntax-case</code></a>?</p>
+<blockquote>
+<pre><code>(syntax-case stx-expr (literal-id ...)
+  clause ...)
+
+
+      clause = [pattern result-expr]
+             | [pattern fender-expr result-expr]
+
+     pattern = _
+             | id
+             | (pattern ...)
+             | (pattern ...+ . pattern)
+             | (pattern ... pattern ellipsis pattern ...)
+             | (pattern ... pattern ellipsis pattern ... . pattern)
+             | #(pattern ...)
+             | #(pattern ... pattern ellipsis pattern ...)
+             | #&amp;pattern
+             | #s(key-datum pattern ...)
+             | #s(key-datum pattern ... pattern ellipsis pattern ...)
+             | (ellipsis stat-pattern)
+             | const
+
+stat-pattern = id
+             | (stat-pattern ...)
+             | (stat-pattern ...+ . stat-pattern)
+             | #(stat-pattern ...)
+             | const
+
+    ellipsis = ...</code></pre>
+</blockquote>
+<p>Finally!</p>
+<hr />
+<p>[after reading all patterns' descriptions]</p>
+<p>None of them seem to match “single identifier” (or “number”, for that matter, or “string”...). In fact, I glanced over this chapter and haven't found anything relevant. But this seems like a problem which should be common enough; maybe it's discussed in the <a href="http://docs.racket-lang.org/guide/proc-macros.html">next chapter</a>?</p>
+<blockquote>
+<ol type="1">
+<li>Syntax Objects</li>
+<li>Macro Transformer Procedures</li>
+<li>Mixing Patterns and Expressions: <code>syntax-case</code></li>
+<li><code>with-syntax</code> and <code>generate-temporaries</code></li>
+<li>Compile and Run-Time Phases</li>
+<li>General Phase Levels
+<ol type="1">
+<li>Phases and Bindings</li>
+<li>Phases and Modules</li>
+</ol></li>
+<li>Syntax Taints</li>
+</ol>
+</blockquote>
+<p>Hm, which one should I choose... My gut tells me it's <a href="http://docs.racket-lang.org/guide/syntax-case.html">subchapter 3</a>. (By “my gut” I mean, of course, the part of brain which is trained to recognise words it has seen before and ignore everything else.)</p>
+<p>Aha!</p>
+<blockquote>
+<p>...With this definition, <code>(swap x 2)</code> provides a syntax error originating from <code>swap</code> instead of <code>set!</code>.</p>
+</blockquote>
+<p>I won't look at how it's don— no, wait, it's actually more or less understandable even at this point; perhaps I should just read this small chapter from the beginning and see how much I can understand.</p>
+<h2 id="trg-16.2.3.-mixing-patterns-and-expressions-syntax-case">TRG: 16.2.3. Mixing Patterns and Expressions: <code>syntax-case</code></h2>
+<blockquote>
+<p>Unlike <code>syntax-rules</code>, the <code>syntax-case</code> form does not produce a procedure. Instead, it starts with a <em>stx-expr</em> expression that determines the syntax object to match against the <em>pattern</em>s. Also, each <code>syntax-case</code> clause has a <em>pattern</em> and <em>expr</em>, instead of a <em>pattern</em> and <em>template</em>. Within an <em>expr</em>, the <code>syntax</code> form – usually abbreviated with <code>#'</code> – shifts into template-construction mode; if the <em>expr</em> of a clause starts with <code>#'</code>, then we have something like a <code>syntax-rules</code> form:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (syntax-&gt;datum
+   (syntax-case #&#39;(<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>) ()
+    [(op n1 n2) #&#39;(<span class="kw">-</span> n1 n2)]))
+
+&#39;(<span class="kw">-</span> <span class="dv">1</span> <span class="dv">2</span>)</code></pre></div>
+</blockquote>
+<p>As I understand it, <code>#'</code> (which is an alias for <code>syntax</code>) creates a representation for expressions which can include patternish stuff like <code>...</code>. Then, <code>syntax-case</code> allows matching on such representations and transforming them; finally, <code>syntax-&gt;datum</code> reverses the transformation carried out by <code>#'</code>.</p>
+<p>What would <code>syntax-&gt;datum</code> do when it encounters a pattern?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (syntax-&gt;datum #&#39;(id ...))
+syntax: no pattern variables before ellipsis in template in: ...</code></pre></div>
+<p><a href="http://i0.kym-cdn.com/photos/images/original/000/234/739/fa5.jpg">I see</a>.</p>
+<hr />
+<p>Wait... I don't actually <em>know</em> that patterns accepted by <code>syntax-case</code> are the same ones which <code>#'</code> wants, right? And <a href="http://docs.racket-lang.org/reference/syntax-model.html#%28part._stxobj-model%29">indeed</a>:</p>
+<blockquote>
+<p>A <em>syntax object</em> combines a simpler Racket value, such as a symbol or pair, with <em>lexical information</em> about bindings, source-location information, syntax properties, and tamper status. In particular, an identifier is represented as a symbol object that combines a symbol with lexical and other information.</p>
+</blockquote>
+<p>Sigh. I'm tempted to delete the above paragraphs and pretend that I understood everything correctly from the first try. Must... resist... temptation...</p>
+<p>...Okay, second try. As I understand it, <code>#'</code> (which is an alias for <code>syntax</code>) creates a representation for Racket expressions, <em>taking into consideration scoping</em> – i.e. say, <code>'map</code> is not related to <code>map</code> in any way, but <code>#'map</code> is. (For Haskellers here, it seems to be the same thing as <code>[| map |]</code>.) Then, <code>syntax-case</code> allows matching on such representations and transforming them; finally, <code>syntax-&gt;datum</code> reverses the transformation carried out by <code>#'</code>.</p>
+<hr />
+<blockquote>
+<p>We could write the <code>swap</code> macro using <code>syntax-case</code> instead of <code>define-syntax-rule</code> or <code>syntax-rules</code>:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(swap stx)
+  (syntax-case stx ()
+    [(swap x y) #&#39;(<span class="kw">let</span> ([tmp x])
+                    (set! x y)
+                    (set! y tmp))]))</code></pre></div>
+</blockquote>
+<p>I wonder: [gee, am I saying “I wonder” too often...] which of those <code>swap</code>s is responsible for the actual name I use when calling the <code>swap</code> macro?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(eyjafjallajökull stx)
+  (syntax-case stx ()
+    [(swap a b) #&#39;(<span class="kw">let</span> ([t a])
+                    (set! a b)
+                    (set! b t))]))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">let</span> ([x <span class="dv">1</span>] [y <span class="dv">2</span>])
+    (swap x y)
+    (<span class="kw">list</span> x y))
+
+swap: unbound identifier in module in: swap</code></pre></div>
+<p>So it's the first one. (In fact, re-reading the docs for <code>syntax-case</code> suggests that I can even replace <code>(swap a b)</code> with <code>(_ a b)</code> and nothing will change.)</p>
+<hr />
+<p>What does <code>()</code> mean in <code>(syntax-case stx () ...</code>?</p>
+<p>The answer, again, is found in the docs. (When reading, keep in mind that everything that could've been inside of <code>()</code> is referenced as <em>“literal-id”</em>.)</p>
+<blockquote>
+<p>An <em>id</em> matches any syntax object when it is not bound to <code>...</code> or <code>_</code> and does not have the same binding as any <em>literal-id</em>. The <em>id</em> is further bound as <em>pattern variable</em> for the corresponding <em>fender-expr</em> (if any) and <em>result-expr</em>.</p>
+</blockquote>
+<blockquote>
+<p>An <em>id</em> that has the same binding as a <em>literal-id</em> matches a syntax object that is an identifier with the same binding in the sense of <code>free-identifier=?</code>.</p>
+</blockquote>
+<p>Apparently, it allows me to select which identifiers won't be interpreted as wildcards in <code>syntax-case</code> patterns.</p>
+<p>Let me try:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(: stx)
+  (syntax-case stx (<span class="kw">+</span>)
+    [(_ l ... <span class="kw">+</span> r ...)  #&#39;(<span class="kw">+</span> (: l ...)
+                             (: r ...))]))</code></pre></div>
+<p><code>&lt;pattern&gt; ...</code> is supposed to match any number of tokens which match the pattern (I wonder whether it's left- or right-associative, by the way). The exact syntax of <code>...</code> is unclear (for instance, how do I match any-number-of more complex patterns? And how do I refer to matched tokens later?), but for now I'm satisfied with this partial understanding.</p>
+<p>Ctrl-R and...</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">syntax-case: misplaced ellipsis in pattern (follows other ellipsis)
+in: ...</code></pre></div>
+<p>At first I thought it was just me being stupid, but after some tinkering around and googling I found <a href="http://osdir.com/ml/general/2014-01/msg04701.html">this</a> message on Racket mailing list, which states that it's impossible to do with <code>syntax-case</code> and advises to use <code>syntax-parse</code>.</p>
+<p>Why, why must everything be Inferior By Default? But anyway:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(: stx)
+  (syntax-parse stx #:literals (<span class="kw">+</span>)
+    [(_ l ... <span class="kw">+</span> r ...)  #&#39;(<span class="kw">+</span> (: l ...)
+                             (: r ...))]))</code></pre></div>
+<p>Note how <code>#:literals (+)</code> – an optional parameter – is used instead of a mandatory list parameter.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (: <span class="dv">1</span> <span class="kw">+</span> <span class="dv">2</span>)
+:: expected more terms starting with the literal symbol `+&#39; <span class="kw">or</span> any
+term in: (<span class="dv">1</span>)</code></pre></div>
+<p>Ah right, I forgot about the base case.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(: stx)
+  (syntax-parse stx #:literals (<span class="kw">+</span>)
+    [(_ l ... <span class="kw">+</span> r ...)  #&#39;(<span class="kw">+</span> (: l ...)
+                             (: r ...))]
+    [(_ x)              #&#39;x]))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (: <span class="dv">1</span> <span class="kw">+</span> <span class="dv">2</span>)
+<span class="dv">3</span></code></pre></div>
+<p>Great. Now I have to add more operators!</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(: stx)
+  (syntax-parse stx #:literals (<span class="kw">+</span> <span class="kw">-</span> * <span class="kw">/</span> ^)
+    [(_ l ... <span class="kw">+</span> r ...)  #&#39;(<span class="kw">+</span> (: l ...) (: r ...))]
+    [(_ l ... <span class="kw">-</span> r ...)  #&#39;(<span class="kw">-</span> (: l ...) (: r ...))]
+    [(_ l ... * r ...)  #&#39;(* (: l ...) (: r ...))]
+    [(_ l ... <span class="kw">/</span> r ...)  #&#39;(<span class="kw">/</span> (: l ...) (: r ...))]
+    [(_ l     ^ r ...)  #&#39;(<span class="kw">expt</span> l      (: r ...))]
+    [(_ x)              #&#39;x]))</code></pre></div>
+<p>(This works because when <code>*</code> and <code>/</code> are processed, we've already dealt with all <code>+</code> and <code>-</code>. Also, the case for <code>^</code> is different because it's right-associative.)</p>
+<pre><code>syntax-parse: literal is unbound in phase 0 (phase 0 relative to the
+enclosing module) in: ^</code></pre>
+<p>Hey, what? The only difference between <code>+</code> and <code>^</code> is that the latter isn't already bound to <code>expt</code>. Why would it matter if I'm doing the interpretation myself anyway...</p>
+<p><a href="http://docs.racket-lang.org/syntax/Parsing_Syntax.html#%28form._%28%28lib._syntax%2Fparse..rkt%29._syntax-parse%29%29">Turns out</a> that it matters. The sidenote to <code>#:literals</code> section says:</p>
+<blockquote>
+<p>Unlike <code>syntax-case</code>, <code>syntax-parse</code> requires all literals to have a binding. To match identifiers by their symbolic names, use <code>#:datum-literals</code> or the <code>~datum</code> pattern form instead.</p>
+</blockquote>
+<p>There's probably some good reason for it, but I've no idea what it could be.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(: stx)
+  (syntax-parse stx #:datum-literals (<span class="kw">+</span> <span class="kw">-</span> * <span class="kw">/</span> ^)
+    [(_ l ... <span class="kw">+</span> r ...)  #&#39;(<span class="kw">+</span> (: l ...) (: r ...))]
+    [(_ l ... <span class="kw">-</span> r ...)  #&#39;(<span class="kw">-</span> (: l ...) (: r ...))]
+    [(_ l ... * r ...)  #&#39;(* (: l ...) (: r ...))]
+    [(_ l ... <span class="kw">/</span> r ...)  #&#39;(<span class="kw">/</span> (: l ...) (: r ...))]
+    [(_ l     ^ r ...)  #&#39;(<span class="kw">expt</span> l      (: r ...))]
+    [(_ x)              #&#39;x]))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (: <span class="dv">1</span> <span class="kw">+</span> <span class="dv">3</span> <span class="kw">-</span> (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>) * <span class="dv">4</span> <span class="kw">/</span> <span class="dv">5</span> <span class="kw">+</span> <span class="dv">3</span> * <span class="dv">7</span> ^ <span class="dv">2</span> ^ <span class="dv">2</span> * <span class="dv">5</span> <span class="kw">-</span> <span class="dv">3</span> <span class="kw">/</span> <span class="dv">5</span> <span class="kw">/</span> <span class="dv">8</span> <span class="kw">-</span> <span class="dv">9</span> <span class="kw">/</span> <span class="dv">7</span>)
+<span class="dv">36012</span> <span class="dv">47</span>/<span class="dv">56</span></code></pre></div>
+<p>It works, it works!</p>
+<p>(And, as you can see, it evals everything correctly (this time I checked it in GHCi to make sure) and also isn't limited to just numbers – I can use any Racket expressions as tokens.)</p>
+<hr />
+<p><strong>Bonus</strong>:</p>
+<ol type="1">
+<li><p>Paste the long expression into code area (not REPL) and reload (it should print the result of its evaluation upon reload).</p></li>
+<li><p>Press the “Macro Stepper” button in the upper right corner.</p></li>
+<li><p>Press “Step” repeatedly.</p></li>
+<li><p>Have fun!</p></li>
+</ol>
+<p><a name="actual-evaluation"></a></p>
+<p>I wanted to add actual evaluation here as well (so that I'd see how <code>(+ 1 2)</code> gets simplified to <code>3</code>), but didn't find any functions named <code>reduce-syntax</code> or <code>eval-syntax-and-syntaxify-again</code>. I'll put it off for a while.</p>
+<hr />
+<p>Do you still remember where it all started? I wanted to write a <code>def</code> macro and then decided to read one “small chapter”. Ha.</p>
+<h2 id="night-time-rambles">Night-time rambles</h2>
+<ul>
+<li><p>hm, I wonder whether people who try to follow this all will find it very confusing</p></li>
+<li><p>nah, probably not</p></li>
+<li><p>there's not much to follow actually</p></li>
+<li><p>and hopefully they don't expect to <em>learn</em> Racket merely by reading how I was learning it</p></li>
+<li><p>they'll have to write their own macros and make their own mistakes</p></li>
+<li><p>because nobody has ever learned a programming language without writing a line of code</p></li>
+<li><p>...right?</p></li>
+</ul>
+<h1 id="interlude">Interlude</h1>
+<p>I've spent half of this day writing down what I forgot to write down yesterday and fixing typos / minor inaccuracies. So, no learning today.</p>
+<p>These posts are split in three-days-sized chunks. However, a) it takes me more than three days to write about three days, and b) learning-and-writing is twice as slow as just learning (but probably also better). If you want to have an estimate of how long it will take <em>you</em> to acquire the same knowledge I have at some point, divide the time it took me to do it by 2–6 (the actual coefficient depends on your intelligence and whether you prefer to ask questions or spend hours googling everything by yourself).</p>
+<p>Speaking of questions... I am the type of person who would rather <del>die</del> make a hundred Google queries than ask for help from a human, and I suspect I'm not the only one who is like that. So, here's an offer: if you have a question which is related to what I've covered so far, you should submit it and I'll try to investigate it. You get an answer, and I get more knowledge / don't have to strain my imagination thinking “hm, what other questions I <em>could</em> have but didn't?”.</p>
+<h1 id="day-5">Day 5</h1>
+<h2 id="back-to-trg-16.2.3">Back to TRG 16.2.3</h2>
+<blockquote>
+<p>One advantage of using <code>syntax-case</code> is that we can provide better error reporting for <code>swap</code>. For example, with the <code>define-syntax-rule</code> definition of <code>swap</code>, then <code>(swap x 2)</code> produces a syntax error in terms of <code>set!</code>, because <code>2</code> is not an identifier. We can refine our <code>syntax-case</code> implementation of <code>swap</code> to explicitly check the sub-forms:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(swap stx)
+  (syntax-case stx ()
+    [(swap x y)
+     (<span class="kw">if</span> (<span class="kw">and</span> (identifier? #&#39;x)
+              (identifier? #&#39;y))
+         #&#39;(<span class="kw">let</span> ([tmp x])
+             (set! x y)
+             (set! y tmp))
+         (raise-syntax-error <span class="dv">#f</span>
+                             <span class="st">&quot;not an identifier&quot;</span>
+                             stx
+                             (<span class="kw">if</span> (identifier? #&#39;x)
+                                 #&#39;y
+                                 #&#39;x)))]))</code></pre></div>
+<p>With this definition, <code>(swap x 2)</code> provides a syntax error originating from <code>swap</code> instead of <code>set!</code>.</p>
+</blockquote>
+<p>Understood. (Notice how <code>identifier?</code> is defined not on things (<code>x</code>) but on syntax objects (<code>#'x</code>).)</p>
+<hr />
+<p>It still annoys me that <em>this</em> is how I should be writing <code>swap</code>. However, I have two hopes:</p>
+<ol type="1">
+<li><p><code>syntax-parse</code> turns out to be more advanced and lets me do what I want.</p></li>
+<li><p>Syntax pattern language is in some way extensible and I can define my own pattern which only matches identifiers.</p></li>
+</ol>
+<hr />
+<p><a href="http://docs.racket-lang.org/syntax/Parsing_Syntax.html#%28form._%28%28lib._syntax%2Fparse..rkt%29._syntax-parse%29%29">Docs</a> for <code>syntax-parse</code>:</p>
+<blockquote>
+<p>Both <code>syntax-parse</code> and the specification facility, syntax classes, use a common language of syntax patterns, which is described in detail in <a href="http://docs.racket-lang.org/syntax/stxparse-patterns.html">Syntax Patterns</a>.</p>
+</blockquote>
+<p>Click... As you can see, <code>syntax-parse</code>'s pattern language is a bit richer than <code>syntax-case</code>'s. EH-patterns! A-patterns! <code>~peek</code>! <code>~peek-not</code>! O, wonder! How many goodly <del>creatures</del> patterns are there here!..</p>
+<p>...ahem. This works:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(swap stx)
+  (syntax-parse stx
+    [(_ (~var x id) (~var y id)) #&#39;(<span class="kw">let</span> ([t x])
+                                     (set! x y)
+                                     (set! y t))]))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (swap <span class="dv">3</span> x)
+swap: expected identifier in: <span class="dv">3</span></code></pre></div>
+<p><code>~var x id</code> means that <code>x</code> must belong to the class of identifiers (the full list of standard classes is <a href="http://docs.racket-lang.org/syntax/Library_Syntax_Classes_and_Literal_Sets.html">here</a>). Moreover, there turns out to be a convenient shortcut:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(swap stx)
+  (syntax-parse stx
+    [(_ x:id y:id) #&#39;(<span class="kw">let</span> ([t x])
+                       (set! x y)
+                       (set! y t))]))</code></pre></div>
+<p><em>Moreover</em>, I can define my own <a href="http://docs.racket-lang.org/syntax/Literal_Sets_and_Conventions.html#%28form._%28%28lib._syntax%2Fparse..rkt%29._define-conventions%29%29">conventions</a> for literal names!</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">#lang racket
+
+(require syntax/parse)
+(require (for-syntax syntax/parse))
+
+(define-conventions xyz-as-ids
+  [x id] [y id] [z id])
+
+(<span class="kw">define-syntax</span><span class="fu"> </span>(swap stx)
+  (syntax-parse stx #:conventions (xyz-as-ids)
+    [(_ x y) #&#39;(<span class="kw">let</span> ([t x])
+                 (set! x y)
+                 (set! y t))]))</code></pre></div>
+<pre><code>syntax-parse: expected identifier defined as a conventions in:
+xyz-as-ids</code></pre>
+<p>Oops. What's even more interesting, the example still works:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(define-conventions xyz-as-ids
+  [x id] [y id] [z id])
+
+(syntax-parse #&#39;(a b c <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)
+    #:conventions (xyz-as-ids)
+    [(x ... n ...) (syntax-&gt;datum #&#39;(x ...))])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">&#39;(a b c)</code></pre></div>
+<p>Wait... I can remember reading something about having to use <code>syntax/parse</code> and <code>(for-syntax syntax/parse)</code> being a bad sign. Where it was?.. Google says: <a href="http://docs.racket-lang.org/syntax/Phases_and_Reusable_Syntax_Classes.html">here</a>.</p>
+<blockquote>
+<p>The phase level mismatch is easily remedied by putting the syntax class definition within a <code>begin-for-syntax</code> block: ...</p>
+</blockquote>
+<p>Sigh. That's what I get for jumping back and forth instead of <em>following</em> the tutorial.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">#lang racket
+
+(require (for-syntax syntax/parse))
+
+(begin-for-syntax
+  (define-conventions xyz-as-ids
+    [x id] [y id] [z id]))
+
+(<span class="kw">define-syntax</span><span class="fu"> </span>(swap stx)
+  (syntax-parse stx #:conventions (xyz-as-ids)
+    [(_ x y) #&#39;(<span class="kw">let</span> ([t x])
+                 (set! x y)
+                 (set! y t))]))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (swap <span class="dv">3</span> x)
+swap: expected identifier in: <span class="dv">3</span></code></pre></div>
+<h2 id="back-to-def">Back to <code>def</code></h2>
+<p>Skipping the unfinished rest of chapter 16.1 because, because... fuck it, just because. I'm not in the mood.</p>
+<p>(By the by: why doesn't DrRacket indent <code>syntax-parse</code> correctly? This is inconvenient.)</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(def stx)
+  (syntax-parse stx
+    [(_ x ...) #&#39;(<span class="kw">define</span><span class="fu"> x </span>...)]))</code></pre></div>
+<p>Seems wrong to spend a day hopping around only to write <em>this</em>, but whatever.</p>
+<h2 id="improvement-1-multiple-declarations">Improvement #1: multiple declarations</h2>
+<p>This is stupid:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(def x <span class="dv">1</span>)
+(def y <span class="dv">2</span>)
+(def z <span class="dv">3</span>)</code></pre></div>
+<p>This – isn't:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(def [x <span class="dv">1</span>] [y <span class="dv">2</span>] [z <span class="dv">3</span>])</code></pre></div>
+<p>Okay, hm. To define many things inside of a single expression, I can use <code>begin</code> with multiple <code>define</code>s:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">begin</span>
+    (<span class="kw">define</span><span class="fu"> x </span><span class="dv">1</span>)
+    (<span class="kw">define</span><span class="fu"> y </span><span class="dv">2</span>))
+
+<span class="kw">&gt;</span> (<span class="kw">list</span> x y)
+&#39;(<span class="dv">1</span> <span class="dv">2</span>)</code></pre></div>
+<p>Ha, the unanswered question from previous day finally came up. How do I lift syntax expressions?</p>
+<p>For instance, how can I write a macro which transforms <code>1 2 3</code> into <code>'(3 2 1)</code>? This won't work:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(rev stx)
+  (syntax-parse stx
+    [(_ x ...) #&#39;(<span class="kw">reverse</span> (<span class="kw">list</span> x ...))]))</code></pre></div>
+<p>The trouble is – as you can check with Macro Stepper – that <code>reverse</code> is a part of generated code, while I want it to be <em>applied</em> to the syntax object at compile time.</p>
+<hr />
+<p>And, as usual, I've traded 15 seconds of asking a person on <code>#racket</code> for 15 minutes of reading the docs.</p>
+<p><strong>Piece #1</strong>: <a href="http://docs.racket-lang.org/reference/stxops.html#%28def._%28%28quote._~23~25kernel%29._syntax-e%29%29"><code>syntax-e</code></a> “unpacks” one layer of syntax-ing:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (syntax-e #&#39;(<span class="dv">1</span> <span class="dv">2</span> (add1 <span class="dv">3</span>)))
+&#39;(#&lt;syntax:<span class="dv">6</span>:<span class="dv">15</span> <span class="dv">1</span>&gt; #&lt;syntax:<span class="dv">6</span>:<span class="dv">17</span> <span class="dv">2</span>&gt; #&lt;syntax:<span class="dv">6</span>:<span class="dv">19</span> (add1 <span class="dv">3</span>)<span class="kw">&gt;</span>)</code></pre></div>
+<p><strong>Piece #2</strong>: <a href="http://docs.racket-lang.org/reference/stxops.html#%28def._%28%28quote._~23~25kernel%29._datum-~3esyntax%29%29"><code>datum-&gt;syntax</code></a> packs everything back:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (datum-&gt;syntax <span class="dv">#f</span> (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>))
+#&lt;syntax (<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)<span class="kw">&gt;</span></code></pre></div>
+<p>It doesn't do anything on objects which are already packed (unlike <code>syntax</code>):</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (datum-&gt;syntax <span class="dv">#f</span> (<span class="kw">list</span> <span class="dv">1</span> #&#39;<span class="dv">2</span> <span class="dv">3</span>))
+#&lt;syntax (<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)<span class="kw">&gt;</span>
+
+<span class="kw">&gt;</span> #&#39;(<span class="kw">list</span> <span class="dv">1</span> #&#39;<span class="dv">2</span> <span class="dv">3</span>)
+#&lt;syntax:<span class="dv">40</span>:<span class="dv">4</span> (<span class="kw">list</span> <span class="dv">1</span> (syntax <span class="dv">2</span>) <span class="dv">3</span>)<span class="kw">&gt;</span></code></pre></div>
+<p>With these two pieces, reversing a list finally becomes an easy task:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(rev stx)
+  (syntax-parse stx
+    [(_ x ...) (<span class="kw">define</span><span class="fu"> xs </span>(syntax-e #&#39;(x ...)))
+               (<span class="kw">define</span><span class="fu"> rev-xs </span>(<span class="kw">reverse</span> xs))
+               (datum-&gt;syntax stx (<span class="kw">cons</span> <span class="kw">list</span> rev-xs))]))
+
+(rev <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)</code></pre></div>
+<hr />
+<p>I've just remembered about my favorite learning method: whenever you feel like “there should be a library function for this”, <strong>ditch all guides and tutorials and read the fucking manual</strong>. In this case, reading the fucking manual turned up that there is a <code>syntax-local-eval</code> function <a href="http://docs.racket-lang.org/reference/syntax-util.html#%28def._%28%28lib._racket%2Fsyntax..rkt%29._syntax-local-eval%29%29">here</a> and it does exactly what I wanted (<a href="#actual-evaluation">remember?</a>):</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (require (for-syntax racket/syntax))
+
+<span class="kw">&gt;</span> (begin-for-syntax (print (syntax-local-eval #&#39;(<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>))))
+<span class="dv">3</span></code></pre></div>
+<p>Now this should be enough to see how things are evaluated:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(evaluating stx)
+  (syntax-parse stx
+    [(_ x ...) (datum-&gt;syntax <span class="dv">#f</span>
+                 (syntax-local-eval #&#39;(x ...)))]))</code></pre></div>
+<p>...turns out it isn't:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (evaluating <span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>)
+?: literal data is <span class="kw">not</span> allowed<span class="co">;</span>
+ no #%datum syntax transformer is bound in: <span class="dv">3</span></code></pre></div>
+<p>Hm. Googling the error message turns up a couple of links, but they aren't helpful. Some guy wrote something about <a href="http://lists.racket-lang.org/users/archive/2011-August/047666.html">context</a>... Maybe it's because I thought that <code>datum-&gt;syntax</code> doesn't need any context and wrote <code>#f</code> instead of <code>stx</code> like I always did before?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(evaluating stx)
+  (syntax-parse stx
+    [(_ x ...) (datum-&gt;syntax stx
+                 (syntax-local-eval #&#39;(x ...)))]))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (evaluating <span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)
+<span class="dv">6</span></code></pre></div>
+<p>(Now I wonder how it managed to compute <code>6</code> at all.)</p>
+<hr />
+<p>I've spent the last hour trying to make my infix-macro show reduction steps properly, and I think now it's not possible to do with just a couple of added lines. Maybe later. G'night!</p>
+<h1 id="day-6">Day 6</h1>
+<p>First, a fun fact: how'd you write a macros which takes many lists, each with two elements, and reverses the order of those elements inside each pair?</p>
+<p>Answer:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(foo stx)
+  (syntax-parse stx
+    [(_ (a b) ...) #&#39;(<span class="kw">list</span> (b a) ...)]))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (foo (<span class="dv">3</span> <span class="kw">+</span>) (<span class="dv">5</span> <span class="kw">/</span>))
+&#39;(<span class="dv">3</span> <span class="dv">1</span>/<span class="dv">5</span>)</code></pre></div>
+<p>Lesson: I underestimated the power of ellipses. Don't be like me.</p>
+<hr />
+<p>Behold, the <code>def</code> macro which handles multiple declarations!</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(def stx)
+  (syntax-parse stx
+    [(_ (v:id ex:expr) ...)  #&#39;(<span class="kw">begin</span> (<span class="kw">define</span><span class="fu"> v </span>ex) ...)]))</code></pre></div>
+<p>(<code>ex:expr</code> means that <code>ex</code> is an expression.)</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (def [x <span class="dv">1</span>] [y <span class="dv">2</span>] [z <span class="dv">3</span>])
+
+<span class="kw">&gt;</span> (<span class="kw">list</span> z y x)
+&#39;(<span class="dv">3</span> <span class="dv">2</span> <span class="dv">1</span>)</code></pre></div>
+<h2 id="improvement-2-defining-functions-together-with-variables">Improvement #2: defining functions together with variables</h2>
+<p>Should be pretty easy. Here's the syntax I want:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(def [(f x y)  (<span class="kw">/</span> (<span class="kw">+</span> x y) <span class="dv">2</span>)]
+     [pi       <span class="fl">3.141592653589793</span>])</code></pre></div>
+<p>(Interesting, I just found out I know pi exactly to the precision of <code>double</code>.)</p>
+<p>And here's the proposed desugaring:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">begin</span> (<span class="kw">define</span><span class="fu"> f </span>(<span class="kw">lambda</span> (x y) (<span class="kw">/</span> (<span class="kw">+</span> x y) <span class="dv">2</span>)))
+       (<span class="kw">define</span><span class="fu"> pi </span><span class="fl">3.141592653589793</span>))</code></pre></div>
+<p>Well. First of all, let's define another macro – <code>def1</code> – which would be handling a single definition.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(def1 stx)
+  (syntax-parse stx
+    [(_ v:id ex:expr)
+       #&#39;(<span class="kw">define</span><span class="fu"> v </span>ex)]
+    [(_ (f:id p:id ...) body ...<span class="kw">+</span>)
+       #&#39;(<span class="kw">define</span><span class="fu"> f </span>(<span class="kw">lambda</span> (p ...) body ...))]))</code></pre></div>
+<p>(<code>...+</code> means “many, but at least one”.)</p>
+<p>(For whatever reason DrRacket has been barfing at this definition when I tried it with the example, but accepting it after swapping the clauses. Ctrl-R didn't help and I had to restart DrRacket.)</p>
+<p>Then <code>def</code> becomes a bit simpler:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(def stx)
+  (syntax-parse stx
+    [(_ (d ...) ...)  #&#39;(<span class="kw">begin</span> (def1 d ...) ...)]))</code></pre></div>
+<p>(The reason for using <code>(_ (d ...) ...)</code> instead of <code>(_ d ...)</code> is that I don't want to pass brackets to <code>def1</code>.)</p>
+<h2 id="non-improvement-recursive-declarations">Non-improvement: recursive declarations</h2>
+<p>Originally I wanted to implement them too (and even written a couple of paragraphs about how I found out that the standard way of producing <code>undefined</code> in Racket seems to be <code>(letrec ([x x]) x)</code>), but then it turned out to be working already. So, just see it in action (and please don't blame me for stealing an example from the <code>letrec</code> docs):</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(def [(is-even? n) (<span class="kw">or</span> (<span class="kw">zero?</span> n) (is-odd? (sub1 n)))]
+     [(is-odd? n)  (<span class="kw">and</span> (<span class="kw">not</span> (<span class="kw">zero?</span> n)) (is-even? (sub1 n)))])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">list</span> (is-even? <span class="dv">6</span>) (is-odd? <span class="dv">6</span>))
+&#39;(<span class="dv">#t</span> <span class="dv">#f</span>)</code></pre></div>
+<h2 id="improvement-3-multiple-return-values">Improvement #3: multiple return values</h2>
+<p>The last enemy that shall be destroyed is <del>death</del> <code>let-values</code>, which allows binding multiple return values. Unfortunately, the syntax <code>let-values</code> uses clashes with syntax for function definitions.</p>
+<p>What syntax should I choose? Something like <code>[_ (x y) (values 1 2)]</code>, perhaps? But then I lose the ability to define <code>_</code>.</p>
+<p>What is not definable?</p>
+<p>Keywords!</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">define</span><span class="fu"> </span>#:answer <span class="dv">37</span>)
+define: expected <span class="dv">42</span> in: #:answer <span class="dv">37</span></code></pre></div>
+<p>Just kidding, just kidding.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">define</span><span class="fu"> </span>#:answer <span class="dv">37</span>)
+define: bad syntax in: #:answer</code></pre></div>
+<p>And, luckily, <code>#:</code> also counts as a keyword. So, one more clause...</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(def1 stx)
+  (syntax-parse stx
+    [(_ v:id ex:expr)
+       #&#39;(<span class="kw">define</span><span class="fu"> v </span>ex)]
+    [(_ #: (v:id ...) ex:expr)
+       #&#39;(define-values (v ...) ex)]
+    [(_ (f:id p:id ...) body ...<span class="kw">+</span>)
+       #&#39;(<span class="kw">define</span><span class="fu"> f </span>(<span class="kw">lambda</span> (p ...) body ...))]))</code></pre></div>
+<p>And here's how to use it:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (def [#: (l r) (split-at (range <span class="dv">10</span>) <span class="dv">5</span>)])
+
+<span class="kw">&gt;</span> (<span class="kw">list</span> l r)
+&#39;((<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>) (<span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span>))</code></pre></div>
+<h2 id="semi-improvement-4-indentation">Semi-improvement #4: indentation</h2>
+<p>For some reason I was thinking that indentation information is somehow stored with functions/macros themselves. I was wrong.</p>
+<p>To make <code>def</code> indent correctly, add it to <code>Edit</code> → <code>Preferences</code> → <code>Editing</code> → <code>Indenting</code> → <code>Begin-like Keywords</code>.</p>
+<p>To fix <code>syntax-parse</code>, add it to <code>Lambda-like Keywords</code> (I wonder why it isn't there already).</p>
+<h2 id="making-a-module">Making a module</h2>
+<p><code>def</code> nicely concludes these three days I've spent learning about macros. I intend to use it instead of various <code>let</code>-forms in the future – so I'd better make a module exporting it.</p>
+<p>Google “racket modules”. Since I'm feeling <del>sleepy</del> lucky, follow the <a href="http://docs.racket-lang.org/guide/module-basics.html">first link</a>.</p>
+<blockquote>
+<p>Each Racket module typically resides in its own file. For example, suppose the file <code>&quot;cake.rkt&quot;</code> contains the following module:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">#lang racket
+
+(provide print-cake)
+
+<span class="co">; draws a cake with n candles</span>
+(<span class="kw">define</span><span class="fu"> </span>(print-cake n)
+  (show <span class="st">&quot;   ~a   &quot;</span> n <span class="ch">#\.</span>)
+  (show <span class="st">&quot; .-~a-. &quot;</span> n <span class="ch">#\|</span>)
+  (show <span class="st">&quot; | ~a | &quot;</span> n <span class="ch">#\space</span>)
+  (show <span class="st">&quot;---~a---&quot;</span> n <span class="ch">#\-</span>))
+
+(<span class="kw">define</span><span class="fu"> </span>(show fmt n ch)
+  (printf fmt (<span class="kw">make-string</span> n ch))
+  (<span class="kw">newline</span>))</code></pre></div>
+</blockquote>
+<p>Okay, I added <code>(provide def)</code> to my file.</p>
+<blockquote>
+<p>The following <code>&quot;random-cake.rkt&quot;</code> module imports <code>&quot;cake.rkt&quot;</code>:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">#lang racket
+
+(require <span class="st">&quot;cake.rkt&quot;</span>)
+
+(print-cake (random <span class="dv">30</span>))</code></pre></div>
+</blockquote>
+<p>Not nice. I want <code>artyom/def</code> or something.</p>
+<blockquote>
+<p>A <em>collection</em> is a hierarchical grouping of installed library modules. A module in a collection is referenced through an unquoted, suffixless path. For example, the following module refers to the <code>&quot;date.rkt&quot;</code> library that is part of the <code>&quot;racket&quot;</code> collection:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">#lang racket
+
+(require racket/date)
+
+(printf <span class="st">&quot;Today is ~s\n&quot;</span>
+        (date-&gt;string (seconds-&gt;date (current-seconds))))</code></pre></div>
+</blockquote>
+<p>An unquoted, suffixless path... Yeah.</p>
+<blockquote>
+<p>You could add a new collection by placing files in the Racket installation or one of the directories reported by <code>(get-collects-search-dirs)</code>. Alternatively, you could add to the list of searched directories by setting the <code>PLTCOLLECTS</code> environment variable. The best option, however, is to add a package.</p>
+</blockquote>
+<p>I'll check what <code>get-collects-search-dirs</code> returns just for the sake of it, but <a href="http://xkcd.com/703/">the best option is probably the best one</a>, right?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (require setup/dirs)
+
+<span class="kw">&gt;</span> (get-collects-search-dirs)
+&#39;(#&lt;path:/home/yom/.racket/<span class="fl">6.0</span>/collects&gt;
+  #&lt;path:/usr/share/racket/collects&gt;)</code></pre></div>
+<blockquote>
+<p>Creating a package <em>does not</em> mean that you have to register with a package server or perform a bundling step that copies your source code into an archive format. Creating a package can simply mean using the package manager to make your libraries locally accessible as a collection from their current source locations.</p>
+<p>For example, suppose you have a directory <code>&quot;/usr/molly/bakery&quot;</code> that contains the <code>&quot;cake.rkt&quot;</code> module (from the beginning of this section) and other related modules. To make the modules available as a <code>&quot;bakery&quot;</code> collection, either</p>
+<ul>
+<li><p>Use the raco pkg command-line tool:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">raco</span> pkg install --link /usr/molly/bakery</code></pre></div>
+<p>where the <code>--link</code> flag is not actually needed when the provided path includes a directory separator.</p></li>
+<li><p>Use DrRacket's <code>Package Manager</code> item from the <code>File</code> menu. In the <code>Do What I Mean</code> panel, click <code>Browse...</code>, choose the <code>&quot;/usr/molly/bakery&quot;</code> directory, and click <code>Install</code>.</p></li>
+</ul>
+</blockquote>
+<p>Okay.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span> code/racket/artyom
+<span class="kw">def.rkt</span>
+
+$ <span class="kw">raco</span> pkg install code/racket/artyom
+<span class="kw">raco</span> setup: version: 6.0 [3m]
+<span class="kw">raco</span> setup: installation name: 6.0
+<span class="kw">raco</span> setup: variants: 3m
+<span class="kw">...</span>
+<span class="kw">raco</span> setup: 3 making: <span class="kw">&lt;</span>pkgs<span class="kw">&gt;</span>/artyom
+<span class="kw">raco</span> setup: --- creating launchers ---
+<span class="kw">raco</span> setup: --- installing man pages ---
+<span class="kw">raco</span> setup: --- building documentation ---
+<span class="kw">raco</span> setup: --- installing collections ---
+<span class="kw">raco</span> setup: --- post-installing collections ---</code></pre></div>
+<p>Wow, so simple. Check:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">#lang racket
+
+(require artyom/def)
+
+(def [success? <span class="dv">#t</span>])
+
+success?</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="dv">#t</span></code></pre></div>
+<p>Does it automatically pick up changes? To test this, I'm going to sneakily edit <code>def.rkt</code> without telling anybody.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(provide deaf)
+
+...
+
+(<span class="kw">define-syntax</span><span class="fu"> </span>(deaf stx)
+  ...</code></pre></div>
+<p>A-a-and... Yes! It behaves just as expected – no source–bytecode incompatibilities, no cached definitions, nothing, it just picked up the updated <code>def.rkt</code> right after reload. I didn't even have to restart DrRacket. Awesome. Gotta use <code>def</code> everywhere from now on.</p>
+<p>G'night.</p>
+<h1 id="p.s.">P.S.</h1>
+<ul>
+<li><p>I'm afraid that with the level of flexibility Racket allows, I'll never get to writing an actual program – most likely I'll be spending my time improving Racket itself (well, or at least changing it to suit my tastes). It's a dangerous road, because ultimately you can't really <em>improve</em> the tool you're not <em>using</em>. So, as a public promise (?), I want to state that in less than a year I'll write and open-source some medium-sized project in Racket. (And, of course, I'll be documenting the process.)</p>
+<p><em>(An update from 2 years after: the promise has been totally broken.)</em></p></li>
+<li><p>I need not say anything about macros at this point, do I.</p></li>
+<li><p>This part turned out to be both shorter and more tangled than the previous part. Sorry.</p></li>
+</ul>
+<h1 id="comments">Comments</h1>
+<h2 id="gus_massa-from-hn">gus_massa (from HN)</h2>
+<p>...has posted a <a href="https://news.ycombinator.com/item?id=7652680">comment</a> in which they're nitpicking about <code>define-syntax-rule</code>; in particular, it seems to be that <code>define-syntax-rule</code> works with patterns just fine.</p>
+<p>Hm!</p>
+<p>What do the docs say again?</p>
+<blockquote>
+<p>Equivalent to</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> id</span>
+  (<span class="kw">syntax-rules</span> ()
+   [(id . pattern) template]))</code></pre></div>
+<p>but with syntax errors potentially phrased in terms of <em>pattern</em>.</p>
+</blockquote>
+<p>Pattern, template... Okay, that's right.</p>
+<p>Hm, “but”... What's it actual definition? (I wish Racket docs included “source” links like Haskell docs do.)</p>
+<p>I'll have to check it with DrRacket. First I need to type some valid expression involving <code>define-syntax-rule</code> (is there a way to get to the source without jumping thru such hoops, by the by?):</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(define-syntax-rule (blah) blah)</code></pre></div>
+<p>Then I can use <code>Open Defining File</code> from context menu of <code>define-syntax-rule</code>. It opens <code>misc.rkt</code>, which contains a rather lengthy definition consisting of <code>pattern-failure</code>, which, well, seems to be used for reporting pattern matching failures, and <code>define-syntax-rule</code> itself:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> define-syntax-rule</span>
+  (<span class="kw">lambda</span> (stx)
+    (let-values ([(err) (<span class="kw">lambda</span> (what . xs)
+                          (apply raise-syntax-error
+                                 &#39;define-syntax-rule what stx xs))])
+      (syntax-case stx ()
+        [(dr (name . pattern) template)
+         (identifier? #&#39;name)
+         (syntax/loc stx
+           (<span class="kw">define-syntax</span><span class="fu"> name</span>
+             (<span class="kw">lambda</span> (user-stx)
+               (syntax-case** dr <span class="dv">#t</span> user-stx () free-identifier=? <span class="dv">#f</span>
+                 [(_ . pattern) (syntax-protect (syntax/loc user-stx template))]
+                 [_ (pattern-failure user-stx &#39;pattern)]))))]
+        [(_ (name . ptrn) tmpl)         (err <span class="st">&quot;expected an identifier&quot;</span> #&#39;name)]
+        [(_ (name . ptrn))              (err <span class="st">&quot;missing template&quot;</span>)]
+        [(_ (name . ptrn) tmpl etc . _) (err <span class="st">&quot;too many forms&quot;</span> #&#39;etc)]
+        [(_ head . _)                   (err <span class="st">&quot;invalid pattern&quot;</span> #&#39;head)]))))</code></pre></div>
+<p>Hm, okay, what am I protected against?</p>
+<h3 id="expected-an-identifier"><code>&quot;expected an identifier&quot;</code></h3>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(define-syntax-rule (&#39;not-an-id x ... p)
+  (p x ...))</code></pre></div>
+<pre><code>define-syntax-rule: expected an identifier in: (quote not-an-id)</code></pre>
+<p>Nice.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(&#39;not-an-id stx)
+  (syntax-case stx ()
+    [(_ x ... p) #&#39;(p x ...)]))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (&#39;not-an-id <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="kw">+</span>)
+quote: received value from syntax expander was <span class="kw">not</span> syntax
+  received: #&lt;procedure&gt;</code></pre></div>
+<p>Not nice – it didn't even get caught at compile-time.</p>
+<h3 id="missing-template"><code>&quot;missing template&quot;</code></h3>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(define-syntax-rule (foo x ... p))</code></pre></div>
+<pre><code>define-syntax-rule: missing template in:
+  (define-syntax-rule (foo x ... p))</code></pre>
+<p>I can guess what <code>define-syntax</code> will do...</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define-syntax</span><span class="fu"> </span>(foo stx)
+  (syntax-case stx ()))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (foo <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="kw">+</span>)
+foo: bad syntax in: (foo <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="kw">+</span>)</code></pre></div>
+<hr />
+<p>I won't bother checking the rest.</p>
+<p>I won't bother using <code>define-syntax-rule</code> either, tho. If I ever need to extend a macro defined with it, it'll be more troublesome to switch to <code>syntax-parse</code> than if I used it right from the start. Not to mention that <code>syntax-parse</code> supports more cool stuff and <em>who doesn't like cool stuff?</em></p>
+<p>(Oh, and if I ever get tired of typing <code>define-syntax ... stx ... syntax-case ... stx</code>, I'll be sure to write a macro to make it easier.)</p>
+</article>
+
+
+<div id="series">
+      <a href="/learning-racket-1">&lt;&lt;&lt;</a>
+
+  <a href="/#racket">“Learning Racket” series</a>
+
+      <a href="/learning-racket-3">&gt;&gt;&gt;</a>
+  </div>
+
+</div>
+
+<div id="monadfix" class="blue-links">
+  <h3>I'm doing software consulting!</h3>
+  <p>
+    Nowadays I'm running a functional programming consultancy at
+    <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
+    PureScript, Clojure, and Agda. We are looking for more clients and more
+    consultants!
+  </p>
+</div>
+
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+this.page.url = "https://artyom.me/learning-racket-2";
+this.page.identifier = "learning-racket-2";
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//artyomkazak.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<div id="footer" class="blue-links">
+<a href="https://github.com/neongreen/artyom.me/blob/master/posts/learning-racket-2.md">view source</a>—<a href="mailto:artyom@aelve.com?subject=Comment on learning-racket-2">comment by email</a>—<a href="/curiosity">curiosity killed the cat</a>
+</div>
+
+</div>
+
+<script>
+document.body.innerHTML = document.body.innerHTML.replace(/‾/g, "<span style='text-decoration: overline'> </span>");
+</script>
+
+</body>
+</html>

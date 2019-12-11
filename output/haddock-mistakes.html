@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <meta name="google-site-verification" content="y-gj-eNGiiocXI1nd6EPlywGEfhW90jeeFO__ePHvbg" />
+  <meta name="generator" content="pandoc">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="icon" type="image/png" href="/ame256.png">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml"
+        title="RSS">
+  <title>Some common and annoying mistakes in Haddocks</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="/css.css?date=2019-06-21">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154447441-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-154447441-1');
+</script>
+
+</head>
+
+<body>
+
+<div id="header">
+  <a href="/">Artyom Kazak</a>
+  <a href="/feed.xml"><img src="/feed-icon.svg" alt="feed"></a>
+</div>
+
+<div id="details" class="blue-links">
+  <div class="badge">
+    <i class="fas fa-envelope"></i>
+    <a href="mailto:artyom@aelve.com">artyom@aelve.com</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-telegram"></i>
+    <a href="http://t.me/lightgreen">lightgreen</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-github"></i>
+    <a href="http://github.com/neongreen">neongreen</a>
+  </div
+
+  ><div class="badge">
+    Founder of <a href="https://aelve.com">Aelve</a>
+  </div
+  ><div class="badge">
+    Co-founder of <a href="https://monadfix.io">Monadfix</a>
+  </div
+
+  ><div class="badge">
+    Living in Moscow (come hang out!)
+  </div>
+</div>
+
+<div id="main">
+
+
+
+
+
+<article>
+<h1 class="title">Some common and annoying mistakes in Haddocks</h1>
+
+<h2 id="slashes-and-broken-links">Slashes and broken links</h2>
+<p>Slashes mean emphasis, so this:</p>
+<pre><code>This is Haskell: (http://en.wikipedia.org/wiki/Haskell)</code></pre>
+<p>would be rendered like this:</p>
+<blockquote>
+<p>This is Haskell: (http:/<em>en.wikipedia.org</em>wiki/Haskell)</p>
+</blockquote>
+<p>Haddock tries to autodetect links, but often fails – so better always wrap them in angle brackets.</p>
+<h2 id="slashes-and-people-who-like-slashes">Slashes and people who like slashes</h2>
+<p>For those of us who like using slashes in prose: <code>good/bad/ugly</code> would get rendered as “good<em>bad</em>ugly”, so escape slashes like this: <code>good\/bad\/ugly</code>.</p>
+<h2 id="quotes-and-links-to-nonexistent-modules">Quotes and links to nonexistent modules</h2>
+<p>Haddock thinks that all quoted words are links to other modules, so by using <code>&quot;This&quot;</code> in a sentence you might get a link to an unexistent module “This”. Again, escaping helps here. Or using <code>“”</code> quotation marks instead of <code>&quot;&quot;</code> ones. Or simply not taking words starting with a capital letter in quotes.</p>
+<h2 id="code-blocks-and-lambdas">Code blocks and lambdas</h2>
+<p>Code blocks (ones surrounded by <code>@</code>s) aren't verbatim. This:</p>
+<pre><code>@
+map (\a -&gt; a ++ reverse a) xs
+@</code></pre>
+<p>will produce this:</p>
+<pre><code>map (a -&gt; a ++ reverse a) xs</code></pre>
+<p>(note the missing slash). The solution once again is escaping.</p>
+<h2 id="code-blocks-and-operators-with-angle-brackets">Code blocks and operators with angle brackets</h2>
+<p>Even worse, if you dare use <code>&lt;$&gt;</code> in a code block, it will turn into a link to a module called “$”. Either escape angle brackets, or put <code>&lt;$&gt;</code> in single quotes.</p>
+<h2 id="code-blocks-and-emphasis">Code blocks and emphasis</h2>
+<p>This one doesn't pop up often, because operators with <code>/</code> in them are pretty rare (there's <code>/=</code>, <code>/</code>, <code>//</code>, but not much else).</p>
+<pre><code>@
+l //= x = l %= (/x)
+@</code></pre>
+<p>will produce this (note the emphasis):</p>
+<pre><code>l <em>/= x = l %= (</em>x)</code></pre>
+<p>Either escape slashes, or put such operators in single quotes.</p>
+<h2 id="code-blocks-and-alignment">Code blocks and alignment</h2>
+<p>Aligning code in code blocks can be tricky. For instance, this nicely aligned code:</p>
+<pre><code>view ::             Getter s a     -&gt; s -&gt; a
+view :: Monoid m =&gt; Fold s m       -&gt; s -&gt; m
+view ::             Iso&#39; s a       -&gt; s -&gt; a
+view ::             Lens&#39; s a      -&gt; s -&gt; a
+view :: Monoid m =&gt; Traversal&#39; s m -&gt; s -&gt; m</code></pre>
+<p>is produced by this Haddock markup:</p>
+<pre><code>&#39;view&#39; ::             &#39;Getter&#39; s a     -&gt; s -&gt; a
+&#39;view&#39; :: &#39;Data.Monoid.Monoid&#39; m =&gt; &#39;Control.Lens.Fold.Fold&#39; s m       -&gt; s -&gt; m
+&#39;view&#39; ::             &#39;Control.Lens.Iso.Iso&#39;&#39; s a       -&gt; s -&gt; a
+&#39;view&#39; ::             &#39;Lens&#39;&#39; s a      -&gt; s -&gt; a
+&#39;view&#39; :: &#39;Data.Monoid.Monoid&#39; m =&gt; &#39;Control.Lens.Traversal.Traversal&#39;&#39; s m -&gt; s -&gt; m</code></pre>
+<p>(Editing such code, naturally, is a pain.) So, check your alignment in browser every time you modify a piece of code in docs.</p>
+<h2 id="code-examples-and-links-to-identifiers">Code examples and links to identifiers</h2>
+<p>You can create links to identifiers by wrapping them in single quotes, which works in code blocks and is kinda nice. However, the same thing doesn't work in code examples, so by doing</p>
+<pre><code>&gt;&gt;&gt; (1,2) &#39;&amp;&#39; &#39;_1&#39; &#39;%~&#39; &#39;negate&#39;
+(-1,2)</code></pre>
+<p>you will get what you see, instead of nicer</p>
+<pre><code>>>> (1,2) <a href="http://hackage.haskell.org/package/base/docs/Data-Function.html#v:-38-">&</a> <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Tuple.html#v:_1">_1</a> <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Operators.html#v:-37--126-">%~</a> <a href="http://hackage.haskell.org/package/base/docs/Prelude.html#v:negate">negate</a>
+(-1,2)</code></pre>
+<h2 id="links-and-line-wrapping">Links and line wrapping</h2>
+<p>If your editor wraps lines to some width, and a link happens to be wrapped...</p>
+<pre><code>...here goes a link: &lt;http://example.com
+just an example&gt;. Hope you liked it.</code></pre>
+<p>...it won't be recognised as a link. Watch out for wrapped links, I guess.</p>
+</article>
+
+
+
+</div>
+
+<div id="monadfix" class="blue-links">
+  <h3>I'm doing software consulting!</h3>
+  <p>
+    Nowadays I'm running a functional programming consultancy at
+    <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
+    PureScript, Clojure, and Agda. We are looking for more clients and more
+    consultants!
+  </p>
+</div>
+
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+this.page.url = "https://artyom.me/haddock-mistakes";
+this.page.identifier = "haddock-mistakes";
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//artyomkazak.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<div id="footer" class="blue-links">
+<a href="https://github.com/neongreen/artyom.me/blob/master/posts/haddock-mistakes.md">view source</a>—<a href="mailto:artyom@aelve.com?subject=Comment on haddock-mistakes">comment by email</a>—<a href="/curiosity">curiosity killed the cat</a>
+</div>
+
+</div>
+
+<script>
+document.body.innerHTML = document.body.innerHTML.replace(/‾/g, "<span style='text-decoration: overline'> </span>");
+</script>
+
+</body>
+</html>

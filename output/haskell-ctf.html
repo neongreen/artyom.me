@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <meta name="google-site-verification" content="y-gj-eNGiiocXI1nd6EPlywGEfhW90jeeFO__ePHvbg" />
+  <meta name="generator" content="pandoc">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="icon" type="image/png" href="/ame256.png">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml"
+        title="RSS">
+  <title>Making a CTF task in Haskell</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/css.css?date=2019-06-21">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154447441-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-154447441-1');
+</script>
+
+</head>
+
+<body>
+
+<div id="header">
+  <a href="/">Artyom Kazak</a>
+  <a href="/feed.xml"><img src="/feed-icon.svg" alt="feed"></a>
+</div>
+
+<div id="details" class="blue-links">
+  <div class="badge">
+    <i class="fas fa-envelope"></i>
+    <a href="mailto:artyom@aelve.com">artyom@aelve.com</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-telegram"></i>
+    <a href="http://t.me/lightgreen">lightgreen</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-github"></i>
+    <a href="http://github.com/neongreen">neongreen</a>
+  </div
+
+  ><div class="badge">
+    Founder of <a href="https://aelve.com">Aelve</a>
+  </div
+  ><div class="badge">
+    Co-founder of <a href="https://monadfix.io">Monadfix</a>
+  </div
+
+  ><div class="badge">
+    Living in Moscow (come hang out!)
+  </div>
+</div>
+
+<div id="main">
+
+
+
+
+
+<article>
+<h1 class="title">Making a CTF task in Haskell</h1>
+
+<p>2 weeks ago I got approached by a person on <a href="https://www.odesk.com/jobs/Haskell-programmer-required-develop-sandbox_~0169dd7db924c8f0c5">oDesk</a> who asked me to design a task in Haskell for some <a href="http://en.wikipedia.org/wiki/Capture_the_flag#Computer_security">CTF</a> (“capture the flag”) competition (I never found out, which). The specific requirement was to write a safe Haskell interpreter (lambdabot on #haskell is an example of such an interpeter – it disallows IO, forbids any unsafe functions, etc.) which could be broken – for instance, the attacker should've been able to subvert the restrictions and read a “flag” file in a specific folder. This type of challenges is commonly known as a “sandbox” or “jail” – here's an <a href="http://nullify-ctf.blogspot.com.au/2014/01/phd-ctf-quals-2014-yet-another-pyjail.html">example in Python</a>.</p>
+<p>The challenge wasn't aimed at expert or even amateur Haskell programmers, so relying on -things which can be googled, guessed or deduced- was preferable, which was good for me, because I've never participated in any CTFs and hacker competitions and have no idea how to create hard tasks. By the way, do you know the 4 properties of a good programming competition task set?</p>
+<ol type="1">
+<li>Everybody must have solved at least 1 task.</li>
+<li>Nobody should have solved all tasks.</li>
+<li>Each task must have been solved by somebody.</li>
+<li>No task should have been solved by everybody.</li>
+</ol>
+<p>(The 0th – implicit – property is “afterwards, nobody thinks the tasks sucked”.)</p>
+<h1 id="the-sandbox">The sandbox</h1>
+<p>Before I describe the process behind its creation, I'd like to post the code of the sandbox itself. Can you break it?</p>
+<p>If you don't want to read a couple of screens of code, it's fine – click this link to <a href="#the-design-process">skip it</a>. You're not losing anything; the code is here only for those who want to try to solve it first.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Instructions: you can give the interpreter any code (in Haskell, of</span>
+<span class="co">-- course) to be executed; the interpreter will compute the value of</span>
+<span class="co">-- top-level declaration `answer :: String` and print it to you. The goal is</span>
+<span class="co">-- to learn the contents of file called “flag”, which is contained in the</span>
+<span class="co">-- same directory where the interpreter is running from. Good luck!</span>
+
+<span class="kw">module</span> <span class="dt">Main</span> <span class="kw">where</span>
+
+<span class="kw">import </span><span class="dt">Control.Monad</span> (when, unless)
+<span class="kw">import </span><span class="dt">System.IO</span> (openTempFile, hPutStr, hFlush, hClose)
+<span class="kw">import </span><span class="dt">System.Directory</span> (getTemporaryDirectory, doesFileExist)
+<span class="kw">import </span><span class="dt">Data.Char</span>
+<span class="kw">import </span><span class="dt">Data.List</span> (isPrefixOf)
+<span class="kw">import </span><span class="dt">Data.Maybe</span> (isJust)
+<span class="kw">import </span><span class="dt">Language.Haskell.Interpreter</span>  <span class="co">-- from hint package</span>
+<span class="kw">import </span><span class="dt">Text.Regex</span>                    <span class="co">-- from regex-compat-tdfa package</span>
+
+<span class="co">-- Case-insensitive regex matching.</span>
+<span class="ot">(~~) ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+regex <span class="fu">~~</span> s <span class="fu">=</span> isJust <span class="fu">$</span> matchRegex (mkRegexWithOpts regex <span class="dt">True</span> <span class="dt">False</span>) s
+
+main <span class="fu">=</span> <span class="kw">do</span>
+  flagExists <span class="ot">&lt;-</span> doesFileExist <span class="st">&quot;flag&quot;</span>
+  unless flagExists <span class="fu">$</span>
+    error <span class="st">&quot;flag file not found!&quot;</span>
+
+  putStrLn <span class="st">&quot;Get the ./flag!&quot;</span>
+  putStrLn <span class="st">&quot;&quot;</span>
+  putStrLn <span class="st">&quot;Your code here (finish with Ctrl-D):&quot;</span>
+  putStrLn <span class="st">&quot;&quot;</span>
+  code <span class="ot">&lt;-</span> getContents
+
+  tempDir <span class="ot">&lt;-</span> getTemporaryDirectory
+  (codeFile, codeHandle) <span class="ot">&lt;-</span> openTempFile tempDir <span class="st">&quot;code.hs&quot;</span>
+  hPutStr codeHandle code
+  hFlush codeHandle
+  hClose codeHandle
+
+  <span class="co">-- Bye-bye, non-printables.</span>
+  when (any (\x <span class="ot">-&gt;</span> isControl x <span class="fu">&amp;&amp;</span> x <span class="ot">`notElem`</span> <span class="st">&quot;\n\r\t&quot;</span>) code) <span class="fu">$</span>
+    error <span class="st">&quot;no control characters are allowed. They are scary. Rejected.&quot;</span>
+
+  <span class="co">-- Multiline comments are okay, but we forbid then anyway – hard to parse.</span>
+  <span class="co">-- Also, this has disallowing scary pragmas as a side-effect.</span>
+  when (<span class="st">&quot;{-|-}&quot;</span> <span class="fu">~~</span> code) <span class="fu">$</span>
+    error <span class="st">&quot;multiline comments / scary pragmas were found. Rejected.&quot;</span>
+
+  <span class="co">-- Strip single-line comments.</span>
+  <span class="kw">let</span> codeWC <span class="fu">=</span> subRegex (mkRegex <span class="st">&quot;--.*$&quot;</span>) code <span class="st">&quot;&quot;</span>
+
+  <span class="co">-- Disallow strings, characters and numbers.</span>
+  when (<span class="st">&quot;[\&quot;&#39;[:digit:]]&quot;</span> <span class="fu">~~</span> codeWC) <span class="fu">$</span>
+    error <span class="st">&quot;fun fact: 100% of bad programs contain text/numbers. Rejected.&quot;</span>
+
+  <span class="co">-- Let&#39;s keep it short. Notice that operators count as words, too.</span>
+  putStr <span class="st">&quot;Counting words... &quot;</span>
+  <span class="kw">let</span> delim <span class="fu">=</span> mkRegex <span class="st">&quot;[][{}()|,;=`[:space:]]&quot;</span>
+  <span class="kw">let</span> wordCount <span class="fu">=</span> length <span class="fu">$</span> filter (not <span class="fu">.</span> null) <span class="fu">$</span> splitRegex delim codeWC
+  print wordCount
+
+  when (wordCount <span class="fu">&gt;</span> <span class="dv">3</span>) <span class="fu">$</span>
+    error <span class="st">&quot;for Haskell, this is way too long. And scary. Rejected.&quot;</span>
+
+  <span class="co">-- Of course, everything unsafe is bad. (Various coercions are bad too, not</span>
+  <span class="co">-- to mention immoral.)</span>
+  when (<span class="st">&quot;unsafe&quot;</span> <span class="fu">~~</span> codeWC) <span class="fu">$</span>
+    error <span class="st">&quot;code mentions “unsafe”... kinda suspicious, y&#39;know. REJECTED.&quot;</span>
+  when (<span class="st">&quot;coerce&quot;</span> <span class="fu">~~</span> codeWC) <span class="fu">$</span>
+    error <span class="st">&quot;don&#39;t coerce! Coercions aren&#39;t nice. Rejected.&quot;</span>
+
+  <span class="co">-- Whitelisting modules is bo-oring... so we&#39;ll just ban everything which</span>
+  <span class="co">-- isn&#39;t “Data”. “qualified” is forbidden merely to make parsing easier.</span>
+  when (<span class="st">&quot;qualified&quot;</span> <span class="fu">~~</span> codeWC) <span class="fu">$</span>
+    error <span class="st">&quot;qualified imports are disabled for the Greater Good. Rejected.&quot;</span>
+
+  <span class="kw">let</span> extractImports (x<span class="fu">:</span>y<span class="fu">:</span>xs)
+        <span class="fu">|</span> x <span class="fu">==</span> <span class="st">&quot;import&quot;</span> <span class="fu">=</span> y <span class="fu">:</span> extractImports (y<span class="fu">:</span>xs)
+        <span class="fu">|</span> otherwise     <span class="fu">=</span>     extractImports (y<span class="fu">:</span>xs)
+      extractImports _  <span class="fu">=</span> []
+  <span class="kw">let</span> imports <span class="fu">=</span> extractImports (words codeWC)
+
+  unless (all (<span class="st">&quot;Data.&quot;</span> <span class="ot">`isPrefixOf`</span>) imports) <span class="fu">$</span>
+    error <span class="st">&quot;only Data.* imports are allowed. Others are scary. Rejected.&quot;</span>
+
+  <span class="co">-- Okay, time to run the interpreter!</span>
+  res <span class="ot">&lt;-</span> runInterpreter <span class="fu">$</span> <span class="kw">do</span>
+    loadModules [codeFile]
+    setTopLevelModules [<span class="st">&quot;Main&quot;</span>]
+    setImportsQ [(<span class="st">&quot;Prelude&quot;</span>, <span class="dt">Nothing</span>)]
+    interpret <span class="st">&quot;answer&quot;</span> (<span class="ot">as ::</span> <span class="dt">String</span>)
+  <span class="kw">case</span> res <span class="kw">of</span>
+    <span class="dt">Left</span>  err <span class="ot">-&gt;</span> putStrLn <span class="fu">$</span> <span class="st">&quot;Interpretation error: &quot;</span> <span class="fu">++</span> show err
+    <span class="dt">Right</span> ans <span class="ot">-&gt;</span> putStrLn <span class="fu">$</span> <span class="st">&quot;answer = &quot;</span> <span class="fu">++</span> ans</code></pre></div>
+<h1 id="the-design-process">The design process</h1>
+<p>(I'm going to write in the present tense, even tho it all happened 2 weeks ago.)</p>
+<p>Okay, sandbox. Hm. Sandbox. There's <a href="https://github.com/gwern/mueval">mueval</a>, which does exactly what we want – “unfortunately”, it does it too well. There are no known vulnerabilities in mueval, and it would be hard to introduce some without changing its source. But at least I know already what I'm going to use to interpret Haskell – <a href="https://hackage.haskell.org/package/hint">hint</a> (a wrapper over GHC API).</p>
+<p>Other than that, no ideas. Darn. Beginning to panic... No, mustn't panic – once I start coding, something will come up, so I can tell the client something vague like</p>
+<blockquote>
+<p>So, I think I'm going to start writing a simple sandbox of my own now (quite more restricted than mueval) based on hint, and after having written a prototype and toying with it a bit some non-obvious way to break it should emerge.</p>
+</blockquote>
+<p>and set to work. (Just in case: I <em>did</em> confess that I had no ideas immediately after that. I'm not that bad.)</p>
+<h2 id="vague-idea-1-generics">Vague idea #1: generics?</h2>
+<p>It should be possible to specify which packages/modules are in scope, right? What if there are several packages which are safe by themselves but unsafe when combined somehow?</p>
+<p>For instance, imagine there's a package for doing file manipulation, which uses smart constructors:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- File is an opaque data type.</span>
+
+<span class="ot">fileInCurrentDirectory ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">File</span>
+fileInCurrentDirectory <span class="fu">=</span> <span class="fu">...</span>
+
+<span class="ot">openFile ::</span> <span class="dt">File</span> <span class="ot">-&gt;</span> <span class="dt">String</span>
+openFile <span class="fu">=</span> <span class="fu">...</span></code></pre></div>
+<p>Then, if only <code>fileInCurrentDirectory</code> and <code>openFile</code> are available for the users of the interpreter, they can't open any files which aren't in the current directory; but if they also have access to <a href="http://hackage.haskell.org/package/base/docs/Data-Data.html">generics</a>, they can in theory replace the stored file path in abstract <code>File</code> datatype, even if actual constructors aren't exported. For example, this evil function replaces <code>Int</code>s (only the ones on the “first level”) with <code>666</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Data.Data</span>
+<span class="kw">import </span><span class="dt">Data.Maybe</span> (fromJust)
+
+<span class="ot">evil ::</span> <span class="dt">Data</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> a
+evil <span class="fu">=</span> gmapT f
+  <span class="kw">where</span>
+    f d <span class="fu">=</span> <span class="kw">case</span> cast<span class="ot"> d ::</span> <span class="dt">Maybe</span> <span class="dt">Integer</span> <span class="kw">of</span>
+            <span class="dt">Nothing</span> <span class="ot">-&gt;</span> d
+            <span class="dt">Just</span> _  <span class="ot">-&gt;</span> fromJust (cast (<span class="dv">666</span><span class="ot"> ::</span> <span class="dt">Integer</span>))</code></pre></div>
+<p>Usage:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="fu">&gt;</span> evil (<span class="dt">Just</span> <span class="dv">0</span>)
+<span class="dt">Just</span> <span class="dv">666</span>
+
+<span class="fu">&gt;</span> evil [<span class="dv">1</span><span class="fu">..</span><span class="dv">3</span>]
+[<span class="dv">666</span>, <span class="dv">2</span>, <span class="dv">3</span>]</code></pre></div>
+<p>(If you want to learn more about <a href="http://hackage.haskell.org/package/base/docs/Data-Data.html"><code>Data.Data</code></a> and <a href="http://hackage.haskell.org/package/base/docs/Data-Typeable.html"><code>Data.Typeable</code></a>, I recommend <a href="http://chrisdone.com/posts/data-typeable">this Chris Done's article</a>.)</p>
+<h2 id="vague-idea-2-inlineperformio">Vague idea #2: <code>inlinePerformIO</code></h2>
+<p>Everybody knows about <a href="http://hackage.haskell.org/package/base/docs/System-IO-Unsafe.html#v:unsafePerformIO"><code>unsafePerformIO</code></a>, right? The CTF is going to be aimed at people who aren't Haskell experts, but even those can easily google <code>unsafePerformIO</code>. There is another just as “interesting” (for our purpose) function – <a href="http://hackage.haskell.org/package/base/docs/System-IO-Unsafe.html#v:unsafeDupablePerformIO"><code>unsafeDupablePerformIO</code></a> – but it's in the same module, so it's guaranteed to be discovered as well.</p>
+<p>Wa-ait... I remember stumbling upon <em>another</em> function while reading the source of <a href="https://hackage.haskell.org/package/bytestring">bytestring</a> – <a href="http://hackage.haskell.org/package/text-1.1.1.3/docs/Data-Text-Unsafe.html#v:inlinePerformIO"><code>inlinePerformIO</code></a>. It might be just perfect!</p>
+<ul>
+<li><p>Exported by an <code>Internal</code> module (those usually contain functions to access internals of a datatype, not dangerous stuff like <code>inlinePerformIO</code>).</p></li>
+<li><p>Contained in a library which ships with GHC (so I won't have to find any excuses to pull it in).</p></li>
+<li><p>Not accessible by browsing documentation (the page for the <a href="http://hackage.haskell.org/package/bytestring-0.10.4.0/docs/Data-ByteString-Internal.html">module exporting it</a> says simply “Sorry, it's just not here”).</p></li>
+<li><p>Doesn't have “unsafe” in its name.</p></li>
+<li><p>And yet <em>is</em> googleable by a determined person (it's mentioned in the <a href="http://www.haskell.org/haskellwiki/IO_inside#inlinePerformIO">IO Inside</a> article).</p></li>
+</ul>
+<p>Okay, but a task based on merely googling <code>inlinePerformIO</code> wouldn't be any interesting, right? More ideas are needed.</p>
+<h2 id="vague-idea-3-unicode-spaces">Vague idea #3: Unicode spaces</h2>
+<p>A while ago I accidentally found that GHC doesn't mind <a href="https://en.wikipedia.org/wiki/Non-breaking_space">non-breaking spaces</a> in code. On one hand, it's a rare and slightly weird feature – from TIOBE's index of <a href="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html">top 20 languages</a> only C#, Node.js, VB.NET and Dart allow non-breaking spaces instead of normal ones. On the other hand, what use can there possibly be for it in a CTF task?</p>
+<p>Perhaps I can add a restriction to the interpreter – “you can't use more than N words/lexemes”, where N is less than the minimum amount of words actually needed to import <code>Data.ByteString.Internal</code> and read the file. If the word counter forgets about non-breaking spaces being valid word separators, it would be possible to use them to circumvent the length limit.</p>
+<p>Or perhaps I can write an flawed import list parser which disallows almost all imports but doesn't parse non-breaking spa— no, it would let the attacker import <em>anything whatsoever</em>, and this isn't acceptable.</p>
+<h2 id="vague-idea-4-constant-generation">Vague idea #4: constant generation</h2>
+<p>This isn't even an “idea” as much as a “wish”, but still... It would be nice if the attacker had to find a Pretty Clever Way to generate some constant before they can read the file. Using tricky math or something.</p>
+<p>Hm.</p>
+<p>Would be <em>really</em> nice to have a function for checking code cleverness. Just think about it – the ultimate cleverness challenge:</p>
+<pre><code>enter your code &gt;
+
+...
+
+*** Exception: Sorry, your code isn&#39;t clever enough!</code></pre>
+<p>A pity I don't know any ways to estimate cleverness (<a href="https://en.wikipedia.org/wiki/Kolmogorov_complexity">Kolmogorov complexity</a> doesn't count, as it's not computable).</p>
+<h1 id="coding">Coding</h1>
+<p>I still haven't got a clear “vision” of what I'm going to write, but...</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">main <span class="fu">=</span> <span class="kw">do</span></code></pre></div>
+<h2 id="the-boring-stuff">The boring stuff</h2>
+<p>Checking for the flag file:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  flagExists <span class="ot">&lt;-</span> doesFileExist <span class="st">&quot;flag&quot;</span>
+  unless flagExists <span class="fu">$</span>
+    error <span class="st">&quot;flag file not found!&quot;</span></code></pre></div>
+<p>Getting the code from standard input (participants were supposed to connect by SSH to a server with -the interpreter- being set up as shell):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  putStrLn <span class="st">&quot;Get the ./flag!&quot;</span>
+  putStrLn <span class="st">&quot;&quot;</span>
+  putStrLn <span class="st">&quot;Your code here (finish with Ctrl-D):&quot;</span>
+  putStrLn <span class="st">&quot;&quot;</span>
+  code <span class="ot">&lt;-</span> getContents</code></pre></div>
+<p>Moving received code to a temporary file (hint can only load files, not strings from memory (or I just haven't found a way to do it)):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  tempDir <span class="ot">&lt;-</span> getTemporaryDirectory
+  (codeFile, codeHandle) <span class="ot">&lt;-</span> openTempFile tempDir <span class="st">&quot;code.hs&quot;</span>
+  hPutStr codeHandle code
+  hFlush codeHandle
+  hClose codeHandle</code></pre></div>
+<h2 id="setting-up-regexes">Setting up regexes</h2>
+<p>Usually, regexes aren't used in Haskell – we have <a href="http://hackage.haskell.org/package/base/docs/Data-Char.html"><code>Data.Char</code></a> and <a href="http://hackage.haskell.org/package/base/docs/Data-List.html">list functions</a> for simple cases, and parsing combinator libraries for more complex ones. However, since CTF participants (my “target demographics”) use regexes often, I'm going to use them too – especially since the sandbox code should be concise and regexes are somewhat more concise than parsers.</p>
+<p>There are many libraries for working with regexes on Hackage. <a href="https://hackage.haskell.org/package/regex-tdfa">regex-tdfa</a> seems to be the best one for POSIX regexes, at least judging by <a href="http://www.haskell.org/haskellwiki/Regex_Posix">this detailed writeup</a> by its author which describes the ways in which all other libraries suck. However, I'm going to use <a href="https://hackage.haskell.org/package/regex-compat-tdfa">regex-compat-tdfa</a> instead – it's a simple wrapper over regex-tdfa providing several easy-to-use functions. If I don't need the full power of regex-tdfa, why not?</p>
+<p>In particular, these are the functions I'm going to use [hooray for precognition]:</p>
+<ul>
+<li><p><code>mkRegex :: String -&gt; Regex</code> – make a case-sensitive regex out of a string.</p></li>
+<li><p><code>mkRegexWithOpts :: Bool -&gt; Bool -&gt; String -&gt; Regex</code> – same as <code>mkRegex</code>, but the second parameter controls case-sensitivity.</p></li>
+<li><p><code>matchRegex :: Regex -&gt; String -&gt; Maybe [String]</code> – matche a regex and returns submatches.</p></li>
+<li><p><code>subRegex :: Regex -&gt; String -&gt; String -&gt; String</code> – perform a regex replacement.</p></li>
+<li><p><code>splitRegex :: Regex -&gt; String -&gt; [String]</code> – split a string on delimiters matched by the regex.</p></li>
+</ul>
+<p>And, for Even More Convenience, I'll add an operator for case-insensitive matching:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(~~) ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span>
+regex <span class="fu">~~</span> s <span class="fu">=</span> isJust <span class="fu">$</span> matchRegex (mkRegexWithOpts regex <span class="dt">True</span> <span class="dt">False</span>) s</code></pre></div>
+<p>Okay, we're set.</p>
+<h2 id="removing-control-characters">Removing control characters</h2>
+<p>I've no idea whether it can actually influence the solution or not, but better safe than sorry. What can control characters do? What dangers lurk in the depths of ASCII? I don't know, and I'm scared.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  when (any (\x <span class="ot">-&gt;</span> isControl x <span class="fu">&amp;&amp;</span> x <span class="ot">`notElem`</span> <span class="st">&quot;\n\r\t&quot;</span>) code) <span class="fu">$</span>
+    error <span class="st">&quot;no control characters are allowed. They are scary. Rejected.&quot;</span></code></pre></div>
+<h2 id="handling-comments">Handling comments</h2>
+<p>Are you wondering why do anything about comments at all?</p>
+<ul>
+<li><p>People should have a chance to comment their solutions adequately (nobody is probably going to do this anyway, but still), which means that comments shouldn't count towards word totals.</p></li>
+<li><p>Technically, comments are just whitespace for the compiler – it complicates code parsing (e.g. if I want to disallow certain imports, I'll have to parse them first, and I don't want to deal with comments while doing this).</p></li>
+</ul>
+<p>This is enough of a justification for me. <code>{- ... -}</code> comments can be nested and I don't know how to strip them with regexes, so I'm just banning them (and language pragmas, which can (probably) be used to do something bad, get automatically banned as well). <code>--</code> comments are nicer (the corresponding regex is <code>--.*$</code>, which means “<code>--</code> and then any characters until the end of the line”), so they get to stay.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  when (<span class="st">&quot;{-|-}&quot;</span> <span class="fu">~~</span> code) <span class="fu">$</span>
+    error <span class="st">&quot;multiline comments / scary pragmas were found. Rejected.&quot;</span>
+
+  <span class="kw">let</span> codeWC <span class="fu">=</span> subRegex (mkRegex <span class="st">&quot;--.*$&quot;</span>) code <span class="st">&quot;&quot;</span></code></pre></div>
+<p>(All subsequent checks and operations will be done on <code>codeWC</code>.)</p>
+<h2 id="enforcing-safety">Enforcing safety</h2>
+<p>All functions with “unsafe” in their names shall be considered unsafe:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  when (<span class="st">&quot;unsafe&quot;</span> <span class="fu">~~</span> codeWC) <span class="fu">$</span>
+    error <span class="st">&quot;code mentions “unsafe”... kinda suspicious, y&#39;know. REJECTED.&quot;</span></code></pre></div>
+<p>Well, and there's also <a href="http://hackage.haskell.org/package/base/docs/Data-Coerce.html#v:coerce"><code>coerce</code></a>. It's <em>supposed</em> to be safe (or so I heard), but I'm-lazy-to-do-research, so:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  when (<span class="st">&quot;coerce&quot;</span> <span class="fu">~~</span> codeWC) <span class="fu">$</span>
+    error <span class="st">&quot;don&#39;t coerce! Coercions aren&#39;t nice. Rejected.&quot;</span></code></pre></div>
+<h2 id="parsing-imports">Parsing imports</h2>
+<p>Banning all mentions of “unsafe” still leaves a great deal of suspicious-looking stuff in <code>GHC.*</code> hierarchy. I also don't trust <code>Foreign.*</code>... and <code>System.*</code>... you know, it's easier to just say what I (more-or-less) trust – <code>Data.*</code>. So, the plan is to check whether any module not from the <code>Data.*</code> hierarchy is imported, and if so, complain. (Perhaps it would also serve as a hint as to where to look – or at least discourage the participants from spending an hour browsing the docs for the whole base library.)</p>
+<p>The easiest way is to gather a list of all words following the keyword <code>import</code> in code (I think it's actually a valid approach, as <code>import</code> can't be a function or variable name) and look at their prefixes. This is somewhat spoiled by the fact that <code>import</code> can be followed by <code>qualified</code>, so— no, I'll just ban <code>qualified</code>. (Ye-e-eah, you've probably already noticed that my attitude can be summarised as “it's a CTF task, it doesn't have to be sane or sensible”.)</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  when (<span class="st">&quot;qualified&quot;</span> <span class="fu">~~</span> codeWC) <span class="fu">$</span>
+    error <span class="st">&quot;qualified imports are disabled for the Greater Good. Rejected.&quot;</span></code></pre></div>
+<p>To extract imports, I could use a simple <code>zip</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="kw">let</span> imports <span class="fu">=</span> map snd <span class="fu">.</span> filter ((<span class="fu">==</span> <span class="st">&quot;import&quot;</span>) <span class="fu">.</span> fst)
+              <span class="fu">.</span> (zip <span class="fu">&lt;$&gt;</span> id <span class="fu">&lt;*&gt;</span> tail) <span class="fu">.</span> words</code></pre></div>
+<p>But... Well, okay, <code>zip &lt;$&gt; id &lt;*&gt; tail</code> could be replaced by <code>\ws -&gt; zip ws (tail ws)</code>, yeah, but it's still a bit too dense. Something like this would be more easily understandable (probably):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  <span class="kw">let</span> extractImports (x<span class="fu">:</span>y<span class="fu">:</span>xs)
+        <span class="fu">|</span> x <span class="fu">==</span> <span class="st">&quot;import&quot;</span> <span class="fu">=</span> y <span class="fu">:</span> extractImports (y<span class="fu">:</span>xs)
+        <span class="fu">|</span> otherwise     <span class="fu">=</span>     extractImports (y<span class="fu">:</span>xs)
+      extractImports _  <span class="fu">=</span> []
+  <span class="kw">let</span> imports <span class="fu">=</span> extractImports (words codeWC)</code></pre></div>
+<p>Phew, I've got a list of imports, now I can use it to Keep Evil Stuff Off:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  unless (all (<span class="st">&quot;Data.&quot;</span> <span class="ot">`isPrefixOf`</span>) imports) <span class="fu">$</span>
+    error <span class="st">&quot;only Data.* imports are allowed. Others are scary. Rejected.&quot;</span></code></pre></div>
+<h2 id="counting-words">Counting words</h2>
+<p>It can be easily done using only <code>elem</code> and a list of “separator” characters, but I'm going to use a regex instead. Why? Well, I can't use <a href="http://hackage.haskell.org/package/base/docs/Data-Char.html#v:isSpace"><code>isSpace</code></a>, because it <em>does</em> recognise Unicode spaces, but using something like <code>&quot;... \r\n\t&quot;</code> instead would be suspicious – “why are they using this when there's <code>isSpace</code>? Hm-m...”. Regexes aren't suspicious because I'm already using them for everything else, and not everybody knows that <code>[:space:]</code> and <code>isSpace</code> have different behavior.</p>
+<p>First, here's the regex itself: <code>mkRegex &quot;[][{}()|,;=`[:space:]]&quot;</code> (the <code>[][</code> weirdness in the beginning is due to the fact that <code>[\[\]</code> didn't work for whatever reason). Some lexemes would be considered “whitespace” with this definition (e.g. <code>||</code>), but it doesn't matter much. Now I can use it to split the string and count words:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  putStr <span class="st">&quot;Counting words... &quot;</span>
+  <span class="kw">let</span> delim <span class="fu">=</span> mkRegex <span class="st">&quot;[][{}()|,;=`[:space:]]&quot;</span>
+  <span class="kw">let</span> wordCount <span class="fu">=</span> length <span class="fu">$</span> filter (not <span class="fu">.</span> null) <span class="fu">$</span> splitRegex delim codeWC
+  print wordCount</code></pre></div>
+<p>Now, how big should be the word limit? With non-breaking spaces, <code>import Data.ByteString.Internal</code> is one “word”. <code>answer =</code> is another. After that should follow something like <code>inlinePerformIO $ readFile &quot;flag&quot;</code>, which (with spaces removed) would be the third word... Y'know, I think <del>640 kB</del> 3 words ought to be enough for anybody.</p>
+<pre><code>  when (wordCount &gt; 3) $
+    error &quot;for Haskell, this is way too long. And scary. Rejected.&quot;</code></pre>
+<h2 id="forbidding-strings">Forbidding strings</h2>
+<p>(Okay, given the 3 words limit, there's no space left for generics. Maybe in some other task, if I ever get to write another one— ouch, darn, I'm posting this on the internet, right... No generics in CTF tasks ever, then.)</p>
+<p>The obvious candidate for the “constant” to generate is <code>&quot;flag&quot;</code>, and it can be “generated” simply by typing <code>&quot;flag&quot;</code>, which seems kinda boring. So, strings have to go. Characters have to go too, because they can be used to construct strings. Finally, numbers have to go because they can be converted to characters which can be used to construct strings.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  when (<span class="st">&quot;[\&quot;&#39;[:digit:]]&quot;</span> <span class="fu">~~</span> codeWC) <span class="fu">$</span>
+    error <span class="st">&quot;fun fact: 100% of bad programs contain text/numbers. Rejected.&quot;</span></code></pre></div>
+<p>Um... how to solve it, then? A-ha, one can use <code>length</code> on a list to obtain an <code>Int</code>, problem solve— no, wait, <code>[</code> is a word separator, so whatever is in the list would start a new word— <em>right</em>, I even mentioned it before:</p>
+<blockquote>
+<p>Some lexemes would be considered “whitespace” with this definition (e.g. <code>||</code>), but it doesn't matter much.</p>
+</blockquote>
+<p>Turns out it does matter after all! I can simply make a list consisting of 4 lists of appropriate length full of <code>(||)</code>s, then map <code>length</code>, then <a href="http://hackage.haskell.org/package/base/docs/Prelude.html#v:toEnum"><code>toEnum</code></a>, and voila, I've got the <code>&quot;flag&quot;</code> without wasting the word. (In fact, I can just as well use <code>()</code> instead of <code>(||)</code>.)</p>
+<h2 id="running-the-interpreter">Running the interpreter</h2>
+<p>Boring stuff again (read the hint docs yada yada nothing interesting):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  res <span class="ot">&lt;-</span> runInterpreter <span class="fu">$</span> <span class="kw">do</span>
+    loadModules [codeFile]
+    setTopLevelModules [<span class="st">&quot;Main&quot;</span>]
+    setImportsQ [(<span class="st">&quot;Prelude&quot;</span>, <span class="dt">Nothing</span>)]
+    interpret <span class="st">&quot;answer&quot;</span> (<span class="ot">as ::</span> <span class="dt">String</span>)
+  <span class="kw">case</span> res <span class="kw">of</span>
+    <span class="dt">Left</span>  err <span class="ot">-&gt;</span> putStrLn <span class="fu">$</span> <span class="st">&quot;Interpretation error: &quot;</span> <span class="fu">++</span> show err
+    <span class="dt">Right</span> ans <span class="ot">-&gt;</span> putStrLn <span class="fu">$</span> <span class="st">&quot;answer = &quot;</span> <span class="fu">++</span> ans</code></pre></div>
+<h1 id="a-working-exploit">A working exploit</h1>
+<p>All spaces are non-breaking spaces. The lists of <code>()</code>s have lengths <code>[102, 108, 97, 103]</code>, which correspond to ASCII codes of “f”, “l”, “a”, “g”.</p>
+<style> code {white-space: pre-wrap;} </style>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">import <span class="dt">Data.ByteString.Internal</span>
+
+answer <span class="fu">=</span> inlinePerformIO <span class="fu">$</span> readFile <span class="fu">$</span> map toEnum <span class="fu">$</span> map length [[(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),()],[(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),()],[(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),()],[(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),(),()]]</code></pre></div>
+<h1 id="aftermath">Aftermath</h1>
+<p>Well, it could've been a more interesting task, that's for sure. No tricky math, no clever combinations leading to unexpected results, just “find this undocumented function” + “read Haskell report to learn about this behavior” + “look closely at this regex”. I wonder whether I myself would've enjoyed solving it...</p>
+<p>Oh, and also, I never got paid my 150$.</p>
+</article>
+
+
+
+</div>
+
+<div id="monadfix" class="blue-links">
+  <h3>I'm doing software consulting!</h3>
+  <p>
+    Nowadays I'm running a functional programming consultancy at
+    <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
+    PureScript, Clojure, and Agda. We are looking for more clients and more
+    consultants!
+  </p>
+</div>
+
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+this.page.url = "https://artyom.me/haskell-ctf";
+this.page.identifier = "haskell-ctf";
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//artyomkazak.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<div id="footer" class="blue-links">
+<a href="https://github.com/neongreen/artyom.me/blob/master/posts/haskell-ctf.md">view source</a>—<a href="mailto:artyom@aelve.com?subject=Comment on haskell-ctf">comment by email</a>—<a href="/curiosity">curiosity killed the cat</a>
+</div>
+
+</div>
+
+<script>
+document.body.innerHTML = document.body.innerHTML.replace(/‾/g, "<span style='text-decoration: overline'> </span>");
+</script>
+
+</body>
+</html>

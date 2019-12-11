@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <meta name="google-site-verification" content="y-gj-eNGiiocXI1nd6EPlywGEfhW90jeeFO__ePHvbg" />
+  <meta name="generator" content="pandoc">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="icon" type="image/png" href="/ame256.png">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml"
+        title="RSS">
+  <title>Learning Racket #1: Introduction</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/css.css?date=2019-06-21">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154447441-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-154447441-1');
+</script>
+
+</head>
+
+<body>
+
+<div id="header">
+  <a href="/">Artyom Kazak</a>
+  <a href="/feed.xml"><img src="/feed-icon.svg" alt="feed"></a>
+</div>
+
+<div id="details" class="blue-links">
+  <div class="badge">
+    <i class="fas fa-envelope"></i>
+    <a href="mailto:artyom@aelve.com">artyom@aelve.com</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-telegram"></i>
+    <a href="http://t.me/lightgreen">lightgreen</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-github"></i>
+    <a href="http://github.com/neongreen">neongreen</a>
+  </div
+
+  ><div class="badge">
+    Founder of <a href="https://aelve.com">Aelve</a>
+  </div
+  ><div class="badge">
+    Co-founder of <a href="https://monadfix.io">Monadfix</a>
+  </div
+
+  ><div class="badge">
+    Living in Moscow (come hang out!)
+  </div>
+</div>
+
+<div id="main">
+
+
+
+<div id="series">
+      <span class="grey"><a href="/#racket">&lt;&lt;&lt;</a></span>
+
+  <a href="/#racket">“Learning Racket” series</a>
+
+      <a href="/learning-racket-2">&gt;&gt;&gt;</a>
+  </div>
+
+
+<article>
+<h1 class="title">Learning Racket #1: Introduction</h1>
+
+<p>Warning: as of January 2016, I have abandoned this series (the first post was written in February <u>2014</u>).</p>
+<hr />
+<p>I always wanted to learn myself some Lisp for greater good and what-not, and I've heard nice things about <a href="https://en.wikipedia.org/wiki/Racket_(programming_language)">Racket</a> (don't ask when or where, I don't remember), so it's going to be the first Lisp I learn.</p>
+<p>Also I'm tired of “how I spent one day learning [something] and found that it sucks horribly” posts, so let me state in advance that when something doesn't work as expected or sets my laptop on fire, I might react with “this is unfortunate” but nothing beyond that.</p>
+<h1 id="day-1">Day 1</h1>
+<h2 id="installation">Installation</h2>
+<p>There's a <code>racket</code> package in Arch's <code>extra</code> repository. 50 MB, quite small for a modern language full of features and batteries included. Right?</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">yaourt</span> -S racket</code></pre></div>
+<p>One minute later, Racket is installed. And it takes only 350 MB on my laptop, vs. 700 of GHC.</p>
+<p>Do I need an IDE? Is there an Emacs-mode for Racket? What do I do now? Aha, there's a new program on my computer – “DrRacket”. It's probably what I want.</p>
+<h2 id="drracket">DrRacket</h2>
+<p>Fucking Retina-schmetina (just kidding, I love Retina) – font is so small I can barely read. I'm almost sure it can be fixed, tho. <code>Edit</code> → <code>Preferences</code> → <code>Font size</code> = <code>21</code>. Hm, it hasn't done anything to button labels, but at least font is readable.</p>
+<p>That's all I can say about DrRacket... for now.</p>
+<h2 id="looking-for-a-tutorial">Looking for a tutorial</h2>
+<blockquote>
+<p>Welcome to DrRacket, version 6.0 [3m].<br />
+Language: No language chosen; memory limit: 128 MB.<br />
+DrRacket cannot process programs until you choose a programming language.<br />
+Either select the “Choose Language...” item in the “Language” menu, or get guidance.</p>
+</blockquote>
+<p>Yes, I need guidance!</p>
+<blockquote>
+<p>Using <em>How to Design Programs</em>?<br />
+Start with Beginning Student.</p>
+</blockquote>
+<p>Fine, beginning student it shall be... No wait, it appears to be a language chooser, not a built-in tutorial. Whatever, built-in tutorials are for suckers anyway. I'll open <a href="http://docs.racket-lang.org/guide/intro.html">The Racket Guide</a> in browser and start reading.</p>
+<h2 id="the-racket-guide-1.1.-interacting-with-racket">The Racket Guide: 1.1. Interacting with Racket</h2>
+<blockquote>
+<p>You type a Racket expression, hit the Return key, and the answer is printed. In the terminology of Racket, this kind of calculator is called a read-eval-print loop or REPL.</p>
+</blockquote>
+<p>I love REPLs! And if it's a calculator, surely I can add 2 and 2 with it. If I recall correctly...</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> <span class="kw">+</span> <span class="dv">2</span> <span class="dv">2</span>
+#&lt;procedure:+&gt;
+<span class="dv">2</span>
+<span class="dv">2</span></code></pre></div>
+<p>Not enough parentheses, I guess. Okay, second try.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">+</span> <span class="dv">2</span> <span class="dv">2</span>)
+<span class="dv">4</span></code></pre></div>
+<p>Now that's better. Does it support power operator? What about bignums?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (^ <span class="dv">2</span> <span class="dv">3</span>)
+undefined<span class="co">;</span>
+ cannot reference an identifier before its definition
+
+<span class="kw">&gt;</span> (** <span class="dv">2</span> <span class="dv">3</span>)
+...same
+
+<span class="kw">&gt;</span> (^^ <span class="dv">2</span> <span class="dv">3</span>)
+...same
+
+<span class="kw">&gt;</span> (pow <span class="dv">2</span> <span class="dv">3</span>)
+...same</code></pre></div>
+<p>I wonder if <code>Tab</code> can help me. Nope. But there's <code>Ctrl-/</code>, let's type <code>pow</code> and press it.</p>
+<p>Hang for a minute (on a new MacBook Pro!), then a list pops up (<code>pow</code> isn't on it). Later <code>Ctrl-/</code> works flawlessly. It's probably been downloading autocompletion data or generating it or sending all my data to NSA or something.</p>
+<p>Googling “racket math operators” turns up <a href="http://docs.racket-lang.org/reference/generic-numbers.html#%28part._.Powers_and_.Roots%29">this</a>. Aha, it's called <code>expt</code>!</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">expt</span> <span class="dv">2</span> <span class="dv">3</span>)
+<span class="dv">8</span>
+
+<span class="kw">&gt;</span> (<span class="kw">expt</span> (<span class="kw">expt</span> <span class="dv">9</span> <span class="dv">100</span>) <span class="dv">10</span>)
+<span class="dv">1747871251722651609659974619164660570529062487435188517811888011810686</span>
+<span class="dv">2662272754892914864698646811110756089506961452765887713684358755086475</span>
+<span class="dv">1441420209363848187291238008997717938152962847832052351931914268150442</span>
+<span class="dv">4059410890214500500647813935818925701905402605484098137956979368551025</span>
+<span class="dv">8252394113186439979165236770447696626286464065403356279753296192642450</span>
+<span class="dv">7975047086246247409110544443735530214615147534809075533015326906793309</span>
+<span class="dv">1699479889089824650841795567478606396975664557143737657027080403239977</span>
+<span class="dv">7578652968467400937123779157705360942236880491080232441391830279624844</span>
+<span class="dv">1107846443951684522796193522126981475341678257645550731607375198537404</span>
+<span class="dv">6064592546796043150737808314501684679758056905948759246368644416151863</span>
+<span class="dv">1380852766035958164109451575997420776176189116011851556020807717467859</span>
+<span class="dv">5935987949019193338996527127540312792543224796326967591264610315634395</span>
+<span class="dv">4375442792688936047041533537523137941310690833949767764290081333900380</span>
+<span class="dv">310406154723157882112449991673819054110440001</span></code></pre></div>
+<p>Awesome.</p>
+<blockquote>
+<p>The following expression calls the built-in function <code>substring</code> with the arguments <code>&quot;the boy out of the country&quot;</code>, <code>4</code>, and <code>7</code>:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">substring</span> <span class="st">&quot;the boy out of the country&quot;</span> <span class="dv">4</span> <span class="dv">7</span>)
+<span class="st">&quot;boy&quot;</span></code></pre></div>
+</blockquote>
+<p>Are strings just lists of characters, like in Haskell, or something else? Would <code>substring</code> work on an ordinary list?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">substring</span> (<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>) <span class="dv">1</span> <span class="dv">2</span>)
+application: <span class="kw">not</span> a procedure<span class="co">;</span>
+ expected a procedure that can be applied to arguments
+  given: <span class="dv">0</span>
+  arguments...:
+   <span class="dv">1</span>
+   <span class="dv">2</span>
+   <span class="dv">3</span></code></pre></div>
+<p>Apparently, <code>(0 1 2 3)</code> is not a list but application of <code>0</code> to <code>1 2 3</code>. IIRC, a little quote should do the trick:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">substring</span> &#39;(<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>) <span class="dv">1</span> <span class="dv">2</span>)
+substring: contract violation
+  expected: <span class="kw">string?</span>
+  given: &#39;(<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)
+  argument position: 1st
+  other arguments...:
+   <span class="dv">1</span>
+   <span class="dv">2</span></code></pre></div>
+<p>So, <code>substring</code> really does need a genuine string. Or am I mistaken about the quote?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">length</span> &#39;(<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>))
+<span class="dv">4</span></code></pre></div>
+<p>Fine, whatever. I'll learn list slicing later.</p>
+<h2 id="what-i-think-so-far">What I think so far</h2>
+<ul>
+<li><p>Racket's default IDE is better than GHCi and probably on par with Emacs (you almost certainly <em>can</em> configure Emacs to be better than anything, but it's not trivial and people don't bother, while DrRacket provides autocompletion and documentation out of the box).</p></li>
+<li><p>Racket's default help (installed on computer) is also better than Haddocks. I mean, it includes instant search for functions! (You can try it <a href="http://docs.racket-lang.org/search/index.html">here</a>.) There are lots of tutorials too, which means I can install <code>racket</code> on my laptop, turn internet connection off and have a few hours of studying without wasting time on Hacker News.</p></li>
+</ul>
+<p><strong>Off-topic</strong>: generally, it's <em>very</em> important that people have goodies out of the box. Programmers are lazy, and many of them won't lift a finger to make their own lives better (unless they realise it's a real problem and make a conscious attempt to improve the situation. For instance, I had to <a href="https://beeminder.com">beemind</a> fixing small problems with my laptop – otherwise I'm pretty sure I'd <em>still</em> live without working hibernation and sound controls.)</p>
+<h2 id="trg-1.2.-definitions-and-interactions">TRG: 1.2. Definitions and Interactions</h2>
+<blockquote>
+<p>If calling <code>(extract &quot;the boy&quot;)</code> is part of the main action of your program, that would go in the definitions area, too. But if it was just an example expression that you were using to explore <code>extract</code>, then you’d more likely leave the definitions area as above, click Run, and then evaluate <code>(extract &quot;the boy&quot;)</code> in the REPL.</p>
+</blockquote>
+<p>I've just realised that I missed something very important. Very, very important.</p>
+<p>What's the shortcut for <code>Run</code>?</p>
+<p>Aha, <code>Ctrl-R</code>. While I'm at it, killing the program is <code>Ctrl-K</code>. These two are the most important shortcuts if you want to experiment but aren't good enough (yet) to avoid freezing the interpreter every ten minutes while you Just Wanted to Calculate Factorial of Billion, What's Wrong with That. Yes, I'm a bignum junkie.</p>
+<p>Back to definitions. Extracting the boy is boring; as I am a Haskell programmer, my first definition <em>must</em> be a factorial.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(factorial n)
+  (<span class="kw">if</span></code></pre></div>
+<p>Er, how do I <code>if</code>?</p>
+<p>What if I select it, right-click...</p>
+<blockquote>
+<p>Search in Help Desk for &quot;if&quot;</p>
+</blockquote>
+<p>Yay, Help Desk!</p>
+<blockquote>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">if</span> test-expr then-expr else-expr)</code></pre></div>
+<p>Evaluates <code>test-expr</code>. If it produces any value other than <code>#f</code>, then <code>then-expr</code> is evaluated, and its results are the result for the <code>if</code> form. Otherwise, <code>else-expr</code> is evaluated, and its results are the result for the <code>if</code> form. The <code>then-expr</code> and <code>else-expr</code> are in tail position with respect to the <code>if</code> form.</p>
+<p>Examples:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">if</span> (<span class="kw">positive?</span> -<span class="dv">5</span>) (error <span class="st">&quot;doesn&#39;t get here&quot;</span>) <span class="dv">2</span>)
+<span class="dv">2</span>
+<span class="kw">&gt;</span> (<span class="kw">if</span> (<span class="kw">positive?</span> <span class="dv">5</span>) <span class="dv">1</span> (error <span class="st">&quot;doesn&#39;t get here&quot;</span>))
+<span class="dv">1</span>
+<span class="kw">&gt;</span> (<span class="kw">if</span> &#39;we-have-no-bananas <span class="st">&quot;yes&quot;</span> <span class="st">&quot;no&quot;</span>)
+<span class="st">&quot;yes&quot;</span></code></pre></div>
+</blockquote>
+<p>Okay, let's try.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(factorial n)
+  (<span class="kw">if</span> (== n <span class="dv">0</span>) <span class="dv">1</span> (* n (factorial (<span class="kw">-</span> n <span class="dv">1</span>)))))</code></pre></div>
+<p><code>Ctrl-R</code> and...</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">==: this match expander must be used inside match in: (== n <span class="dv">0</span>)</code></pre></div>
+<p>Fi-ine, guessing mode on. It returns <code>bool</code> so it probably ends with <code>?</code>; can it be something like <code>eq?</code>.</p>
+<p>(Wow, when I point on an identifier, lines appear and show me where this identifier occurs and where it's imported from! (Note to self: I should find somewhere a huge program, open it in DrRacket and point at <code>racket</code> in <code>#lang racket</code>.))</p>
+<p>(Wow #2: a small box in the upper right corner shows me type of whatever is under cursor! That's awesome and also much faster than looking up types in ghc-mod for Emacs.)</p>
+<p>(No, wait, drawback: it doesn't show any information for user-defined functions. Pfft.)</p>
+<p>Reading the documentation for <code>eq?</code> now. Apparently, there are lots of different comparisons and what I actually want is <code>equal?</code> (or <code>=</code>).</p>
+<p>Here's the final version (I wonder if I've indented it properly):</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(factorial n)
+  (<span class="kw">if</span> (<span class="kw">=</span> n <span class="dv">0</span>)
+      <span class="dv">1</span>
+      (* n (factorial (<span class="kw">-</span> n <span class="dv">1</span>)))))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (factorial <span class="dv">100</span>)
+<span class="dv">9332621544394415268169923885626670049071596826438162146859296389521759</span>
+<span class="dv">9993229915608941463976156518286253697920827223758251185210916864000000</span>
+<span class="dv">000000000000000000</span>
+
+<span class="kw">&gt;</span> (factorial <span class="dv">100000</span>)</code></pre></div>
+<p>Seven minutes later and factorial of 100000 is computed and printed. (Note to self: <code>Ctrl-K</code> doesn't work if a menu is open... and when GUI doesn't respond, menus can't be closed.)</p>
+<p>I'll try to define Quicksort when I know a bit more about lists.</p>
+<h2 id="what-i-think-so-far-1">What I think so far</h2>
+<ul>
+<li><p>Uniform syntax is harder to read. There should be more syntax highlighting (or different fonts – what about <a href=":sc"><code>define</code></a> in <a href=":sc">small caps</a>, for instance?).</p></li>
+<li><p>Four different equality functions isn't a good sign. There's <code>=</code> for comparing numbers, <code>eq?</code> for testing whether two objects are the same object (in Haskell such stuff is <a href="http://hackage.haskell.org/package/base-4.6.0.1/docs/System-Mem-StableName.html">well-hidden</a>, and rightly so), <code>eqv?</code> which is the same as <code>eq?</code> except for numbers and characters, and <code>equal?</code> which works for most things. Oh, and <code>boolean=?</code> specifically for booleans. And <code>string=?</code> for strings. And <code>char=?</code> for characters. C'mon, I understand why all these things exist, but why expose them?</p></li>
+</ul>
+<h2 id="trg-1.3.-creating-executables">TRG: 1.3. Creating Executables</h2>
+<p>A hello world program written in Haskell takes 760 kB; I wonder how big is Racket's hello world going to be, considering that I'll be sure to pack the entire RTS into it.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">#lang racket
+
+(print <span class="st">&quot;Hello, world!&quot;</span>)</code></pre></div>
+<p>Now <code>Ctrl-S</code> and then <code>Racket</code> → <code>Create Executable</code>. First let's try “stand-alone”.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">du</span> helloworld
+<span class="kw">4.9M</span>	hw
+<span class="kw">4.9M</span>	total</code></pre></div>
+<p>Five MB. Now what's about “distribution”?..</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">du</span> helloworld.tgz
+<span class="kw">3.2M</span>	helloworld.tgz
+<span class="kw">3.2M</span>	total</code></pre></div>
+<p>Even less. But that's packed; what if I unpack it?</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">du</span> helloworld
+<span class="kw">0</span>	helloworld/lib/plt/helloworld/exts
+<span class="kw">0</span>	helloworld/lib/plt/helloworld/collects
+<span class="kw">0</span>	helloworld/lib/plt/helloworld
+<span class="kw">40K</span>	helloworld/lib/plt
+<span class="kw">3.7M</span>	helloworld/lib
+<span class="kw">4.9M</span>	helloworld/bin
+<span class="kw">8.5M</span>	helloworld
+<span class="kw">8.5M</span>	total</code></pre></div>
+<p>Still fine. I doubt I'll be creating more executables any time soon, but it's good to know anyway.</p>
+<hr />
+<p>Aha, look what I've found! If I define what I'm using more precisely, I can further strip the executable:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">#lang racket/base
+
+(print <span class="st">&quot;Hello, world!&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">du</span> helloworld.tgz
+<span class="kw">1.8M</span>	helloworld.tgz
+<span class="kw">1.8M</span>	total
+
+$ <span class="kw">tar</span> xvf helloworld.tgz
+
+$ <span class="kw">du</span> helloworld
+<span class="kw">0</span>	helloworld/lib/plt/helloworld/exts
+<span class="kw">0</span>	helloworld/lib/plt/helloworld/collects
+<span class="kw">0</span>	helloworld/lib/plt/helloworld
+<span class="kw">40K</span>	helloworld/lib/plt
+<span class="kw">4.0M</span>	helloworld/lib
+<span class="kw">792K</span>	helloworld/bin
+<span class="kw">4.8M</span>	helloworld
+<span class="kw">4.8M</span>	total</code></pre></div>
+<h2 id="trg-1.4.-a-note-to-readers-with-lispscheme-experience">TRG: 1.4. A Note to Readers with Lisp/Scheme Experience</h2>
+<p>I.e. not to me.</p>
+<blockquote>
+<p>The module system is designed to avoid these problems, so start with <code>#lang</code>, and you’ll be happier with Racket in the long run.</p>
+</blockquote>
+<p>Hm, is it like starting with <code>module Main where</code> in Haskell? Okay, okay, I solemnly swear to never start a Racket file with anything but <code>#lang</code>, unless, of course, some new circumstances arise blah blah blah earthquakes blah blah blah too lazy to type <code>#lang</code> blah blah blah.</p>
+<h2 id="trg-2.1.-simple-values">TRG: 2.1. Simple Values</h2>
+<p>Whoa, finished the first chapter!</p>
+<blockquote>
+<p>Numbers are written in the usual way, including fractions and imaginary numbers</p>
+</blockquote>
+<p>More tinkering reveals that:</p>
+<ul>
+<li><p>Fractionals are not bignum-y (by default):</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> <span class="fl">6.1e10000</span>
++inf<span class="fl">.0</span></code></pre></div></li>
+<li><p>However, rationals seem to be. Also, DrRacket prints fractions in a pretty cool way.</p></li>
+<li><p><code>5i+3</code> isn't a proper number, but <code>3+5i</code> and <code>3+5/8i</code> are.</p></li>
+<li><p><code>(/ 15 6)</code> is the same as <code>15/6</code>.</p></li>
+<li><p>Unlike in Haskell, <code>.666</code> is parsed as a number and equals 0.666. <code>42.</code> is a number too. (But <code>.</code> is not.)</p></li>
+<li><p><code>3..4</code> is a valid identifier:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> <span class="dv">3</span>..<span class="dv">4</span>
+<span class="dv">3</span>..<span class="dv">4</span>: undefined<span class="co">;</span>
+ cannot reference an identifier before its definition</code></pre></div></li>
+</ul>
+<hr />
+<blockquote>
+<p>Booleans are <code>#t</code> for true and <code>#f</code> for false. In conditionals, however, all non-<code>#f</code> values are treated as true.</p>
+</blockquote>
+<p>I wonder why... Hm, it's probably useful for lookup functions: make <code>lookup</code> return <code>#f</code> if the element wasn't found, and you can use every <code>lookup</code> as <code>is-member</code> if you want to.</p>
+<hr />
+<p>This chapter was small and boring. Next, please!</p>
+<h2 id="trg-2.2.-simple-definitions-and-expressions">TRG: 2.2. Simple Definitions and Expressions</h2>
+<blockquote>
+<p>A function is just another kind of value, though the printed form is necessarily less complete than the printed form of a number or string.</p>
+</blockquote>
+<p>Hey, how come? What about unity-of-code-and-data in Lisps? Why can't I get the S-expr corresponding to a function?</p>
+<p>But at least I can <code>eval</code> S-exprs, right?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">eval</span> &#39;(<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>))
+<span class="dv">3</span></code></pre></div>
+<p>Phew.</p>
+<hr />
+<blockquote>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(nobake flavor)
+  <span class="kw">string-append</span> flavor <span class="st">&quot;jello&quot;</span>)
+
+<span class="kw">&gt;</span> (nobake <span class="st">&quot;green&quot;</span>)
+<span class="st">&quot;jello&quot;</span></code></pre></div>
+<p>Within <code>nobake</code>, there are no parentheses around <code>string-append flavor &quot;jello&quot;</code>, so they are three separate expressions instead of one function-call expression. The expressions <code>string-append</code> and <code>flavor</code> are evaluated, but the results are never used. Instead, the result of the function is just the result of the final expression, <code>&quot;jello&quot;</code>.</p>
+</blockquote>
+<p>I bet I would've made this mistake eventually if not for this warning (and I'm not sure I won't make it anyway).</p>
+<hr />
+<blockquote>
+<p>The use of square brackets for <code>cond</code> clauses is a convention. In Racket, parentheses and square brackets are actually interchangeable, as long as <code>(</code> is matched with <code>)</code> and <code>[</code> is matched with <code>]</code>. Using square brackets in a few key places makes Racket code even more readable.</p>
+</blockquote>
+<p>It's a really neat idea. I like Racket more and more.</p>
+<hr />
+<blockquote>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (twice (<span class="kw">lambda</span> (s) (<span class="kw">string-append</span> s <span class="st">&quot;!&quot;</span>))
+         <span class="st">&quot;hello&quot;</span>)
+<span class="st">&quot;hello!!&quot;</span></code></pre></div>
+</blockquote>
+<p>Aha, lambdas! My little evil functional heart is beating merrily inside my chest. Let's see if I can write function composition at this point without cheating.</p>
+<p>(Meanwhile: I ran into <a href="http://lists.racket-lang.org/users/archive/2014-March/061742.html">this bug</a>, which caused me to restart DrRacket.)</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(. f g)
+  (<span class="kw">lambda</span> (x) (f (g x))))</code></pre></div>
+<pre><code>Module Language: invalid module text
+  read: illegal use of `.&#39;</code></pre>
+<p>Fine, I don't remember what characters are allowed in identifiers. What about <code>&lt;&gt;</code>?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(&lt;&gt; f g)
+  (<span class="kw">lambda</span> (x) (f (g x))))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> ((&lt;&gt; (<span class="kw">lambda</span> (x) (<span class="kw">+</span> x <span class="dv">1</span>))
+       (<span class="kw">lambda</span> (x) (* x <span class="dv">2</span>)))
+   <span class="dv">7</span>)
+<span class="dv">15</span></code></pre></div>
+<p>Clumsy lambdas. Can I use <code>λ</code> instead? I can. Cool.</p>
+<p>Hm, given that <code>λ</code> is just a Greek letter and not part of syntax (like in Haskell), there's probably some sneaky <code>define</code> somewhere which equates <code>λ</code> and <code>lambda</code>. Can I define my own alias for <code>lambda</code>?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(l v f)
+  (<span class="kw">lambda</span> v f))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> ((l (x) (<span class="kw">+</span> <span class="dv">3</span> x)) <span class="dv">7</span>)
+x: undefined<span class="co">;</span>
+ cannot reference an identifier before its definition</code></pre></div>
+<p>This is not fai— no, wait, <code>lambda</code> is probably not a function at all but some macro-schmacro, and there's a list of <code>lambda</code>-aliases somewhere, and a parser, and what-not, and even if it's possible to define my own alias for <code>lambda</code>, it's Black Magic and definit— who am I kidding? I won't be able to go to sleep until I define <code>l</code> to be <code>lambda</code> and I know it.</p>
+<p>[eight minutes after]</p>
+<p>It was easy! (Thanks to <a href="http://docs.racket-lang.org/guide/pattern-macros.html">chapter 16 of Racket Guide</a>.)</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(define-syntax-rule (l x y)
+  (λ x y))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> ((l (x) (<span class="kw">+</span> <span class="dv">3</span> x)) <span class="dv">7</span>)
+<span class="dv">10</span></code></pre></div>
+<hr />
+<p>There are also <code>let</code> and <code>let*</code>. The difference is that <code>let</code> doesn't allow later definitions reference earlier ones, and <code>let*</code> – does.</p>
+<p>Example:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">let*</span> ([x (random <span class="dv">100</span>)]
+         [y (random (<span class="kw">+</span> x <span class="dv">1</span>))])
+    (<span class="kw">list</span> (<span class="kw">+</span> x y) x y))
+
+&#39;(<span class="dv">115</span> <span class="dv">99</span> <span class="dv">16</span>)</code></pre></div>
+<p>However, we can't swap <code>x</code> and <code>y</code> lines.</p>
+<p>After reading <a href="http://docs.racket-lang.org/reference/let.html">reference</a> on <code>let</code>-forms, I found that there's <code>letrec</code>. Will it help me?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">letrec</span> ([y (random (<span class="kw">+</span> x <span class="dv">1</span>))]
+           [x (random <span class="dv">100</span>)])
+    (<span class="kw">list</span> (<span class="kw">+</span> x y) x y))
+
++: contract violation
+  expected: <span class="kw">number?</span>
+  given: #&lt;undefined&gt;
+  argument position: 1st
+  other arguments...:
+   <span class="dv">1</span></code></pre></div>
+<p>Nope, even <code>letrec</code> doesn't work. But I still can write a factorial with it!</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">letrec</span> (
+      [fac (λ (n)
+         (<span class="kw">if</span> (<span class="kw">=</span> <span class="dv">0</span> n)
+             <span class="dv">1</span>
+             (* n (fac (sub1 n)))))])
+    (map fac (range <span class="dv">10</span>)))
+
+&#39;(<span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">6</span> <span class="dv">24</span> <span class="dv">120</span> <span class="dv">720</span> <span class="dv">5040</span> <span class="dv">40320</span> <span class="dv">362880</span>)</code></pre></div>
+<h2 id="what-i-think-so-far-2">What I think so far</h2>
+<ul>
+<li><p>There should be an alternative to <code>let</code> with argument order reversed. I'm very used to treating local definitions as clarifying footnotes for “big picture” code, and don't want to give up this habit.</p></li>
+<li><p>I like the flexibility given by many <code>let</code>-forms (there are <code>let</code>, <code>let*</code>, <code>letrec</code>, and <code>let-values</code> + <code>let*-values</code> + <code>letrec-values</code> for binding multiple outputs), but I feel that they all should've been just one <code>let</code> with optional modifiers.</p></li>
+<li><p>Lambdas are clumsy even with <code>λ</code> instead of <code>lambda</code>. I would've preferred something like <code>(λx. (* x 2))</code> or even <code>(* _ 2)</code>, and I'd be quite disappointed if there isn't a macro for that.</p></li>
+</ul>
+<h2 id="time-to-sleep">Time to sleep</h2>
+<p>Plans for tomorrow:</p>
+<ul>
+<li><p>honor Haskell by writing a Quicksort</p></li>
+<li><p>honor Tony Hoare by writing a <em>true</em> Quicksort (with mutable array)</p></li>
+<li><p>finish ch. 2 and ch. 3</p></li>
+</ul>
+<h1 id="day-2">Day 2</h1>
+<h2 id="trg-2.3.-lists-iteration-and-recursion">TRG: 2.3. Lists, Iteration and Recursion</h2>
+<blockquote>
+<p>The <code>list</code> function takes any number of values and returns a list containing the values</p>
+</blockquote>
+<p><em>Such</em> a useful function! Tho I guess the same could be said about Haskell's <code>$</code> (which applies a function to an argument) and <code>id</code> (which returns its argument)... Okay, I'll see if there are any non-obvious usecases for <code>list</code> later.</p>
+<h2 id="interlude-list-functions">Interlude: list functions</h2>
+<p>I made myself a reference table for list functions:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Haskell</th>
+<th style="text-align: left;">Racket</th>
+<th style="text-align: center;">notes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><code>null</code></td>
+<td style="text-align: left;"><code>null?</code> or <code>empty?</code></td>
+<td style="text-align: center;">not to be confused with <code>null</code>/<code>empty</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>map</code>, <code>zipWithN</code></td>
+<td style="text-align: left;"><code>map</code></td>
+<td style="text-align: center;">Haskell's <code>map</code> is just <code>zipWith1</code>, after all</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>length</code></td>
+<td style="text-align: left;"><code>length</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>length . filter</code></td>
+<td style="text-align: left;"><code>count</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>filter</code></td>
+<td style="text-align: left;"><code>filter</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>filter . not</code></td>
+<td style="text-align: left;"><code>filter-not</code></td>
+<td style="text-align: center;">also, <code>negate</code> can be used to inverse a predicate</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>lookup</code></td>
+<td style="text-align: left;"><code>assoc</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>foldr</code></td>
+<td style="text-align: left;"><code>foldr</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>foldl</code></td>
+<td style="text-align: left;"><code>foldl</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>all</code></td>
+<td style="text-align: left;"><code>andmap</code></td>
+<td style="text-align: center;">polyvariadic</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>any</code></td>
+<td style="text-align: left;"><code>ormap</code></td>
+<td style="text-align: center;">polyvariadic</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>head</code></td>
+<td style="text-align: left;"><code>car</code> or <code>first</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>(!! 1)</code> ... <code>(!! 9)</code></td>
+<td style="text-align: left;"><code>second</code> ... <code>tenth</code></td>
+<td style="text-align: center;">aka <code>cadr</code>, <code>caddr</code>, <code>cadddr</code> and <code>caddddr</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>!!</code></td>
+<td style="text-align: left;"><code>list-ref</code></td>
+<td style="text-align: center;">clumsy name hints that it isn't needed very often</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>tail</code></td>
+<td style="text-align: left;"><code>cdr</code> or <code>rest</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>:</code></td>
+<td style="text-align: left;"><code>cons</code></td>
+<td style="text-align: center;">since lists are tuples, it's also <code>,</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>last</code></td>
+<td style="text-align: left;"><code>last</code></td>
+<td style="text-align: center;">not in <code>racket/base</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>reverse</code></td>
+<td style="text-align: left;"><code>reverse</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>intersperse</code>, <code>intercalate</code></td>
+<td style="text-align: left;"><code>add-between</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>permutations</code></td>
+<td style="text-align: left;"><code>permutations</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>++</code></td>
+<td style="text-align: left;"><code>append</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>concat</code></td>
+<td style="text-align: left;"><code>append*</code></td>
+<td style="text-align: center;">deep version of <code>concat</code> is called <code>flatten</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>sum</code></td>
+<td style="text-align: left;"><code>apply +</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>product</code></td>
+<td style="text-align: left;"><code>apply *</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>maximum</code></td>
+<td style="text-align: left;"><code>apply max</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>minimum</code></td>
+<td style="text-align: left;"><code>apply min</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>maximumOn</code></td>
+<td style="text-align: left;"><code>argmax</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>minimumOn</code></td>
+<td style="text-align: left;"><code>argmin</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>replicate</code></td>
+<td style="text-align: left;"><code>make-list</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>take</code></td>
+<td style="text-align: left;"><code>take</code></td>
+<td style="text-align: center;">there's also <code>take-right</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>drop</code></td>
+<td style="text-align: left;"><code>drop</code> or <code>list-tail</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>takeWhile</code></td>
+<td style="text-align: left;"><code>takef</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>dropWhile</code></td>
+<td style="text-align: left;"><code>dropf</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>splitAt</code></td>
+<td style="text-align: left;"><code>split-at</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>span</code></td>
+<td style="text-align: left;"><code>splitf-at</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>elem</code></td>
+<td style="text-align: left;"><code>member</code></td>
+<td style="text-align: center;">that's where everything-but-<code>#f</code>-is-true proves useful</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>find</code></td>
+<td style="text-align: left;"><code>memf</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>partition</code></td>
+<td style="text-align: left;"><code>partition</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>nub</code>[<code>By</code>,<code>On</code>]</td>
+<td style="text-align: left;"><code>remove-duplicates</code></td>
+<td style="text-align: center;">controlled with optional arguments</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>delete</code></td>
+<td style="text-align: left;"><code>remove</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>\\</code></td>
+<td style="text-align: left;"><code>remove*</code></td>
+<td style="text-align: center;">removes <em>all</em> occurences, not only the first ones</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>sort</code>[<code>By</code>,<code>On</code>]</td>
+<td style="text-align: left;"><code>sort</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>mapM_</code></td>
+<td style="text-align: left;"><code>for-each</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">list ranges</td>
+<td style="text-align: left;"><code>range</code></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">random shuffle</td>
+<td style="text-align: left;"><code>shuffle</code></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<p>Update: originally I had here <code>apply and</code> and <code>apply or</code> for Haskell's <code>and</code> and <code>or</code>, but they don't actually work due to <code>and</code> and <code>or</code> being macros and not functions.</p>
+<p>While compiling the table I learned a few things.</p>
+<h3 id="lists-are-pairs">Lists are pairs</h3>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">reverse</span> &#39;(<span class="dv">1</span> . (<span class="dv">2</span> . ())))
+&#39;(<span class="dv">2</span> <span class="dv">1</span>)</code></pre></div>
+<p>Now I'm confused about what <code>'</code> and <code>.</code> mean in general.</p>
+<p>Also, this:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">reverse</span> &#39;(<span class="dv">1</span> . <span class="dv">2</span>))
+reverse: contract violation
+  expected: <span class="kw">list?</span>
+  given: &#39;(<span class="dv">1</span> . <span class="dv">2</span>)</code></pre></div>
+<p>hints that “type safety” is emulated by pre- and post-conditions (or <em>contracts</em>), and various <code>list?</code>, <code>boolean?</code>, <code>number?</code>, etc.</p>
+<p>Update: I'm wrong about type safety here; Racket is safe in the sense that it won't let you silently coerce two values of different types into participating in all sorts of abominable things (like taking a <code>float</code> and making an <code>int</code> out of it without changing inner representation). However, if I want to find out that not-a-list (say, <code>'(1 . (2 . 3))</code>) has been passed to <code>reverse</code> <em>earlier</em> than when <code>reverse</code> sees <code>3</code> and becomes upset that it's neither a pair nor an empty list, I still need to use explicit checks or contracts.</p>
+<h3 id="optional-arguments-are-common">Optional arguments are common</h3>
+<p>...and awesome. I mean, what in Haskell is accomplished by <code>sortBy</code>, <code>sortBy . comparing</code> (or <code>GHC.Exts.sortWith</code>) and <code>map fst . sortWith snd . map (\x -&gt; (x, f x))</code>, in Racket is done with mere <code>sort</code>.</p>
+<h3 id="is-not-overloaded"><code>&lt;</code> is not overloaded</h3>
+<p>Why the heck can't <code>&lt;</code> compare strings? I don't know. Google doesn't know either. If you know, please tell me.</p>
+<h3 id="theres-such-thing-as-apply">There's such thing as <code>apply</code></h3>
+<p>Basically it's the ultimate version of <code>uncurry</code>: it takes a function with any number of arguments and a list and feeds elements of list to this function. (Have I already made clear that lists don't have to be homogeneous in Racket? Well, now I have.)</p>
+<h2 id="back-to-trg">Back to TRG</h2>
+<blockquote>
+<p>It turns out that if you write</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(my-map f lst)
+  (for/list ([i lst])
+    (f i)))</code></pre></div>
+<p>then the <code>for/list</code> form in the function is expanded to essentially the same code as the <code>iter</code> local definition and use. The difference is merely syntactic convenience.</p>
+</blockquote>
+<p>Hey, you haven't explained <code>for/list</code> yet!..</p>
+<p>Ah, it's just a list comprehension, like in Haskell. Let's generate some Pythagorean triples.</p>
+<p>Haskell:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[(i, j, k) <span class="fu">|</span> i <span class="ot">&lt;-</span> [<span class="dv">1</span><span class="fu">..</span><span class="dv">10</span>], j <span class="ot">&lt;-</span> [i<span class="fu">..</span><span class="dv">10</span>], k <span class="ot">&lt;-</span> [j<span class="fu">..</span><span class="dv">10</span>], i<span class="fu">^</span><span class="dv">2</span> <span class="fu">+</span> j<span class="fu">^</span><span class="dv">2</span> <span class="fu">==</span> k<span class="fu">^</span><span class="dv">2</span>]</code></pre></div>
+<p>Racket:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (for/list ([i (range <span class="dv">1</span> <span class="dv">10</span>)]
+             [j (range i <span class="dv">10</span>)]
+             [k (range j <span class="dv">10</span>)]
+             #:when (<span class="kw">=</span> (<span class="kw">+</span> (sqr i) (sqr j))
+			           (sqr k)))
+    &#39;(i j k))
+
+i: undefined<span class="co">;</span>
+ cannot reference an identifier before its definition</code></pre></div>
+<p>Hm. Apparently I'm mistaken about <code>for/list</code>; further reading unravels <code>for*/list</code>, maybe it's what I want?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (for*/list ([i (range <span class="dv">1</span> <span class="dv">10</span>)]
+              [j (range i <span class="dv">10</span>)]
+              [k (range j <span class="dv">10</span>)]
+              #:when (<span class="kw">=</span> (<span class="kw">+</span> (sqr i) (sqr j))
+			            (sqr k)))
+    &#39;(i j k))
+
+&#39;((i j k))</code></pre></div>
+<p>Not this either, but closer. Fine, I'll use <code>list</code> (and increase the range while I'm at it):</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (for*/list ([i (range <span class="dv">1</span> <span class="dv">20</span>)]
+              [j (range i <span class="dv">20</span>)]
+              [k (range j <span class="dv">20</span>)]
+              #:when (<span class="kw">=</span> (<span class="kw">+</span> (sqr i) (sqr j))
+			            (sqr k)))
+    (<span class="kw">list</span> i j k))
+
+&#39;((<span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>) (<span class="dv">5</span> <span class="dv">12</span> <span class="dv">13</span>) (<span class="dv">6</span> <span class="dv">8</span> <span class="dv">10</span>) (<span class="dv">8</span> <span class="dv">15</span> <span class="dv">17</span>) (<span class="dv">9</span> <span class="dv">12</span> <span class="dv">15</span>))</code></pre></div>
+<p>Clumsy! On the other hand, a) there's probably a macro for Haskell-style comprehensions, b) that's the price of uniform and predictable syntax, and c) I don't use list comprehensions that often anyway. (By the by, I love how Racket's interpreter works with multi-line expressions – <code>Enter</code> for newline, <code>Ctrl-Enter</code> to evaluate, indentation is automatic.)</p>
+<h2 id="a-fun-fact">A fun fact</h2>
+<p>I forgot to mention that a lot of functions in Racket are polyvariadic (just like in Wolfram Mathematica). Behold:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)
+<span class="dv">6</span>
+
+<span class="kw">&gt;</span> (<span class="kw">+</span>)
+<span class="dv">0</span>
+
+<span class="kw">&gt;</span> (<span class="kw">-</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)
+-<span class="dv">4</span>
+
+<span class="kw">&gt;</span> (* <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)
+<span class="dv">6</span>
+
+<span class="kw">&gt;</span> (*)
+<span class="dv">1</span>
+
+<span class="kw">&gt;</span> (<span class="kw">/</span> <span class="dv">4</span>)
+<span class="dv">1</span>/<span class="dv">4</span>
+
+<span class="kw">&gt;</span> (<span class="kw">/</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>)
+<span class="dv">3</span>/<span class="dv">20</span>
+
+<span class="kw">&gt;</span> (<span class="kw">max</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">3</span>)
+<span class="dv">7</span>
+
+<span class="kw">&gt;</span> (<span class="kw">list</span> (<span class="kw">=</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span>) (<span class="kw">=</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span>))
+&#39;(<span class="dv">#t</span> <span class="dv">#f</span>)
+
+<span class="kw">&gt;</span> (<span class="kw">list</span> (<span class="kw">&lt;</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>) (<span class="kw">&lt;</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">2</span>))
+&#39;(<span class="dv">#t</span> <span class="dv">#f</span>)</code></pre></div>
+<h2 id="interlude-the-mystery-of-factorial">Interlude: the mystery of factorial</h2>
+<p>My thoughts keep returning to factorial of 100000. How come it's seven minutes to compute? Maybe it was a one-time glitch? Maybe I should've written it tail-recursively? Gotta check.</p>
+<p>First, I'll define two versions of factorial:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(factorial1 n)
+  (<span class="kw">define</span><span class="fu"> </span>(fac x k)
+    (<span class="kw">if</span> (<span class="kw">=</span> k <span class="dv">0</span>)
+        x
+        (fac (* x k) (sub1 k))))
+  (fac <span class="dv">1</span> n))
+
+(<span class="kw">define</span><span class="fu"> </span>(factorial2 n)
+  (<span class="kw">if</span> (<span class="kw">=</span> n <span class="dv">0</span>)
+      <span class="dv">1</span>
+      (* n (factorial2 (sub1 n)))))</code></pre></div>
+<p>Now I want to time their execution. There's a <code>time</code> function in Racket's <code>base</code> (I wish there was one in Haskell's as well).</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (time (factorial1 <span class="dv">20000</span>) <span class="dv">#t</span>)
+cpu time: <span class="dv">440</span> real time: <span class="dv">440</span> gc time: <span class="dv">144</span>
+<span class="dv">#t</span></code></pre></div>
+<p>I've inserted <code>#t</code> there so that the factorial itself wouldn't be printed.</p>
+<p>Okay, now to test four different factorials (there's one in <code>math</code>). Should be easy, right?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (require math)
+
+<span class="kw">&gt;</span> (<span class="kw">for-each</span> time
+            &#39;((factorial1 <span class="dv">50000</span>)
+              (factorial2 <span class="dv">50000</span>)
+              (apply * (range <span class="dv">1</span> <span class="dv">50000</span>))
+              (factorial <span class="dv">50000</span>)))
+
+time: bad syntax in: time</code></pre></div>
+<p>What?</p>
+<p>Apparently – for reasons completely unclear to me – <code>time</code> is a special form and not a procedure, which means I can't use it as a parameter to <code>for-each</code> (or I can, but I don't yet know how). This is weird.</p>
+<p><code>time-apply</code>, on the other hand, is a genuine procedure. Let's use it.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (map time-apply
+     (<span class="kw">list</span> factorial factorial1 factorial2 *)
+     (<span class="kw">list</span> &#39;(<span class="dv">10000</span>) &#39;(<span class="dv">10000</span>) &#39;(<span class="dv">10000</span>) (range <span class="dv">1</span> <span class="dv">10000</span>)))
+
+result arity mismatch<span class="co">;</span>
+ expected number of <span class="kw">values</span> <span class="kw">not</span> received
+  expected: <span class="dv">1</span>
+  received: <span class="dv">4</span>
+  <span class="kw">values</span>...:
+   &#39;(<span class="dv">284625968091705451890641321211986889014805140170279923</span>...
+   <span class="dv">1626</span>
+   <span class="dv">1628</span>
+   <span class="dv">1528</span></code></pre></div>
+<p>In other words, <code>time-apply</code> returns four values (yeah, multiple return values) and <code>map</code> expects a procedure which returns a single value.</p>
+<p>After a ten minutes' search I was unable to find either <code>gather-return-values</code> or <code>nth-return-value</code>, so I've given up and defined <code>just-time</code>:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(just-time f s)
+  (let-values ([(res t r g) (time-apply f s)])
+    t))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (just-time factorial1 &#39;(<span class="dv">50000</span>))
+<span class="dv">3800</span></code></pre></div>
+<p>And finally:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (map just-time
+     (<span class="kw">list</span> factorial factorial1 factorial2 *)
+     (<span class="kw">list</span> &#39;(<span class="dv">100000</span>) &#39;(<span class="dv">100000</span>) &#39;(<span class="dv">100000</span>) (range <span class="dv">1</span> <span class="dv">100000</span>)))
+
+&#39;(<span class="dv">206</span> <span class="dv">22286</span> <span class="dv">24220</span> <span class="dv">20760</span>)</code></pre></div>
+<p>Only 20 seconds, huh (note how built-in <code>factorial</code> is a <em>hundred</em> times faster). Why seven minutes, then?</p>
+<p>Turns out that while evaluating the factorial is pretty fast, <em>printing</em> it is terribly slow: <code>(factorial 20000)</code> takes 57 ms to calculate and 8 seconds to print. Moreover, it's not even converting the number to string that is slow; I used <code>format &quot;~a&quot;</code> to explicity convert it to string, and printing just the evaluated string was still awfully slow. Even compiling it into executable hasn't made it any faster.</p>
+<h2 id="back-to-trg-1">Back to TRG</h2>
+<blockquote>
+<p>Suppose, for example, that you want to remove consecutive duplicates from a list. While such a function can be written as a loop that remembers the previous element for each iteration, a Racket programmer would more likely just write the following:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(remove-dups l)
+  (<span class="kw">cond</span>
+   [(empty? l) empty]
+   [(empty? (rest l)) l]
+   [<span class="kw">else</span>
+    (<span class="kw">let</span> ([i (first l)])
+      (<span class="kw">if</span> (<span class="kw">equal?</span> i (first (rest l)))
+          (remove-dups (rest l))
+          (<span class="kw">cons</span> i (remove-dups (rest l)))))]))</code></pre></div>
+</blockquote>
+<p>Enough. I demand pattern-matching! And I think I saw it mentioned <a href="http://docs.racket-lang.org/guide/match.html">somewhere</a> in the table of contents...</p>
+<p>...wow. Just look at this:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(rem-dups s)
+  (match s
+    [&#39;()                &#39;()]
+    [(list-rest a a p)  (rem-dups (<span class="kw">cons</span> a p))]
+    [(list-rest a p)    (<span class="kw">cons</span> a (rem-dups p))]))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (map rem-dups
+       &#39;(()
+         (<span class="dv">1</span>)
+         (<span class="dv">1</span> <span class="dv">1</span>)
+         (<span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span>)
+         (<span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span>)
+         (<span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span>)))
+
+&#39;(() (<span class="dv">1</span>) (<span class="dv">1</span>) (<span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span>) (<span class="dv">1</span> <span class="dv">2</span>) (<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span>))</code></pre></div>
+<p>I mean, this is <em>not built-in functionality</em> and it has more features than Haskell's pattern-matching. Okay, Racket, you're forgiven for your weird <code>time</code> and multiple return values and slow printing and, above all, name which makes it hard to search for tutorials without also hitting upon sites selling tennis apparel.</p>
+<h2 id="what-i-think-so-far-3">What I think so far</h2>
+<ul>
+<li><p>Multiple return values are a cool idea, but there doesn't seem to be <em>good</em> support for it in standard library. Using <code>let-values</code> every time I need second-returned-value is both verbose and doesn't allow for compositional style (i.e. it doesn't let me say <code>(compose 2nd-value time-apply)</code>).</p></li>
+<li><p>Pattern-matching rules.</p></li>
+<li><p>Performance (at least by default) kinda sucks (at least when multiplying numbers and printing strings; your mileage might vary).</p>
+<p>Update: performance sucks much less when <code>racket</code> executable is used to execute the program. For instance, printing becomes almost instant, and factorials are calculated twice as fast as compared to using GHC's <code>runghc</code>. However, compiling with <code>raco exe</code> doesn't cause any further optimizations.</p></li>
+<li><p>Support for functional paradigm is somewhere in the middle. Everything <em>needed</em> is there, but it's not very convenient to use. (I expect to stumble upon <code>goodies/fp</code> or <code>haskell-racket</code> module one day, but for now I won't be looking for it – I need to understand Racket's main paradigm before allowing myself to consciously deviate from it.)</p></li>
+</ul>
+<h2 id="time-to-sleep-1">Time to sleep</h2>
+<p>Plans for tomorrow:</p>
+<ul>
+<li><p>Finally write Quicksort (after all, I promised).</p></li>
+<li><p>Solve a couple of tasks from <a href="http://www.spoj.com/">SPOJ</a>.</p></li>
+<li><p>Given that reading every chapter of TRG raises lots of questions and provokes endless tinkering with not-quite-related concepts, I'll be happy if I manage to read as much as chapter 2.4.</p></li>
+</ul>
+<h1 id="day-3">Day 3</h1>
+<h2 id="trg-2.4.-pairs-lists-and-racket-syntax">TRG: 2.4. Pairs, Lists, and Racket Syntax</h2>
+<blockquote>
+<p>The <code>cons</code> function actually accepts any two values, not just a list for the second argument. When the second argument is not empty and not itself produced by <code>cons</code>, the result prints in a special way. The two values joined with <code>cons</code> are printed between parentheses, but with a dot (i.e., a period surrounded by whitespace) in between:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">cons</span> <span class="dv">1</span> <span class="dv">2</span>)
+&#39;(<span class="dv">1</span> . <span class="dv">2</span>)
+
+<span class="kw">&gt;</span> (<span class="kw">cons</span> <span class="st">&quot;banana&quot;</span> <span class="st">&quot;split&quot;</span>)
+&#39;(<span class="st">&quot;banana&quot;</span> . <span class="st">&quot;split&quot;</span>)</code></pre></div>
+</blockquote>
+<p>I.e. Racket doesn't distinguish between lists and tuples where the second part is a list. Tsk, tsk.</p>
+<blockquote>
+<p>The name <code>rest</code> also makes less sense for non-list pairs; the more traditional names for <code>first</code> and <code>rest</code> are <code>car</code> and <code>cdr</code>, respectively. (Granted, the traditional names are also nonsense. Just remember that “a” comes before “d”, and <code>cdr</code> is pronounced “could-er.”)</p>
+</blockquote>
+<p>Granted, the traditional names in Haskell are also not that great (<code>fst</code> and <code>snd</code>), but they're still better than <code>car</code> and <code>could-er</code>... er, I mean <code>cdr</code>.</p>
+<blockquote>
+<p>You are perhaps most likely to encounter a non-list pair when making a mistake, such as accidentally reversing the arguments to <code>cons</code>:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">cons</span> (<span class="kw">list</span> <span class="dv">2</span> <span class="dv">3</span>) <span class="dv">1</span>)
+&#39;((<span class="dv">2</span> <span class="dv">3</span>) . <span class="dv">1</span>)
+
+<span class="kw">&gt;</span> (<span class="kw">cons</span> <span class="dv">1</span> (<span class="kw">list</span> <span class="dv">2</span> <span class="dv">3</span>))
+&#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)</code></pre></div>
+</blockquote>
+<p>Er, what? Are pairs used so rarely that if I ever encounter one, the most likely thing is that I made a mistake?</p>
+<blockquote>
+<p>Non-list pairs are used intentionally, sometimes.</p>
+</blockquote>
+<p>Ah, <em>sometimes</em>.</p>
+<blockquote>
+<p>The only thing more confusing to new Racketeers than non-list pairs is the printing convention for pairs where the second element is a pair, but is not a list:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">cons</span> <span class="dv">0</span> (<span class="kw">cons</span> <span class="dv">1</span> <span class="dv">2</span>))
+&#39;(<span class="dv">0</span> <span class="dv">1</span> . <span class="dv">2</span>)</code></pre></div>
+<p>In general, the rule for printing a pair is as follows: use the dot notation unless the dot is immediately followed by an open parenthesis. In that case, remove the dot, the open parenthesis, and the matching close parenthesis. Thus, <code>'(0 . (1 . 2))</code> becomes <code>'(0 1 . 2)</code>, and <code>'(1 . (2 . (3 . ())))</code> becomes <code>'(1 2 3)</code>.</p>
+</blockquote>
+<p>It's not that great – actually, it's pretty stupid – but I don't know what a better design decision would be, so I guess it could be treated as a necessary evil. Maybe Racket programmers really don't use pairs which aren't lists any often, if they are willing to tolerate quirks like this one.</p>
+<hr />
+<p>By the way, why is <code>.</code> not prefix? Discussion on <a href="http://c2.com/cgi/wiki?DottedPairNotation">c2 wiki</a> concedes that “it's an accident of history, as with most notations”. And it would have to be a special case for parser no matter whether prefix or infix, so there's nothing gained.</p>
+<hr />
+<blockquote>
+<p>...the <code>quote</code> form lets you write a list as an expression in essentially the same way that the list prints:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (quote (<span class="st">&quot;red&quot;</span> <span class="st">&quot;green&quot;</span> <span class="st">&quot;blue&quot;</span>))
+&#39;(<span class="st">&quot;red&quot;</span> <span class="st">&quot;green&quot;</span> <span class="st">&quot;blue&quot;</span>)
+
+<span class="kw">&gt;</span> (quote ((<span class="dv">1</span>) (<span class="dv">2</span> <span class="dv">3</span>) (<span class="dv">4</span>)))
+&#39;((<span class="dv">1</span>) (<span class="dv">2</span> <span class="dv">3</span>) (<span class="dv">4</span>))
+
+<span class="kw">&gt;</span> (quote ())
+&#39;()</code></pre></div>
+</blockquote>
+<p>Aha. My current understanding is that by default everything is code, and <code>quote</code> brings it in the realm of data.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(aba caba)    <span class="co">; code</span>
+&#39;(aba caba)   <span class="co">; data</span></code></pre></div>
+<p>Moreover, <code>quote</code> is recursive, unlike <code>list</code>:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (first &#39;((<span class="dv">1</span> <span class="dv">2</span>) (<span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>) <span class="dv">6</span>))
+&#39;(<span class="dv">1</span> <span class="dv">2</span>)
+
+<span class="kw">&gt;</span> (<span class="kw">list</span> (<span class="dv">1</span> <span class="dv">2</span>) (<span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>) <span class="dv">6</span>)
+application: <span class="kw">not</span> a procedure<span class="co">;</span>
+ expected a procedure that can be applied to arguments
+  given: <span class="dv">1</span>
+  arguments...:
+   <span class="dv">2</span></code></pre></div>
+<p>What does <code>''(1 2 3)</code> mean, then? Well, it's the same as <code>'(quote (1 2 3))</code>:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> &#39;&#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)
+
+&#39;&#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)
+<span class="kw">&gt;</span> &#39;(quote (<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>))
+&#39;&#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)
+
+<span class="kw">&gt;</span> (first &#39;&#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>))
+&#39;quote
+
+<span class="kw">&gt;</span> (rest &#39;&#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>))
+&#39;((<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>))</code></pre></div>
+<p>It stumbled me for a while, before I remembered that <code>rest</code> returns the rest of the list, and not simply its second element.</p>
+<p>Hm. Would <code>quote</code> try to simplify <code>(list 1 2 3)</code> into <code>'(1 2 3)</code>?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> &#39;(<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)
+&#39;(<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)
+
+<span class="kw">&gt;</span> (first &#39;(<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>))
+&#39;list</code></pre></div>
+<p>Nope.</p>
+<hr />
+<blockquote>
+<p>A value that prints like a quoted identifier is a <em>symbol</em>. In the same way that parenthesized output should not be confused with expressions, a printed symbol should not be confused with an identifier. In particular, the symbol <code>(quote map)</code> has nothing to do with the <code>map</code> identifier or the predefined function that is bound to <code>map</code>, except that the symbol and the identifier happen to be made up of the same letters.</p>
+</blockquote>
+<p>I haven't really expected this (but I should've – I already knew that Lisp had something called “atoms” and could guess it was about quoted identifiers).</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> &#39;gibberish
+&#39;gibberish
+
+<span class="kw">&gt;</span> (gibberish)
+gibberish: undefined<span class="co">;</span>
+ cannot reference an identifier before its definition</code></pre></div>
+<p>I can also convert strings to symbols and back:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">string-&gt;symbol</span> <span class="st">&quot;str&quot;</span>)
+&#39;str
+
+<span class="kw">&gt;</span> (<span class="kw">symbol-&gt;string</span> &#39;str)
+<span class="st">&quot;str&quot;</span></code></pre></div>
+<p>The guide doesn't go any further, tho. What will happen if I try to convert other strings?</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (map <span class="kw">string-&gt;symbol</span>
+       &#39;(<span class="st">&quot;42&quot;</span> <span class="st">&quot;&#39;&quot;</span> <span class="st">&quot;()&quot;</span> <span class="st">&quot;(1 2 3)&quot;</span> <span class="st">&quot;</span><span class="ch">\&quot;</span><span class="st">str ing</span><span class="ch">\&quot;</span><span class="st">&quot;</span> <span class="st">&quot;&quot;</span>))
+
+&#39;(|<span class="dv">42</span>| |&#39;| |()| |(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)| |<span class="st">&quot;str ing&quot;</span>| ||)</code></pre></div>
+<p>Amazing variety, isn't it. Googling “racket vertical bars” <a href="http://docs.racket-lang.org/guide/symbols.html">reveals</a> that this is merely a form of syntax for symbols containing spaces or special characters.</p>
+<p>(Meanwhile: I'm tempted to start speculating about symbols, based on what I heard, but I'll try to refrain from doing so for now.)</p>
+<hr />
+<p>...Now <em>this</em> is a real hack:</p>
+<blockquote>
+<p>Normally, <code>.</code> is allowed by the reader only with a parenthesized sequence, and only before the last element of the sequence. However, a pair of <code>.</code>s can also appear around a single element in a parenthesized sequence, as long as the element is not first or last. Such a pair triggers a reader conversion that moves the element between <code>.</code>s to the front of the list. The conversion enables a kind of general infix notation:</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="dv">1</span> . <span class="kw">&lt;</span> . <span class="dv">2</span>)
+<span class="dv">#t</span>
+
+<span class="kw">&gt;</span> &#39;(<span class="dv">1</span> . <span class="kw">&lt;</span> . <span class="dv">2</span>)
+&#39;(<span class="kw">&lt;</span> <span class="dv">1</span> <span class="dv">2</span>)</code></pre></div>
+<p>This two-dot convention is non-traditional, and it has essentially nothing to do with the dot notation for non-list pairs. Racket programmers use the infix convention sparingly—mostly for asymmetric binary operators such as <code>&lt;</code> and <code>is-a?</code>.</p>
+</blockquote>
+<p>On one hand – cool, I can write infix-style if I want to (tho I bet There Is A Macro For This Somewhere – after all, writing math expressions in prefix notation must suck horribly).</p>
+<p>On the other hand... It's not <em>that</em> convenient (dots, spaces, meh) and it definitely isn't justified enough to be included in language.</p>
+<hr />
+<p>I did some googling and found a much nicer <a href="http://srfi.schemers.org/srfi-105/srfi-105.html">proposal</a> for infix syntax – just wrap it into curly brackets and that's all. Unfortunately, vanilla Racket seems to be treating curly brackets just like square brackets – a substitute for parens and nothing more.</p>
+<hr />
+<p><em>Look at this:</em></p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">define</span><span class="fu"> fibfast</span>(n)
+  <span class="kw">if</span> {n <span class="kw">&lt;</span> <span class="dv">2</span>}
+    n
+    fibup(n <span class="dv">2</span> <span class="dv">1</span> <span class="dv">0</span>)
+
+<span class="kw">define</span><span class="fu"> fibup</span>(<span class="kw">max</span> count n<span class="dv">-1</span> n<span class="dv">-2</span>)
+  <span class="kw">if</span> {<span class="kw">max</span> <span class="kw">=</span> count}
+    {n<span class="dv">-1</span> <span class="kw">+</span> n<span class="dv">-2</span>}
+    fibup <span class="kw">max</span> {count <span class="kw">+</span> <span class="dv">1</span>} {n<span class="dv">-1</span> <span class="kw">+</span> n<span class="dv">-2</span>} n<span class="dv">-1</span>
+
+<span class="kw">define</span><span class="fu"> factorial</span>(n)
+  <span class="kw">if</span> {n <span class="kw">&lt;=</span> <span class="dv">1</span>}
+    <span class="dv">1</span>
+    {n * factorial{n <span class="kw">-</span> <span class="dv">1</span>}}</code></pre></div>
+<p>And to write like this, the only thing I need to do is to import <a href="http://planet.racket-lang.org/package-source/asumu/sweet.plt/1/4/planet-docs/sweet/index.html">one package</a>.</p>
+<p>It must be any language designer's ultimate dream.</p>
+<p>(And this is probably Lisp's greatest weakness as well – with this level of possible diversity, everyone has to use the “common lowest denominator” simply because nobody can agree on what alternative syntax / library / etc. is better and should be used.)</p>
+<p><strong>Off-topic</strong>: it's not enough to give everyone opportunity to improve the language; you have to choose the winners and promote them heavily. The rules of free market <em>don't</em> work here; people won't use the best thing, they'll use the one which is available out of the box and which is used by their peers.</p>
+<h2 id="quicksort">Quicksort</h2>
+<p>Without further ado...</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(qsort1 s)
+  (<span class="kw">cond</span> [(<span class="kw">or</span> (empty? s) (empty? (rest s)))    s]
+        [<span class="kw">else</span> (let*-values ([(p)      (first s)]
+                            [(split)  (λ (x) (<span class="kw">&lt;</span> x p))]
+                            [(s&lt; s&gt;)  (partition split (rest s))])
+                (<span class="kw">append</span> (qsort1 s&lt;) (<span class="kw">list</span> p) (qsort1 s&gt;)))]))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (qsort1 &#39;(<span class="dv">3</span> <span class="dv">14</span> <span class="dv">15</span> <span class="dv">92</span> <span class="dv">6</span> <span class="dv">53</span> <span class="dv">58</span> <span class="dv">97</span> <span class="dv">93</span> <span class="dv">23</span>))
+&#39;(<span class="dv">3</span> <span class="dv">6</span> <span class="dv">14</span> <span class="dv">15</span> <span class="dv">23</span> <span class="dv">53</span> <span class="dv">58</span> <span class="dv">92</span> <span class="dv">93</span> <span class="dv">97</span>)</code></pre></div>
+<p>There's nothing really to explain, so I won't explain anything.</p>
+<h2 id="array-quicksort">Array Quicksort</h2>
+<p>Arrays are considered an “advanced topic” in Haskell and it's nigh impossible to write an elegant piece of code dealing with mutable arrays in Haskell without spending indecent amount of time (at least, on your first try). At this moment I am <em>clueless</em> about how to write imperatively in Racket – which, of course, means that it would be even more fun.</p>
+<p><strong>Step zero</strong>: google “racket vector”.</p>
+<p><strong>Step one</strong>: read <a href="http://docs.racket-lang.org/reference/vectors.html">the chapter</a> of The Racket Reference concerning vectors.</p>
+<p><strong>Step two</strong>: make a helpful table. Since in Racket most functions operate on both mutable and immutable vectors, I'm going to use functions <code>Data.Vector</code> for comparison because they're shorter, unless the function in question is specific to mutable vectors.</p>
+<div class="autowidth">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Haskell</th>
+<th style="text-align: left;">Racket</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;"><code>length</code></td>
+<td style="text-align: left;"><code>vector-length</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>replicate</code></td>
+<td style="text-align: left;"><code>make-vector</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>fromList [a,b,c]</code></td>
+<td style="text-align: left;"><code>vector a b c</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>fromList</code></td>
+<td style="text-align: left;"><code>list-&gt;vector</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>toList</code></td>
+<td style="text-align: left;"><code>vector-&gt;list</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>generate</code></td>
+<td style="text-align: left;"><code>build-vector</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>!</code> (or <code>read</code> for mutable vectors)</td>
+<td style="text-align: left;"><code>vector-ref</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;"><code>write</code></td>
+<td style="text-align: left;"><code>vector-set!</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;"><code>set</code></td>
+<td style="text-align: left;"><code>vector-fill!</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">various functions like <code>map</code></td>
+<td style="text-align: left;">various functions like <code>vector-map</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Step two-and-a-half</strong>: mourn the bareness of <code>Data.Vector.Mutable</code>.</p>
+<p><strong>Step three</strong>: google “racket assignment” and find out that it's simply <code>(set! variable value)</code>.</p>
+<p><strong>Step four</strong>: write a function to swap vector elements.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(vector-swap vec i j)
+  (<span class="kw">let</span> ([t (<span class="kw">vector-ref</span> vec i)])
+    (<span class="kw">vector-set!</span> vec i (<span class="kw">vector-ref</span> vec j))
+    (<span class="kw">vector-set!</span> vec j t)))</code></pre></div>
+<p><strong>Step five</strong>: write a function to move elements that are less/greater than pivot to the left/right from said pivot.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(part vec left right p)
+  (<span class="kw">define</span><span class="fu"> pivot </span>(<span class="kw">vector-ref</span> vec p))
+  (vector-swap vec p right)            <span class="co">; move pivot to end</span>
+  (<span class="kw">define</span><span class="fu"> border </span>left)
+  (for ([i (range left right)]         <span class="co">; (range left right) is the same</span>
+        #:when (<span class="kw">&lt;=</span> (<span class="kw">vector-ref</span> vec i)  <span class="co">;   as left..right-1</span>
+                   pivot))
+    (vector-swap vec i border)
+    (set! border (add1 border)))
+  (vector-swap vec border right)       <span class="co">; move pivot back</span>
+  border)                              <span class="co">; return position of pivot</span></code></pre></div>
+<p><strong>Step six</strong>: write the goddamned Quicksort.</p>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme">(<span class="kw">define</span><span class="fu"> </span>(qsort2 vec)
+  (<span class="kw">define</span><span class="fu"> </span>(sort left right)             <span class="co">; subarray sort</span>
+    (when (<span class="kw">&lt;</span> left right)                <span class="co">; don&#39;t sort arrays of one element</span>
+      (<span class="kw">let*</span> ([p  (left . <span class="kw">+</span> . (random (<span class="kw">-</span> right left)))]
+             [p* (part vec left right p)])
+        (sort left (sub1 p*))           <span class="co">; sorting lesser elements</span>
+        (sort (add1 p*) right))))       <span class="co">; sorting greater elements</span>
+  (sort <span class="dv">0</span> (sub1 (<span class="kw">vector-length</span> vec))))</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode scheme"><code class="sourceCode scheme"><span class="kw">&gt;</span> (<span class="kw">let</span> ([blah (<span class="kw">vector</span> <span class="dv">3</span> <span class="dv">14</span> <span class="dv">15</span> <span class="dv">92</span> <span class="dv">6</span> <span class="dv">53</span> <span class="dv">58</span> <span class="dv">97</span> <span class="dv">93</span> <span class="dv">23</span>)])
+    (qsort2 blah)
+    blah)
+
+&#39;#(<span class="dv">3</span> <span class="dv">6</span> <span class="dv">14</span> <span class="dv">15</span> <span class="dv">23</span> <span class="dv">53</span> <span class="dv">58</span> <span class="dv">92</span> <span class="dv">93</span> <span class="dv">97</span>)</code></pre></div>
+<h2 id="what-i-think-so-far-4">What I think so far</h2>
+<p>This day consisted mostly of ranting and awing, and I haven't learned much new. However:</p>
+<ul>
+<li><p>Even if Racket turns out to be not suitable for industry programming, I'm still going to use it as a vehicle for language experimentation. It may not be a language I <em>will</em> program in, but I can probably make out of it a language I <em>love</em> to program in.</p></li>
+<li><p>The true power of symbols and S-exprs is yet to be unraveled.</p></li>
+<li><p>I don't know how well imperative parts of Racket mix with functional parts. I've programmed in Pascal, and I've programmed in Haskell, and I'm used to both paradigms, but a mix of them is probably going to bring some surprises.</p></li>
+</ul>
+<h2 id="time-to-sleep-2">Time to sleep</h2>
+<p>Plans for tomorrow:</p>
+<ul>
+<li><p>Read chapters 3.1 – 3.5.</p></li>
+<li><p>Apparently, SPOJ doesn't support Racket. (Oh, but it does support Node.js.) Therefore, I must either find something which does support it, or solve Project Euler tasks instead (but I still will use console input/output).</p></li>
+<li><p>Take a look at <a href="http://docs.racket-lang.org/guide/let.html#%28part._.Named_let%29">named <code>let</code></a>, as per Gökçehan Kara's <a href="http://www.reddit.com/r/Racket/comments/231sph/a_haskell_programmers_enthusiastic_foray_into/cgsv7yb">suggestion</a>.</p></li>
+<li><p>I just noticed a “Debug” button in DrRacket. “What time is it? <del>Adventure</del> Debug Time!”</p></li>
+</ul>
+<p>Update: this was the last time I included any “plans for tomorrow” nonsense. It doesn't work.</p>
+<h1 id="comments">Comments</h1>
+<h2 id="philippe-meunier">Philippe Meunier</h2>
+<p>...has somehow found this draft and sent me a letter, in which he noticed that:</p>
+<ul>
+<li><blockquote>
+<p>If you want “let with argument order reversed”, you can write a macro.</p>
+</blockquote>
+<p>I can write a macro, yep (and I will). But I'd prefer for it to be a <em>standard</em> feature.</p></li>
+<li><blockquote>
+<p><code>time</code> cannot be a function because Racket is call-by-value and not call-by-name.</p>
+</blockquote>
+<p>Okay, okay, I understand. (Tho I wonder if <code>time</code> could instead take a quoted expression and somehow evaluate it inside...)</p></li>
+</ul>
+<h2 id="guillaume-marceau">Guillaume Marceau</h2>
+<p>...has posted a <a href="http://www.reddit.com/r/Racket/comments/231sph/a_haskell_programmers_enthusiastic_foray_into/cgst4s2">comment</a> on Reddit, in which he notes that:</p>
+<ul>
+<li><blockquote>
+<p>Modern Racket style leans on nested <code>define</code> instead of the various forms of <code>let</code>.</p>
+</blockquote>
+<p>It's good to know. To be honest, up to this moment I was for some reason believing the opposite – that I shouldn't use <code>define</code> where a <code>let</code>-form will do.</p></li>
+<li><blockquote>
+<p>Contracts in Racket are awesome. See <a href="http://docs.racket-lang.org/guide/contract-boundaries.html">here</a>, or read the original <a href="http://www.eecs.northwestern.edu/%7Erobby/pubs/papers/ho-contracts-techreport.pdf">research paper</a>.</p>
+</blockquote>
+<p>This would be in my plans for the day after tomorrow. After all, following The Racket Guide gets boring, doesn't it?</p></li>
+<li><blockquote>
+<p>The lambda shorthand that's available is the <a href="http://docs.racket-lang.org/srfi/srfi-std/srfi-26.html#cut"><code>cut</code> macro</a>, which oddly is not very popular, even if I personally use it a lot. See <a href="https://github.com/gmarceau/racket-utils/blob/master/cut.rkt">here</a> and count the number of <code>&lt;&gt;</code>s in <a href="https://github.com/gmarceau/racket-utils/blob/master/table.rkt">here</a>, for example.</p>
+</blockquote>
+<p>Tomorrow!</p></li>
+<li><blockquote>
+<p>“Why the heck can't <code>&lt;</code> compare strings?” – Good question. In the meantime, use <code>string&lt;?</code>.</p>
+</blockquote>
+<p>Okay. In the similar venue, why does <code>length</code> only work on lists? There <em>is</em> a <a href="http://docs.racket-lang.org/reference/sequences.html">generic interface</a> for various types of sequences in standard library, but as long as <code>sequence-length</code> is more keystrokes than <code>vector-length</code>, nobody is going to use it except when specifically designing a function to work on every type of sequences – and it doesn't happen often. In short, I need something like Snoyman's <a href="https://hackage.haskell.org/package/classy-prelude">classy-prelude</a> (see the <a href="http://www.yesodweb.com/blog/2012/07/classy-prelude">original post</a>), but for Racket.</p></li>
+<li><blockquote>
+<p>“The true power of symbols and S-exprs is yet to be unraveled.” – Indeed. You are yearning for <a href="http://docs.racket-lang.org/reference/quasiquote.html#%28form._%28%28quote._%7E23%7E25kernel%29._unquote%29%29"><code>unquote</code></a> and <a href="http://docs.racket-lang.org/reference/Syntax_Quoting__quote-syntax.html#%28form._%28%28quote._%7E23%7E25kernel%29._quote-syntax%29%29"><code>syntax-quote</code></a>.</p>
+</blockquote>
+<p>Looks like something between generics and Template Haskell. I'll save it for future as well.</p></li>
+</ul>
+</article>
+
+
+<div id="series">
+      <span class="grey"><a href="/#racket">&lt;&lt;&lt;</a></span>
+
+  <a href="/#racket">“Learning Racket” series</a>
+
+      <a href="/learning-racket-2">&gt;&gt;&gt;</a>
+  </div>
+
+</div>
+
+<div id="monadfix" class="blue-links">
+  <h3>I'm doing software consulting!</h3>
+  <p>
+    Nowadays I'm running a functional programming consultancy at
+    <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
+    PureScript, Clojure, and Agda. We are looking for more clients and more
+    consultants!
+  </p>
+</div>
+
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+this.page.url = "https://artyom.me/learning-racket-1";
+this.page.identifier = "learning-racket-1";
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//artyomkazak.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<div id="footer" class="blue-links">
+<a href="https://github.com/neongreen/artyom.me/blob/master/posts/learning-racket-1.md">view source</a>—<a href="mailto:artyom@aelve.com?subject=Comment on learning-racket-1">comment by email</a>—<a href="/curiosity">curiosity killed the cat</a>
+</div>
+
+</div>
+
+<script>
+document.body.innerHTML = document.body.innerHTML.replace(/‾/g, "<span style='text-decoration: overline'> </span>");
+</script>
+
+</body>
+</html>

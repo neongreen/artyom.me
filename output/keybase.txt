@@ -1,0 +1,82 @@
+==================================================================
+https://keybase.io/green
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://artyom.me
+  * I am green (https://keybase.io/green) on keybase.
+  * I have a public key with fingerprint E719 6559 1104 D327 9F8E  9DF7 B8E3 5A33 FF52 2710
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "client": {
+            "name": "keybase.io node.js client",
+            "version": "0.7.7"
+        },
+        "key": {
+            "fingerprint": "e71965591104d3279f8e9df7b8e35a33ff522710",
+            "host": "keybase.io",
+            "key_id": "B8E35A33FF522710",
+            "uid": "ba4788b226aa8dc2e6dc74248bb9f619",
+            "username": "green"
+        },
+        "merkle_root": {
+            "ctime": 1427969268,
+            "hash": "c077ac2943b834c58f89848ea6fdf3c8b420d101a9911c642225f6771a49add082b458a38d62e8923dfe2341d7ce92ee55952c1cebf4093a80ed159b30005c69",
+            "seqno": 188704
+        },
+        "service": {
+            "hostname": "artyom.me",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1427969325,
+    "expire_in": 157680000,
+    "prev": "30459d93c7823ac14a90f5b795e195b2a2164b4958712dacfcd742c1746aa45b",
+    "seqno": 3,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: GnuPG v2
+
+owFVUntQFWUUv1cQQS5FBROIGS1j+QDc/fb1LY2M8kbqFgQozthlH9/C8riLe1cE
+CWdyxCSS0IIMIXM0AzRmLLE0R5pxDEFSQgwRh0YggWaiEmFGKGmX6OF/5zvnd37n
+9zvnq/Jxs3havxraTM6mvOBrvTImWNKe8Q8rwQRVKsYiSjAxT0FO3YycfD7CIrBc
+VCzwLhSuqMFOVULhOa7geUwoVog0l6I6DRQezoazWGmoCTebZcWZhbQCTTG5MMQS
+HEPTHEHglEQClpMh4iSZFSAiaZ4kZZkGgCVwgzJbdemPTMXmOB2KZGSjYCxJryfJ
+uLh/8dvmCgJPsRAKADA8DyURIEYSWQpQUBA4mSE4E+hC2rylLA0hpyk2H2m5ecih
+qeqcY1FXzDpBGQoZDjDQkMO7so0OEWdZXgQcRQqQpEQaypCDFEQ8I0syKUKBArhE
+4ATPGR5FhgIA0DLDsgRPcbwk4RAIFA15EkoMQJADpCQjQFKExIqIAwgZu6GBSIhI
+kCmcI3mII4mgOYHEcZwWGVO/C211qoY4CFmcKjXfWqEiIlO3ubN5a7ymF6v54UYc
+ihVoqq6Kap6Rztb1ggjTsV5cYMK2I8HxN8GnyCEoTsk41//vSRjQR7dBAjoUQ0UF
+ioYciomgWQYa6nBzDio0OEmcojmJI0UWApIXCYrncJkWWI5GBEcLgAcEQwkUR0OW
+ABIvyqJknEgkWMo4GkUL/3kkDZ18lkHpUrKcvL5NQ1hp+YKl7harp8Vj4QLzw1oW
+e/n+84vf7vS1NO5OtBS9H3BBqFm7m6m4HLSp19Z/kXKk5HYMd42WjdRcG+YfrvbT
+P09oT68LvP9KbFFDU8TE8J5F33lvmA7vSfBzX996cKoOezNv45Kvf9mKFQbsvKJm
+PLCnVYds+T6jnRyIvCd+0bKDGrel3u0rq4RHd6zQkmKr3oicdPW/a9//IzZCJ0US
+qRX1y2+tPnUoqerwdRQ9O3020NvjB/tO19M3Pn78Ul/i8YhaH/JeZ2+g10fFyW09
+D68quS3yyc7OV63L9g/U6h+mvRSr1ka1XrCXJS3a05fSOTndHRRiS705+MHNoWsz
+9unTMxebHguKOjNVum888GVb1bNLqsZd58/VfVNa0GtvsXbE/ZnTftpjafQTtxeG
+xXeMbdgSmX5sZXdm/5Grhc0Tuc9N77pzq/r1hn3+9Nn7BwJbwa+bWg7qJT51C7zy
+B9Zk5ibmSJ9UtH3WMJ452t7jBq93ew1FlnckJuqXnW+5zYZcWrf2xTutY8CSnD+Y
+/+3G6AN+4ynB8dV4XHxR6qqxZNaJEi2+Me3dM6G3T9w99c4K+smMxSlVr91Y/mBd
++fk1oz9P4u9l/BZ9JB0/U+PTnBC8C4tp1N1DMpdVjqe1pbvRtqmfrIN/NGr1Hs8f
+6iI2952w+mz3TPAvdx0HJ49F4O6HV1XsDXiKjGlcGdb0u6253l6pDoKo+lmpa2Ti
+6DnvL/8C
+=g41A
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/green
+
+==================================================================

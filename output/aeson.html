@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <meta name="google-site-verification" content="y-gj-eNGiiocXI1nd6EPlywGEfhW90jeeFO__ePHvbg" />
+  <meta name="generator" content="pandoc">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="icon" type="image/png" href="/ame256.png">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml"
+        title="RSS">
+  <title>Aeson: the tutorial</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/css.css?date=2019-06-21">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154447441-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-154447441-1');
+</script>
+
+</head>
+
+<body>
+
+<div id="header">
+  <a href="/">Artyom Kazak</a>
+  <a href="/feed.xml"><img src="/feed-icon.svg" alt="feed"></a>
+</div>
+
+<div id="details" class="blue-links">
+  <div class="badge">
+    <i class="fas fa-envelope"></i>
+    <a href="mailto:artyom@aelve.com">artyom@aelve.com</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-telegram"></i>
+    <a href="http://t.me/lightgreen">lightgreen</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-github"></i>
+    <a href="http://github.com/neongreen">neongreen</a>
+  </div
+
+  ><div class="badge">
+    Founder of <a href="https://aelve.com">Aelve</a>
+  </div
+  ><div class="badge">
+    Co-founder of <a href="https://monadfix.io">Monadfix</a>
+  </div
+
+  ><div class="badge">
+    Living in Moscow (come hang out!)
+  </div>
+</div>
+
+<div id="main">
+
+
+
+
+
+<article>
+<h1 class="title">Aeson: the tutorial</h1>
+
+<p><a href="https://hackage.haskell.org/package/aeson">Aeson</a> is the most widely used library for parsing <a href="https://en.wikipedia.org/wiki/JSON">JSON</a> (in Haskell, of course, I'm not talking about the whole world). It's also hopelessly magical for people who try to learn it by looking at provided examples, and existing tutorials don't help that much, so I wrote my own. It's supposed to be the most comprehensive Aeson tutorial on the web; if there's anything missing from it, send me an email! (So far the only thing I haven't covered is using lenses with Aeson, but this is coming soon.)</p>
+<p>Note that knowing all this is <em>not</em> needed if you want to parse JSON in Haskell; if you just want to get it done – fast – then skip to the <a href="#records-and-json-generics">generics</a> section. However, if you're doing some tricker JSON processing, then read it all.</p>
+<p>Here's an incomplete list of things the tutorial explains (excluding basic stuff and “how it all works inside”):</p>
+<ul>
+<li><a href="#fromjson-instances-for-other-types">how various types like <code>Bool</code>, <code>Map</code>, etc are represented by default</a></li>
+<li>encoding/decoding records manually
+<ul>
+<li><a href="#records-and-json">applicative-style</a></li>
+<li><a href="#recordwildcards">my preferred style</a></li>
+<li><a href="#postprocessing">with postprocessing</a></li>
+<li><a href="#optional-fields">with optional fields</a></li>
+</ul></li>
+<li><a href="#more-interesting-choices">choice: dealing with JSON that can come in several varieties</a></li>
+<li><a href="#types-with-many-constructors">representing types with many constructors</a></li>
+<li><a href="#nested-records">dealing with nested datatypes</a></li>
+<li><a href="#extended-records">dealing with datatypes which are subsets of other datatypes</a></li>
+<li><a href="#unknown-field-names">dealing with unknown field names</a></li>
+<li>generic encoding/decoding
+<ul>
+<li><a href="#records-and-json-generics">with generics</a></li>
+<li><a href="#records-and-json-template-haskell">with Template Haskell</a></li>
+<li><a href="#generics-customising-field-names">customising field names</a></li>
+<li><a href="#generics-handling-weird-field-names-in-data">handling uppercased/prefixed/etc field names in data</a></li>
+<li><a href="#generics-optional-fields">how optional fields are treated</a></li>
+</ul></li>
+<li><a href="#parsing-without-creating-extra-types">parsing without creating extra types</a></li>
+<li><a href="#pretty-printing">pretty-printing</a></li>
+</ul>
+<p>You probably should read it from beginning to end, because some questions of the form “how to do something with Aeson” are hard to answer without understanding how Aeson works. Even if you know how Aeson works, you still probably should read it all – there are some idioms and bits of knowledge scattered around that aren't present in other tutorials, like <a href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-RecordWildCards"><code>RecordWildCards</code></a>, and <a href="http://hackage.haskell.org/package/base/docs/Control-Applicative.html#t:Alternative"><code>Alternative</code></a>, and a list of default encodings for various types, and pretty-printing, and customising generic instances, and stuff.</p>
+<h3 id="a-note-on-string-types">A note on string types</h3>
+<p>For following examples to work, you need to enable the <a href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-OverloadedStrings"><code>OverloadedStrings</code></a> extension – either by writing <code>{-# LANGUAGE OverloadedStrings #-}</code> at the top of the module, or doing <code>:set -XOverloadedStrings</code> in GHCi prompt.</p>
+<p>The reason for this is that most of the time you have JSON in a file or receive it over network, so JSON decoding/encoding functions work with <a href="http://hackage.haskell.org/package/bytestring/docs/Data-ByteString-Lazy.html#t:ByteString"><code>ByteString</code></a> and not with <a href="http://hackage.haskell.org/package/base/docs/Prelude.html#t:String"><code>String</code></a> or <a href="http://hackage.haskell.org/package/text/docs/Data-Text.html#t:Text"><code>Text</code></a>. (If you need to convert JSON to/from <code>Text</code>, there's a possibility you're doing something wrong.) And normally string literals like <code>&quot;foo&quot;</code> can only mean <code>String</code>, so you can't use Aeson's decoding functions on them – but the <code>OverloadedStrings</code> extension lifts this restriction and lets string literals be converted to <code>ByteString</code> or <code>Text</code> automatically (similarly to how <code>3</code> can be converted to <code>Int</code>, <code>Integer</code>, or <code>Double</code> automatically).</p>
+<p>The <code>-XOverloadedStrings</code> trick only applies when you're playing with Aeson in GHCi. If you want to read JSON from a file, for instance, you should read it with <a href="http://hackage.haskell.org/package/bytestring/docs/Data-ByteString-Lazy.html#v:readFile"><code>Data.ByteString.Lazy.readFile</code></a> and not with Prelude's <a href="http://hackage.haskell.org/package/base/docs/Prelude.html#v:readFile"><code>readFile</code></a>.</p>
+<p>However, if you <em>really</em> need it for some reason, you can also convert a <code>ByteString</code> to/from <code>String</code> by using <a href="http://hackage.haskell.org/package/utf8-string/docs/Data-ByteString-Lazy-UTF8.html#v:fromString"><code>fromString</code></a> and <a href="http://hackage.haskell.org/package/utf8-string/docs/Data-ByteString-Lazy-UTF8.html#v:toString"><code>toString</code></a> from <a href="http://hackage.haskell.org/package/utf8-string/docs/Data-ByteString-Lazy-UTF8.html"><code>Data.ByteString.Lazy.UTF8</code></a> in the <a href="https://hackage.haskell.org/package/utf8-string">utf8-string</a> package, or to/from <code>Text</code> by using <a href="http://hackage.haskell.org/package/text/docs/Data-Text-Lazy-Encoding.html#v:encodeUtf8"><code>encodeUtf8</code></a> and <a href="http://hackage.haskell.org/package/text/docs/Data-Text-Lazy-Encoding.html#v:decodeUtf8"><code>decodeUtf8</code></a> from <a href="http://hackage.haskell.org/package/text/docs/Data-Text-Lazy-Encoding.html"><code>Data.Text.Lazy.Encoding</code></a> – but don't expect good performance.</p>
+<h3 id="very-basic-decoding-and-encoding">Very basic decoding and encoding</h3>
+<p>There are 2 main classes used in Aeson – <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#t:FromJSON"><code>FromJSON</code></a> and <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#t:ToJSON"><code>ToJSON</code></a>. A type which you want to convert to/from JSON should be an instance of these classes. You can think of <code>FromJSON</code> as of <a href="http://hackage.haskell.org/package/base/docs/Prelude.html#t:Read"><code>Read</code></a>, and of <code>ToJSON</code> as of <a href="http://hackage.haskell.org/package/base/docs/Prelude.html#t:Show"><code>Show</code></a> – but instead of reading from a string or converting to a string, you read from JSON or convert to JSON.</p>
+<p>There are also 2 functions for actually doing “reading” and “showing”, which are called <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:decode"><code>decode</code></a> and <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:encode"><code>encode</code></a>. (<code>decode</code> differs from <code>read</code> a bit by returning <code>Nothing</code> if reading was unsuccessful, instead of throwing an exception – so, it's closer to <a href="http://hackage.haskell.org/package/base/docs/Text-Read.html#v:readMaybe"><code>readMaybe</code></a> in this regard.)</p>
+<p>An example of encoding a list of integers to JSON:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> encode [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]
+<span class="st">&quot;[1,2,3]&quot;</span></code></pre></div>
+<p>An example of decoding a list of integers from JSON:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="fu">:</span>set <span class="fu">-</span><span class="dt">XOverloadedStrings</span>
+
+<span class="fu">&gt;</span> <span class="kw">import </span><span class="dt">Data.Aeson</span>
+
+<span class="fu">&gt;</span> decode <span class="st">&quot;[1,2,3]&quot;</span><span class="ot"> ::</span> <span class="dt">Maybe</span> [<span class="dt">Integer</span>]
+<span class="dt">Just</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]
+
+<span class="fu">&gt;</span> decode <span class="st">&quot;foo&quot;</span><span class="ot"> ::</span> <span class="dt">Maybe</span> [<span class="dt">Integer</span>]
+<span class="dt">Nothing</span></code></pre></div>
+<p>If you want to see the error too, use <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:eitherDecode"><code>eitherDecode</code></a>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> eitherDecode <span class="st">&quot;[]&quot;</span><span class="ot"> ::</span> <span class="dt">Either</span> <span class="dt">String</span> <span class="dt">Integer</span>
+<span class="dt">Left</span> <span class="st">&quot;Error in $: expected Integral, encountered Array&quot;</span></code></pre></div>
+<p><code>$</code> is the location of the error – here it just means “top-level value”, but it can be helpful in more complicated cases:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> eitherDecode <span class="st">&quot;[1,2,[3,4]]&quot;</span><span class="ot"> ::</span> <span class="dt">Either</span> <span class="dt">String</span> (<span class="dt">Int</span>, <span class="dt">Int</span>, (<span class="dt">Int</span>, <span class="dt">Bool</span>))
+<span class="dt">Left</span> <span class="st">&quot;Error in $[2][1]: expected Bool, encountered Number&quot;</span>
+
+<span class="fu">&gt;</span> eitherDecode <span class="st">&quot;[1,2,[3,true]]&quot;</span><span class="ot"> ::</span> <span class="dt">Either</span> <span class="dt">String</span> (<span class="dt">Int</span>, <span class="dt">Int</span>, (<span class="dt">Int</span>, <span class="dt">Bool</span>))
+<span class="dt">Right</span> (<span class="dv">1</span>,<span class="dv">2</span>,(<span class="dv">3</span>,<span class="dt">True</span>))</code></pre></div>
+<h3 id="working-directly-with-json">Working directly with JSON</h3>
+<p>Aeson has its own datatype for representing JSON, which is called simply <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#t:Value"><code>Value</code></a>. It has got 6 constructors:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Value</span>
+  <span class="fu">=</span> <span class="dt">Object</span> <span class="dt">Object</span>
+  <span class="fu">|</span> <span class="dt">Array</span> <span class="dt">Array</span>
+  <span class="fu">|</span> <span class="dt">String</span> <span class="dt">Text</span>
+  <span class="fu">|</span> <span class="dt">Number</span> <span class="dt">Scientific</span>
+  <span class="fu">|</span> <span class="dt">Bool</span> <span class="dt">Bool</span>
+  <span class="fu">|</span> <span class="dt">Null</span></code></pre></div>
+<p>So, if you want to construct JSON directly, you can do it by constructing a <code>Value</code> and then converting it to JSON with <code>encode</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">GHC.Exts</span>    <span class="co">-- (fromList)</span>
+
+<span class="ot">val ::</span> <span class="dt">Value</span>
+val <span class="fu">=</span> <span class="dt">Object</span> <span class="fu">$</span> fromList [
+  (<span class="st">&quot;numbers&quot;</span>, <span class="dt">Array</span> <span class="fu">$</span> fromList [<span class="dt">Number</span> <span class="dv">1</span>, <span class="dt">Number</span> <span class="dv">2</span>, <span class="dt">Number</span> <span class="dv">3</span>]),
+  (<span class="st">&quot;boolean&quot;</span>, <span class="dt">Bool</span> <span class="dt">True</span>) ]</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">import qualified</span> <span class="dt">Data.Text.Lazy.IO</span> <span class="kw">as</span> <span class="dt">T</span>
+<span class="fu">&gt;</span> <span class="kw">import qualified</span> <span class="dt">Data.Text.Lazy.Encoding</span> <span class="kw">as</span> <span class="dt">T</span>
+
+<span class="fu">&gt;</span> T.putStrLn <span class="fu">.</span> T.decodeUtf8 <span class="fu">.</span> encode <span class="fu">$</span> val
+{<span class="st">&quot;boolean&quot;</span><span class="fu">:</span>true,<span class="st">&quot;numbers&quot;</span><span class="fu">:</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]}</code></pre></div>
+<p>We had to use <a href="http://hackage.haskell.org/package/base/docs/GHC-Exts.html#v:fromList"><code>fromList</code></a> (which has to be imported from <a href="http://hackage.haskell.org/package/base/docs/GHC-Exts.html"><code>GHC.Exts</code></a>) 2 times – once to convert a list of pairs to <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#t:Object"><code>Object</code></a>, another time to convert a list to <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#t:Array"><code>Array</code></a>. These are just type synonyms – the actual types are <a href="http://hackage.haskell.org/package/unordered-containers/docs/Data-HashMap-Strict.html#t:HashMap"><code>HashMap</code></a> (for <code>Object</code>) and <a href="http://hackage.haskell.org/package/vector/docs/Data-Vector.html#t:Vector"><code>Vector</code></a> (for <code>Array</code>).</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Object</span> <span class="fu">=</span> <span class="dt">HashMap</span> <span class="dt">Text</span> <span class="dt">Value</span>
+<span class="kw">type</span> <span class="dt">Array</span> <span class="fu">=</span> <span class="dt">Vector</span> <span class="dt">Value</span></code></pre></div>
+<div class="note">
+<p>If you use GHC 7.8 or older (you can find out the version by running <code>ghc --version</code>), <code>fromList</code> might not work for you – in this case you'd have to use specialised versions from <code>Data.Vector</code> and <code>Data.HashMap.Strict</code>.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import qualified</span> <span class="dt">Data.Vector</span> <span class="kw">as</span> <span class="dt">V</span>
+<span class="kw">import qualified</span> <span class="dt">Data.HashMap.Strict</span> <span class="kw">as</span> <span class="dt">HM</span>
+
+<span class="co">{-</span>
+<span class="co">    V.fromList :: [a] -&gt; Vector a</span>
+<span class="co">    HM.fromList :: [(a, b)] -&gt; HashMap a b</span>
+
+<span class="co">Or, in context of Aeson:</span>
+
+<span class="co">    V.fromList :: [Value] -&gt; Array</span>
+<span class="co">    HM.fromList :: [(Text, Value)] -&gt; Object</span>
+<span class="co">-}</span></code></pre></div>
+</div>
+<p>To make constructing JSON a bit easier, there is a function called <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:object"><code>object</code></a> (which accepts a list of pairs instead of a <code>HashMap</code>) and an operator called <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:.-61-"><code>.=</code></a> (which is the same as <code>(,)</code> except that it also converts the value to JSON). So, this example could be rewritten like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">val ::</span> <span class="dt">Value</span>
+val <span class="fu">=</span> object [
+  <span class="st">&quot;boolean&quot;</span> <span class="fu">.=</span> <span class="dt">True</span>,
+  <span class="st">&quot;numbers&quot;</span> <span class="fu">.=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span><span class="ot">::</span><span class="dt">Int</span>] ]    <span class="co">-- a type annotation is needed because</span>
+                                 <span class="co">-- otherwise it&#39;s unclear whether it should</span>
+                                 <span class="co">-- be Int or, say, Double or Rational</span></code></pre></div>
+<p>Working with <code>Value</code> is easy as well, just keep in mind that</p>
+<ul>
+<li>an object is a <code>HashMap</code></li>
+<li>an array is a <code>Vector</code></li>
+<li>a string is a <code>Text</code></li>
+<li>a number is <a href="http://hackage.haskell.org/package/scientific/docs/Data-Scientific.html#t:Scientific"><code>Scientific</code></a> (because JSON doesn't specify precision and so a type which allows arbitrary precision is used)</li>
+</ul>
+<p>For instance, here's a function which reverses all strings anywhere in a <code>Value</code>; it's useless, but it shows how <code>Value</code>s can be transformed:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import qualified</span> <span class="dt">Data.Text</span> <span class="kw">as</span> <span class="dt">T</span>
+<span class="kw">import qualified</span> <span class="dt">Data.HashMap.Strict</span> <span class="kw">as</span> <span class="dt">HM</span>
+<span class="kw">import </span><span class="dt">GHC.Exts</span>
+
+<span class="ot">revStrings ::</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Value</span>
+revStrings (<span class="dt">String</span> x) <span class="fu">=</span> <span class="dt">String</span> (T.reverse x)
+revStrings (<span class="dt">Array</span> x)  <span class="fu">=</span> <span class="dt">Array</span> (fmap revStrings x)
+revStrings (<span class="dt">Object</span> x) <span class="fu">=</span> <span class="kw">let</span> revPair (k, v) <span class="fu">=</span> (T.reverse k, revStrings v)
+                        <span class="kw">in</span>  <span class="dt">Object</span> <span class="fu">.</span> fromList <span class="fu">.</span> map revPair <span class="fu">.</span> HM.toList <span class="fu">$</span> x
+revStrings other      <span class="fu">=</span> other</code></pre></div>
+<p>You can combine it with <code>encode</code> and <code>decode</code>, if you want:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">import qualified</span> <span class="dt">Data.Text.Lazy.IO</span> <span class="kw">as</span> <span class="dt">T</span>
+<span class="fu">&gt;</span> <span class="kw">import qualified</span> <span class="dt">Data.Text.Lazy.Encoding</span> <span class="kw">as</span> <span class="dt">T</span>
+<span class="fu">&gt;</span> <span class="kw">import </span><span class="dt">Data.Maybe</span>
+
+<span class="fu">&gt;</span> <span class="kw">let</span> revJSON <span class="fu">=</span> encode <span class="fu">.</span> revStrings <span class="fu">.</span> fromJust <span class="fu">.</span> decode
+
+<span class="fu">&gt;</span> T.putStrLn <span class="fu">.</span> T.decodeUtf8 <span class="fu">.</span> revJSON <span class="fu">.</span> T.encodeUtf8 <span class="fu">=&lt;&lt;</span> T.getLine
+{<span class="st">&quot;numbers&quot;</span><span class="fu">:</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>],<span class="st">&quot;names&quot;</span><span class="fu">:</span>[<span class="st">&quot;Jane&quot;</span>,<span class="st">&quot;Artyom&quot;</span>]}
+{<span class="st">&quot;seman&quot;</span><span class="fu">:</span>[<span class="st">&quot;enaJ&quot;</span>,<span class="st">&quot;moytrA&quot;</span>],<span class="st">&quot;srebmun&quot;</span><span class="fu">:</span>[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]}</code></pre></div>
+<h3 id="parsing-simple-types">Parsing simple types</h3>
+<p>Let's say our task is to parse an array of objects, each of which has fields &quot;a&quot; (a string) and &quot;b&quot; (a boolean), into a list of tuples. How shall we do it?</p>
+<p>First, let's write a parser for inner objects. But first first, read the following explanation – it's very important and if you don't understand it you <em>will</em> get problems later:</p>
+<ul>
+<li><p>A parser is something that turns a JSON value into something else that you need (record, list of tuples, etc).</p></li>
+<li><p>Aeson has a type called <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson-Types.html#t:Parser"><code>Parser</code></a>, but it's <em>not</em> a type for parsers – it's a type for results of parsers. <code>Parser a</code> means pretty much the same as <code>Either String a</code> – it's either an <code>a</code> or an error message. (The actual implementation is different, and uses CPS for speed, but it's not important.)</p></li>
+<li><p>(And there's also a type called <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson-Types.html#t:Result"><code>Result</code></a> that is for results of parsers as well but doesn't use CPS. Don't worry about it for now.)</p></li>
+<li><p>So, all parsers actually have the type <code>Value -&gt; Parser a</code>.</p></li>
+</ul>
+<p>Since we're parsing a list of tuples, in our case the type would be <code>Value -&gt; Parser (String, Bool)</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Data.Aeson.Types</span>    <span class="co">-- that&#39;s where Parser comes from</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">parseTuple ::</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Parser</span> (<span class="dt">String</span>, <span class="dt">Bool</span>)</code></pre></div>
+<p>What now? Okay, we know that the <code>Value</code> has to be an <code>Object</code>, but what to do about other types? Well, we can just use <a href="http://hackage.haskell.org/package/base/docs/Prelude.html#v:fail"><code>fail</code></a> to signal an error (similarly to how we'd use <code>Left</code> to signal an error if <code>Parser</code> actually was <code>Either String a</code>):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">parseTuple (<span class="dt">Object</span> o) <span class="fu">=</span> <span class="fu">...</span>
+parseTuple _          <span class="fu">=</span> fail <span class="st">&quot;expected an object&quot;</span></code></pre></div>
+<div class="note">
+<p><code>Parser</code>, just like <code>Either</code>, is a monad (and also <a href="http://hackage.haskell.org/package/base/docs/Control-Applicative.html#t:Applicative"><code>Applicative</code></a> and <a href="http://hackage.haskell.org/package/base/docs/Control-Applicative.html#t:Alternative"><code>Alternative</code></a>), so we can use all the usual things on it; if you ever used <a href="https://hackage.haskell.org/package/parsec">Parsec</a>, this shouldn't be too unfamiliar for you. If you haven't, here's a crash course.</p>
+<p>You can chain <code>Parser</code>s using do notation. For instance, this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">do</span> x <span class="ot">&lt;-</span> parserX
+   y <span class="ot">&lt;-</span> parserY
+   return (x, y)</code></pre></div>
+<p>is equivalent to the following pseudocode:</p>
+<pre><code>if parserX fails
+  then return its error message
+  else call its result “x” and proceed
+if parserY fails
+  then return its error message
+  else call its result “y” and proceed
+if neither of parsers failed
+  then return (x, y)</code></pre>
+<p>You can also apply a function to the result of a parser, while keeping the error message if the parser fails:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">f <span class="fu">&lt;$&gt;</span> parserX</code></pre></div>
+<p>is equivalent to</p>
+<pre><code>if parserX fails
+  then return its error message
+  else return its result with “f” applied to it</code></pre>
+<p>If <code>f</code> takes several parameters, you can keep applying it with <code>&lt;*&gt;</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getW ::</span> <span class="dt">X</span> <span class="ot">-&gt;</span> <span class="dt">Y</span> <span class="ot">-&gt;</span> <span class="dt">Z</span> <span class="ot">-&gt;</span> <span class="dt">W</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">parserW ::</span> <span class="dt">Parser</span> <span class="dt">W</span>
+parserW <span class="fu">=</span> getW <span class="fu">&lt;$&gt;</span> parserX <span class="fu">&lt;*&gt;</span> parserY <span class="fu">&lt;*&gt;</span> parserZ</code></pre></div>
+</div>
+<p>Now we can already write our function, by doing manual lookups in the object:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import qualified</span> <span class="dt">Data.HashMap.Strict</span> <span class="kw">as</span> <span class="dt">HM</span>
+
+parseTuple (<span class="dt">Object</span> obj) <span class="fu">=</span> <span class="kw">do</span>
+  <span class="co">-- Look up the &quot;a&quot; field.</span>
+  <span class="kw">let</span> mbFieldA <span class="fu">=</span> HM.lookup <span class="st">&quot;a&quot;</span> obj
+
+  <span class="co">-- Fail if it wasn&#39;t found.</span>
+  fieldA <span class="ot">&lt;-</span> <span class="kw">case</span> mbFieldA <span class="kw">of</span>
+    <span class="dt">Just</span> x  <span class="ot">-&gt;</span> return x
+    <span class="dt">Nothing</span> <span class="ot">-&gt;</span> fail <span class="st">&quot;no field &#39;a&#39;&quot;</span>
+
+  <span class="co">-- Extract the value from it, or fail if it&#39;s of the wrong type.</span>
+  a <span class="ot">&lt;-</span> <span class="kw">case</span> fieldA <span class="kw">of</span>
+    <span class="dt">String</span> x <span class="ot">-&gt;</span> return (T.unpack x)
+    _        <span class="ot">-&gt;</span> fail <span class="st">&quot;expected a string&quot;</span>
+
+  <span class="co">-- Do all the same for &quot;b&quot; (in a slightly terser way, to save space):</span>
+  b <span class="ot">&lt;-</span> <span class="kw">case</span> HM.lookup <span class="st">&quot;b&quot;</span> obj <span class="kw">of</span>
+    <span class="dt">Just</span> (<span class="dt">Bool</span> x) <span class="ot">-&gt;</span> return x
+    <span class="dt">Just</span> _        <span class="ot">-&gt;</span> fail <span class="st">&quot;expected a boolean&quot;</span>
+    <span class="dt">Nothing</span>       <span class="ot">-&gt;</span> fail <span class="st">&quot;no field &#39;b&#39;&quot;</span>
+
+  <span class="co">-- That&#39;s all!</span>
+  return (a, b)</code></pre></div>
+<div class="note">
+<p>This isn't how you should actually write JSON parsers! In the following several sections we'll simplify this parser drastically (in the end it'll be only 4 lines long) using functions and operators from Aeson. The reason I wrote this version of the parser first is that otherwise you wouldn't understand how Aeson works, and that would've bitten you later.</p>
+</div>
+<p>Parsing an array, in comparison, is much less messy:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Vector is the type Aeson uses to represent JSON arrays</span>
+<span class="kw">import qualified</span> <span class="dt">Data.Vector</span> <span class="kw">as</span> <span class="dt">V</span>
+
+<span class="ot">parseArray ::</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Parser</span> [(<span class="dt">String</span>, <span class="dt">Bool</span>)]
+parseArray (<span class="dt">Array</span> arr) <span class="fu">=</span> mapM parseTuple (V.toList arr)
+parseArray _           <span class="fu">=</span> fail <span class="st">&quot;expected an array&quot;</span></code></pre></div>
+<div class="note">
+<p>To understand what's going on, look at the type of <a href="http://hackage.haskell.org/package/base/docs/Control-Monad.html#v:mapM"><code>mapM</code></a>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">mapM<span class="ot"> ::</span> <span class="dt">Monad</span> m <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> m b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> m [b]</code></pre></div>
+<p>(In GHC 7.10 and newer it's more general, but nothing changes if you consider this less general version.)</p>
+<p><code>mapM</code> applies a function to a list (resulting in <code>[m b]</code>) and then “lumps together” all results. What “lumping together” means is different for each type, but in case of <code>Parser</code> it's simply “try getting the value out of all parsers, fail if there is any parser that fails, return the list of values otherwise”. So, in our case the type is:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">mapM<span class="ot"> ::</span> (<span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Parser</span> a) <span class="ot">-&gt;</span> [<span class="dt">Value</span>] <span class="ot">-&gt;</span> <span class="dt">Parser</span> [a]</code></pre></div>
+</div>
+<p>Finally, when we have a parser for arrays, there's a function called <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson-Types.html#v:parseMaybe"><code>parseMaybe</code></a> in <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson-Types.html"><code>Data.Aeson.Types</code></a>, which applies a parser to a value:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">import qualified</span> <span class="dt">Data.Text.Lazy.IO</span> <span class="kw">as</span> <span class="dt">T</span>
+<span class="fu">&gt;</span> <span class="kw">import qualified</span> <span class="dt">Data.Text.Lazy.Encoding</span> <span class="kw">as</span> <span class="dt">T</span>
+
+<span class="co">-- Enter some JSON:</span>
+<span class="fu">&gt;</span> s <span class="ot">&lt;-</span> T.encodeUtf8 <span class="fu">&lt;$&gt;</span> T.getLine
+[{<span class="st">&quot;a&quot;</span><span class="fu">:</span><span class="st">&quot;hello&quot;</span>, <span class="st">&quot;b&quot;</span><span class="fu">:</span>true}, {<span class="st">&quot;a&quot;</span><span class="fu">:</span><span class="st">&quot;world&quot;</span>, <span class="st">&quot;b&quot;</span><span class="fu">:</span>false}]
+
+<span class="co">-- Okay, let&#39;s look at the JSON we&#39;re going to parse:</span>
+<span class="fu">&gt;</span> decode<span class="ot"> s ::</span> <span class="dt">Maybe</span> <span class="dt">Value</span>
+<span class="dt">Just</span> (<span class="dt">Array</span> [<span class="dt">Object</span> (fromList [(<span class="st">&quot;a&quot;</span>,<span class="dt">String</span> <span class="st">&quot;hello&quot;</span>),(<span class="st">&quot;b&quot;</span>,<span class="dt">Bool</span> <span class="dt">True</span>)]),
+             <span class="dt">Object</span> (fromList [(<span class="st">&quot;a&quot;</span>,<span class="dt">String</span> <span class="st">&quot;world&quot;</span>),(<span class="st">&quot;b&quot;</span>,<span class="dt">Bool</span> <span class="dt">False</span>)])])
+
+<span class="co">-- And finally parse it (using =&lt;&lt; to chain Maybes):</span>
+<span class="fu">&gt;</span> parseMaybe parseArray <span class="fu">=&lt;&lt;</span> decode s
+<span class="dt">Just</span> [(<span class="st">&quot;hello&quot;</span>,<span class="dt">True</span>),(<span class="st">&quot;world&quot;</span>,<span class="dt">False</span>)]</code></pre></div>
+<h3 id="avoiding-manual-type-checks">Avoiding manual type checks</h3>
+<p>One reason <code>parseTuple</code> was so big for such a simple task is that we had to check for type mismatch manually. Instead of doing that, we can use the <code>with*</code> family of functions.</p>
+<p>Look at both parsers again:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">parseTuple (<span class="dt">Object</span> o) <span class="fu">=</span> <span class="fu">...</span>
+parseTuple _          <span class="fu">=</span> fail <span class="st">&quot;expected an object&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">parseArray (<span class="dt">Array</span> arr) <span class="fu">=</span> mapM parseTuple (V.toList arr)
+parseArray _           <span class="fu">=</span> fail <span class="st">&quot;expected an array&quot;</span></code></pre></div>
+<p>They employ the same pattern: check that <code>Value</code> has some type; unwrap if yes, fail if not. This pattern is captured by <code>with*</code> functions:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">withArray ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> (<span class="dt">Array</span> <span class="ot">-&gt;</span> <span class="dt">Parser</span> a) <span class="ot">-&gt;</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Parser</span> a
+withArray expected f (<span class="dt">Array</span> arr) <span class="fu">=</span> f arr
+withArray expected f value       <span class="fu">=</span> fail <span class="st">&quot;expected ...&quot;</span></code></pre></div>
+<p>(There also are <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:withObject"><code>withObject</code></a>, <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:withText"><code>withText</code></a>, <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:withScientific"><code>withScientific</code></a>, and <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:withBool"><code>withBool</code></a>.)</p>
+<p>The extra <code>String</code> parameter should be the name of thing you're parsing; <code>withArray</code> will use it to generate a nicer error message (e.g. “expected an array of tuples” instead of “expected an array”).</p>
+<p>With <code>withArray</code> our parser will look as follows:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">parseArray ::</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Parser</span> [(<span class="dt">String</span>, <span class="dt">Bool</span>)]
+parseArray <span class="fu">=</span> withArray <span class="st">&quot;array of tuples&quot;</span> <span class="fu">$</span> \arr <span class="ot">-&gt;</span>
+               mapM parseTuple (V.toList arr)</code></pre></div>
+<h3 id="avoiding-manual-parsing-of-primitive-types">Avoiding manual parsing of primitive types</h3>
+<p>Take the code we used to parse the string field:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  a <span class="ot">&lt;-</span> <span class="kw">case</span> fieldA <span class="kw">of</span>
+    <span class="dt">String</span> x <span class="ot">-&gt;</span> return (T.unpack x)
+    _        <span class="ot">-&gt;</span> fail <span class="st">&quot;expected a string&quot;</span></code></pre></div>
+<p>We can rewrite it with <code>withText</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">  a <span class="ot">&lt;-</span> withText <span class="st">&quot;string&quot;</span> <span class="fu">$</span> \x <span class="ot">-&gt;</span> return (T.unpack x)</code></pre></div>
+<p>However, it's still annoying that we have to do all this whenever we need to parse a field of type <code>String</code> (which can be quite often). We could write a parser for strings and reuse it:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">parseString ::</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Parser</span> <span class="dt">String</span>
+parseString <span class="fu">=</span> withText <span class="st">&quot;string&quot;</span> <span class="fu">$</span> \x <span class="ot">-&gt;</span> return (T.unpack x)</code></pre></div>
+<p>But we don't need to, because Aeson already defines lots of parsers for popular types (strings, lists, numbers, maps, tuples, and so on) with its <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#t:FromJSON"><code>FromJSON</code></a> typeclass:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">FromJSON</span> a <span class="kw">where</span>
+<span class="ot">  parseJSON ::</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Parser</span> a</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">String</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> withText <span class="st">&quot;String&quot;</span> (\x <span class="ot">-&gt;</span> return (T.unpack x))
+
+<span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Bool</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> withText <span class="st">&quot;Bool&quot;</span> return
+
+<span class="kw">instance</span> <span class="dt">FromJSON</span> a <span class="ot">=&gt;</span> <span class="dt">FromJSON</span> [a] <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> withArray <span class="st">&quot;[a]&quot;</span> <span class="fu">$</span> mapM parseJSON <span class="fu">.</span> V.toList
+
+<span class="fu">...</span></code></pre></div>
+<p>Now our <code>parseTuple</code> can be simplified quite a bit:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import qualified</span> <span class="dt">Data.HashMap.Strict</span> <span class="kw">as</span> <span class="dt">HM</span>
+
+parseTuple <span class="fu">=</span> withObject <span class="st">&quot;tuple&quot;</span> <span class="fu">$</span> \obj <span class="ot">-&gt;</span> <span class="kw">do</span>
+  <span class="co">-- Parse &quot;a&quot;.</span>
+  a <span class="ot">&lt;-</span> <span class="kw">case</span> HM.lookup <span class="st">&quot;a&quot;</span> obj <span class="kw">of</span>
+    <span class="dt">Just</span> x  <span class="ot">-&gt;</span> parseJSON x
+    <span class="dt">Nothing</span> <span class="ot">-&gt;</span> fail <span class="st">&quot;no field &#39;a&#39;&quot;</span>
+
+  <span class="co">-- Parse &quot;b&quot;.</span>
+  b <span class="ot">&lt;-</span> <span class="kw">case</span> HM.lookup <span class="st">&quot;b&quot;</span> obj <span class="kw">of</span>
+    <span class="dt">Just</span> x  <span class="ot">-&gt;</span> parseJSON x
+    <span class="dt">Nothing</span> <span class="ot">-&gt;</span> fail <span class="st">&quot;no field &#39;b&#39;&quot;</span>
+
+  <span class="co">-- That&#39;s all!</span>
+  return (a, b)</code></pre></div>
+<h3 id="avoiding-manual-lookups">Avoiding manual lookups</h3>
+<p>The <code>lookup</code>-and-<code>parseJSON</code> pattern can be simplified too, by using the <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:.:"><code>.:</code></a> operator, which does exactly what we are doing for each field:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(.:) ::</span> (<span class="dt">FromJSON</span> a) <span class="ot">=&gt;</span> <span class="dt">Object</span> <span class="ot">-&gt;</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Parser</span> a
+o <span class="fu">.:</span> key <span class="fu">=</span> <span class="kw">case</span> HM.lookup key o <span class="kw">of</span>
+             <span class="dt">Nothing</span> <span class="ot">-&gt;</span> fail (<span class="st">&quot;key &quot;</span> <span class="fu">++</span> show key <span class="fu">++</span> <span class="st">&quot; not present&quot;</span>)
+             <span class="dt">Just</span> v  <span class="ot">-&gt;</span> parseJSON v</code></pre></div>
+<p>So, the final form of <code>parseTuple</code> is:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">parseTuple <span class="fu">=</span> withObject <span class="st">&quot;tuple&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span> <span class="kw">do</span>
+  a <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;a&quot;</span>
+  b <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;b&quot;</span>
+  return (a, b)</code></pre></div>
+<p>Or, if you like the applicative style:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">parseTuple <span class="fu">=</span> withObject <span class="st">&quot;tuple&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span>
+               (,) <span class="fu">&lt;$&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;a&quot;</span>
+                   <span class="fu">&lt;*&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;b&quot;</span></code></pre></div>
+<h3 id="fromjson-instances-for-other-types"><code>FromJSON</code> instances for other types</h3>
+<p>It'd be nice to be able to use <code>parseJSON</code> wherever possible. Instances already exist for many types, however, they aren't documented, so I'm going to document them here. If you want to know where to look for such things, it's in the <a href="http://hackage.haskell.org/package/aeson/docs/src/Data-Aeson-Types-Instances.html"><code>Data.Aeson.Types.Instances</code></a> module.</p>
+<ul>
+<li><p><code>()</code> is <code>[]</code> (an empty array).</p></li>
+<li><p><code>Bool</code> is either <code>true</code> or <code>false</code>.</p></li>
+<li><p><code>Char</code> is a string with a single character in it.</p></li>
+<li><p><code>String</code> and <code>Text</code> are strings.</p></li>
+<li><p>Various numeric types are all converted to a number, rounded down if you are converting into an integer (so <code>&quot;-1.2&quot;</code> gets decoded as −2). Beware that if you are parsing an <code>Integer</code>, someone can write <code>1e1000000000000</code> in JSON and your program will eat all your memory.</p></li>
+<li><p><code>Rational</code> is an object with keys <code>numerator</code> and <code>denominator</code>.</p></li>
+<li><p>Lists and arrays are <code>[]</code>-arrays.</p></li>
+<li><p><code>Set</code> is an array too.</p></li>
+<li><p>Tuples of various lengths are arrays. (Moreover, when you parse JSON, you won't be able to parse e.g. <code>[1,2,3]</code> as a tuple of length 2.)</p></li>
+<li><p><code>Maybe a</code> is the same as <code>a</code>, except that <code>Nothing</code> is <code>null</code> (which means that you can't distinguish <code>Nothing</code> from <code>Just Nothing</code>).</p></li>
+<li><p><code>Either</code> is an object with a single key called either <code>Left</code> or <code>Right</code>.</p></li>
+<li><p><code>Map String</code>, <code>Map Text</code>, etc. are objects. (Maps with other types of keys aren't instances at all.)</p></li>
+<li><p><code>UTCTime</code> and <code>ZonedTime</code> are represented as strings according to the ISO 8601 standard (specifically, the <a href="http://www.ecma-international.org/ecma-262/5.1/#sec-15.9.1.15">ECMA-262</a> subset), which every other JSON parser should understand as well. You can also wrap a date into <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#t:DotNetTime"><code>DotNetTime</code></a> to get the non-standard format used by Microsoft.</p></li>
+<li><p><code>NominalDiffTime</code> is represented as the number of seconds.</p></li>
+</ul>
+<h3 id="records-and-json">Records and JSON</h3>
+<p>(Almost all other Aeson tutorials consist of nothing but this section, which is the reason why people think Aeson is magical – and then they come on IRC and start asking questions about how to do <em>anything</em> with Aeson that's not straightforward record-parsing. If you ever decide to write a library, please, please try to prevent this from happening.)</p>
+<p>Parsing records is absolutely the same as parsing tuples or whatever else. First get all fields, then put them into a record. You can also make your type an instance of <code>FromJSON</code>, to be able to use <code>decode</code> instead of <code>parseMaybe</code>.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- I&#39;m just going to reuse the example from documentation.</span>
+<span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {<span class="ot">name ::</span> <span class="dt">String</span>,<span class="ot"> age ::</span> <span class="dt">Int</span>}
+
+<span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Person</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> withObject <span class="st">&quot;person&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span>
+    <span class="dt">Person</span> <span class="fu">&lt;$&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;name&quot;</span> <span class="fu">&lt;*&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;age&quot;</span></code></pre></div>
+<p>The reverse is just as easy:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">ToJSON</span> <span class="dt">Person</span> <span class="kw">where</span>
+  toJSON p <span class="fu">=</span> object [
+    <span class="st">&quot;name&quot;</span> <span class="fu">.=</span> name p,
+    <span class="st">&quot;age&quot;</span>  <span class="fu">.=</span> age  p ]</code></pre></div>
+<h3 id="recordwildcards"><a href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-RecordWildCards"><code>RecordWildCards</code></a></h3>
+<p>There is a slightly different style, however, which I think is better. It relies on the <a href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-RecordWildCards"><code>RecordWildCards</code></a> extension, which does 2 transformations:</p>
+<ul>
+<li><p>instead of deconstructing the record like <code>f (Person name age) = ...</code>, you can write <code>f Person{..} = ...</code></p></li>
+<li><p>instead of constructing the record like <code>Person name age</code>, you can write <code>Person{..}</code></p></li>
+</ul>
+<p>That's very simple, and very useful.</p>
+<p>The code from the previous section, rewritten with <code>RecordWildCards</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE RecordWildCards #-}</span>
+
+<span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {<span class="ot">name ::</span> <span class="dt">String</span>,<span class="ot"> age ::</span> <span class="dt">Int</span>}
+
+<span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Person</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> withObject <span class="st">&quot;person&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span> <span class="kw">do</span>
+    name <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;name&quot;</span>
+    age  <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;age&quot;</span>
+    return <span class="dt">Person</span>{<span class="fu">..</span>}
+
+<span class="kw">instance</span> <span class="dt">ToJSON</span> <span class="dt">Person</span> <span class="kw">where</span>
+  toJSON <span class="dt">Person</span>{<span class="fu">..</span>} <span class="fu">=</span> object [
+    <span class="st">&quot;name&quot;</span> <span class="fu">.=</span> name,
+    <span class="st">&quot;age&quot;</span>  <span class="fu">.=</span> age  ]</code></pre></div>
+<h3 id="handling-extra-fields">Handling extra fields</h3>
+<p>This should be obvious, but I'll say again just in case: extra fields would be ignored by your parsing functions (if it's not obvious, reread previous sections, because it <em>should</em> be obvious – from the first example, where we were doing everything by hand – that it's not possible for the parser to find out about “extra” fields in principle).</p>
+<p>You can, of course, check for extra fields by yourself if you want to. Just use <a href="http://hackage.haskell.org/package/unordered-containers/docs/Data-HashMap-Strict.html#v:keys"><code>keys</code></a> on the object to get a list of fields it has, and then check (with <a href="http://hackage.haskell.org/package/base/docs/Data-List.html#v:-92--92-"><code>\\</code></a>, for instance) whether there are any fields you don't expect there to be.</p>
+<h3 id="postprocessing">Postprocessing</h3>
+<p>The style that uses <code>do</code> is better because it makes postprocessing easier. For instance, imagine that records have fields <code>name</code> and <code>surname</code>, but you want to combine them when parsing the record:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Person</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> withObject <span class="st">&quot;person&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span> <span class="kw">do</span>
+    firstName <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;name&quot;</span>
+    lastName  <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;surname&quot;</span>
+    <span class="kw">let</span> name <span class="fu">=</span> firstName <span class="fu">++</span> <span class="st">&quot; &quot;</span> <span class="fu">++</span> lastName
+    age       <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;age&quot;</span>
+    return <span class="dt">Person</span>{<span class="fu">..</span>}</code></pre></div>
+<p>You could do it in applicative style as well, but it'd be a bit awkward.</p>
+<h3 id="optional-fields">Optional fields</h3>
+<p>A common situation is that some field can be optional, and if it's not present you want to provide a default value. I'm not sure whether it's <em>actually</em> that common, but Aeson provides some operators specifically for this case anyway: <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:.:-63-"><code>.:?</code></a> and <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:.-33--61-"><code>.!=</code></a>.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(.:?) ::</span> <span class="dt">FromJSON</span> a <span class="ot">=&gt;</span> <span class="dt">Object</span> <span class="ot">-&gt;</span> <span class="dt">Text</span> <span class="ot">-&gt;</span> <span class="dt">Parser</span> (<span class="dt">Maybe</span> a)
+
+<span class="ot">(.!=) ::</span> <span class="dt">Parser</span> (<span class="dt">Maybe</span> a) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Parser</span> a</code></pre></div>
+<p><code>.:?</code> simply returns <code>Nothing</code> if the field wasn't found or was a <code>null</code>. Keep in mind that if the field <em>was</em> found but had a wrong type, it will fail just like <code>.:</code>.</p>
+<p><code>.!=</code> takes a parser returning <code>Maybe a</code> and supplies it with some default value to be returned if the parser returns <code>Nothing</code>.</p>
+<p>They can be used together like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Person</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> withObject <span class="st">&quot;person&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span> <span class="kw">do</span>
+    name <span class="ot">&lt;-</span> o <span class="fu">.:</span>  <span class="st">&quot;name&quot;</span>
+    age  <span class="ot">&lt;-</span> o <span class="fu">.:?</span> <span class="st">&quot;age&quot;</span> <span class="fu">.!=</span> <span class="dv">18</span>
+    return <span class="dt">Person</span>{<span class="fu">..</span>}</code></pre></div>
+<p>If there's a field which is optional and you want to put <code>Nothing</code> there even if the field <em>is</em> present but couldn't be parsed properly (because of type mismatch, for instance), use <a href="http://hackage.haskell.org/package/base/docs/Control-Applicative.html#v:optional"><code>optional</code></a>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">    <span class="fu">...</span>
+    age <span class="ot">&lt;-</span> optional (o <span class="fu">.:</span> <span class="st">&quot;age&quot;</span>)
+    <span class="fu">...</span></code></pre></div>
+<h3 id="more-interesting-choices">More interesting choices</h3>
+<p>What if you wanted to take age from the <code>age</code> field, and if it's not found – from the <code>AGE</code> field (because some other software you're using behaves weirdly), and give up only if both fields aren't present? To do this, we can use <a href="http://hackage.haskell.org/package/base/docs/Control-Applicative.html#t:Alternative"><code>Alternative</code></a>, which provides the <a href="http://hackage.haskell.org/package/base/docs/Control-Applicative.html#v:-60--124--62-"><code>&lt;|&gt;</code></a> operator. <code>a &lt;|&gt; b</code> can be read as “if <code>a</code> doesn't fail, then <code>a</code>, otherwise <code>b</code>”.</p>
+<p>An example:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Control.Applicative</span>
+
+<span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Person</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> withObject <span class="st">&quot;person&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span> <span class="kw">do</span>
+    name <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;name&quot;</span>
+    age  <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;age&quot;</span> <span class="fu">&lt;|&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;AGE&quot;</span>
+    return <span class="dt">Person</span>{<span class="fu">..</span>}</code></pre></div>
+<p>You could choose from a list of parsers, even, with the <a href="http://hackage.haskell.org/package/base/docs/Data-Foldable.html#v:asum"><code>asum</code></a> function from <a href="http://hackage.haskell.org/package/base/docs/Data-Foldable.html"><code>Data.Foldable</code></a> (which is generalised <code>choice</code> from various parsing libraries). Here's how you could deal with age which could be:</p>
+<ul>
+<li>in the <code>age</code> field, as a number</li>
+<li>in the <code>age</code> field, as a string</li>
+<li>in the <code>AGE</code> field, as a tuple consisting of “years” and “months”</li>
+<li>not present but we know that if the name is “John” then it's 24</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Control.Applicative</span>
+<span class="kw">import </span><span class="dt">Control.Monad</span> (when)
+<span class="kw">import </span><span class="dt">Text.Read</span> (readMaybe)
+
+<span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Person</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> withObject <span class="st">&quot;person&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span> <span class="kw">do</span>
+    name <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;name&quot;</span>
+    age  <span class="ot">&lt;-</span> asum [
+      <span class="co">-- The simple “number” case.</span>
+      o <span class="fu">.:</span> <span class="st">&quot;age&quot;</span>,
+      <span class="co">-- The more complicated “string” case.</span>
+      <span class="kw">do</span> s <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;age&quot;</span>
+         <span class="kw">case</span> readMaybe s <span class="kw">of</span>
+           <span class="dt">Nothing</span> <span class="ot">-&gt;</span> fail <span class="st">&quot;not a number&quot;</span>
+           <span class="dt">Just</span> x  <span class="ot">-&gt;</span> return x,
+      <span class="co">-- The “tuple” case.</span>
+      fst <span class="fu">&lt;$&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;AGE&quot;</span>,
+      <span class="co">-- The “John” case.</span>
+      <span class="kw">do</span> guard (name <span class="fu">==</span> <span class="st">&quot;John&quot;</span>)
+         return <span class="dv">24</span> ]
+    return <span class="dt">Person</span>{<span class="fu">..</span>}</code></pre></div>
+<p>If you don't want to use <code>fail</code>, you can use <a href="http://hackage.haskell.org/package/base/docs/Control-Applicative.html#v:empty"><code>empty</code></a>, which is equivalent to <code>fail &quot;empty&quot;</code>. There's also <a href="http://hackage.haskell.org/package/base/docs/Control-Monad.html#v:guard"><code>guard</code></a> in <a href="http://hackage.haskell.org/package/base/docs/Control-Monad.html"><code>Control.Monad</code></a>, which fails unless some condition is met, and <a href="http://hackage.haskell.org/package/base/docs/Control-Monad.html#v:when"><code>when</code></a>, which does something conditionally. The following pieces of code do the same thing:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">do</span> guard (name <span class="fu">==</span> <span class="st">&quot;John&quot;</span>)
+   return <span class="dv">24</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">do</span> when (name <span class="fu">/=</span> <span class="st">&quot;John&quot;</span>) <span class="fu">$</span> fail <span class="st">&quot;mzero&quot;</span>
+   return <span class="dv">24</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">if</span> name <span class="fu">==</span> <span class="st">&quot;John&quot;</span>
+  <span class="kw">then</span> return <span class="dv">24</span>
+  <span class="kw">else</span> fail <span class="st">&quot;mzero&quot;</span></code></pre></div>
+<p>Or, for instance, let's say that you consider a record invalid if the name is “Ann”, because you hate your friend Ann. Then you could simply use <code>when</code> to fail whenever Ann appears in your data:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Person</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> withObject <span class="st">&quot;person&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span> <span class="kw">do</span>
+    name <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;name&quot;</span>
+    when (name <span class="fu">==</span> <span class="st">&quot;Ann&quot;</span>) <span class="fu">$</span>
+      fail <span class="st">&quot;GO AWAY ANN&quot;</span>
+    age  <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;age&quot;</span>
+    return <span class="dt">Person</span>{<span class="fu">..</span>}</code></pre></div>
+<h3 id="types-with-many-constructors">Types with many constructors</h3>
+<p>If you have a type with several constructors, such as this one:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Something</span>
+  <span class="fu">=</span> <span class="dt">Person</span> {<span class="ot">name ::</span> <span class="dt">String</span>,<span class="ot"> age ::</span> <span class="dt">Int</span>}
+  <span class="fu">|</span> <span class="dt">Book</span> {<span class="ot">name ::</span> <span class="dt">String</span>,<span class="ot"> author ::</span> <span class="dt">String</span>}</code></pre></div>
+<p>there are several ways to encode it. For instance, you could just use the fact that fields have different names:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Something</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> withObject <span class="st">&quot;book or person&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span> asum [
+    <span class="dt">Person</span> <span class="fu">&lt;$&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;name&quot;</span> <span class="fu">&lt;*&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;age&quot;</span>,
+    <span class="dt">Book</span> <span class="fu">&lt;$&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;name&quot;</span> <span class="fu">&lt;*&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;author&quot;</span> ]</code></pre></div>
+<p>Or you could add a separate field denoting the kind of thing encoded:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Something</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> withObject <span class="st">&quot;book or person&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span> <span class="kw">do</span>
+    kind <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;kind&quot;</span>
+    <span class="kw">case</span> kind <span class="kw">of</span>
+      <span class="st">&quot;person&quot;</span> <span class="ot">-&gt;</span> <span class="dt">Person</span> <span class="fu">&lt;$&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;name&quot;</span> <span class="fu">&lt;*&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;age&quot;</span>
+      <span class="st">&quot;book&quot;</span>   <span class="ot">-&gt;</span> <span class="dt">Book</span> <span class="fu">&lt;$&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;name&quot;</span> <span class="fu">&lt;*&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;author&quot;</span>
+      _        <span class="ot">-&gt;</span> fail (<span class="st">&quot;unknown kind: &quot;</span> <span class="fu">++</span> kind)</code></pre></div>
+<h3 id="nested-records">Nested records</h3>
+<p>Say, you have JSON looking like this:</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;Nightfall&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;author&quot;</span><span class="fu">:{</span>
+        <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;Isaac Asimov&quot;</span><span class="fu">,</span>
+        <span class="dt">&quot;born&quot;</span><span class="fu">:</span><span class="dv">1920</span>
+    <span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
+<p>However, you don't like nested records and you want to convert it into this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Story</span> <span class="fu">=</span> <span class="dt">Story</span> {
+<span class="ot">  name       ::</span> <span class="dt">String</span>,
+<span class="ot">  author     ::</span> <span class="dt">String</span>,
+<span class="ot">  authorBorn ::</span> <span class="dt">Int</span> }</code></pre></div>
+<p>Doing this is rather simple; just use the fact that you can use <code>.:</code> to get an object out, and then use <code>.:</code> on it again. An example:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Story</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> withObject <span class="st">&quot;story&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span> <span class="kw">do</span>
+    name <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;name&quot;</span>
+    <span class="co">-- authorO :: Object</span>
+    authorO <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;author&quot;</span>
+    <span class="co">-- Now we can deconstruct authorO.</span>
+    author     <span class="ot">&lt;-</span> authorO <span class="fu">.:</span> <span class="st">&quot;name&quot;</span>
+    authorBorn <span class="ot">&lt;-</span> authorO <span class="fu">.:</span> <span class="st">&quot;born&quot;</span>
+    <span class="co">-- And finally return the value.</span>
+    return <span class="dt">Story</span>{<span class="fu">..</span>}</code></pre></div>
+<h3 id="extended-records">Extended records</h3>
+<p>Another interesting case is extended records – that is, when one datatype is a subset of another:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Name</span> <span class="fu">=</span> <span class="dt">Name</span> {
+<span class="ot">  name    ::</span> <span class="dt">String</span>,
+<span class="ot">  surname ::</span> <span class="dt">String</span> }
+
+<span class="kw">data</span> <span class="dt">RussianName</span> <span class="fu">=</span> <span class="dt">RussianName</span> {
+<span class="ot">  russianName       ::</span> <span class="dt">Name</span>,
+<span class="ot">  russianPatronymic ::</span> <span class="dt">String</span> }</code></pre></div>
+<p>(In case you wonder: <a href="https://en.wikipedia.org/wiki/Patronymic#Russian">patronymic</a>.)</p>
+<p>So, <code>RussianName</code> is just a <code>Name</code> with patronymic added to it. However, we also want <code>RussianName</code> to turn into this JSON (without nestedness):</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;Сергей&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;patronymic&quot;</span><span class="fu">:</span><span class="st">&quot;Михайлович&quot;</span><span class="fu">,</span>
+    <span class="dt">&quot;surname&quot;</span><span class="fu">:</span><span class="st">&quot;Брин&quot;</span>
+<span class="fu">}</span></code></pre></div>
+<p>How can we do this?</p>
+<p>First, obvious instances for <code>Name</code> (which can actually be derived generically, as we'll see in one of the following sections):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Name</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> withObject <span class="st">&quot;name&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span> <span class="kw">do</span>
+    name    <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;name&quot;</span>
+    surname <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;surname&quot;</span>
+    return <span class="dt">Name</span>{<span class="fu">..</span>}
+
+<span class="kw">instance</span> <span class="dt">ToJSON</span> <span class="dt">Name</span> <span class="kw">where</span>
+  toJSON <span class="dt">Name</span>{<span class="fu">..</span>} <span class="fu">=</span> object [
+    <span class="st">&quot;name&quot;</span>    <span class="fu">.=</span> name,
+    <span class="st">&quot;surname&quot;</span> <span class="fu">.=</span> surname ]</code></pre></div>
+<p>And now, the <code>FromJSON</code> instance for <code>RussianName</code> shall exploit the fact that Aeson parsers ignore extra fields, by parsing the <em>same</em> structure simultaneously as <code>Name</code> and <code>RussianName</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">RussianName</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> withObject <span class="st">&quot;name&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span> <span class="kw">do</span>
+    russianName       <span class="ot">&lt;-</span> parseJSON (<span class="dt">Object</span> o)
+    russianPatronymic <span class="ot">&lt;-</span> o <span class="fu">.:</span> <span class="st">&quot;patronymic&quot;</span>
+    return <span class="dt">RussianName</span>{<span class="fu">..</span>}</code></pre></div>
+<p>The <code>ToJSON</code> instance is less peculiar – it just concatenates hashmaps:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">ToJSON</span> <span class="dt">RussianName</span> <span class="kw">where</span>
+  toJSON <span class="dt">RussianName</span>{<span class="fu">..</span>} <span class="fu">=</span> <span class="dt">Object</span> <span class="fu">$</span>
+    toObject russianName <span class="fu">&lt;&gt;</span>
+    fromList [<span class="st">&quot;patronymic&quot;</span> <span class="fu">.=</span> russianPatronymic]
+
+<span class="ot">toObject ::</span> <span class="dt">ToJSON</span> a <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Object</span>
+toObject a <span class="fu">=</span> <span class="kw">case</span> toJSON a <span class="kw">of</span>
+  <span class="dt">Object</span> o <span class="ot">-&gt;</span> o
+  _        <span class="ot">-&gt;</span> error <span class="st">&quot;toObject: value isn&#39;t an Object&quot;</span></code></pre></div>
+<p>That's where the understanding of Aeson's inner model pays off.</p>
+<h3 id="unknown-field-names">Unknown field names</h3>
+<p>Let's say you have the following data:</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;website1.com&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+        <span class="dt">&quot;/page1&quot;</span><span class="fu">:</span> <span class="dv">3</span><span class="fu">,</span>
+        <span class="dt">&quot;/page2&quot;</span><span class="fu">:</span> <span class="dv">4</span>
+    <span class="fu">},</span>
+    <span class="dt">&quot;website2.com&quot;</span><span class="fu">:</span> <span class="fu">{</span>
+        <span class="dt">&quot;/page&quot;</span><span class="fu">:</span> <span class="dv">10</span>
+    <span class="fu">}</span>
+<span class="fu">}</span></code></pre></div>
+<p>And you want to parse it into a list of <code>Referer</code>s, where a <code>Referer</code> is something like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Referer</span> <span class="fu">=</span> <span class="dt">Referer</span> {
+<span class="ot">  domain       ::</span> <span class="dt">String</span>,
+<span class="ot">  pathAccesses ::</span> [(<span class="dt">String</span>, <span class="dt">Int</span>)] }
+  <span class="kw">deriving</span> (<span class="dt">Show</span>)</code></pre></div>
+<p>How could you do that? <code>.:</code> won't work because you don't know the field names. So, what to do?</p>
+<p>One solution would be using <code>parseJSON</code> to parse our object as a <code>HashMap</code> of <code>HashMap</code>s of <code>Int</code>s, and then apply a simple function to turn it into a list of <code>Referer</code>s:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Data.Aeson</span>
+<span class="kw">import </span><span class="dt">Data.Aeson.Types</span>
+<span class="kw">import qualified</span> <span class="dt">Data.HashMap.Strict</span> <span class="kw">as</span> <span class="dt">HM</span>
+
+<span class="ot">parseReferers ::</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Parser</span> [<span class="dt">Referer</span>]
+parseReferers p <span class="fu">=</span>
+  <span class="co">-- Convert each “accesses” object to a list of pairs, and create a Referrer.</span>
+  map (\(domain, accesses) <span class="ot">-&gt;</span> <span class="dt">Referer</span> domain (HM.toList accesses)) <span class="fu">.</span>
+  <span class="co">-- Turn the HashMap into a list of (domain, accesses) pairs.</span>
+  <span class="co">-- Each “accesses” object looks like {&quot;/page1&quot;: 3, ...}.</span>
+  HM.toList <span class="fu">&lt;$&gt;</span>
+  <span class="co">-- Parse our data into a HashMap String (HashMap String Int).</span>
+  parseJSON p</code></pre></div>
+<p>Another solution involves processing the <code>Object</code> (i.e. a <code>HashMap Text Value</code>) directly – this way we can avoid the intermediate step of converting a <code>HashMap Text</code> to a <code>HashMap String</code>, which makes the code faster:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Data.Traversable</span>
+<span class="kw">import </span><span class="dt">Data.Aeson</span>
+<span class="kw">import </span><span class="dt">Data.Aeson.Types</span>
+<span class="kw">import qualified</span> <span class="dt">Data.Text</span> <span class="kw">as</span> <span class="dt">T</span>
+<span class="kw">import qualified</span> <span class="dt">Data.HashMap.Strict</span> <span class="kw">as</span> <span class="dt">HM</span>
+
+<span class="ot">parseReferers ::</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Parser</span> [<span class="dt">Referer</span>]
+parseReferers <span class="fu">=</span>
+  <span class="co">-- We&#39;re expecting an object: {&quot;website1.com&quot;: {...}, ...}</span>
+  withObject <span class="st">&quot;referers&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span>
+    <span class="co">-- Now we have &#39;o&#39;, which is a HashMap. We can use HM.toList to turn it</span>
+    <span class="co">-- into a list of pairs (domain, referer) and then parse each referer:</span>
+    for (HM.toList o) <span class="fu">$</span> \(domain, referer) <span class="ot">-&gt;</span> <span class="kw">do</span>
+      <span class="co">-- accesses :: [(Text, Int)]</span>
+      accesses <span class="ot">&lt;-</span> HM.toList <span class="fu">&lt;$&gt;</span> parseJSON referer
+      <span class="co">-- accesses&#39; :: [(String, Int)]</span>
+      <span class="kw">let</span> accesses&#39; <span class="fu">=</span> map (\(page, n) <span class="ot">-&gt;</span> (T.unpack page, n)) accesses
+      return <span class="fu">$</span> <span class="dt">Referer</span> {
+        domain       <span class="fu">=</span> T.unpack domain,
+        pathAccesses <span class="fu">=</span> accesses&#39; }</code></pre></div>
+<h3 id="records-and-json-generics">Records and JSON: generics</h3>
+<p>When you don't care about doing any postprocessing, or handling optional fields, or anything of the sort, you can use generics to make your types instances of <code>ToJSON</code> and <code>FromJSON</code> without writing <em>any</em> boilerplate code, which is really nice. (This trick depends on GHC knowing the internals of your data types and willing to share them with Aeson.)</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE DeriveGeneric #-}</span>
+
+<span class="kw">import </span><span class="dt">GHC.Generics</span>
+<span class="kw">import </span><span class="dt">Data.Aeson</span>
+
+<span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {
+<span class="ot">  name ::</span> <span class="dt">String</span>,
+<span class="ot">  age  ::</span> <span class="dt">Int</span> }
+  <span class="kw">deriving</span> (<span class="dt">Generic</span>)
+
+<span class="kw">instance</span> <span class="dt">ToJSON</span> <span class="dt">Person</span>
+<span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Person</span></code></pre></div>
+<p>Starting from GHC 7.10, it's possible to simplify this even further by using the <a href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-DeriveAnyClass"><code>DeriveAnyClass</code></a> extension (which still requires a <code>Generic</code> instance):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}</span>
+
+<span class="kw">import </span><span class="dt">GHC.Generics</span>
+<span class="kw">import </span><span class="dt">Data.Aeson</span>
+
+<span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {
+<span class="ot">  name ::</span> <span class="dt">String</span>,
+<span class="ot">  age  ::</span> <span class="dt">Int</span> }
+  <span class="kw">deriving</span> (<span class="dt">Generic</span>, <span class="dt">ToJSON</span>, <span class="dt">FromJSON</span>)</code></pre></div>
+<h3 id="generics-customising-field-names">Generics: customising field names</h3>
+<p>You may still want to be able to control the way field names are treated. If you're using lenses, for instance, you might have your fields prefixed with “_”, but you don't want those underscores to appear in JSON. Aeson provides functions <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:genericParseJSON"><code>genericParseJSON</code></a> and <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:genericToJSON"><code>genericToJSON</code></a>, which use generics as well but also take an <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson-Types.html#t:Options"><code>Options</code></a> parameter which lets you customise some things. For instance, the <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson-Types.html#v:fieldLabelModifier"><code>fieldLabelModifier</code></a> field stores a function to be applied to field names:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE DeriveGeneric #-}</span>
+
+<span class="kw">import </span><span class="dt">GHC.Generics</span>
+<span class="kw">import </span><span class="dt">Data.Aeson</span>
+<span class="kw">import </span><span class="dt">Data.Aeson.Types</span>
+
+<span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {
+  _<span class="ot">name ::</span> <span class="dt">String</span>,
+  _<span class="ot">age  ::</span> <span class="dt">Int</span> }
+  <span class="kw">deriving</span> (<span class="dt">Generic</span>)
+
+<span class="kw">instance</span> <span class="dt">ToJSON</span> <span class="dt">Person</span> <span class="kw">where</span>
+  toJSON <span class="fu">=</span> genericToJSON defaultOptions {
+             fieldLabelModifier <span class="fu">=</span> drop <span class="dv">1</span> }
+
+<span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Person</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> genericParseJSON defaultOptions {
+                fieldLabelModifier <span class="fu">=</span> drop <span class="dv">1</span> }</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">import qualified</span> <span class="dt">Data.Text.Lazy.IO</span> <span class="kw">as</span> <span class="dt">T</span>
+<span class="fu">&gt;</span> <span class="kw">import qualified</span> <span class="dt">Data.Text.Lazy.Encoding</span> <span class="kw">as</span> <span class="dt">T</span>
+
+<span class="fu">&gt;</span> T.putStrLn <span class="fu">.</span> T.decodeUtf8 <span class="fu">.</span> encode <span class="fu">$</span> <span class="dt">Person</span> <span class="st">&quot;John&quot;</span> <span class="dv">24</span>
+{<span class="st">&quot;age&quot;</span><span class="fu">:</span><span class="dv">24</span>,<span class="st">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;John&quot;</span>}</code></pre></div>
+<p>Or you could use the <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson-Types.html#v:camelTo"><code>camelTo</code></a> function to turn names like <code>personName</code> into <code>person_name</code>. Or you could even use <a href="http://hackage.haskell.org/package/base/docs/Prelude.html#v:lookup"><code>lookup</code></a> (together with <a href="http://hackage.haskell.org/package/base/docs/Data-Maybe.html#v:fromJust"><code>fromJust</code></a>, I guess) to provide your own mapping from field names to JSON fields.</p>
+<p>There are other options available, which let you specify e.g. how types with several constructors are encoded, but for that just read the documentation on <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson-Types.html#t:Options"><code>Options</code></a>.</p>
+<p>Finally, this approach works just as well on datatypes which aren't records – <code>data Person = Person String Int</code>, for instance – but then your types would be encoded as arrays instead of objects.</p>
+<h3 id="generics-handling-weird-field-names-in-data">Generics: handling weird field names in data</h3>
+<p>Sometimes you want to do the reverse thing: your field names are alright, but the field names in data aren't (for instance, some come uppercased and some come lowercased) and yet you don't want to switch back to manual parsing from generics. This problem is easy to solve if you know how to manipulate <code>Value</code>s; basically, the whole solution is “let's first bring all fields in our data to the same standard and then tell the generic decoder to use that standard”.</p>
+<p>As an example, here's a case-insensitive JSON decoder which doesn't care whether it's “name” or “NAME” or “nAMe”:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE DeriveGeneric #-}</span>
+
+<span class="kw">import </span><span class="dt">Data.Char</span> (toLower)
+<span class="kw">import qualified</span> <span class="dt">Data.Text</span> <span class="kw">as</span> <span class="dt">T</span>
+
+<span class="kw">import qualified</span> <span class="dt">Data.HashMap.Strict</span> <span class="kw">as</span> <span class="dt">HM</span>
+
+<span class="kw">import </span><span class="dt">GHC.Generics</span>
+<span class="kw">import </span><span class="dt">Data.Aeson</span>
+<span class="kw">import </span><span class="dt">Data.Aeson.Types</span>
+
+<span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {
+<span class="ot">  pName ::</span> <span class="dt">String</span>,
+<span class="ot">  pAge  ::</span> <span class="dt">Int</span> }
+  <span class="kw">deriving</span> (<span class="dt">Generic</span>)
+
+<span class="co">-- “jsonLower” means that all fields in data would be converted to lowercase.</span>
+<span class="co">-- “fieldLabelModifier = map toLower . drop 1” means that the decoder would</span>
+<span class="co">-- *expect* fields to correspond to their lowercase counterparts – e.g. it</span>
+<span class="co">-- would look for “name” when filling the “pName” field.</span>
+<span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Person</span> <span class="kw">where</span>
+  parseJSON <span class="fu">=</span> genericParseJSON opts <span class="fu">.</span> jsonLower
+    <span class="kw">where</span>
+      opts <span class="fu">=</span> defaultOptions { fieldLabelModifier <span class="fu">=</span> map toLower <span class="fu">.</span> drop <span class="dv">1</span> }
+
+<span class="co">-- | Turn all keys in a JSON object to lowercase.</span>
+<span class="ot">jsonLower ::</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Value</span>
+jsonLower (<span class="dt">Object</span> o) <span class="fu">=</span> <span class="dt">Object</span> <span class="fu">.</span> HM.fromList <span class="fu">.</span> map lowerPair <span class="fu">.</span> HM.toList <span class="fu">$</span> o
+  <span class="kw">where</span> lowerPair (key, val) <span class="fu">=</span> (T.toLower key, val)
+jsonLower x <span class="fu">=</span> x</code></pre></div>
+<h3 id="generics-optional-fields">Generics: optional fields</h3>
+<p>When a field has type <code>Maybe ...</code>, the autogenerated instance would use <code>.:?</code> for that field – that is, autogenerated instances replace missing fields with <code>Nothing</code>. (Telling just in case, since it doesn't seem to be documented in Aeson's docs.)</p>
+<h3 id="records-and-json-template-haskell">Records and JSON: Template Haskell</h3>
+<p>This does the same thing generics do, but in a different way. The only thing that differs is performance (I ran a benchmark and in some cases TH was twice as fast as generics).</p>
+<p>Note: with Template Haskell enabled, GHC suddenly becomes picky about the order of your declarations (anywhere in the module), and in some cases it's rather annoying.</p>
+<p>Documentation in <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson-TH.html"><code>Data.Aeson.TH</code></a> is pretty good, so I'll just give an example:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE TemplateHaskell #-}</span>
+
+<span class="kw">import </span><span class="dt">Data.Aeson</span>
+<span class="kw">import </span><span class="dt">Data.Aeson.TH</span>
+
+<span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {
+<span class="ot">  name ::</span> <span class="dt">String</span>,
+<span class="ot">  age  ::</span> <span class="dt">Int</span> }
+
+deriveJSON defaultOptions <span class="ch">&#39;&#39;</span><span class="dt">Person</span></code></pre></div>
+<p>You can also generate instances for several types at once:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE TemplateHaskell #-}</span>
+
+<span class="kw">import </span><span class="dt">Control.Applicative</span>
+<span class="kw">import </span><span class="dt">Data.Aeson</span>
+<span class="kw">import </span><span class="dt">Data.Aeson.TH</span>
+
+<span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {
+<span class="ot">  name ::</span> <span class="dt">String</span>,
+<span class="ot">  age  ::</span> <span class="dt">Int</span> }
+
+<span class="kw">data</span> <span class="dt">Book</span> <span class="fu">=</span> <span class="dt">Book</span> {
+<span class="ot">  title  ::</span> <span class="dt">String</span>,
+<span class="ot">  author ::</span> <span class="dt">String</span> }
+
+concat <span class="fu">&lt;$&gt;</span> mapM (deriveJSON defaultOptions) [<span class="ch">&#39;&#39;</span><span class="dt">Person</span>, <span class="ch">&#39;&#39;</span><span class="dt">Book</span>]</code></pre></div>
+<h3 id="parsing-without-creating-extra-types">Parsing without creating extra types</h3>
+<p>(This was already kinda discussed in one of the past sections, but I want to provide the whole solution so that I can link people to it.)</p>
+<p>You might want to parse some data without creating types for <em>everything</em>. For instance, you have an array of people, but that array is wrapped for whatever stupid reason in an object:</p>
+<div class="sourceCode"><pre class="sourceCode json"><code class="sourceCode json"><span class="fu">{</span>
+    <span class="dt">&quot;data&quot;</span><span class="fu">:</span><span class="ot">[</span>
+        <span class="fu">{</span>
+            <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;Harold&quot;</span><span class="fu">,</span>
+            <span class="dt">&quot;age&quot;</span><span class="fu">:</span><span class="dv">20</span>
+        <span class="fu">}</span><span class="ot">,</span>
+        <span class="fu">{</span>
+            <span class="dt">&quot;name&quot;</span><span class="fu">:</span><span class="st">&quot;Maude&quot;</span><span class="fu">,</span>
+            <span class="dt">&quot;age&quot;</span><span class="fu">:</span><span class="dv">80</span>
+        <span class="fu">}</span>
+    <span class="ot">]</span>
+<span class="fu">}</span></code></pre></div>
+<p>You have an instance of <code>FromJSON</code> for <code>Person</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE DeriveGeneric #-}</span>
+
+<span class="kw">import </span><span class="dt">GHC.Generics</span>
+<span class="kw">import </span><span class="dt">Data.Aeson</span>
+
+<span class="kw">data</span> <span class="dt">Person</span> <span class="fu">=</span> <span class="dt">Person</span> {
+<span class="ot">  name ::</span> <span class="dt">String</span>,
+<span class="ot">  age  ::</span> <span class="dt">Int</span> }
+  <span class="kw">deriving</span> (<span class="dt">Generic</span>)
+
+<span class="kw">instance</span> <span class="dt">FromJSON</span> <span class="dt">Person</span></code></pre></div>
+<p>However, you don't want to create another type for <code>PersonArray</code> or something. You just want to decode that thing into a list. How could you do it?</p>
+<p>First, we might not have to create a type but we'd still have to write a parser:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">people ::</span> <span class="dt">Value</span> <span class="ot">-&gt;</span> <span class="dt">Parser</span> [<span class="dt">Person</span>]
+people <span class="fu">=</span> withObject <span class="st">&quot;people&quot;</span> <span class="fu">$</span> \o <span class="ot">-&gt;</span> o <span class="fu">.:</span> <span class="st">&quot;data&quot;</span>  <span class="co">-- or just (.: &quot;data&quot;)</span></code></pre></div>
+<p>Then, you can decode your JSON as a <code>Value</code>, and use <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson-Types.html#v:parseMaybe"><code>parseMaybe</code></a> to apply the <code>people</code> parser to it:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">parseMaybe people <span class="fu">=&lt;&lt;</span> decode bs</code></pre></div>
+<p>That's kinda all.</p>
+<h3 id="pretty-printing">Pretty-printing</h3>
+<p>(Strictly speaking, this isn't a part of Aeson, but it doesn't matter.)</p>
+<p>If you are using Aeson to work with e.g. config files, you might want to make them human-readable. (Well, actually I think you <em>must</em> make them human-readable, but maybe you have really good reasons not to... so I won't insist.) Aeson doesn't have a function to print JSON in a human-readable format, but there is a function in <a href="https://hackage.haskell.org/package/aeson-pretty">aeson-pretty</a>, and it's really easy to use, and that's why I won't spend much time explaining it.</p>
+<p>You just import <a href="https://hackage.haskell.org/package/aeson-pretty/docs/Data-Aeson-Encode-Pretty.html"><code>Data.Aeson.Encode.Pretty</code></a> and use <a href="https://hackage.haskell.org/package/aeson-pretty/docs/Data-Aeson-Encode-Pretty.html#v:encodePretty"><code>encodePretty</code></a> instead of <code>encode</code> in your code. That's all. The resulting JSON would be nicely indented and everything.</p>
+<p>There are, however, some things you can change about generated JSON. For instance, change indentation to 8 spaces and move the <code>id</code> field to the beginning of all objects that have it:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">encodePretty&#39; (<span class="dt">Config</span> <span class="dv">8</span> (keyOrder [<span class="st">&quot;id&quot;</span>])) <span class="fu">...</span></code></pre></div>
+<p>(If you want more examples of <a href="https://hackage.haskell.org/package/aeson-pretty/docs/Data-Aeson-Encode-Pretty.html#v:keyOrder"><code>keyOrder</code></a> usage, see the docs.)</p>
+<p>One last thing: by default your fields in the output won't be sorted as they are in your <code>data</code> declaration – instead, they will be sorted somewhat randomly. Unfortunately, there's no way to change it other than hardcoding the field order with <code>keyOrder</code>.</p>
+<h3 id="strictness">Strictness</h3>
+<p>Just for completeness, I'll also mention that there is function called <a href="http://hackage.haskell.org/package/aeson/docs/Data-Aeson.html#v:decode-39-"><code>decode'</code></a> which performs strict decoding of JSON, and that the documentation claims that you should use <code>decode</code> when you don't plan to access all of parsed data, and <code>decode'</code> – when you do. I haven't checked, but I believe the author.</p>
+<h2 id="comments">Comments</h2>
+<p>There are some comments on <a href="http://www.reddit.com/r/haskell/comments/324vrx/aeson_the_tutorial_which_actually_tries_to/">Reddit</a>. In particular, you can find there the author of Aeson bashing this tutorial (and me disagreeing).</p>
+</article>
+
+
+
+</div>
+
+<div id="monadfix" class="blue-links">
+  <h3>I'm doing software consulting!</h3>
+  <p>
+    Nowadays I'm running a functional programming consultancy at
+    <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
+    PureScript, Clojure, and Agda. We are looking for more clients and more
+    consultants!
+  </p>
+</div>
+
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+this.page.url = "https://artyom.me/aeson";
+this.page.identifier = "aeson";
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//artyomkazak.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<div id="footer" class="blue-links">
+<a href="https://github.com/neongreen/artyom.me/blob/master/posts/aeson.md">view source</a>—<a href="mailto:artyom@aelve.com?subject=Comment on aeson">comment by email</a>—<a href="/curiosity">curiosity killed the cat</a>
+</div>
+
+</div>
+
+<script>
+document.body.innerHTML = document.body.innerHTML.replace(/‾/g, "<span style='text-decoration: overline'> </span>");
+</script>
+
+</body>
+</html>

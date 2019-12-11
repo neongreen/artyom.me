@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <meta name="google-site-verification" content="y-gj-eNGiiocXI1nd6EPlywGEfhW90jeeFO__ePHvbg" />
+  <meta name="generator" content="pandoc">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="icon" type="image/png" href="/ame256.png">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml"
+        title="RSS">
+  <title>lens over tea #2: composition, laws, getters/actions/setters</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/css.css?date=2019-06-21">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154447441-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-154447441-1');
+</script>
+
+</head>
+
+<body>
+
+<div id="header">
+  <a href="/">Artyom Kazak</a>
+  <a href="/feed.xml"><img src="/feed-icon.svg" alt="feed"></a>
+</div>
+
+<div id="details" class="blue-links">
+  <div class="badge">
+    <i class="fas fa-envelope"></i>
+    <a href="mailto:artyom@aelve.com">artyom@aelve.com</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-telegram"></i>
+    <a href="http://t.me/lightgreen">lightgreen</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-github"></i>
+    <a href="http://github.com/neongreen">neongreen</a>
+  </div
+
+  ><div class="badge">
+    Founder of <a href="https://aelve.com">Aelve</a>
+  </div
+  ><div class="badge">
+    Co-founder of <a href="https://monadfix.io">Monadfix</a>
+  </div
+
+  ><div class="badge">
+    Living in Moscow (come hang out!)
+  </div>
+</div>
+
+<div id="main">
+
+
+
+<div id="series">
+      <a href="/lens-over-tea-1">&lt;&lt;&lt;</a>
+
+  <a href="/#lens-over-tea">“lens over tea”</a>
+
+      <a href="/lens-over-tea-3">&gt;&gt;&gt;</a>
+  </div>
+
+
+<article>
+<h1 class="title">lens over tea #2: composition, laws, getters/actions/setters</h1>
+
+<p>2 obligatory topics of every lens tutorial seem to be “wow, look how lenses compose, it's just like OOP” and “wow, look how lenses make working with records easy”. Until these 2 are covered, then, this tutorial can't be considered a proper lens tutorial and so should probably be called “a text which for whatever reason mentions the word “lens” often”.</p>
+<p>Template Haskell is unwieldy, so let's start with composition.</p>
+<h1 id="lens-composition">Lens composition</h1>
+<p>First of all, why had somebody thought in the first place that the words “lens” and “composition” should occur in a sentence together? (It's an important question – without at least trying to address it, lens composition would just look like something pulled out of thin air.)</p>
+<p>I don't know. This <a href="lukepalmer.wordpress.com/2007/08/05/haskell-state-accessors-second-attempt-composability/">Luke Palmer's post</a> from 2007 suggests that at least some people were motivated by OOP:</p>
+<blockquote>
+<p>And then given the Accessor abstraction you could do stuff like define a <code>:=</code> operator for readability and whatnot. I was proud that you could write accessors that accessed things other than the top level of the data structure.</p>
+<p>But something still wasn't right. I wanted to be able to do something like <code>a.b.c</code> in OO languages, where <code>a</code>, <code>b</code>, and <code>c</code> were accessors. So here is my new Accessor abstraction [...]</p>
+</blockquote>
+<p>A bit of history:</p>
+<ul>
+<li><p>The idea of lenses, or accessors, or “functional references”, had existed (and was blogged about) for several years. In those times lenses were implemented as a getter–setter pair and didn't allow type changing (i.e. using a lens to go from <code>(a, Int)</code> to <code>(a, String)</code> or something).</p></li>
+<li><p>Then Twan van Laarhoven <a href="http://www.twanvl.nl/blog/haskell/cps-functional-references">proposed</a> the <code>Functor</code> formulation (the one we're using). Still nothing about type changing (or “polymorphic updates”).</p></li>
+<li><p>Then Russel O'Connor <a href="http://r6.ca/blog/20120623T104901Z.html">noticed</a> that van Laarhoven lenses could be easily generalised by changing the type from <code>(a -&gt; f a) -&gt; s -&gt; f s</code> to <code>(a -&gt; f b) -&gt; s -&gt; f t</code>, and Edward Kmett developed the concept in his <a href="http://comonad.com/reader/2012/mirrored-lenses/">Mirrored Lenses</a> post (introducing <code>Getting</code> and <code>Setting</code> along the way).</p></li>
+</ul>
+<h2 id="old-lenses">Old lenses</h2>
+<p>When lenses were still looking like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">OldLens</span> s a <span class="fu">=</span> <span class="dt">OldLens</span>
+  {<span class="ot"> get    ::</span> s <span class="ot">-&gt;</span> a
+  ,<span class="ot"> modify ::</span> (a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> s }</code></pre></div>
+<p>the idea of composing them probably felt more natural than it does now with <code>type Lens s t a b</code>. I mean, it's an easy enough step from</p>
+<blockquote>
+<p>If you have a function from <code>a</code> to <code>b</code>, and from <code>b</code> to <code>c</code>, then you can get a function from <code>a</code> to <code>c</code>.</p>
+</blockquote>
+<p>to</p>
+<blockquote>
+<p>If you can access <code>b</code> in <code>a</code>, and <code>c</code> in <code>b</code>, then you can access <code>c</code> in <code>a</code>.</p>
+</blockquote>
+<p>Let's write a composition function for <code>OldLens</code>, then.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(@.) ::</span> <span class="dt">OldLens</span> b c <span class="ot">-&gt;</span> <span class="dt">OldLens</span> a b <span class="ot">-&gt;</span> <span class="dt">OldLens</span> a c
+(<span class="fu">@.</span>) _c _b <span class="fu">=</span> <span class="dt">OldLens</span> get&#39; modify&#39;
+  <span class="kw">where</span></code></pre></div>
+<p><code>get'</code> is simple. To get <code>c</code> from <code>a</code>, first get <code>b</code> from <code>a</code>, and then <code>c</code> from <code>b</code>.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">    get&#39; a <span class="fu">=</span> <span class="kw">let</span> b <span class="fu">=</span> get _b a
+             <span class="kw">in</span>  get _c b</code></pre></div>
+<p><code>modify'</code> is pretty simple as well. To modify <code>c</code> in <code>a</code>, first write a function which modifies <code>c</code> in <code>b</code>, and then use it to modify <code>b</code> in <code>a</code>.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">    modify&#39; f a <span class="fu">=</span> <span class="kw">let</span><span class="ot"> modifyB ::</span> b <span class="ot">-&gt;</span> b
+                      modifyB <span class="fu">=</span> modify _c f
+                  <span class="kw">in</span>  modify _b modifyB a</code></pre></div>
+<p>(I added the type signature for extra clarity.)</p>
+<p>If you try to compile it, tho, you'll get a weird-looking error message saying <code>Couldn't match type ‘b’ with ‘b1’</code>. This is because in <code>modifyB :: b -&gt; b</code>, <code>b</code> could've been just as well replaced by <code>a</code> or <code>x</code> or <code>pony</code> – there's no relation to the <code>b</code> in <code>(@.)</code>'s type signature. So, we'll have to enable the <a href="https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-ScopedTypeVariables"><code>ScopedTypeVariables</code></a> extension, which does exactly what we want – it allows type variables to be <em>brought into scope</em> so that they can be used later. Finally, just enabling the extension doesn't do anything by itself, only <em>allows</em> variables to be brought into scope – you still have to do it yourself by specifying <code>forall b</code> in the signature:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">{-# LANGUAGE ScopedTypeVariables #-}</span>
+
+<span class="fu">...</span>
+
+<span class="co">-- “forall a b c” and not “forall b” because it&#39;s all-or-none for “forall”s.</span>
+<span class="ot">(@.) ::</span> forall a b c <span class="fu">.</span> <span class="dt">OldLens</span> b c <span class="ot">-&gt;</span> <span class="dt">OldLens</span> a b <span class="ot">-&gt;</span> <span class="dt">OldLens</span> a c
+(<span class="fu">@.</span>) _c _b <span class="fu">=</span> <span class="dt">OldLens</span> get&#39; modify&#39;
+  <span class="kw">where</span>
+    get&#39; a <span class="fu">=</span> <span class="kw">let</span> b <span class="fu">=</span> get _b a
+             <span class="kw">in</span>  get _c b
+    modify&#39; f a <span class="fu">=</span> <span class="kw">let</span><span class="ot"> modifyB ::</span> b <span class="ot">-&gt;</span> b
+                      modifyB <span class="fu">=</span> modify _c f
+                  <span class="kw">in</span>  modify _b modifyB a</code></pre></div>
+<p>If you understand everything, let's shorten things a bit.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">get&#39; a <span class="fu">=</span> <span class="kw">let</span> b <span class="fu">=</span> get _b a
+         <span class="kw">in</span>  get _c b
+
+<span class="co">-- Substitute “b”:</span>
+
+get&#39; a <span class="fu">=</span> get _c (get _b a)
+
+<span class="co">-- Get rid of “a”:</span>
+
+get&#39; <span class="fu">=</span> get _c <span class="fu">.</span> get _b</code></pre></div>
+<p>Same with <code>modify'</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">modify&#39; f a <span class="fu">=</span> <span class="kw">let</span><span class="ot"> modifyB ::</span> b <span class="ot">-&gt;</span> b
+                  modifyB <span class="fu">=</span> modify _c f
+              <span class="kw">in</span>  modify _b modifyB a
+
+<span class="co">-- Substitute “modifyB”:</span>
+
+modify&#39; f a <span class="fu">=</span> modify _b (modify _c f) a
+
+<span class="co">-- Get rid of “a”:</span>
+
+modify&#39; f <span class="fu">=</span> modify _b (modify _c f)
+
+<span class="co">-- Get rid of “f”:</span>
+
+modify&#39; <span class="fu">=</span> modify _b <span class="fu">.</span> modify _c</code></pre></div>
+<p>Final definition of <code>(@.)</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(@.) ::</span> <span class="dt">OldLens</span> b c <span class="ot">-&gt;</span> <span class="dt">OldLens</span> a b <span class="ot">-&gt;</span> <span class="dt">OldLens</span> a c
+(<span class="fu">@.</span>) _c _b <span class="fu">=</span> <span class="dt">OldLens</span>
+  { get    <span class="fu">=</span> get    _c <span class="fu">.</span> get    _b
+  , modify <span class="fu">=</span> modify _b <span class="fu">.</span> modify _c }</code></pre></div>
+<p>And here's an example of how to use lens composition to work with the first element of a pair in a nested list (row x, column y) [darn, so that's probably why tutorial writers start with records – to be able to use more interesting lenses in examples]. Assume that <code>^.</code> (reminding: that's <code>flip view</code>), <code>*~</code> (like <code>set</code> which multiplies instead of setting), <code>_1</code>, <code>_2</code>, <code>ix</code> were already defined for <code>OldLens</code> – there's nothing interesting or surprising about their definitions anyway.</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">let</span> field <span class="fu">=</span> [[(x, y) <span class="fu">|</span> x <span class="ot">&lt;-</span> [<span class="dv">0</span><span class="fu">..</span><span class="dv">3</span>]] <span class="fu">|</span> y <span class="ot">&lt;-</span> [<span class="dv">0</span><span class="fu">..</span><span class="dv">3</span>]]
+
+<span class="fu">&gt;</span> field
+[ [ (<span class="dv">0</span>,<span class="dv">0</span>), (<span class="dv">1</span>,<span class="dv">0</span>), (<span class="dv">2</span>,<span class="dv">0</span>), (<span class="dv">3</span>,<span class="dv">0</span>) ]
+, [ (<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">1</span>,<span class="dv">1</span>), (<span class="dv">2</span>,<span class="dv">1</span>), (<span class="dv">3</span>,<span class="dv">1</span>) ]
+, [ (<span class="dv">0</span>,<span class="dv">2</span>), (<span class="dv">1</span>,<span class="dv">2</span>), (<span class="dv">2</span>,<span class="dv">2</span>), (<span class="dv">3</span>,<span class="dv">2</span>) ]
+, [ (<span class="dv">0</span>,<span class="dv">3</span>), (<span class="dv">1</span>,<span class="dv">3</span>), (<span class="dv">2</span>,<span class="dv">3</span>), (<span class="dv">3</span>,<span class="dv">3</span>) ] ]
+
+<span class="fu">&gt;</span> <span class="co">-- Getting.</span>
+
+<span class="fu">&gt;</span> field <span class="fu">^.</span> (ix <span class="dv">3</span> <span class="fu">@.</span> ix <span class="dv">1</span>)  <span class="co">-- 1st row, 3rd column.</span>
+(<span class="dv">3</span>, <span class="dv">1</span>)
+
+<span class="fu">&gt;</span> field <span class="fu">^.</span> (_1 <span class="fu">@.</span> ix <span class="dv">3</span> <span class="fu">@.</span> ix <span class="dv">1</span>)
+<span class="dv">3</span>
+
+<span class="fu">&gt;</span> <span class="co">-- Modifying.</span>
+
+<span class="fu">&gt;</span> field <span class="fu">&amp;</span> ((_1 <span class="fu">@.</span> ix <span class="dv">3</span> <span class="fu">@.</span> ix <span class="dv">1</span>) <span class="fu">*~</span> <span class="dv">100</span>)
+[ [ (<span class="dv">0</span>,<span class="dv">0</span>), (<span class="dv">1</span>,<span class="dv">0</span>), (<span class="dv">2</span>,<span class="dv">0</span>), (<span class="dv">3</span>  ,<span class="dv">0</span>) ]
+, [ (<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">1</span>,<span class="dv">1</span>), (<span class="dv">2</span>,<span class="dv">1</span>), (<span class="dv">300</span>,<span class="dv">1</span>) ]
+, [ (<span class="dv">0</span>,<span class="dv">2</span>), (<span class="dv">1</span>,<span class="dv">2</span>), (<span class="dv">2</span>,<span class="dv">2</span>), (<span class="dv">3</span>  ,<span class="dv">2</span>) ]
+, [ (<span class="dv">0</span>,<span class="dv">3</span>), (<span class="dv">1</span>,<span class="dv">3</span>), (<span class="dv">2</span>,<span class="dv">3</span>), (<span class="dv">3</span>  ,<span class="dv">3</span>) ] ]</code></pre></div>
+<h2 id="categories">Categories</h2>
+<p>If you have been programming in Haskell long enough, you might've noticed that there's quite a number of things that can be composed.</p>
+<p>Functions:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(.) ::</span> (b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> c</code></pre></div>
+<p>Monad functions (this one isn't used often, probably for reasons like “we have do-notation”, but I don't really know):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(&lt;=&lt;) ::</span> <span class="dt">Monad</span> m <span class="ot">=&gt;</span> (b <span class="ot">-&gt;</span> m c) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> m b) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> m c</code></pre></div>
+<p><a href="https://www.fpcomplete.com/user/snoyberg/library-documentation/conduit-overview">Conduits</a> (in case you haven't heard about these before, they are an abstraction for streams – a <code>Conduit i m o</code> consumes some items of type <code>i</code> and produces items of type <code>o</code>. They are very useful for doing IO efficiently):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(=$=) ::</span> <span class="dt">Monad</span> m <span class="ot">=&gt;</span> <span class="dt">Conduit</span> a m b <span class="ot">-&gt;</span> <span class="dt">ConduitM</span> b c m r <span class="ot">-&gt;</span> <span class="dt">ConduitM</span> a c m r</code></pre></div>
+<p><a href="https://hackage.haskell.org/package/pipes/docs/Pipes-Tutorial.html">Pipes</a> (same as conduits, but <em>don't</em> ask me which one is better):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(&lt;-&lt;) ::</span> <span class="dt">Monad</span> m <span class="ot">=&gt;</span> <span class="dt">Pipe</span> b c m r <span class="ot">-&gt;</span> <span class="dt">Pipe</span> a b m r <span class="ot">-&gt;</span> <span class="dt">Pipe</span> a c m r</code></pre></div>
+<p>Can this pattern be generalised? Meet <a href="http://hackage.haskell.org/package/base/docs/Control-Category.html#t:Category"><code>Category</code></a>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Category</span> cat <span class="kw">where</span>
+  <span class="co">-- An “identity element” – doesn&#39;t change anything when composed.</span>
+<span class="ot">  id ::</span> cat a a
+  <span class="co">-- Composition – if you replace “cat” with e.g. “~&gt;”, its type becomes</span>
+  <span class="co">-- “(b ~&gt; c) -&gt; (a ~&gt; b) -&gt; (a ~&gt; c)”.</span>
+<span class="ot">  (.) ::</span> cat b c <span class="ot">-&gt;</span> cat a b <span class="ot">-&gt;</span> cat a c</code></pre></div>
+<p>Now, I haven't actually ever used <em>this</em> instead of usual <code>.</code> and <code>id</code>, and I suspect that you won't either. At least until people become more accepting of categories (and maybe then we all will be able to stop inventing yet another way to draw an arrow with ASCII symbols, for heavens' sake). However, since other lens libraries (such as <a href="https://hackage.haskell.org/package/fclabels/docs/Data-Label.html">fclabels</a> or <a href="http://hackage.haskell.org/package/data-lens/docs/Data-Lens-Common.html">data-lens</a>) have <code>Category</code> instances for their lenses, we should at least know what all this means and how to use it and whether it's the best thing since sliced bread and so on and so forth.</p>
+<p>Here's the trivial instance of <code>Category</code> for <code>OldLens</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Category</span> <span class="dt">OldLens</span> <span class="kw">where</span>
+  id <span class="fu">=</span> <span class="dt">OldLens</span> id id
+  (<span class="fu">.</span>) <span class="fu">=</span> (<span class="fu">@.</span>)</code></pre></div>
+<p>With this instance at hand we can achieve our Ultimate Goal, namely, composing lenses without annoying operators such as <code>@.</code>. Observe (um, just in case, reminding you again that it won't work in GHCi unless you've bothered to rewrite all the lens functions):</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> field <span class="fu">^.</span> _1 <span class="fu">.</span> ix <span class="dv">3</span> <span class="fu">.</span> ix <span class="dv">1</span>
+<span class="dv">3</span>
+
+<span class="fu">&gt;</span> field <span class="fu">&amp;</span> _1 <span class="fu">.</span> ix <span class="dv">3</span> <span class="fu">.</span> ix <span class="dv">1</span> <span class="fu">*~</span> <span class="dv">100</span>
+[ [ (<span class="dv">0</span>,<span class="dv">0</span>), (<span class="dv">1</span>,<span class="dv">0</span>), (<span class="dv">2</span>,<span class="dv">0</span>), (<span class="dv">3</span>  ,<span class="dv">0</span>) ]
+, [ (<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">1</span>,<span class="dv">1</span>), (<span class="dv">2</span>,<span class="dv">1</span>), (<span class="dv">300</span>,<span class="dv">1</span>) ]
+, [ (<span class="dv">0</span>,<span class="dv">2</span>), (<span class="dv">1</span>,<span class="dv">2</span>), (<span class="dv">2</span>,<span class="dv">2</span>), (<span class="dv">3</span>  ,<span class="dv">2</span>) ]
+, [ (<span class="dv">0</span>,<span class="dv">3</span>), (<span class="dv">1</span>,<span class="dv">3</span>), (<span class="dv">2</span>,<span class="dv">3</span>), (<span class="dv">3</span>  ,<span class="dv">3</span>) ] ]</code></pre></div>
+<p>You might notice that it's hard to read these examples – they mess with the concept of “flow” in your head. When you write <code>f . g . h $ x</code>, you see the flow – “here's <code>x</code>, it goes to <code>h</code>, then <code>g</code> does something, then <code>f</code>”. It doesn't even matter whether it's left-to-right or right-to-left, as long as there's continuity. For instance, (at least for me) this is easier to read:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> view (_1 <span class="fu">.</span> ix <span class="dv">3</span> <span class="fu">.</span> ix <span class="dv">1</span>) field
+<span class="dv">3</span>
+
+<span class="fu">&gt;</span> <span class="dv">100</span> <span class="fu">~*</span> _1 <span class="fu">.</span> ix <span class="dv">3</span> <span class="fu">.</span> ix <span class="dv">1</span> <span class="fu">$</span> field
+[ [ (<span class="dv">0</span>,<span class="dv">0</span>), (<span class="dv">1</span>,<span class="dv">0</span>), (<span class="dv">2</span>,<span class="dv">0</span>), (<span class="dv">3</span>  ,<span class="dv">0</span>) ]
+, [ (<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">1</span>,<span class="dv">1</span>), (<span class="dv">2</span>,<span class="dv">1</span>), (<span class="dv">300</span>,<span class="dv">1</span>) ]
+, [ (<span class="dv">0</span>,<span class="dv">2</span>), (<span class="dv">1</span>,<span class="dv">2</span>), (<span class="dv">2</span>,<span class="dv">2</span>), (<span class="dv">3</span>  ,<span class="dv">2</span>) ]
+, [ (<span class="dv">0</span>,<span class="dv">3</span>), (<span class="dv">1</span>,<span class="dv">3</span>), (<span class="dv">2</span>,<span class="dv">3</span>), (<span class="dv">3</span>  ,<span class="dv">3</span>) ] ]</code></pre></div>
+<p>(<code>~*</code> doesn't exist in lens library – I made it up. If it did exist, it would've been <code>flip (*~)</code>.)</p>
+<p>Okay, enough of those “old lenses”. Can we get composition for <em>our</em> lenses?</p>
+<h2 id="new-lenses">New lenses</h2>
+<p>Before making a <code>Category</code> instance, let's work out how to actually do composition. I'm going to reuse the <code>@.</code> name for our operator:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(@.) ::</span> <span class="dt">Lens&#39;</span> b c <span class="ot">-&gt;</span> <span class="dt">Lens&#39;</span> a b <span class="ot">-&gt;</span> <span class="dt">Lens&#39;</span> a c</code></pre></div>
+<p>Here goes the process:</p>
+<ul>
+<li><p>We're given 2 lenses and we're constructing a lens. A lens is a function which takes -something which acts on a part- and produces -something which acts on the whole-:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(<span class="fu">@.</span>) _c _b <span class="fu">=</span> \f <span class="ot">-&gt;</span> <span class="fu">...</span></code></pre></div></li>
+<li><p>Here <code>f</code> acts on <code>c</code>, and we want to get something which acts on <code>a</code>, because <code>Lens' a c</code>.</p></li>
+<li><p>We can use <code>_c</code> to get something which acts on <code>b</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(<span class="fu">@.</span>) _c _b <span class="fu">=</span> \f <span class="ot">-&gt;</span> <span class="fu">...</span> (_c f)</code></pre></div></li>
+<li><p>And then we can use <code>_b</code> to get something which acts on <code>a</code>, which is exactly what we want!</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(<span class="fu">@.</span>) _c _b <span class="fu">=</span> \f <span class="ot">-&gt;</span> _b (_c f)</code></pre></div></li>
+<li><p>A-ha, and then we can get rid of <code>f</code>...</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(<span class="fu">@.</span>) _c _b <span class="fu">=</span> _b <span class="fu">.</span> _c</code></pre></div></li>
+<li><p>...a-and of <code>_c</code> and <code>_b</code> as well...</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(<span class="fu">@.</span>) <span class="fu">=</span> flip (<span class="fu">.</span>)</code></pre></div></li>
+<li><p>...aw <em>darn</em>.</p></li>
+</ul>
+<p>“Hey, why darn?” – because it's almost, almost function composition, but it's flipped function composition, so we'd still have to wrap it in a <code>newtype</code> to make a <code>Category</code> instance— you know, screw <code>Category</code>, I'm satisfied with the outcome anyway – after all, we can compose our lenses with a mere <code>.</code> from <code>Prelude</code> and <em>they</em> all can't. Ha.</p>
+<p>But still... why?</p>
+<h2 id="backward-composition">“Backward composition”</h2>
+<p>Let's rewrite our examples with <code>OldLens</code> to lens (by just reversing the order of composed lenses):</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> field <span class="fu">^.</span> ix <span class="dv">1</span> <span class="fu">.</span> ix <span class="dv">3</span> <span class="fu">.</span> _1
+<span class="dv">3</span>
+
+<span class="fu">&gt;</span> field <span class="fu">&amp;</span> ix <span class="dv">1</span> <span class="fu">.</span> ix <span class="dv">3</span> <span class="fu">.</span> _1 <span class="fu">*~</span> <span class="dv">100</span>
+[ [ (<span class="dv">0</span>,<span class="dv">0</span>), (<span class="dv">1</span>,<span class="dv">0</span>), (<span class="dv">2</span>,<span class="dv">0</span>), (<span class="dv">3</span>  ,<span class="dv">0</span>) ]
+, [ (<span class="dv">0</span>,<span class="dv">1</span>), (<span class="dv">1</span>,<span class="dv">1</span>), (<span class="dv">2</span>,<span class="dv">1</span>), (<span class="dv">300</span>,<span class="dv">1</span>) ]
+, [ (<span class="dv">0</span>,<span class="dv">2</span>), (<span class="dv">1</span>,<span class="dv">2</span>), (<span class="dv">2</span>,<span class="dv">2</span>), (<span class="dv">3</span>  ,<span class="dv">2</span>) ]
+, [ (<span class="dv">0</span>,<span class="dv">3</span>), (<span class="dv">1</span>,<span class="dv">3</span>), (<span class="dv">2</span>,<span class="dv">3</span>), (<span class="dv">3</span>  ,<span class="dv">3</span>) ] ]</code></pre></div>
+<p>Now the flow is right – in the first example <code>field</code> “goes” to <code>ix 1</code>, then to <code>ix 3</code>, then to <code>_1</code> and we get the result. In the second example <code>* 100</code> “passes” thru a chain of lenses which turn it into a more and more complex modifier, until it finally gets applied to <code>field</code>.</p>
+<p>In case of <code>view</code>, I clearly prefer the “normal” order. <code>view (_1 . ix 3 . ix 1) field</code> reads just like <code>fst . (!! 3) . (!! 1) $ field</code>, which is what I'm used to when I'm working with getters. However, when I'm modifying, the “backward” order is better – <code>field &amp; ix 1 . ix 3 . _1 *~ 100</code> (or, alternatively, <code>(ix 1 . ix 3 . _1 *~ 100) field</code>) reads like <code>mapElem 1 (mapElem 3 (mapFst (* 100))) field</code>, which, again, reads like what I'm used to when I'm working with setters.</p>
+<p>So, what's the answer to “why”? It's simple: a <code>Lens' s a</code> is a <em>setter</em> first and foremost, and a getter only by a clever (and not very obvious) <code>Const</code> hack. If the order of type parameters was changed appropriately – if it was <code>Lens' a s</code> instead of <code>Lens' s a</code> – <code>.</code> would've been a “proper” composition operator for lenses.</p>
+<h2 id="okay-but-can-we-fix-it-if-we-really-want-to">Okay, but can we fix it if we <em>really</em> want to?</h2>
+<p>Again: it's only a “bug” if you view lenses as getters. When you're using them as setters, all other libraries are buggy. That said... yeah, <a href="http://www.reddit.com/r/haskell/comments/1oa9qx/beginners_cheatsheet_to_the_lens_library/ccq9mre">we can</a>, and we don't even need newtypes or anything.</p>
+<p>The trick is slightly reminiscent of the one we used with difference lists – if <code>x</code> is a lens, then we'll define <code>x'</code> to be a function which “appends” <code>x</code> to the end of a “lens chain”:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">_1<span class="ch">&#39; l = l . _1</span>
+_2<span class="ch">&#39; l = l . _2</span>
+ix&#39; i l <span class="fu">=</span> l <span class="fu">.</span> ix i</code></pre></div>
+<p>or, in pointfree style:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">_1<span class="ch">&#39; = (. _1)</span>
+_2<span class="ch">&#39; = (. _2)</span>
+ix&#39; i <span class="fu">=</span> (<span class="fu">.</span> ix i)</code></pre></div>
+<p>Here's how it lets us reverse our “backward” lens chain:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">view (ix <span class="dv">1</span> <span class="fu">.</span> ix <span class="dv">3</span> <span class="fu">.</span> _1)
+
+<span class="co">-- Add “id” to the chain (we can do it since it&#39;s the “constant lens”).</span>
+
+view (id <span class="fu">.</span> ix <span class="dv">1</span> <span class="fu">.</span> ix <span class="dv">3</span> <span class="fu">.</span> _1)
+
+<span class="co">-- Move “_1” to the beginning.</span>
+
+view (_1<span class="ch">&#39; (id . ix 1 . ix 3))</span>
+
+<span class="co">-- Move “ix 3” to the beginning.</span>
+
+view (_1<span class="ch">&#39; (ix&#39;</span> <span class="dv">3</span> (id <span class="fu">.</span> ix <span class="dv">1</span>)))
+
+<span class="co">-- Move “ix 1” to the beginning.</span>
+
+view (_1<span class="ch">&#39; (ix&#39;</span> <span class="dv">3</span> (ix&#39; <span class="dv">1</span> (id))))
+
+<span class="co">-- Use “.” and “$” instead of brackets.</span>
+
+view (_1<span class="ch">&#39; . ix&#39;</span> <span class="dv">3</span> <span class="fu">.</span> ix&#39; <span class="dv">1</span> <span class="fu">$</span> id)
+
+<span class="co">-- Move “$ id” to “view”.</span>
+
+(view <span class="fu">.</span> (<span class="fu">$</span> id)) (_1<span class="ch">&#39; . ix&#39;</span> <span class="dv">3</span> <span class="fu">.</span> ix&#39; <span class="dv">1</span>)
+
+<span class="co">-- And call it «view&#39;».</span>
+
+view&#39; <span class="fu">=</span> view <span class="fu">.</span> (<span class="fu">$</span> id)
+
+view&#39; (_1<span class="ch">&#39; . ix&#39;</span> <span class="dv">3</span> <span class="fu">.</span> ix&#39; <span class="dv">1</span>)</code></pre></div>
+<p>In the same way we can change <code>lens</code>, <code>over</code>, and every other lens or function using lenses. By the way, what's the type of <em>these</em> lenses?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">_1<span class="ot">  ::</span> <span class="dt">Functor</span> f <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> f a) <span class="ot">-&gt;</span> (a, x) <span class="ot">-&gt;</span> f (a, x)
+_1<span class="ch">&#39; :: Functor f =&gt; (((a, x) -&gt; f (a, x)) -&gt; c) -&gt; (a -&gt; f a) -&gt; c</span></code></pre></div>
+<p>Not very illuminating. I'll add a couple of type synonyms to make it easier (warning: it won't compile due to type unification errors):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Modifier</span> <span class="fu">=</span> <span class="dt">Functor</span> f <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> f a
+<span class="kw">type</span> <span class="dt">TupleModifier</span> <span class="fu">=</span> <span class="dt">Functor</span> f <span class="ot">=&gt;</span> (a, x) <span class="ot">-&gt;</span> f (a, x)
+
+_1<span class="ot">  ::</span> <span class="dt">Modifier</span> <span class="ot">-&gt;</span> <span class="dt">TupleModifier</span>
+
+_1<span class="ch">&#39; :: (TupleModifier -&gt; c) -&gt; (Modifier -&gt; c)</span></code></pre></div>
+<p>Or in English:</p>
+<blockquote>
+<p><code>_1</code> takes a simple modifier and makes a modifier which acts on tuples from it.</p>
+<p><code>_1'</code> takes a function which needs a <em>tuple</em> modifier to produce some <code>c</code>, and then it takes a <em>simple</em> modifier and produces a <code>c</code>.</p>
+</blockquote>
+<p>Is it clear how/why they compose? [Just in case it's not obvious already: when I say “is it clear”/“do you understand”, it almost always means that either I don't understand, or I did 5min ago but not anymore.] Here's another step-by-step explanation:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- These are the types for ordinary lenses.</span>
+
+_1<span class="ot">   ::</span> <span class="dt">Modifer</span> <span class="ot">-&gt;</span> <span class="dt">TupleModifier</span>
+ix <span class="dv">3</span><span class="ot"> ::</span> <span class="dt">Modifier</span> <span class="ot">-&gt;</span> <span class="dt">ListModifier</span>
+
+<span class="co">-- These are the types for new lenses.</span>
+
+_1<span class="ch">&#39;   :: (TupleModifier -&gt; c) -&gt; (Modifier -&gt; c)</span>
+ix&#39; <span class="dv">3</span><span class="ot"> ::</span> (<span class="dt">ListModifier</span>  <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> (<span class="dt">Modifier</span> <span class="ot">-&gt;</span> c)
+
+<span class="co">-- In order for «_1&#39; . ix&#39; 3» to work, the output type of «ix&#39; 3» has to</span>
+<span class="co">-- match the input type of «_1». So, here&#39;s the more specialised type:</span>
+
+ix&#39; <span class="dv">3</span><span class="ot"> ::</span> (<span class="dt">ListTupleModifier</span> <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> (<span class="dt">TupleModifier</span> <span class="ot">-&gt;</span> c)
+
+<span class="co">-- So, the composition has this type:</span>
+
+_1<span class="ch">&#39; . ix&#39;</span> <span class="dv">3</span><span class="ot"> ::</span> (<span class="dt">ListTupleModifier</span> <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> (<span class="dt">Modifier</span> <span class="ot">-&gt;</span> c)</code></pre></div>
+<h2 id="various-stuff">Various stuff</h2>
+<p>There are a few things left to mention:</p>
+<ul>
+<li><p>So far we've been assuming simple lenses – <code>Lens' s a</code>, and not <code>Lens s t a b</code>. However, the latter ones compose just as well, provided that the types match.</p></li>
+<li><p>Traversals can be composed with lenses, as they have the same type (modulo <code>Functor</code>/<code>Applicative</code>). When you're composing 2 things of same types but with different constraints, the result is something which has both constraints – but since <code>Functor</code> is already a constraint of <code>Applicative</code>, the resulting constraint is just <code>Applicative</code>.</p></li>
+</ul>
+<h2 id="recap">Recap</h2>
+<ul>
+<li><p>Function-like stuff which can be composed forms a <code>Category</code>.</p></li>
+<li><p>Lenses can be composed using ordinary function composition. If <code>_b</code> is a lens for accessing <code>b</code> in <code>a</code>, and <code>_c</code> is a lens for accessing <code>c</code> in <code>b</code>, then <code>_b . _c</code> is a lens for accessing <code>c</code> in <code>a</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(.) ::</span> <span class="dt">Lens&#39;</span> a b <span class="ot">-&gt;</span> <span class="dt">Lens&#39;</span> b c <span class="ot">-&gt;</span> <span class="dt">Lens&#39;</span> a c</code></pre></div>
+<p>This allows for OOP-like views and updates:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> [(<span class="dv">1</span>, <span class="dv">2</span>), (<span class="dv">3</span>, <span class="dv">4</span>)] <span class="fu">^.</span> ix <span class="dv">0</span> <span class="fu">.</span> _1  <span class="co">-- Getting.</span>
+<span class="dv">1</span>
+
+<span class="fu">&gt;</span> [(<span class="dv">1</span>, <span class="dv">2</span>), (<span class="dv">3</span>, <span class="dv">4</span>)] <span class="fu">&amp;</span> ix <span class="dv">0</span> <span class="fu">.</span> _1 <span class="fu">.~</span> <span class="dv">8</span>  <span class="co">-- Setting.</span>
+[(<span class="dv">8</span>, <span class="dv">2</span>), (<span class="dv">3</span>, <span class="dv">4</span>)]
+
+<span class="fu">&gt;</span> [(<span class="dv">1</span>, <span class="dv">2</span>), (<span class="dv">3</span>, <span class="dv">4</span>)] <span class="fu">&amp;</span> ix <span class="dv">0</span> <span class="fu">.</span> _1 <span class="fu">%~</span> (<span class="fu">+</span> <span class="dv">7</span>)  <span class="co">-- Modifying in general.</span>
+[(<span class="dv">8</span>, <span class="dv">2</span>), (<span class="dv">3</span>, <span class="dv">4</span>)]
+
+<span class="fu">&gt;</span> [(<span class="dv">1</span>, <span class="dv">2</span>), (<span class="dv">3</span>, <span class="dv">4</span>)] <span class="fu">&amp;</span> ix <span class="dv">0</span> <span class="fu">.</span> _1 <span class="fu">+~</span> <span class="dv">7</span>  <span class="co">-- Adding.</span>
+[(<span class="dv">8</span>, <span class="dv">2</span>), (<span class="dv">3</span>, <span class="dv">4</span>)]</code></pre></div></li>
+<li><p>When you've <code>view</code>ing, the order of composition seems reversed.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- To get field C of field B of field A, you can use this:</span>
+view fieldC <span class="fu">.</span> view fieldB <span class="fu">.</span> view fieldA
+
+<span class="co">-- Or this:</span>
+view (fieldA <span class="fu">.</span> fieldB <span class="fu">.</span> fieldC)</code></pre></div></li>
+<li><p>When you're modifying, the order of composition seems normal.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- To apply “f” to field C of field B of field A, you can use this:</span>
+over fieldA (over fieldB (over fieldC f))
+
+<span class="co">-- Or this:</span>
+over (fieldA <span class="fu">.</span> fieldB <span class="fu">.</span> fieldC) f</code></pre></div></li>
+<li><p>Lenses can be modified to reverse the composition order – it only requires changing every lens from <code>x</code> to <code>(. x)</code>, and then applying <code>($ id)</code> to the “inverted” lens to get a normal lens from it. We won't actually do all this, because the types become kinda scary and also because we don't really need it.</p></li>
+<li><p>Everything above applies to polymorphic lenses (<code>Lens s t a b</code>) as well as to simple lenses (<code>Lens' s a</code>):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(.) ::</span> <span class="dt">Lens</span> s t a b <span class="ot">-&gt;</span> <span class="dt">Lens</span> a b x y <span class="ot">-&gt;</span> <span class="dt">Lens</span> s t x y</code></pre></div></li>
+<li><p>Everything above applies to traversals (<code>Applicative f =&gt; (a -&gt; f b) -&gt; s -&gt; f t</code>) as well as to lenses (<code>Functor f =&gt; (a -&gt; f b) -&gt; s -&gt; f t</code>) – type constraints don't harm composing. When a lens and a traversal are composed, the result is a traversal.</p></li>
+</ul>
+<h1 id="a-bit-about-laws">A bit about laws</h1>
+<p>Traversals and lenses have some associated laws, pretty much like <a href="https://www.haskell.org/haskellwiki/Monad_laws">monads</a> or <a href="http://en.wikibooks.org/wiki/Haskell/The_Functor_class#The_functor_laws">functors</a>. I'll describe these laws in a moment.</p>
+<p>Disclaimer: I won't preach about Sticking To The Laws in this section (yada yada “or else <a href="http://www.reddit.com/r/haskell/comments/1dpk2b/haskell_for_all_program_imperatively_using/c9szhxa">lens police</a> will come after you!”), but it doesn't mean that I think that you can go and do whatever you want and make all kind of weird improper lenses and put them on Hackage and it would be morally acceptable. On the other hand, I don't -think that you shouldn't ever use improper lenses- either. And there's place for <code>head</code> and <code>fromJust</code> in this world, too.</p>
+<h2 id="traversal-laws">Traversal laws</h2>
+<p>(Why start with traversals? Because every lens is a traversal, but not every traversal is a lens, which means that lenses have some additional laws -traversals don't have-, which means that starting with traversals is easier.)</p>
+<h3 id="identity">Identity</h3>
+<p>If <code>t</code> is some <code>Traversal</code>, then:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">t pure ≡ pure</code></pre></div>
+<p>And since nobody can forbid me to quote the definition of <code>Traversal</code> as many times as I please:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Traversal</span> s t a b <span class="fu">=</span> forall f<span class="fu">.</span> <span class="dt">Applicative</span> f <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t</code></pre></div>
+<p>Now, what this law implies is that you can't change the shape of the structure. Omitting every second element of a list isn't okay; duplicating elements isn't okay either; even things which technically don't change the shape are wrong – for instance, a traversal of a list can't reverse it (but it can process the list in reversed order or even random order).</p>
+<p>An interesting question is whether this law implies that you can't leave some elements unprocessed. For polymorphic traversals, it does – but only because you <em>can't</em> leave an element unprocessed without omitting it entirely (how can you leave an <code>Int</code> unprocessed and yet include it when you're converting <code>[Int]</code> into, say, <code>Maybe [String]</code>?). However, for simple traversals which don't <em>claim</em> to be able to perform polymorphic updates – i.e. <code>Traversal'</code>s – it doesn't mean any such thing. A <code>Traversal'</code> which alternates between applying the given function and applying <code>pure</code> is a valid traversal (even <code>const pure</code> is a valid traversal), and in fact there are several such traversals in lens.</p>
+<p><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Traversal.html#v:ignored"><code>ignored</code></a> is exactly <code>const pure</code> – just an empty traversal:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="dv">1</span> <span class="fu">^..</span> ignored
+[]
+
+<span class="fu">&gt;</span> <span class="st">&quot;hi&quot;</span> <span class="fu">&amp;</span> ignored <span class="fu">+~</span> <span class="dv">2</span>
+<span class="st">&quot;hi&quot;</span></code></pre></div>
+<p><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Traversal.html#v:taking"><code>taking</code></a> takes an existing traversal and makes a traversal which visits only the first <code>n</code> elements:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> [<span class="dv">1</span><span class="fu">..</span><span class="dv">10</span>] <span class="fu">&amp;</span> taking <span class="dv">5</span> each <span class="fu">%~</span> negate
+[<span class="fu">-</span><span class="dv">1</span>,<span class="fu">-</span><span class="dv">2</span>,<span class="fu">-</span><span class="dv">3</span>,<span class="fu">-</span><span class="dv">4</span>,<span class="fu">-</span><span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>]</code></pre></div>
+<p><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Traversal.html#v:dropping"><code>dropping</code></a> does... well, guess what:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> [<span class="dv">1</span><span class="fu">..</span><span class="dv">10</span>] <span class="fu">&amp;</span> dropping <span class="dv">5</span> each <span class="fu">%~</span> negate
+[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="fu">-</span><span class="dv">6</span>,<span class="fu">-</span><span class="dv">7</span>,<span class="fu">-</span><span class="dv">8</span>,<span class="fu">-</span><span class="dv">9</span>,<span class="fu">-</span><span class="dv">10</span>]</code></pre></div>
+<p>(Don't try to implement them yet, it's hard.)</p>
+<p><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Traversal.html#v:elementsOf"><code>elementsOf</code></a> generalises <code>taking</code> and <code>dropping</code> to arbitrary index predicates:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> [[<span class="dv">1</span>],[<span class="dv">3</span>,<span class="dv">5</span>],[<span class="dv">7</span>,<span class="dv">9</span>,<span class="dv">11</span>],[<span class="dv">13</span>,<span class="dv">15</span>,<span class="dv">17</span>,<span class="dv">19</span>]] <span class="fu">&amp;</span> elementsOf (each<span class="fu">.</span>each) even <span class="fu">.~</span> <span class="dv">0</span>
+[[<span class="dv">0</span>],[<span class="dv">3</span>,<span class="dv">0</span>],[<span class="dv">7</span>,<span class="dv">0</span>,<span class="dv">11</span>],[<span class="dv">0</span>,<span class="dv">15</span>,<span class="dv">0</span>,<span class="dv">19</span>]]</code></pre></div>
+<p>(The lists only have odd numbers on purpose – otherwise someone might think <code>elementsOf</code> applies <code>even</code> to elements and not to indexes.)</p>
+<p>Finally, this law also means that it should be possible to restrict every <code>t :: Traversal s t a b</code> to <code>t :: Traversal s s a a</code> – otherwise <code>t pure</code> won't even typecheck. In general, there are restrictions on what <code>s</code>, <code>t</code>, <code>a</code> and <code>b</code> can be for lenses and traversals – see Edward's <a href="http://comonad.com/reader/2012/mirrored-lenses/">Mirrored Lenses</a> post for details.</p>
+<h3 id="composition">Composition</h3>
+<p>This one looks kinda scary at first. If <code>t</code> is some <code>Traversal</code>, then:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">fmap (t f) <span class="fu">.</span> t g ≡ getCompose <span class="fu">.</span> t (<span class="dt">Compose</span> <span class="fu">.</span> fmap f <span class="fu">.</span> g)</code></pre></div>
+<p>For the sake of simplicity, I'll make some assumptions. Let's say <code>t</code> is a list traversal:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">t ::</span> forall f <span class="fu">.</span> <span class="dt">Applicative</span> f <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> f b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> f [b]</code></pre></div>
+<p><code>f</code> and <code>g</code> are just some functions:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">g ::</span> a <span class="ot">-&gt;</span> <span class="dt">G</span> b
+<span class="ot">f ::</span> b <span class="ot">-&gt;</span> <span class="dt">F</span> c</code></pre></div>
+<p><code>t f</code> and <code>t g</code> would be the same functions, “lifted” to work on lists:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">t<span class="ot"> g ::</span> [a] <span class="ot">-&gt;</span> <span class="dt">G</span> [b]
+t<span class="ot"> f ::</span> [b] <span class="ot">-&gt;</span> <span class="dt">F</span> [c]</code></pre></div>
+<p>The left part is therefore:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">fmap (t f) <span class="fu">.</span> t<span class="ot"> g ::</span> [a] <span class="ot">-&gt;</span> <span class="dt">G</span> (<span class="dt">F</span> [c])</code></pre></div>
+<p>The right part is built as follows:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">fmap f <span class="fu">.</span><span class="ot"> g ::</span> a <span class="ot">-&gt;</span> <span class="dt">G</span> (<span class="dt">F</span> c)</code></pre></div>
+<p>We already used <a href="http://hackage.haskell.org/package/transformers/docs/Data-Functor-Compose.html#v:Compose"><code>Compose</code></a> in the previous part to combine 2 functors, but I haven't defined it, and so I'll do it here:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Compose</span> f g a <span class="fu">=</span> <span class="dt">Compose</span> {<span class="ot">getCompose ::</span> f (g a)}
+
+<span class="co">-- And some easy-to-write instances:</span>
+(<span class="dt">Functor</span>     f, <span class="dt">Functor</span>     g) <span class="ot">=&gt;</span> <span class="dt">Functor</span>     (<span class="dt">Compose</span> f g)	<span class="kw">where</span> <span class="fu">...</span>
+(<span class="dt">Applicative</span> f, <span class="dt">Applicative</span> g) <span class="ot">=&gt;</span> <span class="dt">Applicative</span> (<span class="dt">Compose</span> f g)	<span class="kw">where</span> <span class="fu">...</span>
+(<span class="dt">Foldable</span>    f, <span class="dt">Foldable</span>    g) <span class="ot">=&gt;</span> <span class="dt">Foldable</span>    (<span class="dt">Compose</span> f g)	<span class="kw">where</span> <span class="fu">...</span>
+(<span class="dt">Traversable</span> f, <span class="dt">Traversable</span> g) <span class="ot">=&gt;</span> <span class="dt">Traversable</span> (<span class="dt">Compose</span> f g)	<span class="kw">where</span> <span class="fu">...</span>
+(<span class="dt">Alternative</span> f, <span class="dt">Applicative</span> g) <span class="ot">=&gt;</span> <span class="dt">Alternative</span> (<span class="dt">Compose</span> f g)	<span class="kw">where</span> <span class="fu">...</span></code></pre></div>
+<p>Armed with this knowledge, we can infer the type of <code>Compose . fmap f . g</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Compose</span> <span class="fu">.</span> fmap f <span class="fu">.</span><span class="ot"> g ::</span> a <span class="ot">-&gt;</span> <span class="dt">Compose</span> <span class="dt">G</span> <span class="dt">F</span> c</code></pre></div>
+<p>When using <code>t</code> with this, <code>Compose G F</code> would be our <code>Applicative</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">t (<span class="dt">Compose</span> <span class="fu">.</span> fmap f <span class="fu">.</span> g)<span class="ot"> ::</span> [a] <span class="ot">-&gt;</span> <span class="dt">Compose</span> <span class="dt">G</span> <span class="dt">F</span> [c]</code></pre></div>
+<p>Finally, <code>getCompose</code> brings us <code>G (F [c])</code>.</p>
+<p>As an example of a traversal ruled out by this law, let's take</p>
+<hr />
+<p>[huffs]</p>
+<p>Why did I think several months ago that going to sleep instead of finishing this sentence was a good idea.</p>
+<p>Why.</p>
+<p>Okay, I remember vaguely that I had asked a question on Stackoverflow about it... Aha! <a href="http://stackoverflow.com/questions/27138856/why-does-failing-from-lens-produce-invalid-traversals">Here it is.</a></p>
+<p>I'll retell it here for you; all credit goes to— do I link to Twitter, or SO profile, or Github? and do I use their real name or just nick? decisions, decisions— whatever, <a href="http://stackoverflow.com/users/2494803/bennofs">bennofs</a>.</p>
+<p>We take a data type:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Present</span> <span class="fu">=</span> <span class="dt">Wrapped</span> <span class="dt">Present</span> <span class="fu">|</span> <span class="dt">Toy</span></code></pre></div>
+<p>Now we write a traversal to unwrap the present:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">unwrapped ::</span> <span class="dt">Traversal&#39;</span> <span class="dt">Present</span> <span class="dt">Present</span>
+unwrapped f (<span class="dt">Wrapped</span> x) <span class="fu">=</span> <span class="dt">Wrapped</span> <span class="fu">&lt;$&gt;</span> f x
+unwrapped f <span class="dt">Toy</span>         <span class="fu">=</span> f <span class="dt">Toy</span>             <span class="co">-- Instead of “pure Toy”.</span></code></pre></div>
+<p>Instead of not doing anything when there's nothing to unwrap, it just pretends the toy <em>was</em> wrapped and does something to it. Too darn smart for its own good.</p>
+<p>The intuitive law this traversal doesn't follow is “you get what you put in” – specifically, <code>(whatever &amp; t .~ x) ^.. t</code> should give you a list consisting of <code>x</code>s back. Which it won't, as you'll see now.</p>
+<p>Let's take <code>Toy</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="dt">Toy</span>
+<span class="dt">Toy</span></code></pre></div>
+<p>And set the “present inside” (which is just <code>Toy</code> itself, because there is no wrapping at all) to be <code>Wrapped Toy</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="dt">Toy</span> <span class="fu">&amp;</span> unwrapped <span class="fu">.~</span> <span class="dt">Wrapped</span> <span class="dt">Toy</span>
+<span class="dt">Wrapped</span> <span class="dt">Toy</span></code></pre></div>
+<p>And now unwrap it:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> (<span class="dt">Toy</span> <span class="fu">&amp;</span> unwrapped <span class="fu">.~</span> <span class="dt">Wrapped</span> <span class="dt">Toy</span>) <span class="fu">^..</span> unwrapped
+[<span class="dt">Toy</span>]</code></pre></div>
+<p>We should've gotten <code>[Wrapped Toy]</code> back, but got just <code>[Toy]</code>. Ouch.</p>
+<p>Now, what does it all have to do with the second traversal law? Well, let's rewrite the example using definitions of <code>.~</code> and <code>^..</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">t <span class="fu">.~</span> b <span class="fu">=</span> runIdentity <span class="fu">.</span> t (\_ <span class="ot">-&gt;</span> <span class="dt">Identity</span> b)
+
+v <span class="fu">^..</span> t <span class="fu">=</span> getConst <span class="fu">$</span> t (\x <span class="ot">-&gt;</span> <span class="dt">Const</span> [x]) v</code></pre></div>
+<p>Which brings us to:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Toy</span> <span class="fu">&amp;</span> runIdentity <span class="fu">.</span> unwrapped (\_ <span class="ot">-&gt;</span> <span class="dt">Identity</span> (<span class="dt">Wrapped</span> <span class="dt">Toy</span>))
+    <span class="fu">&amp;</span> getConst <span class="fu">.</span> unwrapped (\x <span class="ot">-&gt;</span> <span class="dt">Const</span> [x])</code></pre></div>
+<p>I'll also get rid of <code>runIdentity</code> and <code>getConst</code> to make lines shorter, and change the order to the one I'm more used to. And rename some pieces:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">let</span> set&#39; <span class="fu">=</span> \_ <span class="ot">-&gt;</span> <span class="dt">Identity</span> (<span class="dt">Wrapped</span> <span class="dt">Toy</span>)
+
+<span class="fu">&gt;</span> <span class="kw">let</span> get&#39; <span class="fu">=</span> \x <span class="ot">-&gt;</span> <span class="dt">Const</span> [x]
+
+<span class="fu">&gt;</span> fmap (unwrapped get&#39;) <span class="fu">.</span> unwrapped set&#39; <span class="fu">$</span> <span class="dt">Toy</span>
+<span class="dt">Identity</span> (<span class="dt">Const</span> [<span class="dt">Toy</span>] <span class="dt">Toy</span>)</code></pre></div>
+<p>I had to use <code>fmap</code> because we didn't unwrap <code>Identity</code> after doing <code>unwrapped set'</code>. Also, there's no <code>Show</code> instance for <code>Const</code>, so I just made the output up.</p>
+<p>Anyway, it's exactly the left part of the law: <code>fmap (t f) . t g</code>. What about the right part? Let's try to write it without looking at it. (I looked accidentally before the idea to write it without looking came to my head, but I have bad memory when it comes to things I saw a minute ago, so it's alright.) The <em>point</em> of the right part is that we somehow apply the traversal only once. Okay, what have we got?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">get&#39; ::</span> t <span class="ot">-&gt;</span> <span class="dt">Const</span> [t] b
+<span class="ot">set&#39; ::</span> t <span class="ot">-&gt;</span> <span class="dt">Identity</span> <span class="dt">Present</span></code></pre></div>
+<p>Or, specialised:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">get&#39; ::</span> <span class="dt">Present</span> <span class="ot">-&gt;</span> <span class="dt">Const</span> [<span class="dt">Present</span>] b
+<span class="ot">set&#39; ::</span> <span class="dt">Present</span> <span class="ot">-&gt;</span> <span class="dt">Identity</span> <span class="dt">Present</span></code></pre></div>
+<p>And we need to give <code>unwrapped</code> something of the type <code>Present -&gt; f Present</code>. Hm.</p>
+<p>We could just compose <code>get'</code> and <code>set'</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">get&#39; <span class="fu">.</span><span class="ot"> set&#39; ::</span> <span class="dt">Present</span> <span class="ot">-&gt;</span> <span class="dt">Const</span> [<span class="dt">Identity</span> <span class="dt">Present</span>] b</code></pre></div>
+<p>It would give us:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">unwrapped (get&#39; <span class="fu">.</span> set&#39;) <span class="dt">Toy</span>
+<span class="ot">  ::</span> <span class="dt">Const</span> [<span class="dt">Identity</span> <span class="dt">Present</span>] <span class="dt">Present</span></code></pre></div>
+<p>But the left part had a different type:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">fmap (unwrapped get&#39;) <span class="fu">.</span> unwrapped set&#39; <span class="fu">$</span> <span class="dt">Toy</span>
+<span class="ot">  ::</span> <span class="dt">Identity</span> (<span class="dt">Const</span> [<span class="dt">Present</span>] <span class="dt">Present</span>)</code></pre></div>
+<p>Can't we get the same type?</p>
+<p>We can, but it needs some shenanigans. First, instead of just applying <code>get'</code> let's <code>fmap</code> it:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">fmap get&#39; <span class="fu">.</span><span class="ot"> set&#39; ::</span> <span class="dt">Present</span> <span class="ot">-&gt;</span> <span class="dt">Identity</span> (<span class="dt">Const</span> [<span class="dt">Present</span>] b)</code></pre></div>
+<p>Now if we give this to <code>unwrapped</code>, it will only see <code>Identity</code> as the functor part, which is not what we want. We'd like to have both <code>Identity</code> and <code>Const [Present]</code> handled together.</p>
+<p>That's exactly what <code>Compose</code> does – it lets us join functors!</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Compose</span><span class="ot"> ::</span> f (g a) <span class="ot">-&gt;</span> (<span class="dt">Compose</span> f g) a</code></pre></div>
+<p>So, the whole thing looks like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Compose</span> <span class="fu">.</span> fmap get&#39; <span class="fu">.</span> set&#39;
+<span class="ot">  ::</span> <span class="dt">Present</span> <span class="ot">-&gt;</span> <span class="dt">Compose</span> <span class="dt">Identity</span> (<span class="dt">Const</span> [<span class="dt">Present</span>]) b</code></pre></div>
+<p>And here's what would happen after <code>unwrapped</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">unwrapped (<span class="dt">Compose</span> <span class="fu">.</span> fmap get&#39; <span class="fu">.</span> set&#39;) <span class="dt">Toy</span>
+<span class="ot">  ::</span> <span class="dt">Compose</span> <span class="dt">Identity</span> (<span class="dt">Const</span> [<span class="dt">Present</span>]) <span class="dt">Present</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> unwrapped (<span class="dt">Compose</span> <span class="fu">.</span> fmap get&#39; <span class="fu">.</span> set&#39;) <span class="dt">Toy</span>
+<span class="dt">Compose</span> (<span class="dt">Identity</span> (<span class="dt">Const</span> [<span class="dt">Wrapped</span> <span class="dt">Toy</span>]))</code></pre></div>
+<p>Now it's only left to strip <code>Compose</code> off:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> getCompose <span class="fu">$</span> unwrapped (<span class="dt">Compose</span> <span class="fu">.</span> fmap get&#39; <span class="fu">.</span> set&#39;) <span class="dt">Toy</span>
+<span class="dt">Identity</span> (<span class="dt">Const</span> [<span class="dt">Wrapped</span> <span class="dt">Toy</span>])</code></pre></div>
+<p>Finally, the same shape as the left part of the equation – but not the same output! It happened because in the left part <code>get'</code> operated on the thing <code>unwrapped</code> gave to it, and in the right part <code>get'</code> operated <em>directly</em> on the result of <code>set'</code>. Here's exactly what I said right now but in list form because lists are cool:</p>
+<ul>
+<li><p>left part</p>
+<ul>
+<li><code>unwrapped</code> sees <code>Toy</code></li>
+<li><code>unwrapped</code> gives <code>set'</code> <code>Toy</code></li>
+<li><code>set'</code> replaces it with <code>Wrapped Toy</code></li>
+<li>the next <code>unwrapped</code> gives <code>get'</code> another <code>Toy</code>, and not <code>Wrapped Toy</code></li>
+<li><code>get'</code> carries <code>Toy</code> out in its magical hidden list</li>
+</ul></li>
+<li><p>right part</p>
+<ul>
+<li><code>unwrapped</code> sees <code>Toy</code></li>
+<li><code>unwrapped</code> gives <code>set'</code> <code>Toy</code></li>
+<li><code>set'</code> replaces it with <code>Wrapped Toy</code> and gives to <code>get'</code></li>
+<li><code>get'</code> carries <code>Wrapped Toy</code> out in its magical hidden list</li>
+</ul></li>
+</ul>
+<h3 id="no-duplicates">No duplicates</h3>
+<p>Another consequence of the composition law is that you can't visit the same element twice – at least, it says so in the lens documentation:</p>
+<blockquote>
+<p>Another testament to the strength of these laws is that the caveat expressed in section 5.5 of the “Essence of the Iterator Pattern” about exotic <code>Traversable</code> instances that traverse the same entry multiple times was actually already ruled out by the second law in that same paper!</p>
+</blockquote>
+<p>So, something like</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">traverseTwice ::</span> <span class="dt">Traversal</span> [a] [b] a b
+traverseTwice f <span class="fu">=</span> T.traverse (\x <span class="ot">-&gt;</span> f x <span class="fu">*&gt;</span> f x)</code></pre></div>
+<p>is disallowed.</p>
+<p>This remark was added in version 2.4, and previously “no visiting the same entry twice” was a separate law. <a href="https://github.com/ekmett/lens/commit/3a2e053ea78e6d45d32da3101fc693b0ae0fd1e0">The commit</a> introducing the remark is kinda concise:</p>
+<blockquote>
+<p>removed the third traversal law. roconnor proved it can't be infringed</p>
+</blockquote>
+<p>The proofs are here:</p>
+<blockquote>
+<p>Richard Bird's proof: <a href="http://www.cs.ox.ac.uk/jeremy.gibbons/publications/uitbaf.pdf" class="uri">http://www.cs.ox.ac.uk/jeremy.gibbons/publications/uitbaf.pdf</a></p>
+<p>Russell O'Connor's proof: <a href="http://r6.ca/blog/20121209T182914Z.html" class="uri">http://r6.ca/blog/20121209T182914Z.html</a> in coq: <a href="https://raw.githubusercontent.com/oconnorr/traversable-fincontainer/master/decompose_traversal.v" class="uri">https://raw.githubusercontent.com/oconnorr/traversable-fincontainer/master/decompose_traversal.v</a></p>
+<p>Both of these show you can separate &quot;shape&quot; from data in every legal traversal, ruling out the multiple visit scenario Gibbons feared in the Essence of the Iterator Pattern.</p>
+</blockquote>
+<hr />
+<p>Months ago I left myself a cryptic remark here:</p>
+<blockquote>
+<p>real ix, real at, all'</p>
+</blockquote>
+<p>I don't know what it means. I only remember vaguely that <code>ix</code>— [looks at the previous part] ah, right, I defined <code>ix</code> as a lens, and it really should be a traversal. Well, then I guess “rewriting <code>ix</code>” shall be left as homework or something. Or just don't bother.</p>
+<p>I don't even know what <code>all'</code> could be doi— [curiosity wins, looks at the previous part again] turns out <code>all'</code> just traverses all elements which are equal to some value. And it's not a proper traversal because it violates the composition law – 2 <code>all'</code>s in a row might not be looking at the same elements (for instance, if you traverse all <code>0</code>s and change them to <code>2</code>s, then the next time you'll look at <code>all' 0</code> you won't see <em>anything</em>).</p>
+<p>Still could be pretty useful, y'know.</p>
+<h2 id="lens-laws">Lens laws</h2>
+<p>There are 3 lens laws. I am going to copy them from lens documentation. I'm so lazy. I hate long sentences. I've read the <a href="https://www.fanfiction.net/s/6466185/2/Harry-the-Hufflepuff">Harry the Hufflepuff</a> fanfic recently and I think I got infected with laziness or something. Or maybe it's sleep deprivation. Whatever. Let's go.</p>
+<blockquote>
+<ol type="1">
+<li><p>You get back what you put in:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">view l (set l v s) ≡ v</code></pre></div></li>
+<li><p>Putting back what you got doesn't change anything:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">set l (view l s) s ≡ s</code></pre></div></li>
+<li><p>Setting twice is the same as setting once:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">set l v&#39; (set l v s) ≡ set l v&#39; s</code></pre></div></li>
+</ol>
+</blockquote>
+<p>The third law seems to follow from the second traversal law. I don't see why it doesn't. Tell me if it doesn't, so that I could be properly embarrassed.</p>
+<p>The second law is not even applicable to traversals, and the first law is almost not applicable.</p>
+<p>Study the 3 laws and be wise in your ways.</p>
+<h2 id="recap-1">Recap</h2>
+<ul>
+<li><p>Don't write traversals which remove elements or duplicate elements or change shape of the structure or whatever. That's not what traversals are for.</p></li>
+<li><p>Not traversing some elements is fine.</p></li>
+<li><p>A traversal should compose with itself – i.e. doing <code>over t f . over t g</code> should be the same as <code>over t (f . g)</code>. If you're violating this intentionally, maybe mark the traversal as “law-violating under such and such conditions, take care”.</p></li>
+<li><p><a href="http://hackage.haskell.org/package/transformers/docs/Data-Functor-Compose.html#v:Compose"><code>Compose</code></a> from <code>Data.Functor.Compose</code> composes functors. For instance, here's how you can write <code>fmap2</code> to look 2 functors deep:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">let</span> fmap2 <span class="fu">=</span> fmap<span class="fu">.</span>fmap
+
+<span class="fu">&gt;</span> fmap2 negate [[<span class="dv">1</span>],[<span class="dv">2</span>]]
+[[<span class="fu">-</span><span class="dv">1</span>],[<span class="fu">-</span><span class="dv">2</span>]]</code></pre></div>
+<p>Or how you could do it with <code>Compose</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">let</span> fmap2 f <span class="fu">=</span> getCompose <span class="fu">.</span> fmap f <span class="fu">.</span> <span class="dt">Compose</span>
+
+<span class="fu">&gt;</span> fmap2 negate [[<span class="dv">1</span>],[<span class="dv">2</span>]]
+[[<span class="fu">-</span><span class="dv">1</span>],[<span class="fu">-</span><span class="dv">2</span>]]</code></pre></div></li>
+<li><p>A traversal shouldn't traverse the same element twice.</p></li>
+<li><p>Lens laws are as follows: you get what you put in, if you put what you get the whole thing is still the same, and the second put overwrites the first one.</p></li>
+</ul>
+<h1 id="getters">Getters</h1>
+<p>You can regard <code>view</code> as something which makes a simple function from a lens. It's useful if you want to employ an occasional lens when writing “ordinary” code:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- This is a lens which lets you access a deeply concealed value in a record.</span>
+<span class="co">-- I don&#39;t want to actually write it merely for the sake of an example, but</span>
+<span class="co">-- just believe me that it&#39;s *very* deep inside and everything is complicated</span>
+<span class="co">-- and so you really, really like the idea of not having to write *both* a</span>
+<span class="co">-- getter and a setter for it.</span>
+<span class="ot">deepValue ::</span> <span class="dt">Lens&#39;</span> <span class="dt">AmazinglyComplicatedStructure</span> <span class="dt">Int</span>
+deepValue <span class="fu">=</span> <span class="fu">...</span>
+
+main <span class="fu">=</span> <span class="kw">do</span>
+  putStrLn <span class="st">&quot;Looking for it...&quot;</span>
+  ws <span class="ot">&lt;-</span> filter ((<span class="fu">==</span> <span class="dv">42</span>) <span class="fu">.</span> view deepValue) <span class="fu">&lt;$&gt;</span> getWorlds
+  forM_ ws <span class="fu">$</span> \world <span class="ot">-&gt;</span> <span class="kw">do</span>
+    new <span class="ot">&lt;-</span> randomRIO (<span class="dv">1</span>, <span class="dv">100</span>)
+    modifyWorld world (set deepValue new)</code></pre></div>
+<p>However, when the code is fully (or mostly) lens-based, we would want to inject <em>functions</em> into the flow of lenses, rather than the other way round. For instance, lenses are more convenient than ordinary functions when it comes to various maps:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import qualified</span> <span class="dt">Data.Map</span> <span class="kw">as</span> <span class="dt">M</span>
+
+<span class="ot">bindings ::</span> <span class="dt">M.Map</span> <span class="dt">String</span> <span class="dt">String</span>
+bindings <span class="fu">=</span> M.fromList
+  [ (<span class="st">&quot;cancel&quot;</span> , <span class="st">&quot;C-g&quot;</span>)
+  , (<span class="st">&quot;search&quot;</span> , <span class="st">&quot;C-s&quot;</span>)
+  , (<span class="st">&quot;refill&quot;</span> , <span class="st">&quot;M-q&quot;</span>)
+  , (<span class="st">&quot;save&quot;</span>   , <span class="st">&quot;C-x C-s&quot;</span>)
+  , (<span class="st">&quot;occur&quot;</span>  , <span class="st">&quot;C-s o&quot;</span>)
+  ]</code></pre></div>
+<p>You want to get a keybinding for “save”:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> bindings <span class="fu">^?!</span> ix <span class="st">&quot;save&quot;</span>
+<span class="st">&quot;C-x C-s&quot;</span></code></pre></div>
+<p>By the way, <code>^?!</code> is an unsafe version of <code>^?</code> – it doesn't wrap its result in <code>Maybe</code>, but it also throws an exception when there aren't any elements:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> bindings <span class="fu">^?</span> ix <span class="st">&quot;bark&quot;</span>
+<span class="dt">Nothing</span>
+
+<span class="fu">&gt;</span> bindings <span class="fu">^?!</span> ix <span class="st">&quot;bark&quot;</span>
+<span class="st">&quot;*** Exception: (^?!): empty Fold</span></code></pre></div>
+<p>Okay, now you want to take the first key group of the binding:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> takeWhile (not <span class="fu">.</span> isSpace) <span class="fu">$</span> bindings <span class="fu">^?!</span> ix <span class="st">&quot;save&quot;</span>
+<span class="st">&quot;C-x&quot;</span></code></pre></div>
+<p>Unfortunately, the flow is broken – first goes <code>bindings</code>, then <code>ix</code>, then <code>takeWhile</code>, and the result is slightly messy. You can fix the situation with <code>&amp;</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> bindings <span class="fu">^?!</span> ix <span class="st">&quot;save&quot;</span> <span class="fu">&amp;</span> takeWhile (not <span class="fu">.</span> isSpace)
+<span class="st">&quot;C-x&quot;</span></code></pre></div>
+<p>But now you lose the ability to easily get back to safety:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> bindings <span class="fu">^?</span> ix <span class="st">&quot;save&quot;</span> <span class="fu">&amp;</span> takeWhile (not <span class="fu">.</span> isSpace)
+
+<span class="fu">&lt;</span>interactive<span class="fu">&gt;:</span>
+    <span class="dt">Couldn&#39;t</span> match <span class="kw">type</span> ‘[<span class="dt">Char</span>]’ with ‘<span class="dt">Maybe</span> [<span class="dt">Char</span>]’
+    <span class="dt">Expected</span> <span class="kw">type</span><span class="fu">:</span> <span class="dt">Maybe</span> [<span class="dt">Char</span>] <span class="ot">-&gt;</span> [<span class="dt">Char</span>]
+      <span class="dt">Actual</span> <span class="kw">type</span><span class="fu">:</span> [<span class="dt">Char</span>] <span class="ot">-&gt;</span> [<span class="dt">Char</span>]
+    <span class="dt">In</span> the second argument <span class="kw">of</span> ‘(<span class="fu">&amp;</span>)’, namely
+      ‘takeWhile (not <span class="fu">.</span> isSpace)’
+    <span class="dt">In</span> the expression<span class="fu">:</span>
+      bindings <span class="fu">^?</span> ix <span class="st">&quot;save&quot;</span> <span class="fu">&amp;</span> takeWhile (not <span class="fu">.</span> isSpace)</code></pre></div>
+<p>Aw darn. Okay, <code>&amp;</code> can be replaced with <code>&lt;&amp;&gt;</code> (which is defined in lens as the flipped version of <code>&lt;$&gt;</code>):</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> bindings <span class="fu">^?</span> ix <span class="st">&quot;save&quot;</span> <span class="fu">&lt;&amp;&gt;</span> takeWhile (not <span class="fu">.</span> isSpace)
+<span class="dt">Just</span> <span class="st">&quot;C-x&quot;</span></code></pre></div>
+<p>Even so, trying to add an additional lens after <code>takeWhile</code> would finally break our solution. There must be a simpler way... A-ha! Remember about <code>lens</code>?</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">lens ::</span> (s <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> t) <span class="ot">-&gt;</span> <span class="dt">Lens</span> s t a b</code></pre></div>
+<p>Well, since all lenses can be composed, and we don't intend to use the lens for setting anyway – only for convenient getting – it should be possible to use <code>lens</code> to create a “getting lens” out of an <code>s -&gt; a</code> function.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">to ::</span> (s <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> <span class="dt">Lens&#39;</span> s a
+to getter <span class="fu">=</span> lens getter setter
+  <span class="kw">where</span> setter <span class="fu">=</span> error <span class="st">&quot;to: tried to set a getting-only lens&quot;</span></code></pre></div>
+<p>Will it work now? Will it crash for some unexpected reason? Let's check:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> bindings <span class="fu">^?</span> ix <span class="st">&quot;save&quot;</span> <span class="fu">.</span> to (takeWhile (not <span class="fu">.</span> isSpace))
+<span class="dt">Just</span> <span class="st">&quot;C-x&quot;</span>
+
+<span class="fu">&gt;</span> bindings <span class="fu">^?</span> ix <span class="st">&quot;save&quot;</span> <span class="fu">.</span> to (takeWhile (not <span class="fu">.</span> isSpace)) <span class="fu">.</span> _last
+<span class="dt">Just</span> <span class="ch">&#39;x&#39;</span></code></pre></div>
+<p>Hooray, it doesn't crash. Our quest is complete... or is it?</p>
+<h2 id="a-note-regarding-readability">A note regarding readability</h2>
+<p>Let's compare the lens version and the version which doesn't use lenses:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Lens version.</span>
+bindings <span class="fu">^?</span> ix <span class="st">&quot;save&quot;</span> <span class="fu">.</span> to (takeWhile (not <span class="fu">.</span> isSpace)) <span class="fu">.</span> _last
+
+<span class="co">-- Usual version.</span>
+last <span class="fu">.</span> takeWhile (not <span class="fu">.</span> isSpace) <span class="fu">&lt;$&gt;</span> M.lookup <span class="st">&quot;save&quot;</span> bindings</code></pre></div>
+<p>The “usual version” seems to be shorter and cleaner. So, is it true that the lens library should only be used for setting, and getting is easier done with already existing functions?</p>
+<p>Not quite. Getting tends to become clumsy mainly because everybody has a different idea about how to write getting functions! If you want to get something from a structure, you have to consider this:</p>
+<ul>
+<li><p>What do you want to do upon failure? If “throw an exception” is a satisfactory answer, you'll have to use <code>fromJust</code> on all those functions which return <code>Maybe</code> (e.g. <a href="http://hackage.haskell.org/package/containers/docs/Data-Map-Lazy.html#v:lookup"><code>M.lookup</code></a>).</p></li>
+<li><p>If you'd rather get a <code>Maybe</code> instead, be prepared to deal with functions which <em>don't</em> return <code>Maybe</code>. This is <code>head</code>, <code>tail</code>, <code>!!</code> and so on.</p>
+<ul>
+<li><p>For some there are equivalent functions – e.g. a safe variant of <code>head</code> lives in base as <a href="http://hackage.haskell.org/package/base/docs/Data-Maybe.html#v:listToMaybe"><code>listToMaybe</code></a>.</p></li>
+<li><p>For some, there's a “sibling function” in some package – e.g. <a href="https://hackage.haskell.org/package/safe">safe</a> provides a lot of functions such as <a href="http://hackage.haskell.org/package/safe/docs/Safe.html#v:maximumMay"><code>maximumMay</code></a>.</p></li>
+<li><p>For some, you can check whether the getter will fail or not before actually using it – e.g. <code>inRange (0, length list - 1)</code> for <code>!!</code>.</p></li>
+<li><p>Finally, if all else fails, <a href="http://hackage.haskell.org/package/spoon/docs/Control-Spoon.html#v:teaspoon"><code>teaspoon</code></a> comes to rescue:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> teaspoon <span class="fu">$</span> head [<span class="dv">1</span>]
+<span class="dt">Just</span> <span class="dv">1</span>
+
+<span class="fu">&gt;</span> teaspoon <span class="fu">$</span> head []
+<span class="dt">Nothing</span></code></pre></div>
+<p>Note that <code>teaspoon</code> doesn't distinguish between exceptions and <code>undefined</code>, so you have to wrap everything into some data type (<code>Identity</code> won't do because it's a <code>newtype</code>) and unwrap afterwards if you want to preserve semantics:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> head [undefined]
+<span class="fu">***</span> <span class="dt">Exception</span><span class="fu">:</span> Prelude.undefined
+
+<span class="fu">&gt;</span> teaspoon <span class="fu">$</span> head [undefined]
+<span class="dt">Nothing</span>
+
+<span class="fu">&gt;</span> <span class="kw">data</span> <span class="dt">X</span> a <span class="fu">=</span> <span class="dt">X</span> {<span class="ot">getX ::</span> a}
+<span class="fu">&gt;</span> fmap getX <span class="fu">.</span> teaspoon <span class="fu">$</span> head <span class="fu">$</span> fmap <span class="dt">X</span> [undefined]
+<span class="dt">Just</span> <span class="fu">***</span> <span class="dt">Exception</span><span class="fu">:</span> Prelude.undefined</code></pre></div></li>
+</ul></li>
+<li><p>Getters which never fail (e.g. <code>sum</code>) have to be used with <code>fmap</code> or <code>&lt;$&gt;</code> in order to be composed with <code>Maybe</code> getters.</p></li>
+<li><p>Composing 2 <code>Maybe</code> getters requires <a href="http://hackage.haskell.org/package/base/docs/Control-Monad.html#v:-60--61--60-"><code>&lt;=&lt;</code></a>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(&lt;=&lt;) ::</span> <span class="dt">Monad</span> m <span class="ot">=&gt;</span> (b <span class="ot">-&gt;</span> m c) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> m b) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> m c
+<span class="co">-- Or, specialised for Maybe:</span>
+<span class="co">--     (b -&gt; Maybe c) -&gt; (a -&gt; Maybe b) -&gt; a -&gt; Maybe c</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> maximumMay <span class="fu">&lt;=&lt;</span> headMay <span class="fu">$</span> [[<span class="dv">8</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">9</span>]]
+<span class="dt">Just</span> <span class="dv">9</span>
+
+<span class="fu">&gt;</span> maximumMay <span class="fu">&lt;=&lt;</span> headMay <span class="fu">$</span> [[],[<span class="dv">8</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">9</span>]]
+<span class="dt">Nothing</span>
+
+<span class="fu">&gt;</span> maximumMay <span class="fu">&lt;=&lt;</span> headMay <span class="fu">$</span> []
+<span class="dt">Nothing</span></code></pre></div></li>
+<li><p>If you want to replace <code>Maybe</code> with a default value, you have to either use <a href="http://hackage.haskell.org/package/base/docs/Data-Maybe.html#v:fromMaybe"><code>fromMaybe</code></a> or rely on yet another bunch of functions such as <a href="http://hackage.haskell.org/package/containers/docs/Data-Map-Lazy.html#v:findWithDefault"><code>M.findWithDefault</code></a> or <a href="http://hackage.haskell.org/package/safe/docs/Safe.html#v:lastDef"><code>lastDef</code></a>.</p></li>
+</ul>
+<p>It's not even that <code>findWithDefault</code> is a long name (it is, tho). The real problem is that too many different functions do the same thing – you can't really write code without having to constantly consult Hoogle or documentation. Not only that, but people can't <em>read</em> your code that easily, because they might not have been trained to recognise <code>findWithDefault</code>, <code>lastDef</code>, <code>fromMaybe [] (spoonify tail)</code>, etc. as conceptually similar things.</p>
+<p>Lens solves this problem by providing a (mostly) uniform vocabulary. Getting can fail? Use <code>^?</code>. Can't fail? <code>^.</code>. Possibly can, but you don't care? <code>^?!</code>. Want all elements and not only the first one? <code>^..</code>. After that, it's just a combination of predefined traversals, lenses, prisms, simple functions used with <code>to</code>, and -functions ending in <code>Of</code>- (no idea how to call them). The “what happens in case of a failure” and “how do I get the value” parts are separated.</p>
+<h2 id="back-to-to">Back to <code>to</code></h2>
+<p>If you remember, just one section ago we wrote <code>to</code> – it “lifts” a function into a getter, which can be composed with other lenses.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">to ::</span> (s <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> <span class="dt">Lens&#39;</span> s a
+to getter <span class="fu">=</span> lens getter setter
+  <span class="kw">where</span> setter <span class="fu">=</span> error <span class="st">&quot;to: tried to set a getting-only lens&quot;</span></code></pre></div>
+<p>It's not very nice – <code>Lens'</code> usually indicates, well, lenses, and not getters. Liar liar. There should be some type which would indicate that the resulting “lens” can't be used for setti— a-ha, but we <em>have</em> such a type:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Getting</span> r s a <span class="fu">=</span> (a <span class="ot">-&gt;</span> <span class="dt">Const</span> r a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Const</span> r s</code></pre></div>
+<p>And functions which work with <code>Getting</code> have types like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">view     ::</span> <span class="dt">Getting</span>  a        s a <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> a
+<span class="ot">toListOf ::</span> <span class="dt">Getting</span> [a]       s a <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> [a]
+<span class="ot">preview  ::</span> <span class="dt">Getting</span> (<span class="dt">First</span> a) s a <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a
+<span class="ot">has      ::</span> <span class="dt">Getting</span> <span class="dt">Any</span>       s a <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Bool</span></code></pre></div>
+<p>If we want all these functions to work with our <code>to</code>-created getter, it has to have a type which would match all of these:</p>
+<ul>
+<li><code>Getting a s a</code></li>
+<li><code>Getting [a] s a</code></li>
+<li><code>Getting (First a) s a</code></li>
+<li><code>Getting Any s a</code></li>
+</ul>
+<p>Can some type match all of these? Sure!</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Getter</span> s a <span class="fu">=</span> forall r <span class="fu">.</span> <span class="dt">Getting</span> r s a</code></pre></div>
+<p>So, our better <code>to</code> would have this type signature:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">to ::</span> (s <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> <span class="dt">Getter</span> s a</code></pre></div>
+<p>Implementing <code>to</code> is simple:</p>
+<ul>
+<li><p>We've got our <code>getter :: s -&gt; a</code> and <code>f :: a -&gt; Const r a</code>, and <code>s :: s</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">to getter f s <span class="fu">=</span> _</code></pre></div></li>
+<li><p>We use <code>getter</code> to extract the <code>a</code> from <code>s</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">to getter f s <span class="fu">=</span> _ (getter s)</code></pre></div></li>
+<li><p>Then <code>f</code> acts on the extracted <code>a</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">to getter f s <span class="fu">=</span> _ (f (getter s))</code></pre></div></li>
+<li><p>At this point we've got a <code>Const r a</code>, but we need <code>Const r s</code>. To convert, we can just unwrap it and wrap the value back into <code>Const</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">to getter f s <span class="fu">=</span> <span class="dt">Const</span> (getConst (f (getter s)))</code></pre></div></li>
+</ul>
+<p>Great, now instead of a runtime exception there'll be a more-or-less nice compile-time error:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="dt">False</span> <span class="fu">&amp;</span> to id <span class="fu">.~</span> <span class="dt">True</span>
+
+<span class="fu">&lt;</span>interactive<span class="fu">&gt;:</span>
+    <span class="dt">Couldn&#39;t</span> match <span class="kw">type</span> ‘<span class="dt">Const</span> r0 <span class="dt">Bool</span>’ with ‘<span class="dt">Identity</span> <span class="dt">Bool</span>’
+    <span class="dt">Expected</span> <span class="kw">type</span><span class="fu">:</span> <span class="dt">Setting</span> <span class="dt">Bool</span> c <span class="dt">Bool</span> <span class="dt">Bool</span>
+      <span class="dt">Actual</span> <span class="kw">type</span><span class="fu">:</span> <span class="dt">Getting</span> r0 <span class="dt">Bool</span> <span class="dt">Bool</span>
+    <span class="dt">In</span> the first argument <span class="kw">of</span> ‘(<span class="fu">.~</span>)’, namely ‘to id’
+    <span class="dt">In</span> the second argument <span class="kw">of</span> ‘(<span class="fu">&amp;</span>)’, namely ‘to id <span class="fu">.~</span> <span class="dt">True</span>’</code></pre></div>
+<h2 id="recap-2">Recap</h2>
+<ul>
+<li><p><code>view</code> makes an “ordinary getting function” out of a lens.</p></li>
+<li><p><code>to</code> makes a getter out of an “ordinary getting function”. A getter is something which fits any <code>Getting r s a</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Getter</span> s a <span class="fu">=</span> forall r <span class="fu">.</span> <span class="dt">Getting</span> r s a</code></pre></div>
+<p>In other words, it's a lens-like thing where the functor can be any <code>Const r</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Getter</span> s a <span class="fu">=</span> forall r <span class="fu">.</span>   (a <span class="ot">-&gt;</span> <span class="dt">Const</span> r a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Const</span> r s
+<span class="kw">type</span> <span class="dt">Lens&#39;</span>  s a <span class="fu">=</span> <span class="dt">Functor</span> f <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span>    f    a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span>    f    s</code></pre></div></li>
+<li><p>A getter can be used instead of a lens or a traversal in many places:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="co">-- As an argument to «view» or «^.».</span>
+<span class="fu">&gt;</span> [<span class="dv">1</span><span class="fu">..</span><span class="dv">3</span>] <span class="fu">^.</span> to reverse
+[<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>]
+
+<span class="fu">&gt;</span> <span class="co">-- Or as an argument to «toListOf» or «^..».</span>
+<span class="fu">&gt;</span> (<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>) <span class="fu">^..</span> each <span class="fu">.</span> to show
+[<span class="st">&quot;1&quot;</span>, <span class="st">&quot;2&quot;</span>, <span class="st">&quot;3&quot;</span>]
+
+<span class="fu">&gt;</span> <span class="co">-- Every other function from Control.Lens.Fold works too.</span></code></pre></div></li>
+<li><p><code>^?!</code> is like <code>^?</code>, but unsafe (it unwraps a <code>Maybe</code> and can throw an exception):</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> [] <span class="fu">^?</span> _head
+<span class="dt">Nothing</span>
+
+<span class="fu">&gt;</span> [] <span class="fu">^?!</span> _head
+<span class="fu">***</span> <span class="dt">Exception</span><span class="fu">:</span> (<span class="fu">^?!</span>)<span class="fu">:</span> empty <span class="dt">Fold</span></code></pre></div></li>
+</ul>
+<h1 id="reader-writer-state-related-stuff">Reader, Writer, State, related stuff</h1>
+<p>There isn't much left to say about getters (without touching indexed getters, of course). However, if you browse the <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Getter.html"><code>Control.Lens.Getter</code></a> module [like I did when I had thought I was done writing this section], you can notice that there are 5 functions left unexplained: <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Getter.html#v:views"><code>views</code></a>, <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Getter.html#v:use"><code>use</code></a>, <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Getter.html#v:uses"><code>uses</code></a>, <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Getter.html#v:listening"><code>listening</code></a> and <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Getter.html#v:listenings"><code>listenings</code></a>. What do they do?</p>
+<p>To find out, look closely at the function which <em>isn't</em> among these 5 – <code>view</code>. Its type signature is:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">view ::</span> <span class="dt">MonadReader</span> s m <span class="ot">=&gt;</span> <span class="dt">Getting</span> a s a <span class="ot">-&gt;</span> m a</code></pre></div>
+<p>However, back in part 1 we defined it with a different signature:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">view ::</span> <span class="dt">Getting</span> a s a <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> a</code></pre></div>
+<p>(by the way, please take a second right now and reimplement <code>view</code> without looking anywhere or querying any types or anything of the sort). What does <a href="http://hackage.haskell.org/package/mtl/docs/Control-Monad-Reader.html#t:MonadReader"><code>MonadReader</code></a> do here? In fact, how come lens's <code>view</code> works at all, after all, we aren't using any monads..?</p>
+<hr />
+<p><del>I promised that nothing beyond <code>Functor</code>, <code>Applicative</code>, <code>Monoid</code> and <code>Monad</code> is “required knowledge” for these posts, and “reader” isn't any of those 4 things. So, I'll take a moment to explain it.</del></p>
+<p>The previous paragraph was written more than a month ago, and I guess that constantly thinking “and now I have to explain reader/writer/state, da-arn” somehow took all my motivation away. I still don't think there's a good explanation of reader/writer/state anywhere, but apparently I can't write my own. Sorry.</p>
+<p>Have some links instead!</p>
+<ul>
+<li><p>An <a href="http://adit.io/posts/2013-06-10-three-useful-monads.html">explanation of Reader/Writer/State with pictures</a>. It doesn't actually explain much and I don't like it.</p></li>
+<li><p>A <a href="http://learnyouahaskell.com/for-a-few-monads-more">confusing explanation in LYAH</a>. I don't like it either.</p></li>
+<li><p>An <a href="http://www.maztravel.com/haskell/readerMonad.html">explanation of Reader</a> which I'm too lazy to evaluate but I think it might be potentially better than the others.</p></li>
+<li><p><a href="http://www.stephendiehl.com/what/#reader-monad">Something which isn't even an explanation</a> but just code which you're supposed to look at and become enlightened. It <em>does</em> work sometimes, but I can't guarantee anything.</p></li>
+<li><p><a href="http://stackoverflow.com/a/14179721/615030">Examples</a> of not-exactly-standard Reader usage.</p></li>
+<li><p>An <a href="https://www.haskell.org/haskellwiki/All_About_Monads#The_State_monad">explanation which is long enough</a> to have a chance to be useful.</p></li>
+<li><p>I've just noticed that <a href="http://blog.sigfpe.com/2006/08/you-could-have-invented-monads-and.html">You Could Have Invented Monads</a> deals with Writer and State, so, y'know, maybe you should start with it 'cause everyone loves this one.</p></li>
+<li><p>This tutorial (<a href="http://mvanier.livejournal.com/5406.html">part 1</a>, <a href="http://mvanier.livejournal.com/5846.html">part 2</a>) explains the implementation of State monad well.</p></li>
+<li><p>And <a href="http://brandon.si/code/the-state-monad-a-tutorial-for-the-confused/">this one</a> is short but to the point.</p></li>
+<li><p><a href="http://en.wikibooks.org/wiki/Haskell/Understanding_monads/State">This one</a> has examples.</p></li>
+</ul>
+<h2 id="view-and-preview"><code>view</code> (and <code>preview</code>)</h2>
+<p>Remember that <code>view</code> makes a function out of a lens/traversal/getter – which means that with its help we can use lenses and getters when reading just as we use ordinary functions. Here's a contrived example showing how <a href="http://hackage.haskell.org/package/base/docs/Data-Tuple.html#v:swap"><code>swap</code></a> can be written Reader-style:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">ex3 ::</span> (a, b) <span class="ot">-&gt;</span> (b, a)
+ex3 <span class="fu">=</span> <span class="kw">do</span>
+  a <span class="ot">&lt;-</span> fst
+  b <span class="ot">&lt;-</span> snd
+  return (b, a)</code></pre></div>
+<p>Or with <code>view</code> (because <code>view _1</code> is the same as <code>fst</code>):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">ex3&#39; ::</span> (a, b) <span class="ot">-&gt;</span> (b, a)
+ex3&#39; <span class="fu">=</span> <span class="kw">do</span>
+  a <span class="ot">&lt;-</span> view _1
+  b <span class="ot">&lt;-</span> view _2
+  return (b, a)</code></pre></div>
+<p>By the way, you can use <code>preview</code> in the same way (it'll just return a <code>Maybe</code>). I won't give an example because, honestly, I dislike giving completely contrived examples and I can't think of a good one (“let's define a huge thing which depends on some configuration which is a record with lots of fields which have other fields” doesn't count as a particularly good example).</p>
+<p>Bonus task: figure out what <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Fold.html#v:pre"><code>pre</code></a> does, why <code>preview = view . pre</code>, and write it.</p>
+<h2 id="so-why-monadreader">So, why <code>MonadReader</code>?</h2>
+<p>Because <code>x -&gt; a</code> isn't the only reader monad. There's also <a href="http://hackage.haskell.org/package/mtl/docs/Control-Monad-Reader.html#t:Reader"><code>Reader</code></a>, which is simply a <code>newtype</code> over <code>x -&gt; a</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Reader</span> r a <span class="fu">=</span> <span class="dt">Reader</span>
+  {<span class="ot"> runReader ::</span> r <span class="ot">-&gt;</span> a }</code></pre></div>
+<p>And then there's <a href="http://hackage.haskell.org/package/mtl/docs/Control-Monad-Reader.html#t:ReaderT"><code>ReaderT</code></a>, which is a monad transformer – it can be used to turn other monads into reader monads.</p>
+<p>So, we make <code>view</code> work in any reader monad so that you wouldn't have to use <code>asks (view ...)</code>. At this point I could rant about how maybe <em>every</em> function should be made work in any reader monad – like, why not <code>length</code> too? if you want to abstract over such a thing as Getting A Function Argument, go on, abstract everywhere! – but I'm willing to accept that it's just for convenience. Ahem.</p>
+<p>Old implementation:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">view ::</span> <span class="dt">Getting</span> a s a <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> a
+view l <span class="fu">=</span> getConst <span class="fu">.</span> l <span class="dt">Const</span></code></pre></div>
+<p>New implementation:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">import </span><span class="dt">Control.Monad.Reader</span>
+
+<span class="ot">view ::</span> <span class="dt">MonadReader</span> s m <span class="ot">=&gt;</span> <span class="dt">Getting</span> a s a <span class="ot">-&gt;</span> m a
+view l <span class="fu">=</span> asks (getConst <span class="fu">.</span> l <span class="dt">Const</span>)</code></pre></div>
+<h2 id="views"><code>views</code></h2>
+<p>There's also <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Getter.html#v:views"><code>views</code></a>, which is to <code>view</code> what <a href="http://hackage.haskell.org/package/mtl/docs/Control-Monad-Reader-Class.html#v:asks"><code>asks</code></a> is to <a href="http://hackage.haskell.org/package/mtl/docs/Control-Monad-Reader-Class.html#v:ask"><code>ask</code></a>. That is, it takes a getter <em>and</em> a function to apply to the value returned by the getter. So, if there's a config like <code>Config</code>, which contains field <code>name</code> (well, let's say the field is called <code>_name</code> and <code>name</code> is the name of the corresponding lens), and you want to get length of said field – in some reader monad – you have at least 6 slightly different ways:</p>
+<ol type="1">
+<li>Straightforward – <code>length . view name &lt;$&gt; ask</code>.</li>
+<li>With <code>asks</code> – <code>asks (length . view name)</code>.</li>
+<li>Moving <code>length</code> into getter – <code>asks (^. name . to length)</code>.</li>
+<li>Using <code>view</code> as <code>asks</code> – <code>length &lt;$&gt; view name</code>.</li>
+<li>Again, moving <code>length</code> into getter – <code>view $ name . to length</code></li>
+<li>With <code>views</code> – <code>views name length</code>.</li>
+</ol>
+<p>I think #4 looks the best <em>in this particular case</em>, but choose for yourself.</p>
+<p>By the way, what is the type of <code>views</code>? You might think it's</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">views ::</span> <span class="dt">MonadReader</span> s m <span class="ot">=&gt;</span> <span class="dt">Getter</span> s a <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> r) <span class="ot">-&gt;</span> m r</code></pre></div>
+<p>but it's not – remember that <code>Getter s a</code> is the same as <code>Getting x s a</code> which has to work for any <code>x</code>, and we surely don't need <em>any</em> <code>x</code>, right? We only need some specific <code>x</code>.</p>
+<p>What about <code>Getting a s a</code>? It would've made sense – with <code>Getting a s a</code> we can get <code>a</code> out of an <code>s</code>, and then simply apply the <code>a -&gt; r</code> function to it. Like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">views ::</span> <span class="dt">MonadReader</span> s m <span class="ot">=&gt;</span> <span class="dt">Getting</span> a s a <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> r) <span class="ot">-&gt;</span> m r
+views l f <span class="fu">=</span> f <span class="fu">&lt;$&gt;</span> view l</code></pre></div>
+<p>However, it's not the right answer either.</p>
+<p>The right answer is this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">views ::</span> <span class="dt">MonadReader</span> s m <span class="ot">=&gt;</span> <span class="dt">Getting</span> r s a <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> r) <span class="ot">-&gt;</span> m r
+views l f <span class="fu">=</span> view (l <span class="fu">.</span> to f)
+<span class="co">-- Or “asks (getConst . l (Const . f))”.</span></code></pre></div>
+<p>Can you answer – without thinking much – why <code>l</code> is required to have type <code>Getting r s a</code> in the final definition of <code>views</code>? I couldn't – so here we go, yet another bullet list:</p>
+<ul>
+<li><p><code>Getting r s a</code> is the same as <code>(a -&gt; Const r a) -&gt; s -&gt; Const r s</code>. It should be read not as “gets <code>a</code> from <code>s</code>”, or “gets <code>r</code> from <code>s</code>”, but “gets <code>r</code> from <code>s</code>, provided that you know how to get <code>r</code> from <code>a</code>”. (And since <code>views</code> is given exactly that – a function from <code>a</code> to <code>r</code> – the question is already answered.)</p></li>
+<li><p>In other words, in <code>Getting r s a</code>, <code>a</code> isn't <em>result</em> type. It's <em>intermediate</em> type.</p></li>
+<li><p>Now it should (probably) be crystal clear to you that if <code>f</code> has type <code>Getting r abc ab</code> and <code>g</code> has type <code>Getting r ab a</code>, then <code>f . g</code> has type <code>Getting r abc a</code>. If one <code>r</code> was different from another <code>r</code>, it would've been impossible to compose 2 <code>Getting</code>s.</p></li>
+<li><p>Update from a month later: I'm rereading it now and it wasn't “crystal clear” to me until I reminded myself that <code>Getting</code> is a -function which modifies a getter- and these can be naturally chained. Lesson: never, never stop writing in the middle of a post for a month.</p></li>
+<li><p>In <code>views</code>, our final goal is <code>r</code>. Since <code>to f</code> can be getting anything</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">to   ::</span> (a <span class="ot">-&gt;</span> r) <span class="ot">-&gt;</span> (forall x <span class="fu">.</span> <span class="dt">Getting</span> x a r)
+to<span class="ot"> f ::</span> forall x <span class="fu">.</span> <span class="dt">Getting</span> x a r</code></pre></div>
+<p>it's enough for <code>l</code> to be getting <code>r</code>, which is indeed what we require by saying <code>Getting r s a</code>.</p></li>
+</ul>
+<p><strong>Open question:</strong> it's impossible to write a function of the type <code>(x -&gt; y) -&gt; Getting x s a -&gt; Getting y s a</code>, but it's possible to write a function of the type <code>(r -&gt; r) -&gt; Getting r s a -&gt; Getting r s a</code>, which would do pretty much what you expect. Can it be of any use?</p>
+<p><strong>Open question:</strong> are there non-contrived situations where it would matter whether <code>views</code> takes <code>Getting r s a</code> or <code>Getting a s a</code>?</p>
+<h2 id="bonus">Bonus</h2>
+<p>A reader-style version of <del>quicksort</del> <a href="http://www.reddit.com/r/programming/comments/2h0j2/real_quicksort_in_haskell/c2h196">deforested tree sort</a> left from my attempted explanation of reader:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">sort&#39; <span class="fu">=</span> <span class="kw">do</span>
+  empty <span class="ot">&lt;-</span> null
+  <span class="kw">if</span> empty <span class="kw">then</span> id <span class="kw">else</span> <span class="kw">do</span>
+    pivot <span class="ot">&lt;-</span> head
+    local tail <span class="fu">$</span> <span class="kw">do</span>
+      left  <span class="ot">&lt;-</span> local (filter (<span class="fu">&lt;</span>  pivot)) sort&#39;
+      right <span class="ot">&lt;-</span> local (filter (<span class="fu">&gt;=</span> pivot)) sort&#39;
+      return (left <span class="fu">++</span> pivot <span class="fu">:</span> right)</code></pre></div>
+<h2 id="listening-and-listenings"><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Getter.html#v:listening"><code>listening</code></a> and <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Getter.html#v:listenings"><code>listenings</code></a></h2>
+<p>I haven't ever seen anybody use them, so I guess I'll just skip them. It's not that hard to figure out what they do by looking at the signatures and implementation, anyway:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | This is a generalized form of &#39;listen&#39; that only extracts the portion</span>
+<span class="co">-- of the log that is focused on by a &#39;Getter&#39;.</span>
+<span class="ot">listening ::</span> <span class="dt">MonadWriter</span> w m <span class="ot">=&gt;</span> <span class="dt">Getting</span> u w u <span class="ot">-&gt;</span> m a <span class="ot">-&gt;</span> m (a, u)
+listening l m <span class="fu">=</span> <span class="kw">do</span>
+  (a, w) <span class="ot">&lt;-</span> listen m
+  return (a, view l w)
+
+<span class="ot">listenings ::</span> <span class="dt">MonadWriter</span> w m <span class="ot">=&gt;</span> <span class="dt">Getting</span> v w u <span class="ot">-&gt;</span> (u <span class="ot">-&gt;</span> v) <span class="ot">-&gt;</span> m a <span class="ot">-&gt;</span> m (a, v)
+listenings l uv m <span class="fu">=</span> <span class="kw">do</span>
+  (a, w) <span class="ot">&lt;-</span> listen m
+  return (a, views l uv w)</code></pre></div>
+<h1 id="actions-101">Actions 101</h1>
+<p>And now for something completely different! I'm tired of sounding like I know what I'm talking about, which means that right now I'll tell you what I <em>don't</em> know, and then we'll try to unravel everything toge— well, I'll be unravelling things and imagining that you're sitting with me in this room and asking questions or participating or something.</p>
+<p>[Ye-eah, it was another I'm-bored-at-night-so-why-not-be-a-bit-awkward paragraph.]</p>
+<p>Take a look at the <a href="http://hackage.haskell.org/package/lens-action/docs/Control-Lens-Action.html"><code>Control.Lens.Action</code></a> module (that's what I'm doing right now) (note that you need the <a href="https://hackage.haskell.org/package/lens-action">lens-action</a> package for it). What questions could you ask?</p>
+<hr />
+<blockquote>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Action</span> m s a <span class="fu">=</span> forall f r<span class="fu">.</span> <span class="dt">Effective</span> m r f <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> f a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f s</code></pre></div>
+</blockquote>
+<p>What's <code>Effective</code>?</p>
+<hr />
+<blockquote>
+<p>An <code>Action</code> is a <code>Getter</code> enriched with access to a <code>Monad</code> for side-effects.</p>
+</blockquote>
+<p>Should <code>putStrLn</code> (which prints given value but returns <code>()</code>) be made into an <code>Action</code>? What are canonical uses of actions? What interesting actions can there be using other monads? Are all monads allowed, or maybe not?</p>
+<hr />
+<blockquote>
+<p>Every <code>Getter</code> can be used as an <code>Action</code>.</p>
+</blockquote>
+<p>Remember that</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Getter</span> s a <span class="fu">=</span> forall r <span class="fu">.</span> (a <span class="ot">-&gt;</span> <span class="dt">Const</span> r a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Const</span> r a</code></pre></div>
+<p>How does this unify with <code>Effective m r f =&gt; (a -&gt; f a) -&gt; s -&gt; f s</code>? Is there an instance of <code>Effective</code> for <code>Const</code> or something?</p>
+<hr />
+<blockquote>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">act ::</span> <span class="dt">Monad</span> m <span class="ot">=&gt;</span> (s <span class="ot">-&gt;</span> m a) <span class="ot">-&gt;</span> <span class="dt">Action</span> m s a
+act sma afb a <span class="fu">=</span> effective (sma a <span class="fu">&gt;&gt;=</span> ineffective <span class="fu">.</span> afb)</code></pre></div>
+</blockquote>
+<p>What do <code>effective</code> and <code>ineffective</code> do?</p>
+<hr />
+<blockquote>
+<p><code>acts</code>: a self-running <code>Action</code>, analogous to <code>join</code>.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">acts ≡ act id</code></pre></div>
+</blockquote>
+<p>What can this be useful for?</p>
+<hr />
+<blockquote>
+<p><code>liftAct</code>: apply a <code>Monad</code> transformer to an <code>Action</code>.</p>
+</blockquote>
+<p>Again, need examples of usage.</p>
+<hr />
+<p><em>[Skipping indexed stuff and monadic folds.]</em></p>
+<blockquote>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Acting</span> m r s a <span class="fu">=</span> <span class="dt">LensLike</span> (<span class="dt">Effect</span> m r) s s a a</code></pre></div>
+<p>Used to evaluate an <code>Action</code>.</p>
+</blockquote>
+<p><code>Acting</code> to <code>Action</code> is the same as <code>Getting</code> to <code>Getter</code>, right?</p>
+<hr />
+<blockquote>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> (<span class="dt">Monad</span> m, <span class="dt">Functor</span> f, <span class="dt">Contravariant</span> f) <span class="ot">=&gt;</span> <span class="dt">Effective</span> m r f <span class="fu">|</span> f <span class="ot">-&gt;</span> m r</code></pre></div>
+<p>An <code>Effective</code> <code>Functor</code> ignores its argument and is isomorphic to a <code>Monad</code> wrapped around a value.</p>
+</blockquote>
+<p>Ignores its argument... Um, like <code>Const</code>? Is <code>Const (m r)</code> an <code>Effective</code>?</p>
+<hr />
+<blockquote>
+<p>Instances:</p>
+<ul>
+<li><code>Effective Identity r (Const r)</code></li>
+<li><code>Monad m =&gt; Effective m r (Effect m r)</code></li>
+</ul>
+</blockquote>
+<p>What's <code>Effect</code>? What if <code>Effect m r</code> is the same as <code>Const (m r)</code>? And what's the <code>Identity</code> instance for?</p>
+<h2 id="action-and-effect"><code>Action</code> and <code>Effect</code></h2>
+<p>Let's say we're only given the definition:</p>
+<blockquote>
+<p>An <code>Action</code> is a <code>Getter</code> enriched with access to a <code>Monad</code> for side-effects.</p>
+</blockquote>
+<p>Can we deduce everything else from it? I think we can.</p>
+<p>A getter is conceptually the same as <code>s -&gt; a</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Getter</span> s a <span class="fu">=</span> s <span class="ot">-&gt;</span> a</code></pre></div>
+<p>In this spirit, an action is, logically:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Action</span> m s a <span class="fu">=</span> s <span class="ot">-&gt;</span> m a
+<span class="co">-- Where “m” is a Monad.</span></code></pre></div>
+<p>However, the actual <code>Getter</code> is turned around, like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Getter</span> s a <span class="fu">=</span> forall r <span class="fu">.</span> (a <span class="ot">-&gt;</span> r) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> r</code></pre></div>
+<p>We can turn around <code>Action</code> in the same way:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Action</span> m s a <span class="fu">=</span> forall r <span class="fu">.</span> (a <span class="ot">-&gt;</span> m r) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> m r</code></pre></div>
+<p>And since <code>Getter</code> uses <code>Const r</code> instead of <code>r</code> to be compatible with lenses...</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Getter</span> s a <span class="fu">=</span> forall r <span class="fu">.</span> (a <span class="ot">-&gt;</span> <span class="dt">Const</span> r a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Const</span> r s</code></pre></div>
+<p>...<code>Action</code> should too.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Action</span> m s a <span class="fu">=</span> forall r <span class="fu">.</span> (a <span class="ot">-&gt;</span> <span class="dt">Const</span> (m r) a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Const</span> (m r) s</code></pre></div>
+<p>The final step is giving a name for <code>Const (m r)</code> (guess what it's going to be):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Effect</span> m r <span class="fu">=</span> <span class="dt">Const</span> (m r)
+
+<span class="kw">type</span> <span class="dt">Action</span> m s a <span class="fu">=</span> forall r <span class="fu">.</span> (a <span class="ot">-&gt;</span> <span class="dt">Effect</span> m r a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Effect</span> m r s</code></pre></div>
+<p>No, wait, this is not the final step. The final step would be adding <code>Acting</code>, to achieve the symmetry with <code>Getter</code>/<code>Getting</code>.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Getting</span> r s a <span class="fu">=</span> (a <span class="ot">-&gt;</span> <span class="dt">Const</span> r a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Const</span> r s
+
+<span class="kw">type</span> <span class="dt">Getter</span> s a <span class="fu">=</span> forall r <span class="fu">.</span> <span class="dt">Getting</span> r s a</code></pre></div>
+<p>(Just reminding you that <code>Getter</code> is to show that a function <em>is</em> a getter, and <code>Getting</code> is for functions which need to <em>accept</em> a getter as an argument.)</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Acting</span> m r s a <span class="fu">=</span> (a <span class="ot">-&gt;</span> <span class="dt">Effect</span> m r a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Effect</span> m r s
+<span class="co">-- Or “LensLike (Effect m r) s s a a”.</span>
+
+<span class="kw">type</span> <span class="dt">Action</span> m s a <span class="fu">=</span> forall r <span class="fu">.</span> <span class="dt">Acting</span> m r s a</code></pre></div>
+<h2 id="making-actions">Making actions</h2>
+<p>Since <code>Effect m r</code> is just <code>Const (m r)</code>, we can actually represent <code>Acting</code> as <code>Getting</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Getting</span>  r  s a <span class="fu">=</span> (a <span class="ot">-&gt;</span> <span class="dt">Const</span>   r   a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Const</span>   r   s
+<span class="kw">type</span> <span class="dt">Acting</span>  m r s a <span class="fu">=</span> (a <span class="ot">-&gt;</span> <span class="dt">Const</span> (m r) a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Const</span> (m r) s
+
+<span class="co">-- From which follows...</span>
+
+<span class="kw">type</span> <span class="dt">Acting</span> m r s a <span class="fu">=</span> <span class="dt">Getting</span> (m r) s a</code></pre></div>
+<p>However, we can't represent <code>Action</code> as <code>Getter</code>, and thus can't make actions with <code>to</code>. We need a separate combinator for this (which I'll call <code>act</code> because in lens it's called <code>act</code>):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">act ::</span> <span class="dt">Monad</span> m <span class="ot">=&gt;</span> (s <span class="ot">-&gt;</span> m a) <span class="ot">-&gt;</span> <span class="dt">Action</span> m s a</code></pre></div>
+<p>...“implementing <code>act</code> is left as an exercise for the reader”, yeah.</p>
+<h2 id="using-actions">Using actions</h2>
+<p>What is to <code>^.</code> as <code>Acting</code> is to <code>Getting</code>? Let's call it <code>^!</code> and implement it.</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(^.) ::</span> s <span class="ot">-&gt;</span> <span class="dt">Getting</span> a s a <span class="ot">-&gt;</span> a
+
+<span class="ot">(^!) ::</span> s <span class="ot">-&gt;</span> <span class="dt">Acting</span> m a s a <span class="ot">-&gt;</span> m a
+<span class="co">--   :: s -&gt; Getting (m a) s a -&gt; m a</span>
+
+<span class="kw">infixr</span> <span class="dv">8</span> <span class="fu">^!</span></code></pre></div>
+<p>Again, left as an exercise or something.</p>
+<p>Finally, let's define <code>perform</code> just because <code>^.</code> has <code>view</code> and <code>^!</code> wants to have something too (and also because it's sometimes better to use a function than an operator):</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">perform <span class="fu">=</span> flip (<span class="fu">^!</span>)</code></pre></div>
+<p>With <code>^!</code> and <code>act</code>, we can write <em>extremely cool stuff</em>, like hello world:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="st">&quot;Hello, world!&quot;</span> <span class="fu">^!</span> act putStrLn
+<span class="dt">Hello</span>, world<span class="fu">!</span></code></pre></div>
+<h2 id="actions-and-traversals">Actions and traversals</h2>
+<p>We probably can do something like <code>each . act putStrLn</code>. Well, we <em>should</em> be able to, at least, because otherwise actions are just useless. So, let's try:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> [<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>] <span class="fu">^!</span> each <span class="fu">.</span> act putStrLn
+
+<span class="fu">&lt;</span>interactive<span class="fu">&gt;:</span>
+    <span class="dt">No</span> <span class="kw">instance</span> for (<span class="dt">Monoid</span> (<span class="dt">IO</span> ())) arising from a use <span class="kw">of</span> ‘each’
+    <span class="dt">In</span> the first argument <span class="kw">of</span> ‘(<span class="fu">.</span>)’, namely ‘each’
+    <span class="dt">In</span> the second argument <span class="kw">of</span> ‘(<span class="fu">^!</span>)’, namely ‘each <span class="fu">.</span> act putStrLn’
+    <span class="dt">In</span> the expression<span class="fu">:</span> [<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>] <span class="fu">^!</span> each <span class="fu">.</span> act putStrLn</code></pre></div>
+<p>Ouch. What's going o— a-ha, right, the <code>Monoid</code> trouble from the past strikes again – <code>each</code> is a traversal, <code>each</code> uses <code>Applicative</code>, and the <code>Applicative</code> instance for <code>Const</code> (which we're using) requires a <code>Monoid</code>. There's no general instance like</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> (<span class="dt">Monad</span> m, <span class="dt">Monoid</span> a) <span class="ot">=&gt;</span> <span class="dt">Monoid</span> (m a)</code></pre></div>
+<p>for <a href="https://www.mail-archive.com/glasgow-haskell-users@haskell.org/msg24485.html">various reasons</a>; if we want <code>Effect</code>s to combine, we'll have to resort to newtypes. Behold, the <em>actual</em> definition of <code>Effect</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- | Wrap a monadic effect with a phantom type argument.</span>
+<span class="kw">newtype</span> <span class="dt">Effect</span> m r a <span class="fu">=</span> <span class="dt">Effect</span> {<span class="ot"> getEffect ::</span> m r }
+
+<span class="kw">instance</span> <span class="dt">Functor</span> (<span class="dt">Effect</span> m r) <span class="kw">where</span>
+  fmap _ (<span class="dt">Effect</span> m) <span class="fu">=</span> <span class="dt">Effect</span> m
+
+<span class="kw">instance</span> (<span class="dt">Monad</span> m, <span class="dt">Monoid</span> r) <span class="ot">=&gt;</span> <span class="dt">Applicative</span> (<span class="dt">Effect</span> m r) <span class="kw">where</span>
+  pure _ <span class="fu">=</span> <span class="dt">Effect</span> (return mempty)
+  <span class="dt">Effect</span> ma <span class="fu">&lt;*&gt;</span> <span class="dt">Effect</span> mb <span class="fu">=</span> <span class="dt">Effect</span> (liftM2 mappend ma mb)</code></pre></div>
+<p>(Now you'll have to make corresponding changes to <code>^!</code> and <code>act</code>.)</p>
+<p>Just in case, I'll spell out what's going on here:</p>
+<ul>
+<li><p>Traversals need an <code>Applicative</code> instance to combine effects.</p></li>
+<li><p>For <code>Const</code>, the <code>Applicative</code> instance requires <code>Monoid</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Monoid</span> r <span class="ot">=&gt;</span> <span class="dt">Applicative</span> (<span class="dt">Const</span> r)</code></pre></div></li>
+<li><p>If <code>Effect</code> was the same as <code>Const</code>, a <code>Monoid</code> instance for <code>m r</code> would've been needed.</p></li>
+<li><p>However, we don't want <code>Effect</code>s to be combined in the same way as <code>Const</code>s are combined. With additional knowledge of <code>m</code> being a <code>Monad</code>, we want monadic composition instead of pure monoidal composition.</p></li>
+<li><p>So, we make <code>Effect</code> a newtype, with a different <code>Applicative</code> instance – previously <code>m r</code> was required to be a <code>Monoid</code>, but now only <code>r</code> has to be a <code>Monoid</code> (given that <code>m</code> is a <code>Monad</code>).</p></li>
+</ul>
+<p>With this new definition, will the original <code>each</code> thing work? Sure:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> [<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>] <span class="fu">^!</span> each <span class="fu">.</span> act putStrLn
+a
+b
+c</code></pre></div>
+<p>The <code>Monoid</code> used here is <code>()</code>, but any other could be used as well:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="co">-- A helper for generating a random string.</span>
+<span class="fu">&gt;</span> <span class="kw">let</span> rand n <span class="fu">=</span> (<span class="fu">++</span> <span class="st">&quot;.&quot;</span>) <span class="fu">&lt;$&gt;</span> sample (replicateM n (uniform <span class="ch">&#39;a&#39;</span> <span class="ch">&#39;z&#39;</span>))
+<span class="fu">&gt;</span> forM [<span class="dv">1</span><span class="fu">..</span><span class="dv">5</span>] rand
+[<span class="st">&quot;t.&quot;</span>,<span class="st">&quot;dz.&quot;</span>,<span class="st">&quot;ouq.&quot;</span>,<span class="st">&quot;uzzz.&quot;</span>,<span class="st">&quot;aimwn.&quot;</span>]
+
+<span class="fu">&gt;</span> <span class="co">-- Let&#39;s create 10 files containing random strings:</span>
+<span class="fu">&gt;</span> forM_ [<span class="dv">1</span><span class="fu">..</span><span class="dv">10</span>] <span class="fu">$</span> \i <span class="ot">-&gt;</span> writeFile (<span class="st">&quot;/tmp/rand&quot;</span> <span class="fu">++</span> show i) <span class="fu">=&lt;&lt;</span> rand i
+
+<span class="fu">&gt;</span> <span class="co">-- Just in case, let&#39;s also check they exist:</span>
+<span class="fu">&gt;</span> <span class="fu">:!</span> du <span class="fu">-</span>b <span class="fu">/</span>tmp<span class="fu">/</span>rand<span class="fu">*</span>
+<span class="dv">2</span>	<span class="fu">/</span>tmp<span class="fu">/</span>rand1
+<span class="dv">11</span>	<span class="fu">/</span>tmp<span class="fu">/</span>rand10
+<span class="dv">3</span>	<span class="fu">/</span>tmp<span class="fu">/</span>rand2
+<span class="dv">4</span>	<span class="fu">/</span>tmp<span class="fu">/</span>rand3
+<span class="dv">5</span>	<span class="fu">/</span>tmp<span class="fu">/</span>rand4
+<span class="dv">6</span>	<span class="fu">/</span>tmp<span class="fu">/</span>rand5
+<span class="dv">7</span>	<span class="fu">/</span>tmp<span class="fu">/</span>rand6
+<span class="dv">8</span>	<span class="fu">/</span>tmp<span class="fu">/</span>rand7
+<span class="dv">9</span>	<span class="fu">/</span>tmp<span class="fu">/</span>rand8
+<span class="dv">10</span>	<span class="fu">/</span>tmp<span class="fu">/</span>rand9
+
+<span class="fu">&gt;</span> <span class="co">-- Okay, now we&#39;ll read them all and concat their contents.</span>
+<span class="fu">&gt;</span> <span class="kw">let</span> files <span class="fu">=</span> [<span class="st">&quot;/tmp/rand&quot;</span> <span class="fu">++</span> show i <span class="fu">|</span> i <span class="ot">&lt;-</span> [<span class="dv">1</span><span class="fu">..</span><span class="dv">10</span>]]
+<span class="fu">&gt;</span> files <span class="fu">^!</span> each <span class="fu">.</span> act readFile
+<span class="st">&quot;c.rq.vsy.ikia.hmsjs.emjqoh.mpmyuse.gqpxriey.rqxtbqdng.yegadcnfqj.&quot;</span></code></pre></div>
+<p>(The instance in this case is <code>Monoid [a]</code>, since <code>readFile</code> returns a <code>String</code>.)</p>
+<h2 id="actions-and-getters">Actions and getters</h2>
+<p>In the last example, you might've noticed that the definition of <code>files</code> could've been combined with the action, like this:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">[<span class="dv">1</span><span class="fu">..</span><span class="dv">10</span>] <span class="fu">^!</span> each <span class="fu">.</span> to (\i <span class="ot">-&gt;</span> <span class="st">&quot;/tmp/rand&quot;</span> <span class="fu">++</span> show i) <span class="fu">.</span> act readFile</code></pre></div>
+<p>Well, for one, it's clumsy and you shouldn't do it. However, it also doesn't typecheck (spoiler: yet!). Observe:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> [<span class="dv">1</span><span class="fu">..</span><span class="dv">10</span>] <span class="fu">^!</span> each <span class="fu">.</span> to (\i <span class="ot">-&gt;</span> <span class="st">&quot;/tmp/rand&quot;</span> <span class="fu">++</span> show i) <span class="fu">.</span> act readFile
+
+<span class="fu">&lt;</span>interactive<span class="fu">&gt;:</span>
+    <span class="dt">Couldn&#39;t</span> match <span class="kw">type</span> ‘<span class="dt">Const</span> r0 t0’ with ‘<span class="dt">Effect</span> <span class="dt">IO</span> <span class="dt">String</span> t0’
+    <span class="dt">Expected</span> <span class="kw">type</span><span class="fu">:</span> ([<span class="dt">Char</span>] <span class="ot">-&gt;</span> <span class="dt">Const</span> r0 [<span class="dt">Char</span>])
+                   <span class="ot">-&gt;</span> t0 <span class="ot">-&gt;</span> <span class="dt">Effect</span> <span class="dt">IO</span> <span class="dt">String</span> t0
+      <span class="dt">Actual</span> <span class="kw">type</span><span class="fu">:</span> <span class="dt">Getting</span> r0 t0 [<span class="dt">Char</span>]
+    <span class="dt">In</span> the first argument <span class="kw">of</span> ‘(<span class="fu">.</span>)’, namely
+      ‘to (\ i <span class="ot">-&gt;</span> <span class="st">&quot;/tmp/rand&quot;</span> <span class="fu">++</span> show i)’
+    <span class="dt">In</span> the second argument <span class="kw">of</span> ‘(<span class="fu">.</span>)’, namely
+      ‘to (\ i <span class="ot">-&gt;</span> <span class="st">&quot;/tmp/rand&quot;</span> <span class="fu">++</span> show i) <span class="fu">.</span> act readFile’
+
+<span class="fu">&lt;</span>interactive<span class="fu">&gt;:</span>
+    <span class="dt">Couldn&#39;t</span> match <span class="kw">type</span> ‘<span class="dt">Effect</span> <span class="dt">IO</span> <span class="dt">String</span> [<span class="dt">Char</span>]’
+                  with ‘<span class="dt">Const</span> r0 [<span class="dt">Char</span>]’
+    <span class="dt">Expected</span> <span class="kw">type</span><span class="fu">:</span> (<span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Effect</span> <span class="dt">IO</span> <span class="dt">String</span> <span class="dt">String</span>)
+                   <span class="ot">-&gt;</span> [<span class="dt">Char</span>] <span class="ot">-&gt;</span> <span class="dt">Const</span> r0 [<span class="dt">Char</span>]
+      <span class="dt">Actual</span> <span class="kw">type</span><span class="fu">:</span> <span class="dt">Acting</span> <span class="dt">IO</span> <span class="dt">String</span> [<span class="dt">Char</span>] <span class="dt">String</span>
+    <span class="dt">In</span> the second argument <span class="kw">of</span> ‘(<span class="fu">.</span>)’, namely ‘act readFile’
+    <span class="dt">In</span> the second argument <span class="kw">of</span> ‘(<span class="fu">.</span>)’, namely
+      ‘to (\ i <span class="ot">-&gt;</span> <span class="st">&quot;/tmp/rand&quot;</span> <span class="fu">++</span> show i) <span class="fu">.</span> act readFile’</code></pre></div>
+<p>Um, no, don't observe. Better try something simpler:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="fu">:</span>t to show <span class="fu">.</span> act putStrLn
+
+<span class="fu">&lt;</span>interactive<span class="fu">&gt;:</span>
+    <span class="dt">Couldn&#39;t</span> match <span class="kw">type</span> ‘<span class="dt">Effect</span> <span class="dt">IO</span> r1 <span class="dt">String</span>’ with ‘<span class="dt">Const</span> r <span class="dt">String</span>’
+    <span class="dt">Expected</span> <span class="kw">type</span><span class="fu">:</span> (() <span class="ot">-&gt;</span> <span class="dt">Effect</span> <span class="dt">IO</span> r1 ()) <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Const</span> r <span class="dt">String</span>
+      <span class="dt">Actual</span> <span class="kw">type</span><span class="fu">:</span> <span class="dt">Acting</span> <span class="dt">IO</span> r1 <span class="dt">String</span> ()
+    <span class="dt">In</span> the second argument <span class="kw">of</span> ‘(<span class="fu">.</span>)’, namely ‘act putStrLn’
+    <span class="dt">In</span> the expression<span class="fu">:</span> to show <span class="fu">.</span> act putStrLn</code></pre></div>
+<p>A-ha, now that's tolerable. So, what's the problem?</p>
+<p>The problem is actually very simple: if <code>Effect</code> and <code>Const</code> are no longer the same thing (and we made sure they aren't), we can't unify them:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="co">-- This is type of “to show”:</span>
+<span class="fu">&gt;</span> <span class="fu">:</span>t to show
+to<span class="ot"> show ::</span> <span class="dt">Show</span> s <span class="ot">=&gt;</span> <span class="dt">Getting</span> r s <span class="dt">String</span>
+
+<span class="fu">&gt;</span> <span class="co">-- And now expanded:</span>
+<span class="fu">&gt;</span> <span class="fu">:</span>kind<span class="fu">!</span> <span class="dt">Show</span> s <span class="ot">=&gt;</span> <span class="dt">Getting</span> r s <span class="dt">String</span>
+<span class="dt">Show</span> s <span class="ot">=&gt;</span> <span class="dt">Getting</span> r s <span class="dt">String</span><span class="ot"> ::</span> <span class="fu">*</span>
+<span class="fu">=</span> forall r s<span class="fu">.</span>
+  <span class="dt">Show</span> s <span class="ot">=&gt;</span>
+  ([<span class="dt">Char</span>] <span class="ot">-&gt;</span> <span class="dt">Const</span> r [<span class="dt">Char</span>]) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Const</span> r s
+
+<span class="fu">&gt;</span> <span class="co">-- Type of “act putStrLn”:</span>
+<span class="fu">&gt;</span> <span class="fu">:</span>t act putStrLn
+act<span class="ot"> putStrLn ::</span> <span class="dt">Acting</span> <span class="dt">IO</span> r <span class="dt">String</span> ()
+
+<span class="fu">&gt;</span> <span class="co">-- Expanded:</span>
+<span class="fu">&gt;</span> <span class="fu">:</span>kind<span class="fu">!</span> forall r <span class="fu">.</span> <span class="dt">Acting</span> <span class="dt">IO</span> r <span class="dt">String</span> ()
+forall r <span class="fu">.</span> <span class="dt">Acting</span> <span class="dt">IO</span> r <span class="dt">String</span><span class="ot"> () ::</span> <span class="fu">*</span>
+<span class="fu">=</span> forall r<span class="fu">.</span> (() <span class="ot">-&gt;</span> <span class="dt">Effect</span> <span class="dt">IO</span> r ()) <span class="ot">-&gt;</span> [<span class="dt">Char</span>] <span class="ot">-&gt;</span> <span class="dt">Effect</span> <span class="dt">IO</span> r [<span class="dt">Char</span>]</code></pre></div>
+<p>So, in order for <code>to show . act putStrLn</code> to work, the result of <code>act putStrLn</code> must be the same as the argument of <code>to show</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">“act putStrLn” (result)   <span class="fu">:</span> [<span class="dt">Char</span>] <span class="ot">-&gt;</span> <span class="dt">Effect</span> <span class="dt">IO</span> r [<span class="dt">Char</span>]
+“to show”      (argument) <span class="fu">:</span> [<span class="dt">Char</span>] <span class="ot">-&gt;</span> <span class="dt">Const</span> r [<span class="dt">Char</span>]</code></pre></div>
+<h2 id="what-to-do-now">What to do now?</h2>
+<p>A possible solution is to create a class for <code>Const</code>-like functors, and make getters and actions accept any of those functors instead of <code>Const</code> and <code>Effect</code> specifically. Turns out, however, that we don't need a special class for <code>Const</code>-like functors – it exists already as a combination of 2 other classes, <code>Functor</code> and <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Getter.html#t:Contravariant"><code>Contravariant</code></a> (originally defined in <a href="https://hackage.haskell.org/package/contravariant">contravariant</a>).</p>
+<p><code>Contravariant</code> is a class with a single method:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Contravariant</span> f <span class="kw">where</span>
+<span class="ot">  contramap ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f b <span class="ot">-&gt;</span> f a</code></pre></div>
+<p>Compare with <code>Functor</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Functor</span> f <span class="kw">where</span>
+<span class="ot">  fmap ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> f a <span class="ot">-&gt;</span> f b</code></pre></div>
+<p>There aren't many interesting instances of <code>Contravariant</code>. Functions could've been one – you can “reverse-apply” a function to the <em>argument</em> of another function – but due to the lack of type-level lambdas they can't, so you have to resort to newtypes:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Op</span> b a <span class="fu">=</span> <span class="dt">Op</span> (a <span class="ot">-&gt;</span> b)
+
+<span class="kw">instance</span> <span class="dt">Contravariant</span> (<span class="dt">Op</span> b) <span class="kw">where</span>
+  contramap g (<span class="dt">Op</span> f) <span class="fu">=</span> <span class="dt">Op</span> (f <span class="fu">.</span> g)
+
+<span class="co">-- contramap :: (x -&gt; y) -&gt; Op b y -&gt; Op b x</span>
+
+<span class="co">-- Or without newtypes:</span>
+<span class="co">-- contramap :: (x -&gt; y) -&gt; (y -&gt; b) -&gt; (x -&gt; b)</span></code></pre></div>
+<p>Or you can focus on some specific functions – e.g. on comparisons:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Comparison</span> a <span class="fu">=</span> <span class="dt">Comparison</span> (a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> <span class="dt">Ordering</span>)
+
+<span class="kw">instance</span> <span class="dt">Contravariant</span> <span class="dt">Comparison</span> <span class="kw">where</span>
+  contramap g (<span class="dt">Comparison</span> comp) <span class="fu">=</span> <span class="dt">Comparison</span> (comp <span class="ot">`on`</span> g)</code></pre></div>
+<p><code>Const</code> is a <code>Contravariant</code> too:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Contravariant</span> (<span class="dt">Const</span> a) <span class="kw">where</span>
+  contramap f (<span class="dt">Const</span> x) <span class="fu">=</span> <span class="dt">Const</span> x</code></pre></div>
+<p>Now, the interesting thing is that you can prove that <em>any</em> <code>Functor</code> which is also <code>Contravariant</code> doesn't actually contain any values – that is, it's like <code>Const</code>. How to prove it? By writing the <code>coerce</code> function:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">coerce ::</span> (<span class="dt">Functor</span> f, <span class="dt">Contravariant</span> f) <span class="ot">=&gt;</span> f a <span class="ot">-&gt;</span> f b</code></pre></div>
+<p>You can't get N values of type <code>b</code> out of thin air unless N is 0, so the existence of such function would prove it.</p>
+<p>Don't look ahead before trying to implement <code>coerce</code> on your own. Mindless brute-force search -of a composition of a small number of functions which has the type you want- is fun!</p>
+<hr />
+<p>We-ell, maybe not <em>that</em> mindless... anyway,</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">coerce ::</span> (<span class="dt">Functor</span> f, <span class="dt">Contravariant</span> f) <span class="ot">=&gt;</span> f a <span class="ot">-&gt;</span> f b
+coerce <span class="fu">=</span> contramap (const ()) <span class="fu">.</span> fmap (const ())
+
+<span class="co">-- fmap      (const ()) :: Functor       f =&gt; f a  -&gt; f ()</span>
+<span class="co">-- contramap (const ()) :: Contravariant f =&gt; f () -&gt; f a</span></code></pre></div>
+<p>The <a href="http://hackage.haskell.org/package/lens/docs/src/Control-Lens-Internal-Getter.html#coerce">definition</a> in lens uses <a href="http://hackage.haskell.org/package/void/docs/Data-Void.html#v:absurd"><code>absurd</code></a> instead, and I feel obliged to explain it as well:</p>
+<ul>
+<li><p><code>Void</code> is an uninhabited type – it has no values (<code>()</code> has 1). With recent enough GHC, you can implement <code>Void</code> as simply <code>data Void</code>, but in <a href="https://hackage.haskell.org/package/void">void</a> it's implemented as <code>newtype Void = Void Void</code> (newtypes are strict, so you can't construct <code>Void</code> as <code>let x = Void x in x</code> or something).</p></li>
+<li><p>Since <code>Void</code> can't exist, it's safe to have a function like <code>absurd :: Void -&gt; a</code>.</p></li>
+<li><p>From there it's 1 step to <code>vacuous :: Functor f =&gt; f Void -&gt; f a</code> (simply do <code>fmap absurd</code>).</p></li>
+<li><p>And, and then we can use <code>contramap absurd</code> to get an “opposite” function of type <code>f a -&gt; f Void</code> – which can be finally combined with <code>vacuous</code> to get <code>f a -&gt; f b</code>.</p></li>
+</ul>
+<hr />
+<p>Do you still remember what we wanted to do? We wanted to find a way to show that a <code>Functor</code> is <code>Const</code>-like – i.e. it doesn't hold any values – and we found that putting an additional <code>Contravariant</code> constraint on it is enough. Now the <code>Getter</code> definition can be updated:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Getter</span> s a <span class="fu">=</span>
+  forall f <span class="fu">.</span> (<span class="dt">Contravariant</span> f, <span class="dt">Functor</span> f) <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> f a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f s
+
+<span class="co">-- Old:</span>
+<span class="co">--   type Getter s a = forall r . (a -&gt; Const r a) -&gt; s -&gt; Const r s</span></code></pre></div>
+<p>As well as the definition of <code>to</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">to ::</span> (s <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> <span class="dt">Getter</span> s a
+to getter f s <span class="fu">=</span> coerce (f (getter s))
+
+<span class="co">-- Old:</span>
+<span class="co">--   to getter f s = Const (getConst (f (getter s)))</span></code></pre></div>
+<p>The next step is adding an instance of <code>Contravariant</code> for <code>Effect</code>, which is the same as the <code>Functor</code> instance:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Contravariant</span> (<span class="dt">Effect</span> m r) <span class="kw">where</span>
+  contramap _ (<span class="dt">Effect</span> m) <span class="fu">=</span> <span class="dt">Effect</span> m</code></pre></div>
+<p>This is enough for <code>to show . act putStrLn</code> to work:</p>
+<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="dt">True</span> <span class="fu">^!</span> to show <span class="fu">.</span> act putStrLn
+<span class="dt">True</span></code></pre></div>
+<h2 id="what-about-the-rest-of-the-questions">What about the rest of the questions?</h2>
+<p>Umh. What if I just asked Whoever Happens To Read This Post to tell me the answers? I admit that I haven't ever actually used actions, which makes it pretty hard for me to invent usecases for them. So, what I'm looking for is any snippets of code which use actions, <code>liftAct</code>, <code>acts</code>, etc. (and it'd be kinda nice if you could send me them if you have any).</p>
+<p>As for <code>Effective</code>... I suspect that it's needed when you start implementing “indexed stuff”, but I can't be sure because I'm actively trying not to learn anything about it before time comes to write about it.</p>
+<h1 id="getter-and-setter-laws"><code>Getter</code> and <code>Setter</code> laws</h1>
+<p>Getters have no laws, because they're just functions in disguise.</p>
+<blockquote>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">set l y (set l x a) ≡ set l y a</code></pre></div>
+<p>You can't view a <code>Setter</code> in general, so the other two laws are irrelevant.</p>
+<p>However, two <code>Functor</code> laws apply to a <code>Setter</code>:</p>
+<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">over l id ≡ id
+over l f <span class="fu">.</span> over l g ≡ over l (f <span class="fu">.</span> g)</code></pre></div>
+</blockquote>
+</article>
+
+
+<div id="series">
+      <a href="/lens-over-tea-1">&lt;&lt;&lt;</a>
+
+  <a href="/#lens-over-tea">“lens over tea”</a>
+
+      <a href="/lens-over-tea-3">&gt;&gt;&gt;</a>
+  </div>
+
+</div>
+
+<div id="monadfix" class="blue-links">
+  <h3>I'm doing software consulting!</h3>
+  <p>
+    Nowadays I'm running a functional programming consultancy at
+    <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
+    PureScript, Clojure, and Agda. We are looking for more clients and more
+    consultants!
+  </p>
+</div>
+
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+this.page.url = "https://artyom.me/lens-over-tea-2";
+this.page.identifier = "lens-over-tea-2";
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//artyomkazak.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<div id="footer" class="blue-links">
+<a href="https://github.com/neongreen/artyom.me/blob/master/posts/lens-over-tea-2.md">view source</a>—<a href="mailto:artyom@aelve.com?subject=Comment on lens-over-tea-2">comment by email</a>—<a href="/curiosity">curiosity killed the cat</a>
+</div>
+
+</div>
+
+<script>
+document.body.innerHTML = document.body.innerHTML.replace(/‾/g, "<span style='text-decoration: overline'> </span>");
+</script>
+
+</body>
+</html>

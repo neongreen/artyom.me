@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <meta name="google-site-verification" content="y-gj-eNGiiocXI1nd6EPlywGEfhW90jeeFO__ePHvbg" />
+  <meta name="generator" content="pandoc">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <link rel="icon" type="image/png" href="/ame256.png">
+  <link rel="alternate" type="application/rss+xml" href="/feed.xml"
+        title="RSS">
+  <title>The YX problem</title>
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="/css.css?date=2019-06-21">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-154447441-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-154447441-1');
+</script>
+
+</head>
+
+<body>
+
+<div id="header">
+  <a href="/">Artyom Kazak</a>
+  <a href="/feed.xml"><img src="/feed-icon.svg" alt="feed"></a>
+</div>
+
+<div id="details" class="blue-links">
+  <div class="badge">
+    <i class="fas fa-envelope"></i>
+    <a href="mailto:artyom@aelve.com">artyom@aelve.com</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-telegram"></i>
+    <a href="http://t.me/lightgreen">lightgreen</a>
+  </div
+  ><div class="badge">
+    <i class="fab fa-github"></i>
+    <a href="http://github.com/neongreen">neongreen</a>
+  </div
+
+  ><div class="badge">
+    Founder of <a href="https://aelve.com">Aelve</a>
+  </div
+  ><div class="badge">
+    Co-founder of <a href="https://monadfix.io">Monadfix</a>
+  </div
+
+  ><div class="badge">
+    Living in Moscow (come hang out!)
+  </div>
+</div>
+
+<div id="main">
+
+
+
+
+
+<article>
+<h1 class="title">The YX problem</h1>
+
+<p>But first, the XY problem.</p>
+<p><a href="http://xyproblem.info/">The XY problem</a> is well known on forums, Q&amp;A sites, and chatrooms. Somebody asks “how to do Y?”; in reality they want to do X, but they're asking about Y because they think X can be solved by doing Y. But Y is a <em>bad</em> solution for X, so if you just tell the person how to do Y, it'll be wrong. Here's an example: you're writing a program and you need to know some file's extension, but instead of asking “what function returns file's extension?” you ask “how to get last 3 characters of a string?” (because you wrongly think that all extensions have 3 characters). Another example: you want a small yellow fluffy chicken which is adorable and yellow and says pip-pip-pip, but instead of just buying a chicken you start asking your friends whether they know where to get a cheap incubator.</p>
+<p>The XY problem is a problem because a) it wastes everyone's time, and b) it prevents the true problem from being solved. Right?</p>
+<p>Well, right, but sometimes the cure is worse than the disease.</p>
+<hr />
+<p>Here's how a technical person might react when somebody in their field of view attempts to use mouse to copy a piece of text: “Wait, how come you don't know that Ctrl-C copies things?! Okay, okay, okay, stop doing whatever you were doing right now. You just press Ctrl and— yes, Ctrl is this key— no, <em>together</em>, and release... no need to wait this long, by the way... and now it's copied! Much faster than using the mouse – I wonder how come you didn't know about it after using the computer for %N years. By the way, Ctrl-V pastes, and Ctrl-X cuts, and Ctrl-A selects everything, but okay, you probably don't care much about the last one, I'll just leave now”.</p>
+<p>Similarly, programmers become annoyed when somebody attempts to solve a problem in an unidiomatic way. It doesn't happen because your time is being wasted, it happens because you don't like unidiomatic solutions to <em>anything</em>. The same reason you stayed up late the previous night – 20 open tabs about GnuPG and keyservers, because you wanted to add some guy's repository to your system but it was throwing an error about a missing key, and you needed the repository because you wanted to install some program and a binary was available on the site but you want all programs on your laptop to be installed from repositories... You wasted 3 hours on that. (Another hour was wasted on googling what's the <em>right</em> way to do autostart in Gnome and installing gnome-tweak-tool and then figuring out why it didn't work.) It goes on and on; you tell yourself it'll make maintaining the system easier in the long run, but in reality you don't know whether it's worth the effort, it's likely that you haven't <a href="https://xkcd.com/1205/">done the math</a> – you're doing it because you don't like things to be done the “wrong” way, whatever it means. And hence the attempts to prevent others from <a href="http://xkcd.com/763/">going on the wrong path</a>.</p>
+<p>The thing is, when you start acting on your feelings, you essentially say “I don't care about helping you, what I care about is you not doing the bad thing you want to do, so I'm going to talk you out of it”. And that's the YX problem.</p>
+<hr />
+<p>Note that the XY problem doesn't always lead to the YX problem. To steal an example from <a href="http://slatestarcodex.com/2016/02/24/two-attitudes-in-psychiatry/">Two Attitudes In Psychiatry</a>:</p>
+<blockquote>
+<p>A mother brings her 6 year old son to the doctor, complaining that he gets nauseous every morning. She wants the doctor to prescribe an anti-nausea pill. The doctor probes further and finds the kid only gets nauseous on school days. In fact, he only gets nauseous on school days when he has a particular gym class. The doctor asks the kid if there are any problems in that gym class, and the kid is reluctant to say anything. After a while, he finally admits there is a bully in that class. The mother calls the school, and the school takes care of the bully. After that the kid is no longer nauseous in the mornings.</p>
+</blockquote>
+<p>In this case, while the mother's solution was wrong, her goal and the goal of the doctor were aligned – they both wanted the to stop the child from being nauseous. Everything is civil, everyone is happy. Compare it to this example:</p>
+<blockquote>
+<p>I remember a textbook talking about a case study by a famous psychiatrist. The patient had come in talking about how her husband was being borderline-emotionally-abusive to her. The psychiatrist interrupted her and said that she was perpetuating this dynamic to feed her own narcissism. The patient said this was absolutely not true and she wasn’t narcissistic. The psychiatrist said she would never be able to get over her provoking-her-husband problem until she admitted the depth of her narcissism. The patient refused to keep seeing the psychiatrist after that, and the psychiatrist commented that it had been a hopeless case from the beginning – the extent of her narcissism was so great that she would never acknowledge that somebody else might know more than she did.</p>
+</blockquote>
+<p>The woman wants to deal with her husband, and the psychiatrist wants... what? If there actually was some trick, some way to help the woman solve her problem without getting rid of the narcissism, would've the psychiatrist given it to the woman and sent her away? “But her real problem is narcissism” – well, if by “real” you mean “root cause”, then why not tell the woman to get a divorce and never marry anyone again? “Because that's not what she wants”? But she doesn't want to get rid of the narcissism either.</p>
+<p>When you discuss the solution and it turns out that the actual problem is different, or when you take a guess and say “maybe you want X” and it turns out that the other person indeed wanted X, that's not the YX problem. The YX problem is when you <em>don't like</em> what the other person wants, and this can't be solved with additional investigation, and thus the discussion turns from “what exactly do you want?” to “why can't you see that you don't want what you want?”.</p>
+<hr />
+<p>There are 2 reasons why the YX problem is, well, a problem. The first reason is everything I said earlier, which can be summarised as follows: there should be a way for people to seek help without having someone else's <em>values</em> inflicted on them in the process. Just like it's important to have a way to communicate privately even if it means that Bad Guys would be able to use it too, it's important to have a way to get your questions answered even if it means that it would result in Wrong Things being done. (Google is getting there, but it's not enough yet.)</p>
+<p>(Also, if you think “but I don't get paid for helping people, so getting to inflict my values on them is okay” – is it okay for the company that produces the messenger you use to read your messages, if you don't pay them and there are no ads? It's legal, yes, and perhaps even ethical if they warn you in advance. However, it doesn't make them particularly nice anyway.)</p>
+<p>Anyway, there's another reason why it's bad, and it's about empathy. Specifically: what do you think the other person feels when you say “you probably don't want what you think you want”? To get an idea, read <a href="https://news.ycombinator.com/item?id=10024518">this comment about Apple Stores</a>, for instance, or <a href="https://news.ycombinator.com/item?id=9084152">this one</a>, or just believe me when I say that having people argue with you about what <em>you</em> want can make you feel like shit literally for the rest of the day, and the worst thing is that it happens regardless of whether they are ultimately right or not. Yes, people want stupid things sometimes. Yes, sometimes those things are really stupid. Is preventing them from doing those things important enough for you to risk making them feel bad as long as stupid things won't be done?</p>
+<p>I want to be very clear: I'm not proposing any rule or even a guideline, and neither am I saying “you should answer people's dumb questions”. I'm just saying that if you had your empathy turned on at all times, <a href="https://xkcd.com/438/">things would be different</a>.</p>
+</article>
+
+
+
+</div>
+
+<div id="monadfix" class="blue-links">
+  <h3>I'm doing software consulting!</h3>
+  <p>
+    Nowadays I'm running a functional programming consultancy at
+    <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
+    PureScript, Clojure, and Agda. We are looking for more clients and more
+    consultants!
+  </p>
+</div>
+
+<div id="disqus_thread"></div>
+<script>
+var disqus_config = function () {
+this.page.url = "https://artyom.me/yx";
+this.page.identifier = "yx";
+};
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = '//artyomkazak.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+<div id="footer" class="blue-links">
+<a href="https://github.com/neongreen/artyom.me/blob/master/posts/yx.md">view source</a>—<a href="mailto:artyom@aelve.com?subject=Comment on yx">comment by email</a>—<a href="/curiosity">curiosity killed the cat</a>
+</div>
+
+</div>
+
+<script>
+document.body.innerHTML = document.body.innerHTML.replace(/‾/g, "<span style='text-decoration: overline'> </span>");
+</script>
+
+</body>
+</html>
