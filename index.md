@@ -4,7 +4,7 @@ pagetitle: Artyom Kazak
 
 # Read my blog
 
-Most of my posts are here now: [blog.artyom.me](https://blog.artyom.me).
+Most of my posts are here now: [blog.artyom.me](https://blog.artyom.me). There is also an email newsletter: <https://getrevue.co/profile/artyom>.
 
 # If you want to hire me
 
