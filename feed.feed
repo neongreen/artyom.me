@@ -9,7 +9,7 @@ RSS
 
   [ Title        "Artyom's blog"
   , Link         "https://blog.artyom.me"
-  , Description  "Another belated announcement: I have a blog, too!"
+  , Description  "Another belated announcement: I have a blog, too! It's much more active than this feed."
   , Guid False   "blog"
   ] ,
 
