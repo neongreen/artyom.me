@@ -7,6 +7,18 @@ RSS
          "https://artyom.me" Nothing Nothing Nothing]
   [
 
+  [ Title        "Artyom's blog"
+  , Link         "https://blog.artyom.me"
+  , Description  "Another belated announcement: I have a blog, too!"
+  , Guid False   "blog"
+  ] ,
+
+  [ Title        "Artyom's Twitter"
+  , Link         "https://twitter.com/availablegreen"
+  , Description  "Belated announcement: I have a Twitter!"
+  , Guid False   "twitter"
+  ] ,
+
   [ Title        "Telegram channel"
   , Link         "https://telegram.me/lightgreen_life"
   , Description  "I've got a Telegram channel where I post ideas/observations/quotes/links/etc <a href=\"https://telegram.me/lightgreen_life\">here</a>."
