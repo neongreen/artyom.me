@@ -1,6 +1,6 @@
 % Aeson: the tutorial
 
-[Aeson](@hackage:aeson) is the most widely used library for parsing [JSON](@w) (in Haskell, of course, I'm not talking about the whole world). It's also hopelessly magical for people who try to learn it by looking at provided examples, and existing tutorials don't help that much, so I wrote my own. It's supposed to be the most comprehensive Aeson tutorial on the web; if there's anything missing from it, send me an email! (So far the only thing I haven't covered is using lenses with Aeson, but this is coming soon.)
+[Aeson](https://hackage.haskell.org/package/aeson) is the most widely used library for parsing JSON (in Haskell, of course, I'm not talking about the whole world). It's also hopelessly magical for people who try to learn it by looking at provided examples, and existing tutorials don't help that much, so I wrote my own. It's supposed to be the most comprehensive Aeson tutorial on the web; if there's anything missing from it, send me an email! (So far the only thing I haven't covered is using lenses with Aeson, but this is coming soon.)
 
 Note that knowing all this is *not* needed if you want to parse JSON in Haskell; if you just want to get it done – fast – then skip to the [generics](#records-and-json-generics) section. However, if you're doing some tricker JSON processing, then read it all.
 
@@ -26,17 +26,17 @@ Here's an incomplete list of things the tutorial explains (excluding basic stuff
   * [parsing without creating extra types](#parsing-without-creating-extra-types)
   * [pretty-printing](#pretty-printing)
 
-You probably should read it from beginning to end, because some questions of the form “how to do something with Aeson” are hard to answer without understanding how Aeson works. Even if you know how Aeson works, you still probably should read it all – there are some idioms and bits of knowledge scattered around that aren't present in other tutorials, like [`RecordWildCards`](@ghc-ext), and [`Alternative`][], and a list of default encodings for various types, and pretty-printing, and customising generic instances, and stuff.
+You probably should read it from beginning to end, because some questions of the form “how to do something with Aeson” are hard to answer without understanding how Aeson works. Even if you know how Aeson works, you still probably should read it all – there are some idioms and bits of knowledge scattered around that aren't present in other tutorials, like [`RecordWildCards`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-RecordWildCards), and [`Alternative`][], and a list of default encodings for various types, and pretty-printing, and customising generic instances, and stuff.
 
 ### A note on string types
 
-For following examples to work, you need to enable the [`OverloadedStrings`](@ghc-ext) extension – either by writing `{-# LANGUAGE OverloadedStrings #-}` at the top of the module, or doing `:set -XOverloadedStrings` in GHCi prompt.
+For following examples to work, you need to enable the [`OverloadedStrings`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-OverloadedStrings) extension – either by writing `{-# LANGUAGE OverloadedStrings #-}` at the top of the module, or doing `:set -XOverloadedStrings` in GHCi prompt.
 
 The reason for this is that most of the time you have JSON in a file or receive it over network, so JSON decoding/encoding functions work with [`ByteString`][] and not with [`String`][] or [`Text`][]. (If you need to convert JSON to/from `Text`, there's a possibility you're doing something wrong.) And normally string literals like `"foo"` can only mean `String`, so you can't use Aeson's decoding functions on them – but the `OverloadedStrings` extension lifts this restriction and lets string literals be converted to `ByteString` or `Text` automatically (similarly to how `3` can be converted to `Int`, `Integer`, or `Double` automatically).
 
 The `-XOverloadedStrings` trick only applies when you're playing with Aeson in GHCi. If you want to read JSON from a file, for instance, you should read it with [`Data.ByteString.Lazy.readFile`][] and not with Prelude's [`readFile`][].
 
-However, if you *really* need it for some reason, you can also convert a `ByteString` to/from `String` by using [`fromString`][] and [`toString`][] from [`Data.ByteString.Lazy.UTF8`][] in the [utf8-string](@hackage) package, or to/from `Text` by using [`encodeUtf8`][] and [`decodeUtf8`][] from [`Data.Text.Lazy.Encoding`][] – but don't expect good performance.
+However, if you *really* need it for some reason, you can also convert a `ByteString` to/from `String` by using [`fromString`][] and [`toString`][] from [`Data.ByteString.Lazy.UTF8`][] in the [utf8-string](https://hackage.haskell.org/package/utf8-string) package, or to/from `Text` by using [`encodeUtf8`][] and [`decodeUtf8`][] from [`Data.Text.Lazy.Encoding`][] – but don't expect good performance.
 
 ### Very basic decoding and encoding
 
@@ -88,11 +88,11 @@ Aeson has its own datatype for representing JSON, which is called simply [`Value
 
 ~~~ haskell
 data Value
-  = Object Object	 
-  | Array Array	 
-  | String Text	 
-  | Number Scientific	 
-  | Bool Bool	 
+  = Object Object
+  | Array Array
+  | String Text
+  | Number Scientific
+  | Bool Bool
   | Null
 ~~~
 
@@ -223,7 +223,7 @@ parseTuple _          = fail "expected an object"
 
 <div class="note">
 
-`Parser`, just like `Either`, is a monad (and also [`Applicative`][] and [`Alternative`][]), so we can use all the usual things on it; if you ever used [Parsec](@hackage:parsec), this shouldn't be too unfamiliar for you. If you haven't, here's a crash course.
+`Parser`, just like `Either`, is a monad (and also [`Applicative`][] and [`Alternative`][]), so we can use all the usual things on it; if you ever used [Parsec](https://hackage.haskell.org/package/parsec), this shouldn't be too unfamiliar for you. If you haven't, here's a crash course.
 
 You can chain `Parser`s using do notation. For instance, this:
 
@@ -542,9 +542,9 @@ instance ToJSON Person where
     "age"  .= age  p ]
 ~~~
 
-### [`RecordWildCards`](@ghc-ext)
+### [`RecordWildCards`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-RecordWildCards)
 
-There is a slightly different style, however, which I think is better. It relies on the [`RecordWildCards`](@ghc-ext) extension, which does 2 transformations:
+There is a slightly different style, however, which I think is better. It relies on the [`RecordWildCards`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-RecordWildCards) extension, which does 2 transformations:
 
 * instead of deconstructing the record like `f (Person name age) = ...`, you can write `f Person{..} = ...`
 
@@ -785,7 +785,7 @@ data RussianName = RussianName {
   russianPatronymic :: String }
 ~~~
 
-(In case you wonder: [patronymic](@w:Patronymic#Russian).)
+(In case you wonder: [patronymic](https://en.wikipedia.org/wiki/Patronymic#Russian).)
 
 So, `RussianName` is just a `Name` with patronymic added to it. However, we also want `RussianName` to turn into this JSON (without nestedness):
 
@@ -929,7 +929,7 @@ instance ToJSON Person
 instance FromJSON Person
 ~~~
 
-Starting from GHC 7.10, it's possible to simplify this even further by using the [`DeriveAnyClass`](@ghc-ext) extension (which still requires a `Generic` instance):
+Starting from GHC 7.10, it's possible to simplify this even further by using the [`DeriveAnyClass`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-DeriveAnyClass) extension (which still requires a `Generic` instance):
 
 ~~~ haskell
 {-# LANGUAGE DeriveGeneric, DeriveAnyClass #-}
@@ -1124,7 +1124,7 @@ That's kinda all.
 
 (Strictly speaking, this isn't a part of Aeson, but it doesn't matter.)
 
-If you are using Aeson to work with e.g. config files, you might want to make them human-readable. (Well, actually I think you *must* make them human-readable, but maybe you have really good reasons not to... so I won't insist.) Aeson doesn't have a function to print JSON in a human-readable format, but there is a function in [aeson-pretty](@hackage), and it's really easy to use, and that's why I won't spend much time explaining it.
+If you are using Aeson to work with e.g. config files, you might want to make them human-readable. (Well, actually I think you *must* make them human-readable, but maybe you have really good reasons not to... so I won't insist.) Aeson doesn't have a function to print JSON in a human-readable format, but there is a function in [aeson-pretty](https://hackage.haskell.org/package/aeson-pretty), and it's really easy to use, and that's why I won't spend much time explaining it.
 
 You just import [`Data.Aeson.Encode.Pretty`][] and use [`encodePretty`][] instead of `encode` in your code. That's all. The resulting JSON would be nicely indented and everything.
 

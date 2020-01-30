@@ -8,7 +8,7 @@ series:
   next: /lens-over-tea-7
 ---
 
-Let's take a break from weird typeclasses and delve into [Template Haskell](@w) that lens uses fairly extensively; in the end we'll have a simple implementation of `makeLenses`. This post is fairly standalone and you don't have to have read the previous 5 posts – in fact, you don't even need to know any TH. The only thing you need to know that Template Haskell is a way to generate code while your program is compiling.
+Let's take a break from weird typeclasses and delve into Template Haskell that lens uses fairly extensively; in the end we'll have a simple implementation of `makeLenses`. This post is fairly standalone and you don't have to have read the previous 5 posts – in fact, you don't even need to know any TH. The only thing you need to know that Template Haskell is a way to generate code while your program is compiling.
 
 And before we begin, some funny quotes:
 
@@ -343,7 +343,7 @@ age f (Person x1 x2) = fmap (\y -> Person x1 y) (f x2)
 
 # Template Haskell
 
-Any Haskell code can be represented as a *value* of one of the types from [template-haskell](@hackage) (specifically, from the [`Language.Haskell.TH`][] module). There are separate types for expressions, for patterns, for declarations, for types, and for other things.
+Any Haskell code can be represented as a *value* of one of the types from [template-haskell](https://hackage.haskell.org/package/template-haskell) (specifically, from the [`Language.Haskell.TH`][] module). There are separate types for expressions, for patterns, for declarations, for types, and for other things.
 
 For a while this piece of code is going to be our case study:
 
@@ -625,7 +625,7 @@ map2TH = [signature, function]
 
 ## Oxford brackets (or `[| |]`s)
 
-If you're used to Lisp macros, this might seem horrible to you, and it *is* pretty horrible indeed. Why are we writing the [AST](@w:Abstract Syntax Tree) by hand when we have a *compiler* that can parse Haskell into a syntax tree for us?
+If you're used to Lisp macros, this might seem horrible to you, and it *is* pretty horrible indeed. Why are we writing the [AST](https://en.wikipedia.org/wiki/Abstract_syntax_tree) by hand when we have a *compiler* that can parse Haskell into a syntax tree for us?
 
 Well, we don't have to, and I actually have mentioned it earlier in this post:
 

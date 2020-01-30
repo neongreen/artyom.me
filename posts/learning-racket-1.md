@@ -12,9 +12,8 @@ Warning: as of January 2016, I have abandoned this series (the first post was wr
 -----------------------------------------------------------------------------
 
 I always wanted to learn myself some Lisp for greater good and what-not, and
-I've heard nice things about [Racket](@w:Racket (programming language))
-(don't ask when or where, I don't remember), so it's going to be the first
-Lisp I learn.
+I've heard nice things about Racket (don't ask when or where, I don't
+remember), so it's going to be the first Lisp I learn.
 
 Also I'm tired of “how I spent one day learning [something] and found that it
 sucks horribly” posts, so let me state in advance that when something doesn't
@@ -30,7 +29,7 @@ for a modern language full of features and batteries included. Right?
 
 ~~~ bash
 $ yaourt -S racket
-~~~ 
+~~~
 
 One minute later, Racket is installed. And it takes only 350 MB on my laptop,
 vs. 700 of GHC.
@@ -49,15 +48,15 @@ That's all I can say about DrRacket... for now.
 
 ## Looking for a tutorial
 
-> Welcome to DrRacket, version 6.0 [3m].  
-> Language: No language chosen; memory limit: 128 MB.  
-> DrRacket cannot process programs until you choose a programming language.  
+> Welcome to DrRacket, version 6.0 [3m].
+> Language: No language chosen; memory limit: 128 MB.
+> DrRacket cannot process programs until you choose a programming language.
 > Either select the “Choose Language...” item in the “Language” menu,
 > or get guidance.
 
 Yes, I need guidance!
 
-> Using *How to Design Programs*?  
+> Using *How to Design Programs*?
 > Start with Beginning Student.
 
 Fine, beginning student it shall be... No wait, it appears to be a language
@@ -80,14 +79,14 @@ I recall correctly...
 #<procedure:+>
 2
 2
-~~~ 
+~~~
 
 Not enough parentheses, I guess. Okay, second try.
 
 ~~~ scheme
 > (+ 2 2)
 4
-~~~ 
+~~~
 
 Now that's better. Does it support power operator? What about bignums?
 
@@ -95,7 +94,7 @@ Now that's better. Does it support power operator? What about bignums?
 > (^ 2 3)
 undefined;
  cannot reference an identifier before its definition
- 
+
 > (** 2 3)
 ...same
 
@@ -104,7 +103,7 @@ undefined;
 
 > (pow 2 3)
 ...same
-~~~ 
+~~~
 
 I wonder if `Tab` can help me. Nope. But there's `Ctrl-/`, let's type `pow`
 and press it.
@@ -137,17 +136,17 @@ it's called `expt`!
 5935987949019193338996527127540312792543224796326967591264610315634395
 4375442792688936047041533537523137941310690833949767764290081333900380
 310406154723157882112449991673819054110440001
-~~~ 
+~~~
 
 Awesome.
 
 > The following expression calls the built-in function `substring` with the
 > arguments `"the boy out of the country"`, `4`, and `7`:
-> 
+>
 > ~~~ scheme
 > > (substring "the boy out of the country" 4 7)
 > "boy"
-> ~~~ 
+> ~~~
 
 Are strings just lists of characters, like in Haskell, or something else?
 Would `substring` work on an ordinary list?
@@ -161,7 +160,7 @@ application: not a procedure;
    1
    2
    3
-~~~ 
+~~~
 
 Apparently, `(0 1 2 3)` is not a list but application of `0` to
 `1 2 3`. IIRC, a little quote should do the trick:
@@ -175,7 +174,7 @@ substring: contract violation
   other arguments...:
    1
    2
-~~~ 
+~~~
 
 So, `substring` really does need a genuine string. Or am I mistaken about the
 quote?
@@ -183,7 +182,7 @@ quote?
 ~~~ scheme
 > (length '(0 1 2 3))
 4
-~~~ 
+~~~
 
 Fine, whatever. I'll learn list slicing later.
 
@@ -234,7 +233,7 @@ programmer, my first definition *must* be a factorial.
 ~~~ scheme
 (define (factorial n)
   (if
-~~~ 
+~~~
 
 Er, how do I `if`?
 
@@ -246,16 +245,16 @@ Yay, Help Desk!
 
 > ~~~ scheme
 > (if test-expr then-expr else-expr)
-> ~~~ 
-> 
+> ~~~
+>
 > Evaluates `test-expr`. If it produces any value other than `#f`, then
 > `then-expr` is evaluated, and its results are the result for the `if`
 > form. Otherwise, `else-expr` is evaluated, and its results are the result
 > for the `if` form. The `then-expr` and `else-expr` are in tail position
 > with respect to the `if` form.
-> 
+>
 > Examples:
-> 
+>
 > ~~~ scheme
 > > (if (positive? -5) (error "doesn't get here") 2)
 > 2
@@ -263,20 +262,20 @@ Yay, Help Desk!
 > 1
 > > (if 'we-have-no-bananas "yes" "no")
 > "yes"
-> ~~~ 
+> ~~~
 
 Okay, let's try.
 
 ~~~ scheme
 (define (factorial n)
   (if (== n 0) 1 (* n (factorial (- n 1)))))
-~~~ 
+~~~
 
 `Ctrl-R` and...
 
 ~~~ scheme
 ==: this match expander must be used inside match in: (== n 0)
-~~~ 
+~~~
 
 Fi-ine, guessing mode on. It returns `bool` so it probably ends with `?`; can
 it be something like `eq?`.
@@ -300,8 +299,8 @@ Here's the final version (I wonder if I've indented it properly):
 
 ~~~ scheme
 (define (factorial n)
-  (if (= n 0) 
-      1 
+  (if (= n 0)
+      1
       (* n (factorial (- n 1)))))
 ~~~
 
@@ -312,7 +311,7 @@ Here's the final version (I wonder if I've indented it properly):
 000000000000000000
 
 > (factorial 100000)
-~~~ 
+~~~
 
 Seven minutes later and factorial of 100000 is computed and printed. (Note to
 self: `Ctrl-K` doesn't work if a menu is open... and when GUI doesn't
@@ -346,7 +345,7 @@ entire RTS into it.
 #lang racket
 
 (print "Hello, world!")
-~~~ 
+~~~
 
 Now `Ctrl-S` and then `Racket` → `Create Executable`. First let's try
 “stand-alone”.
@@ -355,15 +354,15 @@ Now `Ctrl-S` and then `Racket` → `Create Executable`. First let's try
 $ du helloworld
 4.9M	hw
 4.9M	total
-~~~ 
+~~~
 
 Five MB. Now what's about “distribution”?..
 
 ~~~ bash
-$ du helloworld.tgz 
+$ du helloworld.tgz
 3.2M	helloworld.tgz
 3.2M	total
-~~~ 
+~~~
 
 Even less. But that's packed; what if I unpack it?
 
@@ -377,7 +376,7 @@ $ du helloworld
 4.9M	helloworld/bin
 8.5M	helloworld
 8.5M	total
-~~~ 
+~~~
 
 Still fine. I doubt I'll be creating more executables any time soon,
 but it's good to know anyway.
@@ -391,14 +390,14 @@ I can further strip the executable:
 #lang racket/base
 
 (print "Hello, world!")
-~~~ 
+~~~
 
 ~~~ bash
 $ du helloworld.tgz
 1.8M	helloworld.tgz
 1.8M	total
 
-$ tar xvf helloworld.tgz 
+$ tar xvf helloworld.tgz
 
 $ du helloworld
 0	helloworld/lib/plt/helloworld/exts
@@ -409,7 +408,7 @@ $ du helloworld
 792K	helloworld/bin
 4.8M	helloworld
 4.8M	total
-~~~ 
+~~~
 
 ## TRG: 1.4. A Note to Readers with Lisp/Scheme Experience
 
@@ -437,7 +436,7 @@ More tinkering reveals that:
     ~~~ scheme
 	> 6.1e10000
     +inf.0
-	~~~ 
+	~~~
 
   * However, rationals seem to be. Also, DrRacket prints fractions in
     a pretty cool way.
@@ -455,7 +454,7 @@ More tinkering reveals that:
 	> 3..4
     3..4: undefined;
      cannot reference an identifier before its definition
-    ~~~ 
+    ~~~
 
 ---
 
@@ -483,7 +482,7 @@ But at least I can `eval` S-exprs, right?
 ~~~ scheme
 > (eval '(+ 1 2))
 3
-~~~ 
+~~~
 
 Phew.
 
@@ -492,11 +491,11 @@ Phew.
 > ~~~ scheme
 > (define (nobake flavor)
 >   string-append flavor "jello")
-> 
+>
 > > (nobake "green")
 > "jello"
-> ~~~ 
-> 
+> ~~~
+>
 > Within `nobake`, there are no parentheses around `string-append flavor
 > "jello"`, so they are three separate expressions instead of one
 > function-call expression. The expressions `string-append` and `flavor` are
@@ -521,7 +520,7 @@ It's a really neat idea. I like Racket more and more.
 > > (twice (lambda (s) (string-append s "!"))
 >          "hello")
 > "hello!!"
-> ~~~ 
+> ~~~
 
 Aha, lambdas! My little evil functional heart is beating merrily inside my
 chest. Let's see if I can write function composition at this point without
@@ -539,7 +538,7 @@ which caused me to restart DrRacket.)
 ~~~
 Module Language: invalid module text
   read: illegal use of `.'
-~~~ 
+~~~
 
 Fine, I don't remember what characters are allowed in identifiers. What about
 `<>`?
@@ -550,11 +549,11 @@ Fine, I don't remember what characters are allowed in identifiers. What about
 ~~~
 
 ~~~ scheme
-> ((<> (lambda (x) (+ x 1)) 
-       (lambda (x) (* x 2))) 
+> ((<> (lambda (x) (+ x 1))
+       (lambda (x) (* x 2)))
    7)
 15
-~~~ 
+~~~
 
 Clumsy lambdas. Can I use `λ` instead? I can. Cool.
 
@@ -571,7 +570,7 @@ and `lambda`. Can I define my own alias for `lambda`?
 > ((l (x) (+ 3 x)) 7)
 x: undefined;
  cannot reference an identifier before its definition
-~~~ 
+~~~
 
 This is not fai— no, wait, `lambda` is probably not a function at all but
 some macro-schmacro, and there's a list of `lambda`-aliases somewhere, and a
@@ -585,14 +584,14 @@ It was easy! (Thanks to
 [chapter 16 of Racket Guide](http://docs.racket-lang.org/guide/pattern-macros.html).)
 
 ~~~ scheme
-(define-syntax-rule (l x y) 
+(define-syntax-rule (l x y)
   (λ x y))
 ~~~
 
 ~~~ scheme
 > ((l (x) (+ 3 x)) 7)
 10
-~~~ 
+~~~
 
 ---
 
@@ -607,7 +606,7 @@ Example:
     (list (+ x y) x y))
 
 '(115 99 16)
-~~~ 
+~~~
 
 However, we can't swap `x` and `y` lines.
 
@@ -625,20 +624,20 @@ After reading [reference](http://docs.racket-lang.org/reference/let.html) on
   argument position: 1st
   other arguments...:
    1
-~~~ 
+~~~
 
 Nope, even `letrec` doesn't work. But I still can write a factorial with it!
 
 ~~~ scheme
 > (letrec (
-      [fac (λ (n) 
+      [fac (λ (n)
          (if (= 0 n)
              1
              (* n (fac (sub1 n)))))])
     (map fac (range 10)))
 
 '(1 1 2 6 24 120 720 5040 40320 362880)
-~~~ 
+~~~
 
 ## What I think so far
 
@@ -740,7 +739,7 @@ While compiling the table I learned a few things.
 ~~~ scheme
 > (reverse '(1 . (2 . ())))
 '(2 1)
-~~~ 
+~~~
 
 Now I'm confused about what `'` and `.` mean in general.
 
@@ -751,7 +750,7 @@ Also, this:
 reverse: contract violation
   expected: list?
   given: '(1 . 2)
-~~~ 
+~~~
 
 hints that “type safety” is emulated by pre- and post-conditions (or
 *contracts*), and various `list?`, `boolean?`, `number?`, etc.
@@ -786,13 +785,13 @@ in Racket? Well, now I have.)
 ## Back to TRG
 
 > It turns out that if you write
-> 
+>
 > ~~~ scheme
 > (define (my-map f lst)
 >   (for/list ([i lst])
 >     (f i)))
-> ~~~ 
-> 
+> ~~~
+>
 > then the `for/list` form in the function is expanded to essentially the
 > same code as the `iter` local definition and use. The difference is merely
 > syntactic convenience.
@@ -806,7 +805,7 @@ Haskell:
 
 ~~~ haskell
 [(i, j, k) | i <- [1..10], j <- [i..10], k <- [j..10], i^2 + j^2 == k^2]
-~~~ 
+~~~
 
 Racket:
 
@@ -820,7 +819,7 @@ Racket:
 
 i: undefined;
  cannot reference an identifier before its definition
-~~~ 
+~~~
 
 Hm. Apparently I'm mistaken about `for/list`; further reading unravels
 `for*/list`, maybe it's what I want?
@@ -832,9 +831,9 @@ Hm. Apparently I'm mistaken about `for/list`; further reading unravels
               #:when (= (+ (sqr i) (sqr j))
 			            (sqr k)))
     '(i j k))
-	
+
 '((i j k))
-~~~ 
+~~~
 
 Not this either, but closer. Fine, I'll use `list` (and increase the range
 while I'm at it):
@@ -848,7 +847,7 @@ while I'm at it):
     (list i j k))
 
 '((3 4 5) (5 12 13) (6 8 10) (8 15 17) (9 12 15))
-~~~ 
+~~~
 
 Clumsy! On the other hand, a) there's probably a macro for Haskell-style
 comprehensions, b) that's the price of uniform and predictable syntax, and
@@ -891,7 +890,7 @@ like in Wolfram Mathematica). Behold:
 
 > (list (< 1 2 3) (< 1 3 2))
 '(#t #f)
-~~~ 
+~~~
 
 ## Interlude: the mystery of factorial
 
@@ -910,10 +909,10 @@ First, I'll define two versions of factorial:
   (fac 1 n))
 
 (define (factorial2 n)
-  (if (= n 0) 
-      1 
+  (if (= n 0)
+      1
       (* n (factorial2 (sub1 n)))))
-~~~ 
+~~~
 
 Now I want to time their execution. There's a `time` function in Racket's
 `base` (I wish there was one in Haskell's as well).
@@ -922,7 +921,7 @@ Now I want to time their execution. There's a `time` function in Racket's
 > (time (factorial1 20000) #t)
 cpu time: 440 real time: 440 gc time: 144
 #t
-~~~ 
+~~~
 
 I've inserted `#t` there so that the factorial itself wouldn't be printed.
 
@@ -934,13 +933,13 @@ be easy, right?
 > (require math)
 
 > (for-each time
-            '((factorial1 50000) 
-              (factorial2 50000) 
-              (apply * (range 1 50000)) 
+            '((factorial1 50000)
+              (factorial2 50000)
+              (apply * (range 1 50000))
               (factorial 50000)))
-			  
+
 time: bad syntax in: time
-~~~ 
+~~~
 
 What?
 
@@ -964,7 +963,7 @@ result arity mismatch;
    1626
    1628
    1528
-~~~ 
+~~~
 
 In other words, `time-apply` returns four values (yeah, multiple return
 values) and `map` expects a procedure which returns a single value.
@@ -982,7 +981,7 @@ After a ten minutes' search I was unable to find either
 ~~~ scheme
 > (just-time factorial1 '(50000))
 3800
-~~~ 
+~~~
 
 And finally:
 
@@ -992,7 +991,7 @@ And finally:
      (list '(100000) '(100000) '(100000) (range 1 100000)))
 
 '(206 22286 24220 20760)
-~~~ 
+~~~
 
 Only 20 seconds, huh (note how built-in `factorial` is a *hundred* times
 faster). Why seven minutes, then?
@@ -1021,7 +1020,7 @@ executable hasn't made it any faster.
 >       (if (equal? i (first (rest l)))
 >           (remove-dups (rest l))
 >           (cons i (remove-dups (rest l)))))]))
-> ~~~ 
+> ~~~
 
 Enough. I demand pattern-matching! And I think I saw it mentioned
 [somewhere](http://docs.racket-lang.org/guide/match.html) in the table of
@@ -1045,9 +1044,9 @@ contents...
          (1 2 1)
          (1 1 1 2)
          (1 1 2 2 3 1)))
-		 
+
 '(() (1) (1) (1 2 1) (1 2) (1 2 3 1))
-~~~ 
+~~~
 
 I mean, this is *not built-in functionality* and it has more features than
 Haskell's pattern-matching. Okay, Racket, you're forgiven for your weird
@@ -1101,14 +1100,14 @@ Plans for tomorrow:
 > produced by `cons`, the result prints in a special way. The two values
 > joined with `cons` are printed between parentheses, but with a dot (i.e.,
 > a period surrounded by whitespace) in between:
-> 
+>
 > ~~~ scheme
 > > (cons 1 2)
 > '(1 . 2)
-> 
+>
 > > (cons "banana" "split")
 > '("banana" . "split")
-> ~~~ 
+> ~~~
 
 I.e. Racket doesn't distinguish between lists and tuples where the second
 part is a list. Tsk, tsk.
@@ -1124,14 +1123,14 @@ Granted, the traditional names in Haskell are also not that great (`fst` and
 
 > You are perhaps most likely to encounter a non-list pair when making a
 > mistake, such as accidentally reversing the arguments to `cons`:
-> 
+>
 > ~~~ scheme
 > > (cons (list 2 3) 1)
 > '((2 3) . 1)
-> 
+>
 > > (cons 1 (list 2 3))
 > '(1 2 3)
-> ~~~ 
+> ~~~
 
 Er, what? Are pairs used so rarely that if I ever encounter one, the most
 likely thing is that I made a mistake?
@@ -1143,12 +1142,12 @@ Ah, *sometimes*.
 > The only thing more confusing to new Racketeers than non-list pairs is the
 > printing convention for pairs where the second element is a pair, but is
 > not a list:
-> 
+>
 > ~~~ scheme
 > > (cons 0 (cons 1 2))
 > '(0 1 . 2)
-> ~~~ 
-> 
+> ~~~
+>
 > In general, the rule for printing a pair is as follows: use the dot
 > notation unless the dot is immediately followed by an open parenthesis. In
 > that case, remove the dot, the open parenthesis, and the matching close
@@ -1172,17 +1171,17 @@ gained.
 
 > ...the `quote` form lets you write a list as an expression in essentially
 > the same way that the list prints:
-> 
+>
 > ~~~ scheme
 > > (quote ("red" "green" "blue"))
 > '("red" "green" "blue")
-> 
+>
 > > (quote ((1) (2 3) (4)))
 > '((1) (2 3) (4))
-> 
+>
 > > (quote ())
 > '()
-> ~~~ 
+> ~~~
 
 Aha. My current understanding is that by default everything is code, and
 `quote` brings it in the realm of data.
@@ -1190,7 +1189,7 @@ Aha. My current understanding is that by default everything is code, and
 ~~~ scheme
 (aba caba)    ; code
 '(aba caba)   ; data
-~~~ 
+~~~
 
 Moreover, `quote` is recursive, unlike `list`:
 
@@ -1204,7 +1203,7 @@ application: not a procedure;
   given: 1
   arguments...:
    2
-~~~ 
+~~~
 
 What does `''(1 2 3)` mean, then? Well, it's the same as
 `'(quote (1 2 3))`:
@@ -1221,7 +1220,7 @@ What does `''(1 2 3)` mean, then? Well, it's the same as
 
 > (rest ''(1 2 3))
 '((1 2 3))
-~~~ 
+~~~
 
 It stumbled me for a while, before I remembered that `rest` returns the rest
 of the list, and not simply its second element.
@@ -1234,7 +1233,7 @@ Hm. Would `quote` try to simplify `(list 1 2 3)` into `'(1 2 3)`?
 
 > (first '(list 1 2 3))
 'list
-~~~ 
+~~~
 
 Nope.
 
@@ -1258,7 +1257,7 @@ identifiers).
 > (gibberish)
 gibberish: undefined;
  cannot reference an identifier before its definition
-~~~ 
+~~~
 
 I can also convert strings to symbols and back:
 
@@ -1301,11 +1300,11 @@ heard, but I'll try to refrain from doing so for now.)
 > ~~~ scheme
 > > (1 . < . 2)
 > #t
-> 
+>
 > > '(1 . < . 2)
 > '(< 1 2)
 > ~~~
-> 
+>
 > This two-dot convention is non-traditional, and it has essentially nothing
 > to do with the dot notation for non-list pairs. Racket programmers use the
 > infix convention sparingly—mostly for asymmetric binary operators such as
@@ -1408,7 +1407,7 @@ specific to mutable vectors.
 -------------------------------------- --------------------------------------
 `length`                               `vector-length`
 `replicate`                            `make-vector`
-`fromList [a,b,c]`                     `vector a b c` 
+`fromList [a,b,c]`                     `vector a b c`
 `fromList`                             `list->vector`
 `toList`                               `vector->list`
 `generate`                             `build-vector`
@@ -1569,7 +1568,7 @@ on Reddit, in which he notes that:
     `sequence-length` is more keystrokes than `vector-length`, nobody is
     going to use it except when specifically designing a function to work on
     every type of sequences – and it doesn't happen often. In short, I need
-    something like Snoyman's [classy-prelude](@hackage) (see the
+    something like Snoyman's [classy-prelude](https://hackage.haskell.org/package/classy-prelude) (see the
     [original post](http://www.yesodweb.com/blog/2012/07/classy-prelude)),
     but for Racket.
 

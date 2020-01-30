@@ -141,7 +141,8 @@ Okay, sandbox. Hm. Sandbox. There's [mueval][GH mueval], which does exactly
 what we want – “unfortunately”, it does it too well. There are no known
 vulnerabilities in mueval, and it would be hard to introduce some without
 changing its source. But at least I know already what I'm going to use to
-interpret Haskell – [hint](@hackage) (a wrapper over GHC API).
+interpret Haskell – [hint](https://hackage.haskell.org/package/hint) (a
+wrapper over GHC API).
 
 [GH mueval]: https://github.com/gwern/mueval
 
@@ -219,8 +220,8 @@ function – [`unsafeDupablePerformIO`][] – but it's in the same module, so
 it's guaranteed to be discovered as well.
 
 Wa-ait... I remember stumbling upon *another* function while reading the
-source of [bytestring](@hackage) – [`inlinePerformIO`][]. It might be just
-perfect!
+source of [bytestring](https://hackage.haskell.org/package/bytestring) –
+[`inlinePerformIO`][]. It might be just perfect!
 
   * Exported by an `Internal` module (those usually contain functions to
     access internals of a datatype, not dangerous stuff like
@@ -245,7 +246,7 @@ interesting, right? More ideas are needed.
 
 ## Vague idea #3: Unicode spaces
 
-A while ago I accidentally found that GHC doesn't mind [non-breaking spaces](@w:non-breaking space) in code. On one hand, it's a rare and slightly weird feature – from TIOBE's index of [top 20 languages][TIOBE top] only C#, Node.js, VB.NET and Dart allow non-breaking spaces instead of normal ones. On the other hand, what use can there possibly be for it in a CTF task?
+A while ago I accidentally found that GHC doesn't mind [non-breaking spaces](https://en.wikipedia.org/wiki/Non-breaking_space) in code. On one hand, it's a rare and slightly weird feature – from TIOBE's index of [top 20 languages][TIOBE top] only C#, Node.js, VB.NET and Dart allow non-breaking spaces instead of normal ones. On the other hand, what use can there possibly be for it in a CTF task?
 
 [TIOBE top]: http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html
 
@@ -271,7 +272,7 @@ think about it – the ultimate cleverness challenge:
     *** Exception: Sorry, your code isn't clever enough!
 
 A pity I don't know any ways to estimate cleverness
-([Kolmogorov complexity](@w) doesn't count, as it's not computable).
+([Kolmogorov complexity](https://en.wikipedia.org/wiki/Kolmogorov_complexity) doesn't count, as it's not computable).
 
 # Coding
 
@@ -323,12 +324,14 @@ since the sandbox code should be concise and regexes are somewhat more
 concise than parsers.
 
 There are many libraries for working with regexes on Hackage.
-[regex-tdfa](@hackage) seems to be the best one for POSIX regexes, at least
-judging by [this detailed writeup][HW regex posix] by its author which
-describes the ways in which all other libraries suck. However, I'm going to
-use [regex-compat-tdfa](@hackage) instead – it's a simple wrapper over
-regex-tdfa providing several easy-to-use functions. If I don't need the full
-power of regex-tdfa, why not?
+[regex-tdfa](https://hackage.haskell.org/package/regex-tdfa) seems to be the
+best one for POSIX regexes, at least judging by [this detailed writeup][HW
+regex posix] by its author which describes the ways in which all other
+libraries suck. However, I'm going to use
+[regex-compat-tdfa](https://hackage.haskell.org/package/regex-compat-tdfa)
+instead – it's a simple wrapper over regex-tdfa providing several
+easy-to-use functions. If I don't need the full power of regex-tdfa, why
+not?
 
 [HW regex posix]: http://www.haskell.org/haskellwiki/Regex_Posix
 

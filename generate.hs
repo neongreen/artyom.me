@@ -16,13 +16,13 @@ import Text.Read
 import System.Environment
 -- import Text.Mustache.Plus
 import Data.Aeson
+import qualified Data.Text.IO as T
 import qualified Data.Text.Lazy.IO as TL
 import qualified Data.ByteString.Lazy as BSL
 import qualified Data.ByteString.Lazy.Char8 as BS8
-import Text.Pandoc as Pandoc
-import Text.Pandoc.PDF as Pandoc
+import Text.Pandoc as Pandoc hiding (getCurrentTime)
 import Text.Pandoc.Walk as Pandoc
-import Text.Pandoc.Filters.ShortcutLinks
+import Text.Pandoc.Highlighting
 
 
 getRssItems :: RSS -> [Item]
@@ -36,11 +36,6 @@ main = do
   let generateRss = do
         putStrLn "generating RSS feed"
         writeFile "output/feed.xml" (showXML $ rssToXML rss)
-
-  let generateCV = do
-        renderPage CV "cv.md" "output/cv.html" "cv"
-        renderCV_Plain "cv.md" "output/cv-plain.html"
-        renderCV_PDF "cv.md" "output/cv.pdf"
 
   let generateIndex = do
         renderPage Index "index.md" "output/index.html" "index.html"
@@ -81,7 +76,6 @@ main = do
     [] -> do
       generateRss
       generateIndex
-      generateCV
       -- We need doesFileExist because getDirectoryContents can return
       -- symbolic links (like “.#post.md”) that Emacs creates for some reason
       -- and that can't be read
@@ -113,7 +107,7 @@ deriving instance Read RSS
 -- Page rendering
 ----------------------------------------------------------------------------
 
-data PageType = Post | Index | CV
+data PageType = Post | Index
 
 renderPage
   :: PageType
@@ -137,26 +131,14 @@ renderPage pageType input output url = do
         ]
   mdToHTML
     id
-    (\o -> o { writerHTMLMathMethod = KaTeX katexJS katexCSS
-             , writerTemplate = template
+    (\o -> o { writerHTMLMathMethod = KaTeX katex
+             , writerTemplate = Just template
              , writerVariables = vars
              })
     input
     output
   where
-    katexCSS = "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css"
-    katexJS  = "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.js"
-
-renderCV_Plain :: FilePath -> FilePath -> IO ()
-renderCV_Plain = mdToHTML id id
-
-renderCV_PDF :: FilePath -> FilePath -> IO ()
-renderCV_PDF =
-  mdToPDF
-    id
-    (\o -> o { writerVariables =
-                 [ ("links-as-notes", "true")
-                 , ("geometry", "margin=0.8in") ] })
+    katex = "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/"
 
 ----------------------------------------------------------------------------
 -- Pandoc utils
@@ -168,10 +150,10 @@ readMD
   -> FilePath
   -> IO Pandoc
 readMD fReader input = do
-  let readerOpts = fReader def
-  walkM shortcutLinks
-    =<< either throw pure . readMarkdown readerOpts
-    =<< readFile input
+  let readerOpts = fReader $ def
+        { readerExtensions = pandocExtensions
+        }
+  runIOorExplode . readMarkdown readerOpts =<< T.readFile input
 
 -- | Convert Markdown to HTML.
 mdToHTML
@@ -181,30 +163,11 @@ mdToHTML
   -> FilePath
   -> IO ()
 mdToHTML fReader fWriter input output = do
-  template <- either throw pure =<< getDefaultTemplate Nothing "html5"
+  template <- runIOorExplode (getDefaultTemplate "html5")
   let writerOpts = fWriter $ def
-        { writerHtml5 = True
-        , writerStandalone = True
-        , writerTemplate = template
-        , writerHighlight = True
+        { writerTemplate = Just template
+        , writerHighlightStyle = Just pygments
         }
-  writeFile output . writeHtmlString writerOpts
+  T.writeFile output
+    =<< runIOorExplode . writeHtml5String writerOpts
     =<< readMD fReader input
-
--- | Convert Markdown to a PDF.
-mdToPDF
-  :: (ReaderOptions -> ReaderOptions)
-  -> (WriterOptions -> WriterOptions)
-  -> FilePath
-  -> FilePath
-  -> IO ()
-mdToPDF fReader fWriter input output = do
-  template <- either throw pure =<< getDefaultTemplate Nothing "latex"
-  let writerOpts = fWriter $ def
-        { writerStandalone = True
-        , writerTemplate = template
-        }
-  ast <- readMD fReader input
-  makePDF "pdflatex" writeLaTeX writerOpts ast >>= \case
-    Left err -> error (BS8.unpack err)
-    Right bs -> BSL.writeFile output bs

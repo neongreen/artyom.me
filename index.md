@@ -8,11 +8,11 @@ This is my blog: <https://blog.artyom.me>.
 
 # If you want to hire me
 
-The best way to hire me is by hiring [Monadfix](https://monadfix.io) services. I'm also open to other opportunities, especially in sales engineering and marketing roles. Here's my [resume](/cv).
+The best way to hire me is by hiring [Monadfix](https://monadfix.com) services. I'm also open to other opportunities – I would love to try my hand at sales, marketing, and product development. Here is my [LinkedIn profile](https://www.linkedin.com/in/artyom-kazak-1a8737105/).
 
 # Haskell
 
-I've written some libraries, see <https://hackage.haskell.org/user/Artyom>.
+I have written some libraries, see <https://hackage.haskell.org/user/Artyom>.
 
 I also started the [/r/haskelltil](http://reddit.com/r/haskelltil) subreddit (for Haskell tips and tricks and code samples and oddities and curiosities and idioms and interesting facts and everything that is short enough that you'd be ashamed to submit it to [/r/haskell](http://reddit.com/r/haskell) or write about it in a blog). It didn't catch on but some content there is still useful.
 
@@ -20,7 +20,7 @@ Right now I'm busy working on [Aelve Guide](https://github.com/aelve/guide), a w
 
 ## lens over tea
 
-A series of articles (called “lens over tea”) about [lens](@hackage) and its implementation.
+A series of articles (called “lens over tea”) about [lens](https://hackage.haskell.org/package/lens) and its implementation.
 
   * [part 1](/lens-over-tea-1) – lenses 101, traversals 101, a bit of implementation details (also lens operators, functor composition, `Const`, `Identity`, difference lists, monoids of endomorphisms under composition, default signatures for class methods, equality constraints, and irrefutable patterns).
 
@@ -64,7 +64,7 @@ It's a work in progress; the future parts will mention:
 
 # Racket
 
-Several years ago I've been learning [Racket](@w:Racket (programming language)) and making notes (which then became somewhat popular):
+Several years ago I've been learning Racket and making notes (which then became somewhat popular):
 
   * [Introduction](/learning-racket-1). First three days, no prior knowledge, getting a feel for the syntax... You get the idea.
 

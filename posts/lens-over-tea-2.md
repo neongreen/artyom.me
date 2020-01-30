@@ -110,11 +110,13 @@ If you try to compile it, tho, you'll get a weird-looking error message
 saying `Couldn't match type ‘b’ with ‘b1’`. This is because in `modifyB :: b
 -> b`, `b` could've been just as well replaced by `a` or `x` or `pony` –
 there's no relation to the `b` in `(@.)`'s type signature. So, we'll have to
-enable the [`ScopedTypeVariables`](@ghc-ext) extension, which does exactly
-what we want – it allows type variables to be *brought into scope* so that
-they can be used later. Finally, just enabling the extension doesn't do
-anything by itself, only *allows* variables to be brought into scope – you
-still have to do it yourself by specifying `forall b` in the signature:
+enable the
+[`ScopedTypeVariables`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-ScopedTypeVariables)
+extension, which does exactly what we want – it allows type variables to be
+*brought into scope* so that they can be used later. Finally, just enabling
+the extension doesn't do anything by itself, only *allows* variables to be
+brought into scope – you still have to do it yourself by specifying `forall
+b` in the signature:
 
 ~~~ haskell
 {-# LANGUAGE ScopedTypeVariables #-}
@@ -1265,9 +1267,9 @@ something from a structure, you have to consider this:
       * For some there are equivalent functions – e.g. a safe variant of
         `head` lives in base as [`listToMaybe`][].
 
-      * For some, there's a “sibling function” in some package –
-        e.g. [safe](@hackage) provides a lot of functions such as
-        [`maximumMay`][].
+      * For some, there's a “sibling function” in some package – e.g.
+        [safe](https://hackage.haskell.org/package/safe) provides a lot of
+        functions such as [`maximumMay`][].
 
       * For some, you can check whether the getter will fail or not before
         actually using it – e.g. `inRange (0, length list - 1)` for `!!`.
@@ -1761,7 +1763,7 @@ asking questions or participating or something.
 paragraph.]
 
 Take a look at the [`Control.Lens.Action`][] module (that's what I'm doing
-right now) (note that you need the [lens-action](@hackage) package for it). What questions could you ask?
+right now) (note that you need the [lens-action](https://hackage.haskell.org/package/lens-action) package for it). What questions could you ask?
 
 -----------------------------------------------------------------------------
 
@@ -2179,7 +2181,7 @@ getters and actions accept any of those functors instead of `Const` and
 `Effect` specifically. Turns out, however, that we don't need a special class
 for `Const`-like functors – it exists already as a combination of 2 other
 classes, `Functor` and [`Contravariant`][] (originally defined in
-[contravariant](@hackage)).
+[contravariant](https://hackage.haskell.org/package/contravariant)).
 
 `Contravariant` is a class with a single method:
 
@@ -2259,10 +2261,10 @@ The [definition][`coerce` def] in lens uses [`absurd`][] instead, and I feel
 obliged to explain it as well:
 
   * `Void` is an uninhabited type – it has no values (`()` has 1). With
-    recent enough GHC, you can implement `Void` as simply `data Void`, but in
-    [void](@hackage) it's implemented as `newtype Void = Void Void` (newtypes
-    are strict, so you can't construct `Void` as `let x = Void x in x` or
-    something).
+    recent enough GHC, you can implement `Void` as simply `data Void`, but
+    in [void](https://hackage.haskell.org/package/void) it's implemented as
+    `newtype Void = Void Void` (newtypes are strict, so you can't construct
+    `Void` as `let x = Void x in x` or something).
 
   * Since `Void` can't exist, it's safe to have a function like `absurd ::
     Void -> a`.

@@ -329,13 +329,13 @@ Why does it work? There are 2 pieces to the puzzle:
 
 An ordinary `Fold` can easily return 0 elements. Can we write a type for folds that *have* to return 1 or more elements?
 
-With the monoid formulation, it'd be pretty easy – just replace `Monoid` with [`Semigroup`][]. (A semigroup is a monoid without `mempty`, and we might [get them in base][semigroup proposal] soon, or we might not. Currently they live in the [semigroups](@hackage) package, and it has more dependencies than I would like. Actually, I don't use lens itself for the same reason.) Anyway, since a fold with a `Semigroup m` constraint would have to work on *anything* that is a semigroup, and a non-empty list is a semigroup, there'd be no way for it to return an empty list. Ha.
+With the monoid formulation, it'd be pretty easy – just replace `Monoid` with [`Semigroup`][]. (A semigroup is a monoid without `mempty`, and we might [get them in base][semigroup proposal] soon, or we might not. Currently they live in the [semigroups](https://hackage.haskell.org/package/semigroups) package, and it has more dependencies than I would like. Actually, I don't use lens itself for the same reason.) Anyway, since a fold with a `Semigroup m` constraint would have to work on *anything* that is a semigroup, and a non-empty list is a semigroup, there'd be no way for it to return an empty list. Ha.
 
 [semigroup proposal]: http://www.reddit.com/r/haskell/comments/30s1t2/proposal_make_semigroup_as_a_superclass_of_monoid/
 
 However, we use the `Contravariant f, Applicative f` formulation. Here, the analog of `mempty` is `pure` – so, to get rid of empty folds, we have to get rid of `pure`. Is there some class which gives us composition without `pure`?..
 
-Yep. It's called [`Apply`][], it lives in Edward's [semigroupoids](@hackage) package, and its sole operation is [`<.>`][] (`.>` and `<.` don't count). With it, we can declare [`Fold1`][]:
+Yep. It's called [`Apply`][], it lives in Edward's [semigroupoids](https://hackage.haskell.org/package/semigroupoids) package, and its sole operation is [`<.>`][] (`.>` and `<.` don't count). With it, we can declare [`Fold1`][]:
 
 ~~~ haskell
 type Fold1 s a = forall f. (Contravariant f, Apply f) =>

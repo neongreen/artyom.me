@@ -220,9 +220,9 @@ and from which we'd extract `s -> a` and `b -> t`:
 
           _____               x-----------x
          |  )  |_____         bbbbbbbb|   |_____
-         sss)aaaaaaaa|        ‾‾‾‾‾‾|b|___|  )  | 
-         |  )  |‾‾‾|a|‾‾‾‾‾|        |bbbbbbbb)ttt 
-          ‾‾‾‾‾|   |aaaaaaaa         ‾‾‾‾‾|  )  | 
+         sss)aaaaaaaa|        ‾‾‾‾‾‾|b|___|  )  |
+         |  )  |‾‾‾|a|‾‾‾‾‾|        |bbbbbbbb)ttt
+          ‾‾‾‾‾|   |aaaaaaaa         ‾‾‾‾‾|  )  |
                x-----------x               ‾‾‾‾‾
 
 ## Exercises
@@ -285,7 +285,7 @@ I like this description of prisms Edward Kmett wrote somewhere recently and I ca
 >
 > On the other hand, a prism from `s` to `a` indicates there exists `c` such that `s` is isomorphic to `(Either c a)`.
 
-In other words, lenses deconstruct [product types](@w:product type) and prisms deconstruct [sum types](@w:tagged union).
+In other words, lenses deconstruct [product types](https://en.wikipedia.org/wiki/Product_type) and prisms deconstruct [sum types](https://en.wikipedia.org/wiki/Tagged_union).
 
 -----------------------------------------------------------------------------
 
@@ -639,7 +639,7 @@ unPrism p =
 Instead of `unPrism`, lens defines [`withPrism`][], which is almost the same thing:
 
 ~~~ haskell
-withPrism :: APrism s t a b -> ((b -> t) -> (s -> Either t a) -> r) -> r 
+withPrism :: APrism s t a b -> ((b -> t) -> (s -> Either t a) -> r) -> r
 ~~~
 
 It also uses [`APrism`][] instead of `Prism` to require as little polymorphism as possible:
@@ -695,7 +695,7 @@ Okay, back to prisms. The simplest ones are [`_Left`][] and [`_Right`][]:
 
 ~~~ haskell
 _Left :: Prism (Either a c) (Either b c) a b
-_Right :: Prism (Either c a) (Either c b) a b 
+_Right :: Prism (Either c a) (Either c b) a b
 ~~~
 
 Unlike with lenses, there's no manual way to write a prism (apart from using `dimap` and so on), so you'll have to use `prism`:
@@ -746,7 +746,7 @@ Just EQ
 Or [`hex`][] (from [`Numeric.Lens`][]):
 
 ~~~ haskell
-hex :: Integral a => Prism' String a 
+hex :: Integral a => Prism' String a
 ~~~
 
 ~~~ {.haskell .repl}
@@ -826,7 +826,7 @@ prism' :: (b -> s) -> (s -> Maybe a) -> Prism s s a b
 There are several prisms in lens that are “half-simple” – for instance, [`integral`][] and [`_Void`][]:
 
 ~~~ haskell
-integral :: (Integral a, Integral b) => Prism Integer Integer a b 
+integral :: (Integral a, Integral b) => Prism Integer Integer a b
 
 _Void :: Prism s s a Void
 ~~~
@@ -858,7 +858,7 @@ without :: Prism s t a b -> Prism u v c d
 
 It should be obvious from the signatures what these do.
 
-To be honest, I don't know when they are useful. 
+To be honest, I don't know when they are useful.
 
 ### [`below`][]
 

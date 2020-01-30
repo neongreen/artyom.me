@@ -8,7 +8,7 @@ generate:
 
 assemble:
 	cp -R assets/* output/
-	cp -R html/* output/
+	# cp -R html/* output/
 
 index: index.md
 	stack exec -- generate index

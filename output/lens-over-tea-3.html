@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-
+  
   <meta name="google-site-verification" content="y-gj-eNGiiocXI1nd6EPlywGEfhW90jeeFO__ePHvbg" />
   <meta name="generator" content="pandoc">
   <meta name="viewport"
@@ -15,44 +15,72 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="/css.css?date=2019-06-21">
+  <link rel="stylesheet" href="/css.css?date=2020-01-30">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154447441-1"></script>
 <script>
@@ -89,7 +117,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     Founder of <a href="https://aelve.com">Aelve</a>
   </div
   ><div class="badge">
-    Co-founder of <a href="https://monadfix.io">Monadfix</a>
+    Co-founder of <a href="https://monadfix.com">Monadfix</a>
   </div
 
   ><div class="badge">
@@ -103,7 +131,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <div id="series">
       <a href="/lens-over-tea-2">&lt;&lt;&lt;</a>
-
+  
   <a href="/#lens-over-tea">“lens over tea”</a>
 
       <a href="/lens-over-tea-4">&gt;&gt;&gt;</a>
@@ -116,192 +144,192 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>Okay, the exploration of lens continues. This post is a bit boring because folds are much less interesting than, say, prisms, but hey, I promised shorter posts.</p>
 <h1 id="fold"><code>Fold</code></h1>
 <p>A fold is to a getter what a traversal is to a lens:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Lens</span>      s t a b <span class="fu">=</span> forall f<span class="fu">.</span> <span class="dt">Functor</span>     f <span class="ot">=&gt;</span> <span class="fu">...</span>
-<span class="kw">type</span> <span class="dt">Traversal</span> s t a b <span class="fu">=</span> forall f<span class="fu">.</span> <span class="dt">Applicative</span> f <span class="ot">=&gt;</span> <span class="fu">...</span>
-
-<span class="kw">type</span> <span class="dt">Getter</span> s a <span class="fu">=</span> forall f<span class="fu">.</span> (<span class="dt">Contravariant</span> f, <span class="dt">Functor</span>     f) <span class="ot">=&gt;</span> <span class="fu">...</span>
-<span class="kw">type</span> <span class="dt">Fold</span>   s a <span class="fu">=</span> forall f<span class="fu">.</span> (<span class="dt">Contravariant</span> f, <span class="dt">Applicative</span> f) <span class="ot">=&gt;</span> <span class="fu">...</span></code></pre></div>
-<p>(Isn't it cool how each combination of constraints gives us a different useful type?)</p>
-<p>So, as you may expect, a fold is simply a getter that can return multiple values. Now let's write one without looking anywhere!</p>
-<p>Uhhh... my imagination is broken. I'm going to look at <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Fold.html"><code>Control.Lens.Fold</code></a> to choose a fold to reimplement.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">type</span> <span class="dt">Lens</span>      s t a b <span class="ot">=</span> <span class="kw">forall</span> f<span class="op">.</span> <span class="dt">Functor</span>     f <span class="ot">=&gt;</span> <span class="op">...</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">type</span> <span class="dt">Traversal</span> s t a b <span class="ot">=</span> <span class="kw">forall</span> f<span class="op">.</span> <span class="dt">Applicative</span> f <span class="ot">=&gt;</span> <span class="op">...</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">type</span> <span class="dt">Getter</span> s a <span class="ot">=</span> <span class="kw">forall</span> f<span class="op">.</span> (<span class="dt">Contravariant</span> f, <span class="dt">Functor</span>     f) <span class="ot">=&gt;</span> <span class="op">...</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="kw">type</span> <span class="dt">Fold</span>   s a <span class="ot">=</span> <span class="kw">forall</span> f<span class="op">.</span> (<span class="dt">Contravariant</span> f, <span class="dt">Applicative</span> f) <span class="ot">=&gt;</span> <span class="op">...</span></span></code></pre></div>
+<p>(Isn’t it cool how each combination of constraints gives us a different useful type?)</p>
+<p>So, as you may expect, a fold is simply a getter that can return multiple values. Now let’s write one without looking anywhere!</p>
+<p>Uhhh… my imagination is broken. I’m going to look at <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Fold.html"><code>Control.Lens.Fold</code></a> to choose a fold to reimplement.</p>
 <p>[looks]</p>
-<p>Meh. Most things there – like <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Fold.html#v:worded"><code>worded</code></a> – are not folds, but traversals or something else in disguise, and other things are more general than folds. We don't have much choice – let's do <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Fold.html#v:folded"><code>folded</code></a>.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">folded ::</span> <span class="dt">Foldable</span> t <span class="ot">=&gt;</span> <span class="dt">Fold</span> (t a) a</code></pre></div>
-<p>(Actually it's an <code>IndexedFold</code>, but I'm still ignoring everything indexed.)</p>
+<p>Meh. Most things there – like <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Fold.html#v:worded"><code>worded</code></a> – are not folds, but traversals or something else in disguise, and other things are more general than folds. We don’t have much choice – let’s do <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Fold.html#v:folded"><code>folded</code></a>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1"></a><span class="ot">folded ::</span> <span class="dt">Foldable</span> t <span class="ot">=&gt;</span> <span class="dt">Fold</span> (t a) a</span></code></pre></div>
+<p>(Actually it’s an <code>IndexedFold</code>, but I’m still ignoring everything indexed.)</p>
 <h2 id="foldable"><code>Foldable</code></h2>
-<p>Just in case you don't know what <a href="http://hackage.haskell.org/package/base/docs/Data-Foldable.html#t:Foldable"><code>Foldable</code></a> is: it's basically a class for things that have elements and from which you can extract said elements (some of the examples are <code>Maybe</code>, <a href="http://hackage.haskell.org/package/containers/docs/Data-Set.html#t:Set"><code>Set</code></a>, lists, trees, etc). A popular definition is “everything that can be turned into a list”, since <a href="http://hackage.haskell.org/package/base/docs/Data-Foldable.html#v:toList"><code>toList</code></a> is method of <code>Foldable</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Foldable</span> t <span class="kw">where</span>
-  <span class="fu">...</span>
-<span class="ot">  toList ::</span> t a <span class="ot">-&gt;</span> [a]
-  <span class="fu">...</span></code></pre></div>
-<p>However, it's a bit misleading, because <code>toList</code> doesn't work well on structures that can be infinite to the left. A snoc list, for instance (“snoc” is “cons” backwards):</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">SList</span> a <span class="fu">=</span> <span class="dt">Empty</span> <span class="fu">|</span> <span class="dt">SList</span> a <span class="fu">:&gt;</span> a</code></pre></div>
-<p>An infinite snoc list has a last element, but no <em>first</em> element; thus, you can't apply <code>toList</code> to it and get back anything. But you can still apply <a href="http://hackage.haskell.org/package/base/docs/Data-Foldable.html#v:foldMap"><code>foldMap</code></a> – which is the real fundamental method of <code>Foldable</code> – to it and get something back! Here's the type of <code>foldMap</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- Map each element of the structure to a monoid, and combine the results.</span>
-<span class="ot">foldMap ::</span> (<span class="dt">Monoid</span> m, <span class="dt">Foldable</span> t) <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> m) <span class="ot">-&gt;</span> t a <span class="ot">-&gt;</span> m</code></pre></div>
-<p>I've no idea whether it's easy to understand what it does or not so easy, but the best way to understand is probably just to look at the implementation for trees:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Tree</span> a <span class="fu">=</span> <span class="dt">Leaf</span> a <span class="fu">|</span> <span class="dt">Branch</span> (<span class="dt">Tree</span> a) a (<span class="dt">Tree</span> a)
-
-<span class="kw">instance</span> <span class="dt">Foldable</span> <span class="dt">Tree</span> <span class="kw">where</span>
-  <span class="co">-- Only 1 element – apply the function to it.</span>
-  foldMap f (<span class="dt">Leaf</span> a) <span class="fu">=</span> f a
-  <span class="co">-- Several elements – combine everything that can be combined.</span>
-  foldMap f (<span class="dt">Branch</span> left x right) <span class="fu">=</span> foldMap f left <span class="fu">&lt;&gt;</span> f x <span class="fu">&lt;&gt;</span> foldMap f right</code></pre></div>
-<p>Well, actually the best way is to write your own implementation for various types, but I don't expect you to write anything, because this is a post and posts are meant to be read and not... whatever. Back to snoc lists, here's an instance for them as well:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Foldable</span> <span class="dt">SList</span> <span class="kw">where</span>
-  foldMap f <span class="dt">Empty</span>     <span class="fu">=</span> mempty
-  foldMap f (xs <span class="fu">:&gt;</span> x) <span class="fu">=</span> foldMap f xs <span class="fu">&lt;&gt;</span> f x</code></pre></div>
+<p>Just in case you don’t know what <a href="http://hackage.haskell.org/package/base/docs/Data-Foldable.html#t:Foldable"><code>Foldable</code></a> is: it’s basically a class for things that have elements and from which you can extract said elements (some of the examples are <code>Maybe</code>, <a href="http://hackage.haskell.org/package/containers/docs/Data-Set.html#t:Set"><code>Set</code></a>, lists, trees, etc). A popular definition is “everything that can be turned into a list”, since <a href="http://hackage.haskell.org/package/base/docs/Data-Foldable.html#v:toList"><code>toList</code></a> is method of <code>Foldable</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">class</span> <span class="dt">Foldable</span> t <span class="kw">where</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="op">...</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="ot">  toList ::</span> t a <span class="ot">-&gt;</span> [a]</span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="op">...</span></span></code></pre></div>
+<p>However, it’s a bit misleading, because <code>toList</code> doesn’t work well on structures that can be infinite to the left. A snoc list, for instance (“snoc” is “cons” backwards):</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">data</span> <span class="dt">SList</span> a <span class="ot">=</span> <span class="dt">Empty</span> <span class="op">|</span> <span class="dt">SList</span> a <span class="op">:&gt;</span> a</span></code></pre></div>
+<p>An infinite snoc list has a last element, but no <em>first</em> element; thus, you can’t apply <code>toList</code> to it and get back anything. But you can still apply <a href="http://hackage.haskell.org/package/base/docs/Data-Foldable.html#v:foldMap"><code>foldMap</code></a> – which is the real fundamental method of <code>Foldable</code> – to it and get something back! Here’s the type of <code>foldMap</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1"></a><span class="co">-- Map each element of the structure to a monoid, and combine the results.</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">foldMap</span><span class="ot"> ::</span> (<span class="dt">Monoid</span> m, <span class="dt">Foldable</span> t) <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> m) <span class="ot">-&gt;</span> t a <span class="ot">-&gt;</span> m</span></code></pre></div>
+<p>I’ve no idea whether it’s easy to understand what it does or not so easy, but the best way to understand is probably just to look at the implementation for trees:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">data</span> <span class="dt">Tree</span> a <span class="ot">=</span> <span class="dt">Leaf</span> a <span class="op">|</span> <span class="dt">Branch</span> (<span class="dt">Tree</span> a) a (<span class="dt">Tree</span> a)</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="kw">instance</span> <span class="dt">Foldable</span> <span class="dt">Tree</span> <span class="kw">where</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a>  <span class="co">-- Only 1 element – apply the function to it.</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">foldMap</span> f (<span class="dt">Leaf</span> a) <span class="ot">=</span> f a</span>
+<span id="cb6-6"><a href="#cb6-6"></a>  <span class="co">-- Several elements – combine everything that can be combined.</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a>  <span class="fu">foldMap</span> f (<span class="dt">Branch</span> left x right) <span class="ot">=</span> <span class="fu">foldMap</span> f left <span class="op">&lt;&gt;</span> f x <span class="op">&lt;&gt;</span> <span class="fu">foldMap</span> f right</span></code></pre></div>
+<p>Well, actually the best way is to write your own implementation for various types, but I don’t expect you to write anything, because this is a post and posts are meant to be read and not… whatever. Back to snoc lists, here’s an instance for them as well:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw">instance</span> <span class="dt">Foldable</span> <span class="dt">SList</span> <span class="kw">where</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>  <span class="fu">foldMap</span> f <span class="dt">Empty</span>     <span class="ot">=</span> <span class="fu">mempty</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>  <span class="fu">foldMap</span> f (xs <span class="op">:&gt;</span> x) <span class="ot">=</span> <span class="fu">foldMap</span> f xs <span class="op">&lt;&gt;</span> f x</span></code></pre></div>
 <p>And an example of a left-infinite list:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">enumS ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">SList</span> <span class="dt">Int</span>
-enumS n <span class="fu">=</span> enumS (n<span class="fu">+</span><span class="dv">1</span>) <span class="fu">:&gt;</span> n
-
-<span class="co">-- A left-infinite list.</span>
-<span class="ot">inf ::</span> <span class="dt">SList</span> <span class="dt">Int</span>
-inf <span class="fu">=</span> enumS <span class="dv">0</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1"></a><span class="ot">enumS ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">SList</span> <span class="dt">Int</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>enumS n <span class="ot">=</span> enumS (n<span class="op">+</span><span class="dv">1</span>) <span class="op">:&gt;</span> n</span>
+<span id="cb8-3"><a href="#cb8-3"></a></span>
+<span id="cb8-4"><a href="#cb8-4"></a><span class="co">-- A left-infinite list.</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="ot">inf ::</span> <span class="dt">SList</span> <span class="dt">Int</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>inf <span class="ot">=</span> enumS <span class="dv">0</span></span></code></pre></div>
 <p>And a demonstration of how <code>foldMap</code> works on it, using the <a href="http://hackage.haskell.org/package/base/docs/Data-Monoid.html#t:Last"><code>Last</code></a> monoid:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> foldMap (<span class="dt">Last</span> <span class="fu">.</span> <span class="dt">Just</span>) inf
-<span class="dt">Last</span> {getLast <span class="fu">=</span> <span class="dt">Just</span> <span class="dv">0</span>}</code></pre></div>
-<p>If you want to read more about <code>Foldable</code>, there's no good place to do it, because <code>Foldable</code> is simple and boring. All knowledge you need is here:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1"></a><span class="op">&gt;</span> <span class="fu">foldMap</span> (<span class="dt">Last</span> <span class="op">.</span> <span class="dt">Just</span>) inf</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="dt">Last</span> {getLast <span class="ot">=</span> <span class="dt">Just</span> <span class="dv">0</span>}</span></code></pre></div>
+<p>If you want to read more about <code>Foldable</code>, there’s no good place to do it, because <code>Foldable</code> is simple and boring. All knowledge you need is here:</p>
 <ul>
 <li><a href="http://hackage.haskell.org/package/base/docs/Data-Foldable.html#t:Foldable"><code>Foldable</code></a> documentation.</li>
 <li>The <a href="https://wiki.haskell.org/Foldable_Traversable_In_Prelude">story</a> about how and why <code>Foldable</code> got so many extra methods in GHC 7.10 (which, by the way, means that all <code>Foldable</code> tutorials are out of date now) and also why lots of functions in <code>Prelude</code> mention <code>Foldable</code> now when previously they were just operating on lists.</li>
-<li><a href="http://comonad.com/reader/2015/free-monoids-in-haskell/">A post</a> about that thing with snoc lists and how <code>Foldable</code> isn't merely the <code>toList</code> class.</li>
+<li><a href="http://comonad.com/reader/2015/free-monoids-in-haskell/">A post</a> about that thing with snoc lists and how <code>Foldable</code> isn’t merely the <code>toList</code> class.</li>
 </ul>
 <h2 id="folded"><code>folded</code></h2>
 <p>Okay, yeah, right, back to <code>folded</code>. First, the signature (which I got just by expanding the definition of <code>Fold</code>):</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- folded :: Foldable t =&gt; Fold (t a) a</span>
-<span class="ot">folded ::</span> (<span class="dt">Contravariant</span> f, <span class="dt">Applicative</span> f, <span class="dt">Foldable</span> t) <span class="ot">=&gt;</span>
-          (a <span class="ot">-&gt;</span> f a) <span class="ot">-&gt;</span> t a <span class="ot">-&gt;</span> f (t a)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">-- folded :: Foldable t =&gt; Fold (t a) a</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="ot">folded ::</span> (<span class="dt">Contravariant</span> f, <span class="dt">Applicative</span> f, <span class="dt">Foldable</span> t) <span class="ot">=&gt;</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>          (a <span class="ot">-&gt;</span> f a) <span class="ot">-&gt;</span> t a <span class="ot">-&gt;</span> f (t a)</span></code></pre></div>
 <p>At this point it would be helpful to recall the idea of getters <em>once again</em>.</p>
-<p>(And at this point I also wonder: if I'm writing this whole thing and it takes me more than a dozen repetitions to understand what I'm doing, could it be a clue that something isn't right with my brain? To rephrase: am I dumb?)</p>
+<p>(And at this point I also wonder: if I’m writing this whole thing and it takes me more than a dozen repetitions to understand what I’m doing, could it be a clue that something isn’t right with my brain? To rephrase: am I dumb?)</p>
 <p>The idea is as follows:</p>
 <ul>
 <li>The getter is given a function which hides an <code>a</code> in the functor. For instance, <code>Const</code>.</li>
 <li>This function is applied to the target element.</li>
 <li>The type of the result, <code>f a</code>, is changed to match the type we need to get – <code>f s</code> (but the <code>a</code> is still stored in the functor).</li>
-<li>That's all, the <code>a</code> has been safely carried out and can then be extracted from the result.</li>
+<li>That’s all, the <code>a</code> has been safely carried out and can then be extracted from the result.</li>
 </ul>
-<p>With folds, it becomes a bit more interesting. Instead of applying the function to one element, we apply it to every element we need to carry out – and then we <em>combine</em> resulting functors. It's not something we could actually do with functors, but that's exactly why <code>Fold</code> has an <code>Applicative</code> constraint instead – unlike ordinary functors, applicative functors can be combined.</p>
-<p>If this isn't very clear, it'll become clearer in a moment.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">folded f s <span class="fu">=</span> <span class="fu">...</span></code></pre></div>
+<p>With folds, it becomes a bit more interesting. Instead of applying the function to one element, we apply it to every element we need to carry out – and then we <em>combine</em> resulting functors. It’s not something we could actually do with functors, but that’s exactly why <code>Fold</code> has an <code>Applicative</code> constraint instead – unlike ordinary functors, applicative functors can be combined.</p>
+<p>If this isn’t very clear, it’ll become clearer in a moment.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1"></a>folded f s <span class="ot">=</span> <span class="op">...</span></span></code></pre></div>
 <p>Okay, so we have <code>f :: a -&gt; f a</code> and <code>s :: t a</code>. The only thing to do is to apply one to the other, which is something that <code>foldMap</code> does:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">foldMap f<span class="ot"> s ::</span> f a</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">foldMap</span> f<span class="ot"> s ::</span> f a</span></code></pre></div>
 <p>(The reason the result is <code>f a</code> is that each function returns an <code>f a</code> and then those are simply combined into a single <code>f a</code>.)</p>
-<p>Finally, the type has to be changed from <code>f a</code> to <code>f (t a)</code>, and that's what <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Getter.html#v:coerce"><code>coerce</code></a> does. Thus, the definition of <code>folded</code> is:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">folded f s <span class="fu">=</span> coerce <span class="fu">$</span> foldMap f s</code></pre></div>
-<p>Except that it's not, because if you try to compile it, you would get this type error:</p>
+<p>Finally, the type has to be changed from <code>f a</code> to <code>f (t a)</code>, and that’s what <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Getter.html#v:coerce"><code>coerce</code></a> does. Thus, the definition of <code>folded</code> is:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1"></a>folded f s <span class="ot">=</span> coerce <span class="op">$</span> <span class="fu">foldMap</span> f s</span></code></pre></div>
+<p>Except that it’s not, because if you try to compile it, you would get this type error:</p>
 <pre><code>Could not deduce (Data.Monoid.Monoid (f a)) …
   arising from a use of ‘foldMap’
 from the context (Contravariant f, Applicative f, Foldable t)
   bound by the type signature for
              folded :: (Contravariant f, Applicative f, Foldable t) =&gt;
                        (a -&gt; f a) -&gt; t a -&gt; f (t a)</code></pre>
-<p>How so? Well, apparently there's no instance of <code>Monoid</code> for <code>f a</code>, even if we know that if <code>f</code> is <code>Contravariant</code> and <code>Applicative</code>, <code>f a</code> <em>has</em> to be a <code>Monoid</code>. No problem, we'll just make a newtype and write our own instance.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Folding</span> f a <span class="fu">=</span> <span class="dt">Folding</span> {<span class="ot"> getFolding ::</span> f a }</code></pre></div>
-<p>(It's tempting to just write an instance like <code>(...) =&gt; Monoid (f a)</code> without bothering with newtypes, but then you're going to have a huge problem with overlapping instances because – remember – GHC doesn't look at the constraints when resolving instances, so it would overlap with everything else from <code>[a]</code> to <code>Maybe a</code>.)</p>
+<p>How so? Well, apparently there’s no instance of <code>Monoid</code> for <code>f a</code>, even if we know that if <code>f</code> is <code>Contravariant</code> and <code>Applicative</code>, <code>f a</code> <em>has</em> to be a <code>Monoid</code>. No problem, we’ll just make a newtype and write our own instance.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb15-1"><a href="#cb15-1"></a><span class="kw">newtype</span> <span class="dt">Folding</span> f a <span class="ot">=</span> <span class="dt">Folding</span> {<span class="ot"> getFolding ::</span> f a }</span></code></pre></div>
+<p>(It’s tempting to just write an instance like <code>(...) =&gt; Monoid (f a)</code> without bothering with newtypes, but then you’re going to have a huge problem with overlapping instances because – remember – GHC doesn’t look at the constraints when resolving instances, so it would overlap with everything else from <code>[a]</code> to <code>Maybe a</code>.)</p>
 <p>Here goes:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> (<span class="dt">Contravariant</span> f, <span class="dt">Applicative</span> f) <span class="ot">=&gt;</span> <span class="dt">Monoid</span> (<span class="dt">Folding</span> f a) <span class="kw">where</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">instance</span> (<span class="dt">Contravariant</span> f, <span class="dt">Applicative</span> f) <span class="ot">=&gt;</span> <span class="dt">Monoid</span> (<span class="dt">Folding</span> f a) <span class="kw">where</span></span></code></pre></div>
 <p>To make it easier, just pretend that <code>f</code> is <code>Const</code> here. Do you remember the discussion of monoids and applicative functors from the previous part, where we used the <code>Monoid r =&gt; Applicative (Const r)</code> instance? Well, now we go backwards from that – if something is <code>Const</code>-like and also <code>Applicative</code>, we assume that it hides a monoid inside.</p>
 <p><code>pure</code> for <code>Applicative (Const r)</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">pure _ <span class="fu">=</span> <span class="dt">Const</span> mempty</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">pure</span> _ <span class="ot">=</span> <span class="dt">Const</span> <span class="fu">mempty</span></span></code></pre></div>
 <p><code>mempty</code> for <code>Folding</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">mempty <span class="fu">=</span> <span class="dt">Folding</span> (coerce <span class="fu">$</span> pure ())</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">mempty</span> <span class="ot">=</span> <span class="dt">Folding</span> (coerce <span class="op">$</span> <span class="fu">pure</span> ())</span></code></pre></div>
 <p><code>&lt;*&gt;</code> for <code>Applicative (Const r)</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Const</span> f <span class="fu">&lt;*&gt;</span> <span class="dt">Const</span> v <span class="fu">=</span> <span class="dt">Const</span> (f <span class="ot">`mappend`</span> v)</code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb19-1"><a href="#cb19-1"></a><span class="dt">Const</span> f <span class="op">&lt;*&gt;</span> <span class="dt">Const</span> v <span class="ot">=</span> <span class="dt">Const</span> (f <span class="ot">`mappend`</span> v)</span></code></pre></div>
 <p><code>mappend</code> for <code>Folding</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">mappend (<span class="dt">Folding</span> fa) (<span class="dt">Folding</span> fb) <span class="fu">=</span> <span class="dt">Folding</span> (fa <span class="fu">*&gt;</span> fb)</code></pre></div>
-<p>The resulting instance again because I'm not sure that the mess I wrote before is understandable:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> (<span class="dt">Contravariant</span> f, <span class="dt">Applicative</span> f) <span class="ot">=&gt;</span> <span class="dt">Monoid</span> (<span class="dt">Folding</span> f a) <span class="kw">where</span>
-  mempty <span class="fu">=</span> <span class="dt">Folding</span> (coerce <span class="fu">$</span> pure ())
-  mappend (<span class="dt">Folding</span> fa) (<span class="dt">Folding</span> fb) <span class="fu">=</span> <span class="dt">Folding</span> (fa <span class="fu">*&gt;</span> fb)</code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">mappend</span> (<span class="dt">Folding</span> fa) (<span class="dt">Folding</span> fb) <span class="ot">=</span> <span class="dt">Folding</span> (fa <span class="op">*&gt;</span> fb)</span></code></pre></div>
+<p>The resulting instance again because I’m not sure that the mess I wrote before is understandable:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb21-1"><a href="#cb21-1"></a><span class="kw">instance</span> (<span class="dt">Contravariant</span> f, <span class="dt">Applicative</span> f) <span class="ot">=&gt;</span> <span class="dt">Monoid</span> (<span class="dt">Folding</span> f a) <span class="kw">where</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>  <span class="fu">mempty</span> <span class="ot">=</span> <span class="dt">Folding</span> (coerce <span class="op">$</span> <span class="fu">pure</span> ())</span>
+<span id="cb21-3"><a href="#cb21-3"></a>  <span class="fu">mappend</span> (<span class="dt">Folding</span> fa) (<span class="dt">Folding</span> fb) <span class="ot">=</span> <span class="dt">Folding</span> (fa <span class="op">*&gt;</span> fb)</span></code></pre></div>
 <p>And <code>folded</code> itself, with newtype wrapping and unwrapping:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">folded f s <span class="fu">=</span> coerce <span class="fu">.</span> getFolding <span class="fu">$</span> foldMap (<span class="dt">Folding</span> <span class="fu">.</span> f) s</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb22-1"><a href="#cb22-1"></a>folded f s <span class="ot">=</span> coerce <span class="op">.</span> getFolding <span class="op">$</span> <span class="fu">foldMap</span> (<span class="dt">Folding</span> <span class="op">.</span> f) s</span></code></pre></div>
 <p>And a demonstration:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="dt">Just</span> <span class="dt">True</span> <span class="fu">^..</span> folded
-[<span class="dt">True</span>]</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb23-1"><a href="#cb23-1"></a><span class="op">&gt;</span> <span class="dt">Just</span> <span class="dt">True</span> <span class="op">^..</span> folded</span>
+<span id="cb23-2"><a href="#cb23-2"></a>[<span class="dt">True</span>]</span></code></pre></div>
 <h2 id="the-monoid-formulation-of-fold">The <code>Monoid</code> formulation of <code>Fold</code></h2>
-<p>If you have looked at <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Fold.html"><code>Control.Lens.Fold</code></a>, you could've noticed this alternative explanation of <code>Fold</code> at the top:</p>
+<p>If you have looked at <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Fold.html"><code>Control.Lens.Fold</code></a>, you could’ve noticed this alternative explanation of <code>Fold</code> at the top:</p>
 <blockquote>
 <p>A <code>Fold s a</code> is a generalization of something <code>Foldable</code>. It allows you to extract multiple results from a container. A <code>Foldable</code> container can be characterized by the behavior of</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">foldMap ::</span> (<span class="dt">Foldable</span> t, <span class="dt">Monoid</span> m) <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> m) <span class="ot">-&gt;</span> t a <span class="ot">-&gt;</span> m</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">foldMap</span><span class="ot"> ::</span> (<span class="dt">Foldable</span> t, <span class="dt">Monoid</span> m) <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> m) <span class="ot">-&gt;</span> t a <span class="ot">-&gt;</span> m</span></code></pre></div>
 <p>Since we want to be able to work with monomorphic containers, we could generalize this signature to</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">forall m<span class="fu">.</span> <span class="dt">Monoid</span> m <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> m) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> m</code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">forall</span> m<span class="op">.</span> <span class="dt">Monoid</span> m <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> m) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> m</span></code></pre></div>
 <p>and then decorate it with <code>Const</code> to obtain</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Fold</span> s a <span class="fu">=</span> forall m<span class="fu">.</span> <span class="dt">Monoid</span> m <span class="ot">=&gt;</span> <span class="dt">Getting</span> m s a</code></pre></div>
-<p>Every <code>Getter</code> is a valid <code>Fold</code> that simply doesn't use the <code>Monoid</code> it is passed.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">type</span> <span class="dt">Fold</span> s a <span class="ot">=</span> <span class="kw">forall</span> m<span class="op">.</span> <span class="dt">Monoid</span> m <span class="ot">=&gt;</span> <span class="dt">Getting</span> m s a</span></code></pre></div>
+<p>Every <code>Getter</code> is a valid <code>Fold</code> that simply doesn’t use the <code>Monoid</code> it is passed.</p>
 <p>In practice the type we use is slightly more complicated to allow for better error messages and for it to be transformed by certain <code>Applicative</code> transformers.</p>
 </blockquote>
-<p>It's a pretty clear explanation, and I don't really have anything to add to it.</p>
+<p>It’s a pretty clear explanation, and I don’t really have anything to add to it.</p>
 <h2 id="both"><code>both</code></h2>
 <p>This one is an exercise, which is much simpler than <code>folded</code> and so should be really trivial if it has clicked for you.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">bothF ::</span> <span class="dt">Fold</span> (a, a) a
-bothF f s <span class="fu">=</span> <span class="fu">...</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> (<span class="dv">1</span>,<span class="dv">2</span>) <span class="fu">^..</span> bothF
-[<span class="dv">1</span>,<span class="dv">2</span>]</code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb27-1"><a href="#cb27-1"></a><span class="ot">bothF ::</span> <span class="dt">Fold</span> (a, a) a</span>
+<span id="cb27-2"><a href="#cb27-2"></a>bothF f s <span class="ot">=</span> <span class="op">...</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb28-1"><a href="#cb28-1"></a><span class="op">&gt;</span> (<span class="dv">1</span>,<span class="dv">2</span>) <span class="op">^..</span> bothF</span>
+<span id="cb28-2"><a href="#cb28-2"></a>[<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
 <p>If you did it right, your code should be simpler than the code for actual <code>both</code>.</p>
 <p>Also, by the way, write actual <code>both :: Traversal' (a, a) a</code> as well.</p>
 <p>Also, using <code>both</code> in the definition of <code>bothF</code> is prohibited.</p>
-<p>Also, I have said before that I don't expect you to write anything, but come on, this one is <em>really</em> simple. If you don't write it or at least spell mentally in your head, you're a chicken.</p>
+<p>Also, I have said before that I don’t expect you to write anything, but come on, this one is <em>really</em> simple. If you don’t write it or at least spell mentally in your head, you’re a chicken.</p>
 <h2 id="replicated"><code>replicated</code></h2>
 <p>Yet another fold to reimplement because reimplementing things is <em>so</em> fun.</p>
 <p>Fine, not really.</p>
 <p>Whatever.</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="dv">5</span> <span class="fu">^..</span> replicated <span class="dv">3</span>
-[<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>]</code></pre></div>
-<p>It'd be as easy as <code>bothF</code> if we had <code>replicateA</code>, but we only have <a href="http://hackage.haskell.org/package/base/docs/Control-Monad.html#v:replicateM"><code>replicateM</code></a> and that one is for monads and not applicatives, so we have to write it ourselves with <a href="http://hackage.haskell.org/package/base/docs/Data-Traversable.html#v:sequenceA"><code>sequenceA</code></a> and <a href="http://hackage.haskell.org/package/base/docs/Data-List.html#v:replicate"><code>replicate</code></a>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">replicated ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Fold</span> a a
-replicated n f s <span class="fu">=</span> coerce <span class="fu">$</span> sequenceA (replicate n (f s))</code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb29-1"><a href="#cb29-1"></a><span class="op">&gt;</span> <span class="dv">5</span> <span class="op">^..</span> replicated <span class="dv">3</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>[<span class="dv">5</span>,<span class="dv">5</span>,<span class="dv">5</span>]</span></code></pre></div>
+<p>It’d be as easy as <code>bothF</code> if we had <code>replicateA</code>, but we only have <a href="http://hackage.haskell.org/package/base/docs/Control-Monad.html#v:replicateM"><code>replicateM</code></a> and that one is for monads and not applicatives, so we have to write it ourselves with <a href="http://hackage.haskell.org/package/base/docs/Data-Traversable.html#v:sequenceA"><code>sequenceA</code></a> and <a href="http://hackage.haskell.org/package/base/docs/Data-List.html#v:replicate"><code>replicate</code></a>:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb30-1"><a href="#cb30-1"></a><span class="ot">replicated ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Fold</span> a a</span>
+<span id="cb30-2"><a href="#cb30-2"></a>replicated n f s <span class="ot">=</span> coerce <span class="op">$</span> <span class="fu">sequenceA</span> (<span class="fu">replicate</span> n (f s))</span></code></pre></div>
 <h2 id="combining-folds">Combining folds</h2>
-<p>There's a somewhat not very well-known trick for combining folds. Say, we want to make a fold that would combine elements from several folds – how could we do it?</p>
+<p>There’s a somewhat not very well-known trick for combining folds. Say, we want to make a fold that would combine elements from several folds – how could we do it?</p>
 <p>Pretty easy, actually. Just get the result from one fold, from another fold, and combine them with <code>*&gt;</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">foldCombine ::</span> <span class="dt">Fold</span> s a <span class="ot">-&gt;</span> <span class="dt">Fold</span> s a <span class="ot">-&gt;</span> <span class="dt">Fold</span> s a
-foldCombine fa fb <span class="fu">=</span> \l s <span class="ot">-&gt;</span> fa l s <span class="fu">*&gt;</span> fb l s</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> (<span class="dv">1</span>,<span class="dv">2</span>) <span class="fu">^..</span> foldCombine _2 _1
-[<span class="dv">2</span>,<span class="dv">1</span>]</code></pre></div>
-<p>However, for common usage – when you're going to apply <code>^..</code> or something like that straight away – there's a much simpler way. Just use <code>&lt;&gt;</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> (<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>) <span class="fu">^..</span> (_3 <span class="fu">&lt;&gt;</span> _1 <span class="fu">&lt;&gt;</span> _2)
-[<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">2</span>]</code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb31-1"><a href="#cb31-1"></a><span class="ot">foldCombine ::</span> <span class="dt">Fold</span> s a <span class="ot">-&gt;</span> <span class="dt">Fold</span> s a <span class="ot">-&gt;</span> <span class="dt">Fold</span> s a</span>
+<span id="cb31-2"><a href="#cb31-2"></a>foldCombine fa fb <span class="ot">=</span> \l s <span class="ot">-&gt;</span> fa l s <span class="op">*&gt;</span> fb l s</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb32-1"><a href="#cb32-1"></a><span class="op">&gt;</span> (<span class="dv">1</span>,<span class="dv">2</span>) <span class="op">^..</span> foldCombine _2 _1</span>
+<span id="cb32-2"><a href="#cb32-2"></a>[<span class="dv">2</span>,<span class="dv">1</span>]</span></code></pre></div>
+<p>However, for common usage – when you’re going to apply <code>^..</code> or something like that straight away – there’s a much simpler way. Just use <code>&lt;&gt;</code>:</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb33-1"><a href="#cb33-1"></a><span class="op">&gt;</span> (<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>) <span class="op">^..</span> (_3 <span class="op">&lt;&gt;</span> _1 <span class="op">&lt;&gt;</span> _2)</span>
+<span id="cb33-2"><a href="#cb33-2"></a>[<span class="dv">3</span>,<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
 <p>Why does it work? There are 2 pieces to the puzzle:</p>
 <ol type="1">
 <li><p>Due to an existing instance of <code>Monoid b =&gt; Monoid (a -&gt; b)</code>, all functions with <em>any</em> amount of arguments – provided that the result is a monoid – are monoids themselves.</p></li>
-<li><p>Usually the functor used in place of <code>f</code> would be <code>Const</code>, and it's a monoid already without the need for <code>Folding</code> and our additional instance.</p></li>
+<li><p>Usually the functor used in place of <code>f</code> would be <code>Const</code>, and it’s a monoid already without the need for <code>Folding</code> and our additional instance.</p></li>
 </ol>
-<p>(If it's still not clear, then I guess it's going to be another exercise.)</p>
+<p>(If it’s still not clear, then I guess it’s going to be another exercise.)</p>
 <h1 id="fold1"><code>Fold1</code></h1>
 <p>An ordinary <code>Fold</code> can easily return 0 elements. Can we write a type for folds that <em>have</em> to return 1 or more elements?</p>
-<p>With the monoid formulation, it'd be pretty easy – just replace <code>Monoid</code> with <a href="http://hackage.haskell.org/package/semigroups/docs/Data-Semigroup.html#t:Semigroup"><code>Semigroup</code></a>. (A semigroup is a monoid without <code>mempty</code>, and we might <a href="http://www.reddit.com/r/haskell/comments/30s1t2/proposal_make_semigroup_as_a_superclass_of_monoid/">get them in base</a> soon, or we might not. Currently they live in the <a href="https://hackage.haskell.org/package/semigroups">semigroups</a> package, and it has more dependencies than I would like. Actually, I don't use lens itself for the same reason.) Anyway, since a fold with a <code>Semigroup m</code> constraint would have to work on <em>anything</em> that is a semigroup, and a non-empty list is a semigroup, there'd be no way for it to return an empty list. Ha.</p>
+<p>With the monoid formulation, it’d be pretty easy – just replace <code>Monoid</code> with <a href="http://hackage.haskell.org/package/semigroups/docs/Data-Semigroup.html#t:Semigroup"><code>Semigroup</code></a>. (A semigroup is a monoid without <code>mempty</code>, and we might <a href="http://www.reddit.com/r/haskell/comments/30s1t2/proposal_make_semigroup_as_a_superclass_of_monoid/">get them in base</a> soon, or we might not. Currently they live in the <a href="https://hackage.haskell.org/package/semigroups">semigroups</a> package, and it has more dependencies than I would like. Actually, I don’t use lens itself for the same reason.) Anyway, since a fold with a <code>Semigroup m</code> constraint would have to work on <em>anything</em> that is a semigroup, and a non-empty list is a semigroup, there’d be no way for it to return an empty list. Ha.</p>
 <p>However, we use the <code>Contravariant f, Applicative f</code> formulation. Here, the analog of <code>mempty</code> is <code>pure</code> – so, to get rid of empty folds, we have to get rid of <code>pure</code>. Is there some class which gives us composition without <code>pure</code>?..</p>
-<p>Yep. It's called <a href="http://hackage.haskell.org/package/semigroupoids/docs/Data-Functor-Apply.html#t:Apply"><code>Apply</code></a>, it lives in Edward's <a href="https://hackage.haskell.org/package/semigroupoids">semigroupoids</a> package, and its sole operation is <a href="http://hackage.haskell.org/package/semigroupoids/docs/Data-Functor-Apply.html#v:-60-.-62-"><code>&lt;.&gt;</code></a> (<code>.&gt;</code> and <code>&lt;.</code> don't count). With it, we can declare <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Type.html#t:Fold1"><code>Fold1</code></a>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Fold1</span> s a <span class="fu">=</span> forall f<span class="fu">.</span> (<span class="dt">Contravariant</span> f, <span class="dt">Apply</span> f) <span class="ot">=&gt;</span>
-                 (a <span class="ot">-&gt;</span> f a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f s</code></pre></div>
+<p>Yep. It’s called <a href="http://hackage.haskell.org/package/semigroupoids/docs/Data-Functor-Apply.html#t:Apply"><code>Apply</code></a>, it lives in Edward’s <a href="https://hackage.haskell.org/package/semigroupoids">semigroupoids</a> package, and its sole operation is <a href="http://hackage.haskell.org/package/semigroupoids/docs/Data-Functor-Apply.html#v:-60-.-62-"><code>&lt;.&gt;</code></a> (<code>.&gt;</code> and <code>&lt;.</code> don’t count). With it, we can declare <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Type.html#t:Fold1"><code>Fold1</code></a>:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb34-1"><a href="#cb34-1"></a><span class="kw">type</span> <span class="dt">Fold1</span> s a <span class="ot">=</span> <span class="kw">forall</span> f<span class="op">.</span> (<span class="dt">Contravariant</span> f, <span class="dt">Apply</span> f) <span class="ot">=&gt;</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>                 (a <span class="ot">-&gt;</span> f a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f s</span></code></pre></div>
 <p>And with <code>.&gt;</code>, we can write non-empty folds. Such as <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Fold.html#v:iterated"><code>iterated</code></a>, for instance:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="dv">3</span> <span class="fu">^..</span> takingWhile (<span class="fu">&lt;</span><span class="dv">100000000</span>) (iterated (<span class="fu">^</span><span class="dv">2</span>))
-[<span class="dv">3</span>,<span class="dv">9</span>,<span class="dv">81</span>,<span class="dv">6561</span>,<span class="dv">43046721</span>]
-
-<span class="fu">&gt;</span> <span class="dv">3</span> <span class="fu">^..</span> iterated (<span class="fu">^</span><span class="dv">2</span>)
-[<span class="dv">3</span>,<span class="dv">9</span>,<span class="dv">81</span>,<span class="dv">6561</span>,<span class="dv">43046721</span>,<span class="fu">...</span></code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">iterated ::</span> (a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> <span class="dt">Fold1</span> a a
-iterated f g a <span class="fu">=</span> go a
-  <span class="kw">where</span> go a <span class="fu">=</span> g a <span class="fu">.&gt;</span> go (f a)</code></pre></div>
-<p><strong>Open question:</strong> <code>iterated</code> doesn't actually use <code>Contravariant</code>, so its real type signature is</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="dt">Apply</span> f <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> f a) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> f a
-
-<span class="dt">Apply</span> f <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> <span class="dt">LensLike&#39;</span> f a a</code></pre></div>
-<p>and if you tried to apply <code>set</code> or <code>over</code> to it, everything would typecheck. Can this less restricted <code>iterated</code> can be used in any way in which our <code>iterated</code> can't?</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb35-1"><a href="#cb35-1"></a><span class="op">&gt;</span> <span class="dv">3</span> <span class="op">^..</span> takingWhile (<span class="op">&lt;</span><span class="dv">100000000</span>) (iterated (<span class="op">^</span><span class="dv">2</span>))</span>
+<span id="cb35-2"><a href="#cb35-2"></a>[<span class="dv">3</span>,<span class="dv">9</span>,<span class="dv">81</span>,<span class="dv">6561</span>,<span class="dv">43046721</span>]</span>
+<span id="cb35-3"><a href="#cb35-3"></a></span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="op">&gt;</span> <span class="dv">3</span> <span class="op">^..</span> iterated (<span class="op">^</span><span class="dv">2</span>)</span>
+<span id="cb35-5"><a href="#cb35-5"></a>[<span class="dv">3</span>,<span class="dv">9</span>,<span class="dv">81</span>,<span class="dv">6561</span>,<span class="dv">43046721</span>,<span class="op">...</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb36-1"><a href="#cb36-1"></a><span class="ot">iterated ::</span> (a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> <span class="dt">Fold1</span> a a</span>
+<span id="cb36-2"><a href="#cb36-2"></a>iterated f g a <span class="ot">=</span> go a</span>
+<span id="cb36-3"><a href="#cb36-3"></a>  <span class="kw">where</span> go a <span class="ot">=</span> g a <span class="op">.&gt;</span> go (f a)</span></code></pre></div>
+<p><strong>Open question:</strong> <code>iterated</code> doesn’t actually use <code>Contravariant</code>, so its real type signature is</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb37-1"><a href="#cb37-1"></a><span class="dt">Apply</span> f <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> f a) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> f a</span>
+<span id="cb37-2"><a href="#cb37-2"></a></span>
+<span id="cb37-3"><a href="#cb37-3"></a><span class="dt">Apply</span> f <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> <span class="dt">LensLike&#39;</span> f a a</span></code></pre></div>
+<p>and if you tried to apply <code>set</code> or <code>over</code> to it, everything would typecheck. Can this less restricted <code>iterated</code> can be used in any way in which our <code>iterated</code> can’t?</p>
 <hr />
 <p>Oh, and by the way: the same trick gives us <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Type.html#t:Traversal1"><code>Traversal1</code></a>, which traverses 1 or more values. Another name for it is “relevant traversal”.</p>
 <hr />
-<p>Some googling revealed that nobody ever uses <code>Traversal1</code> or <code>Fold1</code> (in public..?), so I can't say when they are useful.</p>
+<p>Some googling revealed that nobody ever uses <code>Traversal1</code> or <code>Fold1</code> (in public..?), so I can’t say when they are useful.</p>
 <p><code>Fold</code> by itself is probably not very useful either, because most things that are folds are actually more than folds, the same way most instances of <code>Foldable</code> are also functors.</p>
 <p>Such is life.</p>
 <hr />
-<p>The most used functions from <code>Control.Lens.Fold</code> are <code>*Of</code> functions, but I don't like them. Besides, they aren't really related to folds, they just take everything that is <em>at least</em> a fold, which is pretty much everything.</p>
+<p>The most used functions from <code>Control.Lens.Fold</code> are <code>*Of</code> functions, but I don’t like them. Besides, they aren’t really related to folds, they just take everything that is <em>at least</em> a fold, which is pretty much everything.</p>
 </article>
 
 
 <div id="series">
       <a href="/lens-over-tea-2">&lt;&lt;&lt;</a>
-
+  
   <a href="/#lens-over-tea">“lens over tea”</a>
 
       <a href="/lens-over-tea-4">&gt;&gt;&gt;</a>
@@ -313,9 +341,8 @@ iterated f g a <span class="fu">=</span> go a
   <h3>I'm doing software consulting!</h3>
   <p>
     Nowadays I'm running a functional programming consultancy at
-    <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
-    PureScript, Clojure, and Agda. We are looking for more clients and more
-    consultants!
+    <a href="https://monadfix.com">Monadfix</a>. We have experts in Haskell
+    and Agda. We are looking for more clients and more consultants!
   </p>
 </div>
 
@@ -335,7 +362,7 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
 <div id="footer" class="blue-links">
-<a href="https://github.com/neongreen/artyom.me/blob/master/posts/lens-over-tea-3.md">view source</a>—<a href="mailto:artyom@artyom.me?subject=Comment on lens-over-tea-3">comment by email</a>—<a href="/curiosity">curiosity killed the cat</a>
+<a href="https://github.com/neongreen/artyom.me/blob/master/posts/lens-over-tea-3.md">view source</a>—<a href="mailto:artyom@artyom.me?subject=Comment on lens-over-tea-3">comment by email</a>
 </div>
 
 </div>

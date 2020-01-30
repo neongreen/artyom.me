@@ -15,7 +15,6 @@ executables:
       - text
       - rss
       - pandoc
-      - pandoc-contrib
       - bytestring
       - pandoc-types
       - base-prelude

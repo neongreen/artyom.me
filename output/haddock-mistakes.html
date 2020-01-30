@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-
+  
   <meta name="google-site-verification" content="y-gj-eNGiiocXI1nd6EPlywGEfhW90jeeFO__ePHvbg" />
   <meta name="generator" content="pandoc">
   <meta name="viewport"
@@ -14,8 +14,9 @@
   <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
-  <link rel="stylesheet" href="/css.css?date=2019-06-21">
+  <link rel="stylesheet" href="/css.css?date=2020-01-30">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154447441-1"></script>
 <script>
@@ -52,7 +53,7 @@
     Founder of <a href="https://aelve.com">Aelve</a>
   </div
   ><div class="badge">
-    Co-founder of <a href="https://monadfix.io">Monadfix</a>
+    Co-founder of <a href="https://monadfix.com">Monadfix</a>
   </div
 
   ><div class="badge">
@@ -80,9 +81,9 @@
 <h2 id="slashes-and-people-who-like-slashes">Slashes and people who like slashes</h2>
 <p>For those of us who like using slashes in prose: <code>good/bad/ugly</code> would get rendered as “good<em>bad</em>ugly”, so escape slashes like this: <code>good\/bad\/ugly</code>.</p>
 <h2 id="quotes-and-links-to-nonexistent-modules">Quotes and links to nonexistent modules</h2>
-<p>Haddock thinks that all quoted words are links to other modules, so by using <code>&quot;This&quot;</code> in a sentence you might get a link to an unexistent module “This”. Again, escaping helps here. Or using <code>“”</code> quotation marks instead of <code>&quot;&quot;</code> ones. Or simply not taking words starting with a capital letter in quotes.</p>
+<p>Haddock thinks that all quoted words are links to other modules, so by using <code>"This"</code> in a sentence you might get a link to an unexistent module “This”. Again, escaping helps here. Or using <code>“”</code> quotation marks instead of <code>""</code> ones. Or simply not taking words starting with a capital letter in quotes.</p>
 <h2 id="code-blocks-and-lambdas">Code blocks and lambdas</h2>
-<p>Code blocks (ones surrounded by <code>@</code>s) aren't verbatim. This:</p>
+<p>Code blocks (ones surrounded by <code>@</code>s) aren’t verbatim. This:</p>
 <pre><code>@
 map (\a -&gt; a ++ reverse a) xs
 @</code></pre>
@@ -92,7 +93,7 @@ map (\a -&gt; a ++ reverse a) xs
 <h2 id="code-blocks-and-operators-with-angle-brackets">Code blocks and operators with angle brackets</h2>
 <p>Even worse, if you dare use <code>&lt;$&gt;</code> in a code block, it will turn into a link to a module called “$”. Either escape angle brackets, or put <code>&lt;$&gt;</code> in single quotes.</p>
 <h2 id="code-blocks-and-emphasis">Code blocks and emphasis</h2>
-<p>This one doesn't pop up often, because operators with <code>/</code> in them are pretty rare (there's <code>/=</code>, <code>/</code>, <code>//</code>, but not much else).</p>
+<p>This one doesn’t pop up often, because operators with <code>/</code> in them are pretty rare (there’s <code>/=</code>, <code>/</code>, <code>//</code>, but not much else).</p>
 <pre><code>@
 l //= x = l %= (/x)
 @</code></pre>
@@ -114,17 +115,17 @@ view :: Monoid m =&gt; Traversal&#39; s m -&gt; s -&gt; m</code></pre>
 &#39;view&#39; :: &#39;Data.Monoid.Monoid&#39; m =&gt; &#39;Control.Lens.Traversal.Traversal&#39;&#39; s m -&gt; s -&gt; m</code></pre>
 <p>(Editing such code, naturally, is a pain.) So, check your alignment in browser every time you modify a piece of code in docs.</p>
 <h2 id="code-examples-and-links-to-identifiers">Code examples and links to identifiers</h2>
-<p>You can create links to identifiers by wrapping them in single quotes, which works in code blocks and is kinda nice. However, the same thing doesn't work in code examples, so by doing</p>
+<p>You can create links to identifiers by wrapping them in single quotes, which works in code blocks and is kinda nice. However, the same thing doesn’t work in code examples, so by doing</p>
 <pre><code>&gt;&gt;&gt; (1,2) &#39;&amp;&#39; &#39;_1&#39; &#39;%~&#39; &#39;negate&#39;
 (-1,2)</code></pre>
 <p>you will get what you see, instead of nicer</p>
 <pre><code>>>> (1,2) <a href="http://hackage.haskell.org/package/base/docs/Data-Function.html#v:-38-">&</a> <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Tuple.html#v:_1">_1</a> <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Operators.html#v:-37--126-">%~</a> <a href="http://hackage.haskell.org/package/base/docs/Prelude.html#v:negate">negate</a>
 (-1,2)</code></pre>
 <h2 id="links-and-line-wrapping">Links and line wrapping</h2>
-<p>If your editor wraps lines to some width, and a link happens to be wrapped...</p>
+<p>If your editor wraps lines to some width, and a link happens to be wrapped…</p>
 <pre><code>...here goes a link: &lt;http://example.com
 just an example&gt;. Hope you liked it.</code></pre>
-<p>...it won't be recognised as a link. Watch out for wrapped links, I guess.</p>
+<p>…it won’t be recognised as a link. Watch out for wrapped links, I guess.</p>
 </article>
 
 
@@ -135,9 +136,8 @@ just an example&gt;. Hope you liked it.</code></pre>
   <h3>I'm doing software consulting!</h3>
   <p>
     Nowadays I'm running a functional programming consultancy at
-    <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
-    PureScript, Clojure, and Agda. We are looking for more clients and more
-    consultants!
+    <a href="https://monadfix.com">Monadfix</a>. We have experts in Haskell
+    and Agda. We are looking for more clients and more consultants!
   </p>
 </div>
 
@@ -157,7 +157,7 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
 <div id="footer" class="blue-links">
-<a href="https://github.com/neongreen/artyom.me/blob/master/posts/haddock-mistakes.md">view source</a>—<a href="mailto:artyom@artyom.me?subject=Comment on haddock-mistakes">comment by email</a>—<a href="/curiosity">curiosity killed the cat</a>
+<a href="https://github.com/neongreen/artyom.me/blob/master/posts/haddock-mistakes.md">view source</a>—<a href="mailto:artyom@artyom.me?subject=Comment on haddock-mistakes">comment by email</a>
 </div>
 
 </div>

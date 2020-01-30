@@ -20,7 +20,7 @@ First let's look at just one piece of the puzzle: people don't like it that “i
 
 > Hi, Grammar Girl. I'm an English teacher in Boston, Massachusetts, and I am freaking out. One of my students tells me that “irregardless” is now a word, and apparently it's been added to some dictionaries. Can you clear this up for me. This is serious panic time.
 
-Except that almost all dictionaries are [descriptive](@w:linguistic description), not [prescriptive](@w:linguistic prescription), which means that they aren't trying to record only “correct” words – thus, “irregardless” absolutely belongs there *because that's the explicit stated purpose of dictionaries*. However, instead of using the moment to explain to the student that a dictionary doesn't make a word legitimate, the teacher panicked. Why?
+Except that almost all dictionaries are descriptive, not prescriptive, which means that they aren't trying to record only “correct” words – thus, “irregardless” absolutely belongs there *because that's the explicit stated purpose of dictionaries*. However, instead of using the moment to explain to the student that a dictionary doesn't make a word legitimate, the teacher panicked. Why?
 
 Because dictionaries actually do make words legitimate. Or rather, being included into a major dictionary gives the word *some* amount of legitimacy, even if it's not what the creators of the dictionary want. And teachers don't want “irregardless” to have more legitimacy, because it would give people an excuse to keep using it.
 
@@ -28,7 +28,7 @@ Because dictionaries actually do make words legitimate. Or rather, being include
 
 Okay, so legitimacy is what distinguishes “coronel”, “chiefs”, and “drank” from “irregardless”, “conversate”, and “I could care less”. The next question is: what makes a word legitimate?
 
-If you're googling now for something like “who defines standard english”, you can stop – English doesn't have a [language regulator](@w:list of language regulators). However, language regulators don't make anything legitimate either. For a proof, look at Russian.
+If you're googling now for something like “who defines standard english”, you can stop – English doesn't have a [language regulator](https://en.wikipedia.org/wiki/List_of_language_regulators). However, language regulators don't make anything legitimate either. For a proof, look at Russian.
 
 In Russian there are 3 genders: masculine, feminine, and neuter. The word “coffee” looks like lots of other neuter-gendered Russian words, but thanks to a historical accident it was masculine, and if you used it as if it was neuter, you were condemned by all educated people. What do you think happened when the Russian Language Institute announced that from now on “coffee” could be a word of either masculine or neuter gender? Since it was making the language *less* retarded, educated people were probably going “hooray, finally our language is a bit more logical”, right?
 
@@ -78,7 +78,7 @@ Steven Pinker's “The Language Instinct” has [a chapter](http://www.socioling
 
 <!-- -->
 
-> That's the theme I keep hearing in all those outbursts of language rage. The melodramatic tone may be intended to stave off the charge that you take these matters too seriously, but it's also a way of affirming your solidarity with the thin red line of people who pride themselves on taking this stuff very seriously indeed. 
+> That's the theme I keep hearing in all those outbursts of language rage. The melodramatic tone may be intended to stave off the charge that you take these matters too seriously, but it's also a way of affirming your solidarity with the thin red line of people who pride themselves on taking this stuff very seriously indeed.
 
 [“The social psychology of linguistic naming and shaming”](http://itre.cis.upenn.edu/~myl/languagelog/archives/004244.html) further explains how “grammar nazism” is a social phenomenon and not a linguistic one:
 

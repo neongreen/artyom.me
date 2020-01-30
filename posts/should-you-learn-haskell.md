@@ -61,9 +61,9 @@ Here's [another](https://www.quora.com/In-what-specific-manner-did-learning-Hask
 
 And [another](https://www.reddit.com/r/haskell/comments/3absc6/how_did_haskell_make_you_a_better_programmer/csbd3tk):
 
-> I've been writing a lot of Javascript lately and Haskell has my poor-code Spidey senses turned way up. I can't tolerate “incomplete matches” and find ways to avoid boolean blindness as a rule. I am constantly papering over Javascript's wildly duplicitous APIs with simple, consistent ones inspired by [ADTs](@w:algebraic data type). I also write APIs which respect abstraction in a way that's nearly impossible to conceive of in normal JS usage.
+> I've been writing a lot of Javascript lately and Haskell has my poor-code Spidey senses turned way up. I can't tolerate “incomplete matches” and find ways to avoid boolean blindness as a rule. I am constantly papering over Javascript's wildly duplicitous APIs with simple, consistent ones inspired by ADTs. I also write APIs which respect abstraction in a way that's nearly impossible to conceive of in normal JS usage.
 >
-> It's a huge step up. I still write Javascript, but I write things that a multitudes simpler, dumber, easier to understand. 
+> It's a huge step up. I still write Javascript, but I write things that a multitudes simpler, dumber, easier to understand.
 
 And [another](https://www.reddit.com/r/haskell/comments/3absc6/how_did_haskell_make_you_a_better_programmer/csb6sge):
 
@@ -136,7 +136,7 @@ From a [Quora answer](https://www.quora.com/Will-learning-Erlang-make-me-a-bette
 
 From [another Quora answer](https://www.quora.com/Will-learning-Erlang-make-me-a-better-programmer-in-other-languages/answer/Adam-DAngelo):
 
-> I found that being forced into the [actor concurrency model](@w:actor model) and building up intuitions about it as a result of using Erlang helped make me better at reasoning about concurrency in systems in general. Even though it's not always the most appropriate abstraction in practice, it's a very useful data point to have in evaluating the tradeoffs when designing distributed systems.
+> I found that being forced into the actor concurrency model and building up intuitions about it as a result of using Erlang helped make me better at reasoning about concurrency in systems in general. Even though it's not always the most appropriate abstraction in practice, it's a very useful data point to have in evaluating the tradeoffs when designing distributed systems.
 
 From [yet another Quora answer](https://www.quora.com/Will-learning-Erlang-make-me-a-better-programmer-in-other-languages/answer/Dhananjay-Nene):
 
@@ -158,7 +158,7 @@ From a Hacker News [comment](https://news.ycombinator.com/item?id=4961746) on an
 
 From a Quora [answer](https://www.quora.com/Which-one-should-I-learn-Python-or-Scala/answer/Peter-Schachte) comparing Python and Scala:
 
-> But learning Python won't greatly add to your skill set at a deep level.  Scala will. It will teach you many more new abstractions, particularly in its type system, functional programming features, and emphasis on [immutable data](@w:immutable object). These will make you a much better programmer, even when you're using other languages. While you won't see a lot of job ads looking for Scala, some employers (even those mostly using languages like Java or C++) look for skills in languages like Scala as way to distinguish great programmers from cannon fodder.
+> But learning Python won't greatly add to your skill set at a deep level.  Scala will. It will teach you many more new abstractions, particularly in its type system, functional programming features, and emphasis on immutable data. These will make you a much better programmer, even when you're using other languages. While you won't see a lot of job ads looking for Scala, some employers (even those mostly using languages like Java or C++) look for skills in languages like Scala as way to distinguish great programmers from cannon fodder.
 
 From a [post](https://michaelochurch.wordpress.com/2012/07/27/six-languages-to-master/) about 6 languages to master (the author later [said](http://gregorulm.com/programming-languages-to-learn/#comment-435970) “I would probably swap Scala out for Haskell, if I wrote that article today.”):
 
@@ -182,7 +182,7 @@ From [Programming F#](https://books.google.com/books?isbn=1449379168):
 
 From a Quora [answer](https://www.quora.com/Functional-Programming/Should-I-learn-F-Haskell-Scala-or-Clojure/answer/Sean-Corfield) comparing F#, Haskell, Scala, and Clojure:
 
-> Finally, there's Clojure which is unique amongst the languages you list in two ways: it is the only dynamically typed language, and it is the only Lisp. I like it best for those two reasons but it's not for everyone. In the same way that Haskell will make you a better programmer, a Lisp will also make you a better programmer (in different ways, perhaps), because it is a very different idiom from “traditional” programming languages. Everything is data, and in Clojure it is all about the abstractions (sequences, protocols, etc). Clojure combines the best of OOP (several forms of a la carte polymorphism) with the best of FP (immutable data structures, a focus on small pure functions), as well as offering a pragmatic way to deal with mutable state ([Software Transactional Memory](@w:software transactional memory)) for practical, real-world FP.
+> Finally, there's Clojure which is unique amongst the languages you list in two ways: it is the only dynamically typed language, and it is the only Lisp. I like it best for those two reasons but it's not for everyone. In the same way that Haskell will make you a better programmer, a Lisp will also make you a better programmer (in different ways, perhaps), because it is a very different idiom from “traditional” programming languages. Everything is data, and in Clojure it is all about the abstractions (sequences, protocols, etc). Clojure combines the best of OOP (several forms of a la carte polymorphism) with the best of FP (immutable data structures, a focus on small pure functions), as well as offering a pragmatic way to deal with mutable state (Software Transactional Memory) for practical, real-world FP.
 
 From another Quora [answer](https://www.quora.com/Which-power-programming-language-should-I-put-the-effort-into-learning-this-year-Clojure-or-Haskell/answer/Jesse-Sherlock) comparing Clojure and Haskell:
 
@@ -284,7 +284,7 @@ From a [comment](https://www.reddit.com/r/haskell/comments/2mr7ks/im_debating_be
 
 From a Quora [answer](https://www.quora.com/Which-power-programming-language-should-I-put-the-effort-into-learning-this-year-Clojure-or-Haskell/answer/Tikhon-Jelvis) comparing Clojure and Haskell:
 
-> The most important reason is that Haskell can teach you advanced functional programming in a way no other common languages can – including Clojure! (Although Clojure is better than most alternatives.) Haskell elevates functional programming to an artform with an incredible array of libraries and rich abstractions that really *double down* on functional programming. 
+> The most important reason is that Haskell can teach you advanced functional programming in a way no other common languages can – including Clojure! (Although Clojure is better than most alternatives.) Haskell elevates functional programming to an artform with an incredible array of libraries and rich abstractions that really *double down* on functional programming.
 
 **Haskell:**
 
@@ -363,7 +363,7 @@ So, where does this all leave us?
 
     ([source](https://www.reddit.com/r/Clojure/comments/3h4qdk/what_are_clojurians_critiques_of_haskell/cu4qb6u))
 
-* With Lisp you're going to use metaprogramming/macros/etc more often than with Haskell; whether it would make you a better programmer or simply a better *Lisp* programmer is up to a debate. I'd argue that the skills of decomposition and abstraction are more broadly applicable/useful than the skill of understanding how language design is done (not to mention that in Haskell you're going to see a lot of examples of [DSLs](@w:domain-specific language) too). However, “code is data” is still a nice lesson to learn and Lisp is the best language to learn it.
+* With Lisp you're going to use metaprogramming/macros/etc more often than with Haskell; whether it would make you a better programmer or simply a better *Lisp* programmer is up to a debate. I'd argue that the skills of decomposition and abstraction are more broadly applicable/useful than the skill of understanding how language design is done (not to mention that in Haskell you're going to see a lot of examples of DSLs too). However, “code is data” is still a nice lesson to learn and Lisp is the best language to learn it.
 
 * Racket doesn't get many mentions, but on the other hand it's a Lisp and a Scheme and so things said about Lisp/Scheme apply to it just as well.
 
@@ -373,7 +373,7 @@ So, where does this all leave us?
 
 * C makes you more disciplined/attentive/careful. (Again, descriptions of other languages don't mention that.) On the other hand, in C it's entirely possible *not* to be disciplined, while Go seems to enforce discipline more strictly (which also means that you don't get carefulness practised as much).
 
-* It's possible that languages like Shen, Red, Factor, Oz, Mercury, etc. would make you a better programmer too, but nobody is talking about them much and so it's hard to compare them (especially since I haven't used any of them). 
+* It's possible that languages like Shen, Red, Factor, Oz, Mercury, etc. would make you a better programmer too, but nobody is talking about them much and so it's hard to compare them (especially since I haven't used any of them).
 
 -----------------------------------------------------------------------------
 

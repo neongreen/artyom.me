@@ -80,7 +80,7 @@ Here's a laundry list of things empathy can prevent/mitigate:
   * gay bashing
   * everyday sexism
   * social justice going too far
-  * [doxing](@w) (empathy doesn't stop somebody from publishing your personal info, but it prevents *each person* in the mob from going after you)
+  * [doxing](https://en.wikipedia.org/wiki/Doxing) (empathy doesn't stop somebody from publishing your personal info, but it prevents *each person* in the mob from going after you)
   * [the YX problem](/yx)
   * [lots of internet arguments in general](https://xkcd.com/438/)
   * passive aggressiveness

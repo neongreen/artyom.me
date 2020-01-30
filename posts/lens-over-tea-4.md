@@ -250,7 +250,7 @@ Well, there's only 1 thing left to meddle with – `->`s in parens. Let's meddle
 > > undefined & enum .~ 'x'
 > 120
 > ~~~
-> 
+>
 > `Iso` generalises this notion of *lenses that don't care*.
 
 First I want to explain why exactly it doesn't care. As you know, a lens is isomorphic to this:
@@ -311,7 +311,8 @@ A constant function of type `a -> b` is isomorphic to `b`. We could create our o
 data a :-> b = Always b
 ~~~
 
-But there's already such a type, called [`Tagged`][] (in the [tagged](@hackage) package):
+But there's already such a type, called [`Tagged`][] (in the
+[tagged](https://hackage.haskell.org/package/tagged) package):
 
 ~~~ haskell
 newtype Tagged a b = Tagged {unTagged :: b}
@@ -370,7 +371,7 @@ enum f = fmap fromEnum . f . toEnum
 
 Then, let's observe some parallels:
 
-* In the case of the ordinary function, `fmap fromEnum .` changes its output; in the case of the constant function, `fmap fromEnum <$>` changes its output. 
+* In the case of the ordinary function, `fmap fromEnum .` changes its output; in the case of the constant function, `fmap fromEnum <$>` changes its output.
 
 * In the case of the ordinary function, `. toEnum` changes its input; in the case of the constant function, `retag` changes the type of its nonexistent input.
 
@@ -423,7 +424,7 @@ from i = iso bt sa
     --   Сonst   :: a -> Const a b   or  (->) a (Const a b)
     --   i Const :: s -> Const a t   or  (->) s (Const a t)
     sa s = getConst ((i Const) s)
-                                       
+
     -- This uses the Tagged instance:
     --   Tagged (Identity b)     :: Tagged a (Identity b)
     --   i (Tagged (Identity b)) :: Tagged s (Identity t)
@@ -727,7 +728,7 @@ Excellent.
 Next, let's think what we want to do with both these things— no, wait, we already know the answer:
 
 > `isoSTAB` would have to turn:
-> 
+>
 >   * `a -> f b` into `s -> f t`
 >   * `Hide (a -> x, y -> b)` into `Hide (s -> x, y -> t)` (because we need to get `isoSTXY` in the end)
 
@@ -880,7 +881,7 @@ Write an explicit type – [`AnIso`][] – for \<whatever `from` accepts\>:
 
 ~~~ haskell
 type AnIso s t a b = Exchange a b a (Identity b) ->
-                     Exchange a b s (Identity t) 
+                     Exchange a b s (Identity t)
 ~~~
 
 This type can be used whenever we want to write a function which takes an `Iso`, because it's the “smallest” type that fully describes an iso. (By the way, `Lens` and `Traversal` have similar types associated with them – [`ALens`][] and [`ATraversal`][] – but they're implemented using weird-sounding things like `Bazaar` and `Pretext` with very helpful descriptions like “a.k.a. indexed Cartesian store comonad, indexed Kleene store comonad, or an indexed `FunList`” and I don't want to touch them with a 10-foot pole. [sighs] I guess I'll have to sooner or later...)

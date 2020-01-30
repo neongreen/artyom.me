@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-
+  
   <meta name="google-site-verification" content="y-gj-eNGiiocXI1nd6EPlywGEfhW90jeeFO__ePHvbg" />
   <meta name="generator" content="pandoc">
   <meta name="viewport"
@@ -15,44 +15,72 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="/css.css?date=2019-06-21">
+  <link rel="stylesheet" href="/css.css?date=2020-01-30">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154447441-1"></script>
 <script>
@@ -89,7 +117,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     Founder of <a href="https://aelve.com">Aelve</a>
   </div
   ><div class="badge">
-    Co-founder of <a href="https://monadfix.io">Monadfix</a>
+    Co-founder of <a href="https://monadfix.com">Monadfix</a>
   </div
 
   ><div class="badge">
@@ -103,7 +131,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <div id="series">
       <a href="/lens-over-tea-4">&lt;&lt;&lt;</a>
-
+  
   <a href="/#lens-over-tea">“lens over tea”</a>
 
       <a href="/lens-over-tea-6">&gt;&gt;&gt;</a>
@@ -113,32 +141,32 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <article>
 <h1 class="title">lens over tea #5: prisms</h1>
 
-<p>The exploration of lenses continues! Today we'll finally figure out how prisms are implemented and what they are for. Also there are more exercises than in the previous posts, so perhaps you should read it with GHCi running (and not on your phone).</p>
+<p>The exploration of lenses continues! Today we’ll finally figure out how prisms are implemented and what they are for. Also there are more exercises than in the previous posts, so perhaps you should read it with GHCi running (and not on your phone).</p>
 <h1 id="a-recap-of-isomorphisms">A recap of isomorphisms</h1>
-<p>Okay, I wrote the last post like 5 months ago and I forgot a lot since then and you probably forgot everything too, so first there'll be a short recap of isomorphisms (which I don't recommend skipping because it has drawings of boxes, which I'll also be using when talking about prisms).</p>
+<p>Okay, I wrote the last post like 5 months ago and I forgot a lot since then and you probably forgot everything too, so first there’ll be a short recap of isomorphisms (which I don’t recommend skipping because it has drawings of boxes, which I’ll also be using when talking about prisms).</p>
 <p>An isomorphism is a thing that lets you convert <code>s</code> to <code>a</code> and vice-versa:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Iso</span> s t a b <span class="fu">=</span>
-  forall p f<span class="fu">.</span> (<span class="dt">Profunctor</span> p, <span class="dt">Functor</span> f) <span class="ot">=&gt;</span>
-  p a (f b) <span class="ot">-&gt;</span> p s (f t)
-
-<span class="ot">iso ::</span> (s <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> (b <span class="ot">-&gt;</span> t) <span class="ot">-&gt;</span> <span class="dt">Iso</span> s t a b
-
-<span class="ot">from ::</span> <span class="dt">Iso</span> s t a b <span class="ot">-&gt;</span> <span class="dt">Iso</span> b a t s</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">type</span> <span class="dt">Iso</span> s t a b <span class="ot">=</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="kw">forall</span> p f<span class="op">.</span> (<span class="dt">Profunctor</span> p, <span class="dt">Functor</span> f) <span class="ot">=&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>  p a (f b) <span class="ot">-&gt;</span> p s (f t)</span>
+<span id="cb1-4"><a href="#cb1-4"></a></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="ot">iso ::</span> (s <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> (b <span class="ot">-&gt;</span> t) <span class="ot">-&gt;</span> <span class="dt">Iso</span> s t a b</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="ot">from ::</span> <span class="dt">Iso</span> s t a b <span class="ot">-&gt;</span> <span class="dt">Iso</span> b a t s</span></code></pre></div>
 <p>You can use an <code>Iso</code> as a lens (to get <code>a</code> from <code>s</code>), or you can reverse it with <code>from</code> and use it as a wrapper (to get <code>s</code> from <code>a</code>).</p>
-<p>Well, actually you're getting <code>t</code> from <code>b</code>, and not <code>s</code> from <code>a</code>, but all <code>Iso</code>s have to be polymorphic enough for it not to matter; that is, you should be able to turn <code>s</code> into <code>t</code> and <code>a</code> into <code>b</code> just by renaming type variables. Here's an example showing how <code>_1</code> is polymorphic in this way:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">_1<span class="ot"> ::</span> <span class="dt">Lens</span> (a, x) (b, x) a b
-_1<span class="ot"> ::</span> <span class="dt">Lens</span> (b, x) (a, x) b a  <span class="co">-- the same thing!</span></code></pre></div>
+<p>Well, actually you’re getting <code>t</code> from <code>b</code>, and not <code>s</code> from <code>a</code>, but all <code>Iso</code>s have to be polymorphic enough for it not to matter; that is, you should be able to turn <code>s</code> into <code>t</code> and <code>a</code> into <code>b</code> just by renaming type variables. Here’s an example showing how <code>_1</code> is polymorphic in this way:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1"></a><span class="ot">_1 ::</span> <span class="dt">Lens</span> (a, x) (b, x) a b</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="ot">_1 ::</span> <span class="dt">Lens</span> (b, x) (a, x) b a  <span class="co">-- the same thing!</span></span></code></pre></div>
 <p>(This all is explained in greater detail <a href="/lens-over-tea-4#lens-families">here</a>.)</p>
 <p>Okay, but what are profunctors? Again, this was explained in the previous post:</p>
 <blockquote>
-<p>The point of profunctors is that if you're given a <code>p a b</code>, you can treat it as an opaque “black box”, some kind of relationship between <code>a</code> and <code>b</code> – you can add a filter to the black box which would modify its output, and you can add another filter which would modify its input, but you can't modify the black box itself in any way and you can't inspect the input in any way (because, after all, there might not even be any) or get any information from one filter to another.</p>
+<p>The point of profunctors is that if you’re given a <code>p a b</code>, you can treat it as an opaque “black box”, some kind of relationship between <code>a</code> and <code>b</code> – you can add a filter to the black box which would modify its output, and you can add another filter which would modify its input, but you can’t modify the black box itself in any way and you can’t inspect the input in any way (because, after all, there might not even be any) or get any information from one filter to another.</p>
 </blockquote>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Profunctor</span> p <span class="kw">where</span>
-  <span class="co">-- Attach a function to the input.</span>
-<span class="ot">  lmap ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> p b c <span class="ot">-&gt;</span> p a c
-  <span class="co">-- Attach a function to the output.</span>
-<span class="ot">  rmap ::</span> (b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> p a b <span class="ot">-&gt;</span> p a c</code></pre></div>
-<p>This is <code>a -&gt; b</code> (from now on I'll be referring to profunctors as boxes):</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">class</span> <span class="dt">Profunctor</span> p <span class="kw">where</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="co">-- Attach a function to the input.</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="ot">  lmap ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> p b c <span class="ot">-&gt;</span> p a c</span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="co">-- Attach a function to the output.</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="ot">  rmap ::</span> (b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> p a b <span class="ot">-&gt;</span> p a c</span></code></pre></div>
+<p>This is <code>a -&gt; b</code> (from now on I’ll be referring to profunctors as boxes):</p>
 <pre><code>           x-----------x
            |           |
            |_____)_____|
@@ -155,14 +183,14 @@ _1<span class="ot"> ::</span> <span class="dt">Lens</span> (b, x) (a, x) b a  <s
       ‾‾‾‾‾|           |‾‾‾‾‾
            x-----------x</code></pre>
 <p>Now: an iso can convert <code>p a (f b)</code> to <code>p s (f t)</code>, for any <code>p</code>. And <code>p</code> is a profunctor. And the only thing you can do with an arbitrary profunctor is attach a function to its input or output (or both). So, in order for an iso to work, it must contain functions <code>s -&gt; a</code> and <code>f b -&gt; f t</code> in it, and <code>f b -&gt; f t</code> can be converted to <code>b -&gt; t</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">FBT</span> b t <span class="fu">=</span> forall f<span class="fu">.</span> <span class="dt">Functor</span> f <span class="ot">=&gt;</span> f b <span class="ot">-&gt;</span> f t
-
-<span class="ot">convert ::</span> <span class="dt">FBT</span> b t <span class="ot">-&gt;</span> (b <span class="ot">-&gt;</span> t)
-convert fbt <span class="fu">=</span> runIdentity
-            <span class="fu">.</span> (<span class="ot">fbt ::</span> <span class="dt">Identity</span> b <span class="ot">-&gt;</span> <span class="dt">Identity</span> t)
-            <span class="fu">.</span> <span class="dt">Identity</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">type</span> <span class="dt">FBT</span> b t <span class="ot">=</span> <span class="kw">forall</span> f<span class="op">.</span> <span class="dt">Functor</span> f <span class="ot">=&gt;</span> f b <span class="ot">-&gt;</span> f t</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="ot">convert ::</span> <span class="dt">FBT</span> b t <span class="ot">-&gt;</span> (b <span class="ot">-&gt;</span> t)</span>
+<span id="cb6-4"><a href="#cb6-4"></a>convert fbt <span class="ot">=</span> runIdentity</span>
+<span id="cb6-5"><a href="#cb6-5"></a>            <span class="op">.</span> (<span class="ot">fbt ::</span> <span class="dt">Identity</span> b <span class="ot">-&gt;</span> <span class="dt">Identity</span> t)</span>
+<span id="cb6-6"><a href="#cb6-6"></a>            <span class="op">.</span> <span class="dt">Identity</span></span></code></pre></div>
 <h2 id="getting-s---a">Getting <code>s -&gt; a</code></h2>
-<p>To invert an iso, you have to be able to get <code>s -&gt; a</code> and <code>b -&gt; t</code> out of it. The only thing <em>we</em> can do is give the iso some box of form <code>p a (f b)</code>; to get <code>s -&gt; a</code>, let's give it a box that memorises applications of <code>lmap</code>. I mean this:</p>
+<p>To invert an iso, you have to be able to get <code>s -&gt; a</code> and <code>b -&gt; t</code> out of it. The only thing <em>we</em> can do is give the iso some box of form <code>p a (f b)</code>; to get <code>s -&gt; a</code>, let’s give it a box that memorises applications of <code>lmap</code>. I mean this:</p>
 <pre><code>           x-----------x
            |           |
            |___________|
@@ -170,7 +198,7 @@ convert fbt <span class="fu">=</span> runIdentity
            |‾‾‾|a|‾‾‾‾‾|
            |   |aaaaaaaa
            x-----------x</code></pre>
-<p>(It doesn't have any official output, but it has its input flowing out of it via a hidden pipe.)</p>
+<p>(It doesn’t have any official output, but it has its input flowing out of it via a hidden pipe.)</p>
 <p>After <code>lmap</code> it would look like this:</p>
 <pre><code>           x-----------x
       _____|           |
@@ -179,22 +207,22 @@ convert fbt <span class="fu">=</span> runIdentity
      |  )  |‾‾‾|a|‾‾‾‾‾|
       ‾‾‾‾‾|   |aaaaaaaa
            x-----------x</code></pre>
-<p>So, we'll give this box to the iso, the iso would apply <code>s -&gt; a</code> to it, and we would have an <code>s -&gt; a</code> pipe at our disposal.</p>
-<p>Here's the same thing but without pictures:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">lmap ::</span> (s <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> p a (f b) <span class="ot">-&gt;</span> p s (f b)</code></pre></div>
+<p>So, we’ll give this box to the iso, the iso would apply <code>s -&gt; a</code> to it, and we would have an <code>s -&gt; a</code> pipe at our disposal.</p>
+<p>Here’s the same thing but without pictures:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1"></a><span class="ot">lmap ::</span> (s <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> p a (f b) <span class="ot">-&gt;</span> p s (f b)</span></code></pre></div>
 <p>The result, <code>p s (f b)</code>, has to hold <code>s -&gt; a</code> somewhere and can ignore <code>(f b)</code>. Our box, <code>Foo</code>, shall look as follows:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- “s” = input</span>
-<span class="co">-- “a” = output via hidden pipe</span>
-<span class="co">-- “x” = official output (which can be anything &#39;cause there&#39;s no output)</span>
-<span class="kw">data</span> <span class="dt">Foo</span> a s x <span class="fu">=</span> <span class="dt">Foo</span> (s <span class="ot">-&gt;</span> a)
-
-<span class="ot">unFoo ::</span> <span class="dt">Foo</span> a s x <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> a)</code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1"></a><span class="co">-- “s” = input</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="co">-- “a” = output via hidden pipe</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a><span class="co">-- “x” = official output (which can be anything &#39;cause there&#39;s no output)</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="kw">data</span> <span class="dt">Foo</span> a s x <span class="ot">=</span> <span class="dt">Foo</span> (s <span class="ot">-&gt;</span> a)</span>
+<span id="cb10-5"><a href="#cb10-5"></a></span>
+<span id="cb10-6"><a href="#cb10-6"></a><span class="ot">unFoo ::</span> <span class="dt">Foo</span> a s x <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> a)</span></code></pre></div>
 <p>Replacing <code>p</code> with <code>Foo a</code> makes <code>lmap</code> look like this:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">lmap ::</span> (s <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> <span class="dt">Foo</span> a a (f b) <span class="ot">-&gt;</span> <span class="dt">Foo</span> a s (f b)</code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1"></a><span class="ot">lmap ::</span> (s <span class="ot">-&gt;</span> a) <span class="ot">-&gt;</span> <span class="dt">Foo</span> a a (f b) <span class="ot">-&gt;</span> <span class="dt">Foo</span> a s (f b)</span></code></pre></div>
 <p>We can get <code>Foo a a (f b)</code> by wrapping <code>id</code> into <code>Foo</code>, and we can get <code>s -&gt; a</code> out of <code>Foo a s (f b)</code> by using <code>unFoo</code>. Cool.</p>
 <p><code>Foo</code> is actually called <a href="http://hackage.haskell.org/package/profunctors/docs/Data-Profunctor.html#t:Forget"><code>Forget</code></a>, by the way.</p>
 <h2 id="getting-b---t">Getting <code>b -&gt; t</code></h2>
-<p>To get <code>b -&gt; t</code>, we can take a <code>b</code>, make a box that outputs <code>b</code>, and the iso would turn it into a box that outputs <code>t</code>. This wouldn't even require any hidden pipes:</p>
+<p>To get <code>b -&gt; t</code>, we can take a <code>b</code>, make a box that outputs <code>b</code>, and the iso would turn it into a box that outputs <code>t</code>. This wouldn’t even require any hidden pipes:</p>
 <pre><code>           x-----------x
            |           |_____
            |___________|  )  |
@@ -202,20 +230,20 @@ convert fbt <span class="fu">=</span> runIdentity
            |‾‾‾‾‾‾‾‾‾‾‾|  )  |
            |           |‾‾‾‾‾
            x-----------x</code></pre>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- “b” = output</span>
-<span class="co">-- “x” = official input (which can be anything &#39;cause there&#39;s no input)</span>
-<span class="kw">data</span> <span class="dt">Bar</span> x b <span class="fu">=</span> <span class="dt">Bar</span> b
-
-<span class="ot">unBar ::</span> <span class="dt">Bar</span> x b <span class="ot">-&gt;</span> b</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">rmap ::</span> (f b <span class="ot">-&gt;</span> f t) <span class="ot">-&gt;</span> <span class="dt">Bar</span> x (f b) <span class="ot">-&gt;</span> <span class="dt">Bar</span> x (f t)</code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">-- “b” = output</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="co">-- “x” = official input (which can be anything &#39;cause there&#39;s no input)</span></span>
+<span id="cb13-3"><a href="#cb13-3"></a><span class="kw">data</span> <span class="dt">Bar</span> x b <span class="ot">=</span> <span class="dt">Bar</span> b</span>
+<span id="cb13-4"><a href="#cb13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="ot">unBar ::</span> <span class="dt">Bar</span> x b <span class="ot">-&gt;</span> b</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1"></a><span class="ot">rmap ::</span> (f b <span class="ot">-&gt;</span> f t) <span class="ot">-&gt;</span> <span class="dt">Bar</span> x (f b) <span class="ot">-&gt;</span> <span class="dt">Bar</span> x (f t)</span></code></pre></div>
 <p>The actual name of <code>Bar</code> is <a href="http://hackage.haskell.org/package/tagged/docs/Data-Tagged.html#t:Tagged"><code>Tagged</code></a>.</p>
 <p>Note that here we have to know <code>b</code> in order to even <em>create</em> the box that would be given to <code>rmap</code>. So, to extract <code>b -&gt; t</code> out of an <code>Iso</code>, we do this:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">bt ::</span> <span class="dt">Iso</span> s t a b <span class="ot">-&gt;</span> (b <span class="ot">-&gt;</span> t)
-bt i <span class="fu">=</span> \b <span class="ot">-&gt;</span> runIdentity <span class="fu">.</span> unTagged <span class="fu">$</span> i (<span class="dt">Tagged</span> (<span class="dt">Identity</span> b))
-
-<span class="co">-- In pseudocode:</span>
-<span class="fu">--</span>
-<span class="co">-- bt i = \b -&gt; unwrapBox (i (makeBox b))</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb15-1"><a href="#cb15-1"></a><span class="ot">bt ::</span> <span class="dt">Iso</span> s t a b <span class="ot">-&gt;</span> (b <span class="ot">-&gt;</span> t)</span>
+<span id="cb15-2"><a href="#cb15-2"></a>bt i <span class="ot">=</span> \b <span class="ot">-&gt;</span> runIdentity <span class="op">.</span> unTagged <span class="op">$</span> i (<span class="dt">Tagged</span> (<span class="dt">Identity</span> b))</span>
+<span id="cb15-3"><a href="#cb15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="co">-- In pseudocode:</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="co">--</span></span>
+<span id="cb15-6"><a href="#cb15-6"></a><span class="co">-- bt i = \b -&gt; unwrapBox (i (makeBox b))</span></span></code></pre></div>
 <p>(<code>Identity</code> is needed because <code>Iso</code> deals with <code>f b</code> and not <code>b</code>.)</p>
 <p>We could just as well get <code>b -&gt; t</code> directly using this box:</p>
 <pre><code>           x-----------x
@@ -225,12 +253,12 @@ bt i <span class="fu">=</span> \b <span class="ot">-&gt;</span> runIdentity <spa
            |‾‾‾‾‾‾‾‾‾‾‾|  )  |
            |           |‾‾‾‾‾
            x-----------x</code></pre>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- In pseudocode:</span>
-<span class="fu">--</span>
-<span class="co">-- bt i = unwrapBox (i (makeBox id))</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb17-1"><a href="#cb17-1"></a><span class="co">-- In pseudocode:</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a><span class="co">--</span></span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="co">-- bt i = unwrapBox (i (makeBox id))</span></span></code></pre></div>
 <h2 id="getting-both-things-in-one-go">Getting both things in one go</h2>
 <p>To get both things in one go, we can take this box (which is called <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Internal-Iso.html#t:Exchange"><code>Exchange</code></a> in lens):</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Exchange</span> a b s t <span class="fu">=</span> <span class="dt">Exchange</span> (s <span class="ot">-&gt;</span> a) (b <span class="ot">-&gt;</span> t)</code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb18-1"><a href="#cb18-1"></a><span class="kw">data</span> <span class="dt">Exchange</span> a b s t <span class="ot">=</span> <span class="dt">Exchange</span> (s <span class="ot">-&gt;</span> a) (b <span class="ot">-&gt;</span> t)</span></code></pre></div>
 <pre><code>           x-----------x
            bbbbbbbb|   |
            |_____|b|___|
@@ -246,7 +274,7 @@ bt i <span class="fu">=</span> \b <span class="ot">-&gt;</span> runIdentity <spa
      |  )  |‾‾‾|a|‾‾‾‾‾|  )  |
       ‾‾‾‾‾|   |aaaaaaaa‾‾‾‾‾
            x-----------x</code></pre>
-<p>and from which we'd extract <code>s -&gt; a</code> and <code>b -&gt; t</code>:</p>
+<p>and from which we’d extract <code>s -&gt; a</code> and <code>b -&gt; t</code>:</p>
 <pre><code>      _____               x-----------x
      |  )  |_____         bbbbbbbb|   |_____
      sss)aaaaaaaa|        ‾‾‾‾‾‾|b|___|  )  |
@@ -264,17 +292,17 @@ bt i <span class="fu">=</span> \b <span class="ot">-&gt;</span> runIdentity <spa
 <li>write an instance of <code>Profunctor</code> for <code>Exchange</code></li>
 <li>write <code>from :: Iso s t a b -&gt; Iso b a t s</code> using <code>Exchange</code></li>
 </ul>
-<p>Okay, and now let's move on to prisms.</p>
+<p>Okay, and now let’s move on to prisms.</p>
 <h1 id="affine-traversals">Affine traversals</h1>
-<p>Or, well, let's not. I just found out that I had written a small section about affine traversals back when the plan for this post was:</p>
+<p>Or, well, let’s not. I just found out that I had written a small section about affine traversals back when the plan for this post was:</p>
 <ul>
 <li>“A wrong way to approach prisms (involving affine traversals)”</li>
 <li>“Isomorphisms”</li>
 <li>“The right way to approach prisms”</li>
 </ul>
-<p>And then the post grew and grew and I decided to split off isomorphisms into their own part. Anyway, affine traversals are something that is <em>not</em> in lens (and might never be in lens), but this hasn't stopped me from writing about them, so here goes.</p>
+<p>And then the post grew and grew and I decided to split off isomorphisms into their own part. Anyway, affine traversals are something that is <em>not</em> in lens (and might never be in lens), but this hasn’t stopped me from writing about them, so here goes.</p>
 <hr />
-<p>An affine traversal (or a 0-or-1 traversal) is a traversal that always extracts either nothing or a single value. (By the way, traversals that always return 1 or more values are called relevant traversals, and lenses may be called linear traversals.) If you remember, in post #3 we modified a <code>Traversal</code> to get <code>Traversal1</code> (which always traversed 1 or more element). I'll remind you how it was done:</p>
+<p>An affine traversal (or a 0-or-1 traversal) is a traversal that always extracts either nothing or a single value. (By the way, traversals that always return 1 or more values are called relevant traversals, and lenses may be called linear traversals.) If you remember, in post #3 we modified a <code>Traversal</code> to get <code>Traversal1</code> (which always traversed 1 or more element). I’ll remind you how it was done:</p>
 <ul>
 <li><code>Traversal</code> has an <code>Applicative</code> constraint</li>
 <li><code>Applicative</code> provides <code>pure</code> and <code>&lt;*&gt;</code></li>
@@ -283,107 +311,107 @@ bt i <span class="fu">=</span> \b <span class="ot">-&gt;</span> runIdentity <spa
 <li>when <code>pure</code> is removed, the traversal can no longer do nothing</li>
 <li>to remove <code>pure</code>, we used the <a href="http://hackage.haskell.org/package/semigroupoids/docs/Data-Functor-Apply.html#t:Apply"><code>Apply</code></a> typeclass, which is just like <code>Applicative</code> but without <code>pure</code></li>
 </ul>
-<p>So, the “0” part comes from <code>pure</code>, the “+” part comes from <code>&lt;*&gt;</code>, and the “1” part (i.e. returning at least 1 value) comes from the <code>a -&gt; f b</code> function we give to the traversal. If we remove <code>pure</code>, we can't have “0”. From this follows that if we remove <code>&lt;*&gt;</code>, we'll lose “+”, which is exactly what we want.</p>
-<p>(No, really, is this clear to you? It might not be, because I only got it after thinking about it for 5m and I'm the one who is actually writing the posts (but on the other hand maybe I just have really bad memory), so... Okay, whatever. We give the traversal an <code>a -&gt; f b</code> function (which actually just stores <code>a</code> in <code>f b</code>). The traversal applies this function to all the elements it wants to return. Then it combines the results with <code>&lt;*&gt;</code>, which also combines “effects” to return several stored <code>a</code>s instead of just 1. If the traversal doesn't want to return anything, it still can use <code>pure</code> to get an <code>f t</code> back. Now, if we don't let the traversal use <code>&lt;*&gt;</code>, it won't be able to combine those <code>f b</code>s, and so we'll get at most 1 <code>a</code>.)</p>
-<p>I don't know how to google for “<code>pure</code> without <code>&lt;*&gt;</code>”, but I knew that there was such a class somewhere, and then I was just reading unrelated stuff and completely accidentally stumbled upon <a href="http://hackage.haskell.org/package/pointed/docs/Data-Pointed.html#t:Pointed"><code>Pointed</code></a>, which is just what we need. (But if I hadn't found it, I would've asked on #haskell or #haskell-lens, so it's not like this depended much on pure luck. I hate things that depend on pure luck.)</p>
-<p><code>Pointed</code> is a class with a single operation – <code>point</code>, which... well, lifts a value into something. It's not really useful for anything because for everyday programming <code>pure</code> and <code>return</code> are alright (not to mention that most people prefer being more explicit and writing e.g. <code>Just []</code> instead of <code>pure []</code>), and it's not suitable for writing more generic functions either because it's got no laws. (Here's a <a href="https://wiki.haskell.org/Why_not_Pointed%3F">typical jump-all-over-the-place-but-still-nice comment</a> from Edward about <code>Pointed</code>.)</p>
+<p>So, the “0” part comes from <code>pure</code>, the “+” part comes from <code>&lt;*&gt;</code>, and the “1” part (i.e. returning at least 1 value) comes from the <code>a -&gt; f b</code> function we give to the traversal. If we remove <code>pure</code>, we can’t have “0”. From this follows that if we remove <code>&lt;*&gt;</code>, we’ll lose “+”, which is exactly what we want.</p>
+<p>(No, really, is this clear to you? It might not be, because I only got it after thinking about it for 5m and I’m the one who is actually writing the posts (but on the other hand maybe I just have really bad memory), so… Okay, whatever. We give the traversal an <code>a -&gt; f b</code> function (which actually just stores <code>a</code> in <code>f b</code>). The traversal applies this function to all the elements it wants to return. Then it combines the results with <code>&lt;*&gt;</code>, which also combines “effects” to return several stored <code>a</code>s instead of just 1. If the traversal doesn’t want to return anything, it still can use <code>pure</code> to get an <code>f t</code> back. Now, if we don’t let the traversal use <code>&lt;*&gt;</code>, it won’t be able to combine those <code>f b</code>s, and so we’ll get at most 1 <code>a</code>.)</p>
+<p>I don’t know how to google for “<code>pure</code> without <code>&lt;*&gt;</code>”, but I knew that there was such a class somewhere, and then I was just reading unrelated stuff and completely accidentally stumbled upon <a href="http://hackage.haskell.org/package/pointed/docs/Data-Pointed.html#t:Pointed"><code>Pointed</code></a>, which is just what we need. (But if I hadn’t found it, I would’ve asked on #haskell or #haskell-lens, so it’s not like this depended much on pure luck. I hate things that depend on pure luck.)</p>
+<p><code>Pointed</code> is a class with a single operation – <code>point</code>, which… well, lifts a value into something. It’s not really useful for anything because for everyday programming <code>pure</code> and <code>return</code> are alright (not to mention that most people prefer being more explicit and writing e.g. <code>Just []</code> instead of <code>pure []</code>), and it’s not suitable for writing more generic functions either because it’s got no laws. (Here’s a <a href="https://wiki.haskell.org/Why_not_Pointed%3F">typical jump-all-over-the-place-but-still-nice comment</a> from Edward about <code>Pointed</code>.)</p>
 <p>With <code>Pointed</code>, we can give this definition for <code>Traversal01</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Traversal01</span> s t a b <span class="fu">=</span>
-  forall f<span class="fu">.</span> (<span class="dt">Functor</span> f, <span class="dt">Pointed</span> f) <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t</code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb22-1"><a href="#cb22-1"></a><span class="kw">type</span> <span class="dt">Traversal01</span> s t a b <span class="ot">=</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>  <span class="kw">forall</span> f<span class="op">.</span> (<span class="dt">Functor</span> f, <span class="dt">Pointed</span> f) <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t</span></code></pre></div>
 <h1 id="prisms">Prisms</h1>
-<p>I like this description of prisms Edward Kmett wrote somewhere recently and I can't be bothered to google where exactly okay <em>fine</em> I will. <a href="https://github.com/sdiehl/wiwinwlh/issues/67#issue-73707312">Here</a>. (In case you're wondering, Tony is being sarcastic in the next comment. I think.)</p>
+<p>I like this description of prisms Edward Kmett wrote somewhere recently and I can’t be bothered to google where exactly okay <em>fine</em> I will. <a href="https://github.com/sdiehl/wiwinwlh/issues/67#issue-73707312">Here</a>. (In case you’re wondering, Tony is being sarcastic in the next comment. I think.)</p>
 <blockquote>
 <p>A lens describes something isomorphic to a product with some extra context. A lens from <code>s</code> to <code>a</code> indicates there exists <code>c</code> such that <code>s</code> is isomorphic to <code>(c, a)</code>.</p>
 <p>On the other hand, a prism from <code>s</code> to <code>a</code> indicates there exists <code>c</code> such that <code>s</code> is isomorphic to <code>(Either c a)</code>.</p>
 </blockquote>
 <p>In other words, lenses deconstruct <a href="https://en.wikipedia.org/wiki/Product_type">product types</a> and prisms deconstruct <a href="https://en.wikipedia.org/wiki/Tagged_union">sum types</a>.</p>
 <hr />
-<p>Here's a longer explanation!</p>
+<p>Here’s a longer explanation!</p>
 <p>If you have a lens, you have <code>get</code> and <code>put</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">get ::</span> s <span class="ot">-&gt;</span> a
-<span class="ot">put ::</span> s <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> s</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb23-1"><a href="#cb23-1"></a><span class="ot">get ::</span> s <span class="ot">-&gt;</span> a</span>
+<span id="cb23-2"><a href="#cb23-2"></a><span class="ot">put ::</span> s <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> s</span></code></pre></div>
 <p>You can combine these into 1 function:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">lens ::</span> s <span class="ot">-&gt;</span> (a, a <span class="ot">-&gt;</span> s)</code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb24-1"><a href="#cb24-1"></a><span class="ot">lens ::</span> s <span class="ot">-&gt;</span> (a, a <span class="ot">-&gt;</span> s)</span></code></pre></div>
 <p><code>lens</code> breaks <code>s</code> into 2 values – <code>a</code> and something of type <code>a -&gt; s</code>. Conceptually, you can say that <code>a -&gt; s</code> is “<code>s</code> with an <code>a</code>-shaped hole” – it contains all information needed to construct <code>s</code>, apart from <code>a</code>. You can also combine <code>a</code> and <code>a -&gt; s</code> to get <code>s</code> back. Unless you violate lens laws, <code>(a, a -&gt; s)</code> is isomorphic to just <code>s</code>.</p>
-<p>What about prisms? They're the same, but instead of deconstructing product types (e.g. tuples) they deconstruct sum types (i.e. something like <code>Either</code>). With a prism, you get these 2 operations:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">get ::</span> s <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a
-<span class="ot">put ::</span> a <span class="ot">-&gt;</span> s</code></pre></div>
-<p>This still doesn't sound clear to me, so I'll give a concrete example.</p>
-<p>Let's say you have a type for integers – <code>Integer</code>. You can say that every integer is <em>either</em> a natural number, 0, or a negated natural number (assuming that naturals start from 1). So, while it's not actually represented like this, conceptually you could say that this is the definition of <code>Integer</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Integer</span> <span class="fu">=</span> <span class="dt">Positive</span> <span class="dt">Natural</span> <span class="fu">|</span> <span class="dt">Zero</span> <span class="fu">|</span> <span class="dt">Negative</span> <span class="dt">Natural</span></code></pre></div>
-<p>This is a sum type. You can't deconstruct it with tuples, but you can deconstruct it with <code>Either</code> (where <code>()</code> shall denote <code>Zero</code>):</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Integer</span> <span class="fu">=</span> <span class="dt">Either</span> <span class="dt">Natural</span> (<span class="dt">Either</span> <span class="dt">Natural</span> ())</code></pre></div>
+<p>What about prisms? They’re the same, but instead of deconstructing product types (e.g. tuples) they deconstruct sum types (i.e. something like <code>Either</code>). With a prism, you get these 2 operations:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb25-1"><a href="#cb25-1"></a><span class="ot">get ::</span> s <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a</span>
+<span id="cb25-2"><a href="#cb25-2"></a><span class="ot">put ::</span> a <span class="ot">-&gt;</span> s</span></code></pre></div>
+<p>This still doesn’t sound clear to me, so I’ll give a concrete example.</p>
+<p>Let’s say you have a type for integers – <code>Integer</code>. You can say that every integer is <em>either</em> a natural number, 0, or a negated natural number (assuming that naturals start from 1). So, while it’s not actually represented like this, conceptually you could say that this is the definition of <code>Integer</code>:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb26-1"><a href="#cb26-1"></a><span class="kw">data</span> <span class="dt">Integer</span> <span class="ot">=</span> <span class="dt">Positive</span> <span class="dt">Natural</span> <span class="op">|</span> <span class="dt">Zero</span> <span class="op">|</span> <span class="dt">Negative</span> <span class="dt">Natural</span></span></code></pre></div>
+<p>This is a sum type. You can’t deconstruct it with tuples, but you can deconstruct it with <code>Either</code> (where <code>()</code> shall denote <code>Zero</code>):</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb27-1"><a href="#cb27-1"></a><span class="kw">type</span> <span class="dt">Integer</span> <span class="ot">=</span> <span class="dt">Either</span> <span class="dt">Natural</span> (<span class="dt">Either</span> <span class="dt">Natural</span> ())</span></code></pre></div>
 <p>In other words, “not every integer contains a positive number, but some integers are positive numbers”.</p>
-<p>Now, a prism is something that lets you <em>maybe</em> get a positive number out of an integer (if it's there), and it also lets you “embed” a positive number into an integer:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prism ::</span> (<span class="dt">Integer</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">Natural</span>, <span class="dt">Natural</span> <span class="ot">-&gt;</span> <span class="dt">Integer</span>)</code></pre></div>
-<p>Of course, <code>Integer</code> doesn't have to be an actual sum type for that, we can just pretend it is and use some <code>if</code>s and stuff:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">prism <span class="fu">=</span> (toNatural, toInteger)
-  <span class="kw">where</span>
-    toNatural n <span class="fu">=</span> <span class="kw">if</span> n <span class="fu">&gt;</span> <span class="dv">0</span> <span class="kw">then</span> <span class="dt">Just</span> (fromInteger n) <span class="kw">else</span> <span class="dt">Nothing</span></code></pre></div>
+<p>Now, a prism is something that lets you <em>maybe</em> get a positive number out of an integer (if it’s there), and it also lets you “embed” a positive number into an integer:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb28-1"><a href="#cb28-1"></a><span class="ot">prism ::</span> (<span class="dt">Integer</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">Natural</span>, <span class="dt">Natural</span> <span class="ot">-&gt;</span> <span class="dt">Integer</span>)</span></code></pre></div>
+<p>Of course, <code>Integer</code> doesn’t have to be an actual sum type for that, we can just pretend it is and use some <code>if</code>s and stuff:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb29-1"><a href="#cb29-1"></a>prism <span class="ot">=</span> (toNatural, <span class="fu">toInteger</span>)</span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="kw">where</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a>    toNatural n <span class="ot">=</span> <span class="kw">if</span> n <span class="op">&gt;</span> <span class="dv">0</span> <span class="kw">then</span> <span class="dt">Just</span> (<span class="fu">fromInteger</span> n) <span class="kw">else</span> <span class="dt">Nothing</span></span></code></pre></div>
 <p>(Did you know that GHC now has a <a href="http://hackage.haskell.org/package/base/docs/Numeric-Natural.html#t:Natural">type for naturals</a>, by the way?)</p>
 <p>(Also, have you noticed that <code>get :: s -&gt; Maybe a</code> means that every prism is an affine traversal?)</p>
 <p>(Also also, have you noticed that prisms are almost like isomorphisms? Except that isomorphisms always work in both directions, and prisms always work in one direction but can fail in the other direction – so, they could be called partial isomorphisms.)</p>
 <h2 id="simple-and-not-simple-prisms">Simple and not-simple prisms</h2>
-<p>We have simple lenses (ones that don't change the type) and not-simple lenses (ones that can change the type). Can we have not-simple prisms?</p>
+<p>We have simple lenses (ones that don’t change the type) and not-simple lenses (ones that can change the type). Can we have not-simple prisms?</p>
 <p>A simple prism is something like this:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">natural ::</span> <span class="dt">Prism&#39;</span> <span class="dt">Integer</span> <span class="dt">Natural</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb30-1"><a href="#cb30-1"></a><span class="ot">natural ::</span> <span class="dt">Prism&#39;</span> <span class="dt">Integer</span> <span class="dt">Natural</span></span></code></pre></div>
 <p>It can be represented as a pair of functions:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getNatural ::</span> <span class="dt">Integer</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">Natural</span>
-<span class="ot">putNatural ::</span> <span class="dt">Natural</span> <span class="ot">-&gt;</span> <span class="dt">Integer</span></code></pre></div>
-<p>The key to not-simple prisms is noticing the fact that with <code>get*</code> and <code>put*</code> you can write <code>modify*</code> (which would modify the integer if and only if it's a natural number):</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">modifyNatural ::</span> (<span class="dt">Natural</span> <span class="ot">-&gt;</span> <span class="dt">Natural</span>) <span class="ot">-&gt;</span> <span class="dt">Integer</span> <span class="ot">-&gt;</span> <span class="dt">Integer</span>
-modifyNatural f int <span class="fu">=</span> <span class="kw">case</span> getNatural int <span class="kw">of</span>
-  <span class="dt">Nothing</span>  <span class="ot">-&gt;</span> int
-  <span class="dt">Just</span> nat <span class="ot">-&gt;</span> putNatural (f nat)</code></pre></div>
-<p>Thus, with a not-simple prism...</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">_<span class="dt">Left</span><span class="ot"> ::</span> <span class="dt">Prism</span> (<span class="dt">Either</span> a c) (<span class="dt">Either</span> b c) a b</code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb31-1"><a href="#cb31-1"></a><span class="ot">getNatural ::</span> <span class="dt">Integer</span> <span class="ot">-&gt;</span> <span class="dt">Maybe</span> <span class="dt">Natural</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="ot">putNatural ::</span> <span class="dt">Natural</span> <span class="ot">-&gt;</span> <span class="dt">Integer</span></span></code></pre></div>
+<p>The key to not-simple prisms is noticing the fact that with <code>get*</code> and <code>put*</code> you can write <code>modify*</code> (which would modify the integer if and only if it’s a natural number):</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb32-1"><a href="#cb32-1"></a><span class="ot">modifyNatural ::</span> (<span class="dt">Natural</span> <span class="ot">-&gt;</span> <span class="dt">Natural</span>) <span class="ot">-&gt;</span> <span class="dt">Integer</span> <span class="ot">-&gt;</span> <span class="dt">Integer</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a>modifyNatural f int <span class="ot">=</span> <span class="kw">case</span> getNatural int <span class="kw">of</span></span>
+<span id="cb32-3"><a href="#cb32-3"></a>  <span class="dt">Nothing</span>  <span class="ot">-&gt;</span> int</span>
+<span id="cb32-4"><a href="#cb32-4"></a>  <span class="dt">Just</span> nat <span class="ot">-&gt;</span> putNatural (f nat)</span></code></pre></div>
+<p>Thus, with a not-simple prism…</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb33-1"><a href="#cb33-1"></a><span class="ot">_Left ::</span> <span class="dt">Prism</span> (<span class="dt">Either</span> a c) (<span class="dt">Either</span> b c) a b</span></code></pre></div>
 <p>you ought to be able to write this type-changing <code>modifyLeft</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">modifyLeft ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> <span class="dt">Either</span> a c <span class="ot">-&gt;</span> <span class="dt">Either</span> b c</code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb34-1"><a href="#cb34-1"></a><span class="ot">modifyLeft ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> <span class="dt">Either</span> a c <span class="ot">-&gt;</span> <span class="dt">Either</span> b c</span></code></pre></div>
 <p>Can we write it using a version of <code>get*</code> and <code>put*</code>? Look at the definition for <code>modifyNatural</code>, and notice where and how it would fail if it was rewritten for <code>_Left</code>. Have you noticed?</p>
-<p>(This wasn't an exercise really, it was more like “hey, are you here? are you reading? do you know that if you can't answer this question, you probably won't understand later stuff, so maybe you should reread a bit or something?”.)</p>
-<p>(On the other hand, you still should try to answer this question before reading further. Spend 2 minutes on it – by the clock – and if you still don't know, keep reading.)</p>
-<p>The answer is that it would fail in the <code>Nothing</code> branch. We have <code>Either a c</code>; we know that it's actually just <code>c</code>. So, we <em>should</em> be able to return it as <code>Either b c</code>, but we can't, because the original value we have is still of type <code>Either a c</code>.</p>
+<p>(This wasn’t an exercise really, it was more like “hey, are you here? are you reading? do you know that if you can’t answer this question, you probably won’t understand later stuff, so maybe you should reread a bit or something?”.)</p>
+<p>(On the other hand, you still should try to answer this question before reading further. Spend 2 minutes on it – by the clock – and if you still don’t know, keep reading.)</p>
+<p>The answer is that it would fail in the <code>Nothing</code> branch. We have <code>Either a c</code>; we know that it’s actually just <code>c</code>. So, we <em>should</em> be able to return it as <code>Either b c</code>, but we can’t, because the original value we have is still of type <code>Either a c</code>.</p>
 <p>How to fix it? Well, we can add the type-changing behavior to our <code>get*</code> function:</p>
 <ul>
-<li><p>currently <code>get*</code> returns either “yep, here's the extracted value” or “couldn't extract anything, just take the old value since you have it already”</p></li>
-<li><p>a better <code>get*</code> would return either “yep, here's the extracted value” or “couldn't extract anything, which means that I can safely change the type to match what you want”</p></li>
+<li><p>currently <code>get*</code> returns either “yep, here’s the extracted value” or “couldn’t extract anything, just take the old value since you have it already”</p></li>
+<li><p>a better <code>get*</code> would return either “yep, here’s the extracted value” or “couldn’t extract anything, which means that I can safely change the type to match what you want”</p></li>
 </ul>
-<p>For <code>getLeft</code>, it means that it would return either <code>a</code> (if it could be extracted) or <code>Either b c</code> (if it couldn't), because if it couldn't it means that our <code>Either a c</code> was just <code>c</code> and so we can coerce it to <em>any</em> <code>Either x c</code> because, c'mon, it's just <code>c</code>, no, seriously— ahem.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">getLeft ::</span> <span class="dt">Either</span> a c <span class="ot">-&gt;</span> <span class="dt">Either</span> (<span class="dt">Either</span> b c) a
-<span class="ot">putLeft ::</span> b <span class="ot">-&gt;</span> <span class="dt">Either</span> b c
-
-<span class="ot">modifyLeft ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> <span class="dt">Either</span> a c <span class="ot">-&gt;</span> <span class="dt">Either</span> b c
-modifyLeft f ac <span class="fu">=</span> <span class="kw">case</span> getLeft ac <span class="kw">of</span>
-  <span class="dt">Left</span> bc <span class="ot">-&gt;</span> bc
-  <span class="dt">Right</span> a <span class="ot">-&gt;</span> putLeft (f a)</code></pre></div>
-<p>Yay. Now let's generalise everything!</p>
+<p>For <code>getLeft</code>, it means that it would return either <code>a</code> (if it could be extracted) or <code>Either b c</code> (if it couldn’t), because if it couldn’t it means that our <code>Either a c</code> was just <code>c</code> and so we can coerce it to <em>any</em> <code>Either x c</code> because, c’mon, it’s just <code>c</code>, no, seriously— ahem.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb35-1"><a href="#cb35-1"></a><span class="ot">getLeft ::</span> <span class="dt">Either</span> a c <span class="ot">-&gt;</span> <span class="dt">Either</span> (<span class="dt">Either</span> b c) a</span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="ot">putLeft ::</span> b <span class="ot">-&gt;</span> <span class="dt">Either</span> b c</span>
+<span id="cb35-3"><a href="#cb35-3"></a></span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="ot">modifyLeft ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> <span class="dt">Either</span> a c <span class="ot">-&gt;</span> <span class="dt">Either</span> b c</span>
+<span id="cb35-5"><a href="#cb35-5"></a>modifyLeft f ac <span class="ot">=</span> <span class="kw">case</span> getLeft ac <span class="kw">of</span></span>
+<span id="cb35-6"><a href="#cb35-6"></a>  <span class="dt">Left</span> bc <span class="ot">-&gt;</span> bc</span>
+<span id="cb35-7"><a href="#cb35-7"></a>  <span class="dt">Right</span> a <span class="ot">-&gt;</span> putLeft (f a)</span></code></pre></div>
+<p>Yay. Now let’s generalise everything!</p>
 <p>A general prism:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Prism</span> s t a b <span class="fu">=</span> <span class="fu">...</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb36-1"><a href="#cb36-1"></a><span class="kw">type</span> <span class="dt">Prism</span> s t a b <span class="ot">=</span> <span class="op">...</span></span></code></pre></div>
 <p>A simple prism:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Prism&#39;</span> s a <span class="fu">=</span> <span class="dt">Prism</span> s s a a</code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb37-1"><a href="#cb37-1"></a><span class="kw">type</span> <span class="dt">Prism&#39;</span> s a <span class="ot">=</span> <span class="dt">Prism</span> s s a a</span></code></pre></div>
 <p>A function to make a general prism from a setter and a getter:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prism ::</span> (b <span class="ot">-&gt;</span> t) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> <span class="dt">Either</span> t a) <span class="ot">-&gt;</span> <span class="dt">Prism</span> s t a b</code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb38-1"><a href="#cb38-1"></a><span class="ot">prism ::</span> (b <span class="ot">-&gt;</span> t) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> <span class="dt">Either</span> t a) <span class="ot">-&gt;</span> <span class="dt">Prism</span> s t a b</span></code></pre></div>
 <p>A function to make a simple prism from a setter and a getter:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prism&#39; ::</span> (a <span class="ot">-&gt;</span> s) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a) <span class="ot">-&gt;</span> <span class="dt">Prism&#39;</span> s a</code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb39-1"><a href="#cb39-1"></a><span class="ot">prism&#39; ::</span> (a <span class="ot">-&gt;</span> s) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a) <span class="ot">-&gt;</span> <span class="dt">Prism&#39;</span> s a</span></code></pre></div>
 <h2 id="fitting-prisms-into-the-lens-framework">Fitting prisms into the lens framework</h2>
 <p>Okay, now, we have this cool type template <code>... =&gt; (a -&gt; f b) -&gt; (s -&gt; f t)</code> and we want to somehow fit prisms into this type so that they would combine with everything else, and the only thing we can actually choose is what constraints we put on <code>f</code>. If you have chosen the constraints right, you should be able to write <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Review.html#v:review"><code>review</code></a>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">review ::</span> <span class="dt">Prism&#39;</span> s a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> s</code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb40-1"><a href="#cb40-1"></a><span class="ot">review ::</span> <span class="dt">Prism&#39;</span> s a <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> s</span></code></pre></div>
 <p>as well as <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Prism.html#v:prism"><code>prism</code></a>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prism ::</span> (b <span class="ot">-&gt;</span> t) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> <span class="dt">Either</span> t a) <span class="ot">-&gt;</span> <span class="dt">Prism</span> s t a b</code></pre></div>
-<p>and don't forget that <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Fold.html#v:-94--63-"><code>^?</code></a> should work as well:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(^?) ::</span> s <span class="ot">-&gt;</span> <span class="dt">Getting</span> (<span class="dt">First</span> a) s a <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a
-<span class="ot">(^?) ::</span> s <span class="ot">-&gt;</span> <span class="dt">Prism&#39;</span> s a <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a</code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb41-1"><a href="#cb41-1"></a><span class="ot">prism ::</span> (b <span class="ot">-&gt;</span> t) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> <span class="dt">Either</span> t a) <span class="ot">-&gt;</span> <span class="dt">Prism</span> s t a b</span></code></pre></div>
+<p>and don’t forget that <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Fold.html#v:-94--63-"><code>^?</code></a> should work as well:</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb42-1"><a href="#cb42-1"></a><span class="ot">(^?) ::</span> s <span class="ot">-&gt;</span> <span class="dt">Getting</span> (<span class="dt">First</span> a) s a <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a</span>
+<span id="cb42-2"><a href="#cb42-2"></a><span class="ot">(^?) ::</span> s <span class="ot">-&gt;</span> <span class="dt">Prism&#39;</span> s a <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a</span></code></pre></div>
 <p>Any ideas?</p>
 <hr />
 <p>Actually, this is impossible. Look at the type again:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Prism</span> s t a b <span class="fu">=</span>
-  <span class="fu">...</span> <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> f b) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> f t)</code></pre></div>
-<p>The whole point of <code>review</code> is to get us an <code>s</code>, but the prism produces a function that <em>takes</em> an <code>s</code>. Where'd we get it?</p>
-<p>It's not enough to put constraints on <code>f</code>; we need to use profunctors. (Which makes sense, by the way – if we used profunctors for isomorphisms, and prisms are almost like isomorphisms, we'd need something like profunctors for prisms too.)</p>
-<p>Okay, let's try drawing prisms with boxes.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Prism</span> s t a b <span class="fu">=</span>
-  <span class="fu">...</span> <span class="ot">=&gt;</span> p a (f b) <span class="ot">-&gt;</span> p s (f t)</code></pre></div>
-<p>A prism takes an <code>a -&gt; b</code> box, and turns it into an <code>s -&gt; t</code> box. (Again, I'm ignoring <code>f</code> for now.) The <code>s -&gt; t</code> box operates like this:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb43-1"><a href="#cb43-1"></a><span class="kw">type</span> <span class="dt">Prism</span> s t a b <span class="ot">=</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a>  <span class="op">...</span> <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> f b) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> f t)</span></code></pre></div>
+<p>The whole point of <code>review</code> is to get us an <code>s</code>, but the prism produces a function that <em>takes</em> an <code>s</code>. Where’d we get it?</p>
+<p>It’s not enough to put constraints on <code>f</code>; we need to use profunctors. (Which makes sense, by the way – if we used profunctors for isomorphisms, and prisms are almost like isomorphisms, we’d need something like profunctors for prisms too.)</p>
+<p>Okay, let’s try drawing prisms with boxes.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb44-1"><a href="#cb44-1"></a><span class="kw">type</span> <span class="dt">Prism</span> s t a b <span class="ot">=</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a>  <span class="op">...</span> <span class="ot">=&gt;</span> p a (f b) <span class="ot">-&gt;</span> p s (f t)</span></code></pre></div>
+<p>A prism takes an <code>a -&gt; b</code> box, and turns it into an <code>s -&gt; t</code> box. (Again, I’m ignoring <code>f</code> for now.) The <code>s -&gt; t</code> box operates like this:</p>
 <pre><code>           x-----------x
     _______|           |_____ _______
    |       |_____)_____|  )  |       |
@@ -394,27 +422,27 @@ modifyLeft f ac <span class="fu">=</span> <span class="kw">case</span> getLeft a
       |t|_______________________|t|
       |ttttttttttttttttttttttttttt|
        ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾</code></pre>
-<p>It takes an <code>s</code> and looks at it. If the <code>s</code> is actually an <code>a</code>, great, this is the isomorphism case – <code>a</code> goes into the box, <code>b</code> gets out, <code>b</code> is turned into <code>t</code>, the end. If the <code>s</code> isn't an <code>a</code>, it's a <code>t</code> – and the <code>t</code> bypasses the box altogether and just becomes the output of the whole mechanism.</p>
+<p>It takes an <code>s</code> and looks at it. If the <code>s</code> is actually an <code>a</code>, great, this is the isomorphism case – <code>a</code> goes into the box, <code>b</code> gets out, <code>b</code> is turned into <code>t</code>, the end. If the <code>s</code> isn’t an <code>a</code>, it’s a <code>t</code> – and the <code>t</code> bypasses the box altogether and just becomes the output of the whole mechanism.</p>
 <p>So, a prism adds 2 parts to the original <code>a -&gt; b</code> box:</p>
 <ul>
 <li>an output filter that turns <code>b</code> into <code>t</code></li>
 <li>a mechanism that lets us bypass the box</li>
 </ul>
 <p>We already know how to do the first thing – just use <code>rmap</code>. The second thing is new; we could write it like this:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Bypass</span> p <span class="kw">where</span>
-<span class="ot">  bypass ::</span> (s <span class="ot">-&gt;</span> <span class="dt">Either</span> a t) <span class="ot">-&gt;</span> p a t <span class="ot">-&gt;</span> p s t</code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb46-1"><a href="#cb46-1"></a><span class="kw">class</span> <span class="dt">Bypass</span> p <span class="kw">where</span></span>
+<span id="cb46-2"><a href="#cb46-2"></a><span class="ot">  bypass ::</span> (s <span class="ot">-&gt;</span> <span class="dt">Either</span> a t) <span class="ot">-&gt;</span> p a t <span class="ot">-&gt;</span> p s t</span></code></pre></div>
 <p>This would give us the following constraints on <code>Prism</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Prism</span> s t a b <span class="fu">=</span>
-  (<span class="dt">Profunctor</span> p, <span class="dt">Bypass</span> p, <span class="dt">Applicative</span> f) <span class="ot">=&gt;</span> p a (f b) <span class="ot">-&gt;</span> p s (f t)</code></pre></div>
-<p>(Why <code>Applicative</code> and not <code>Functor</code>? Because we'd need to be able to turn <code>t</code> into <code>f t</code> in case we do the bypass, and <code>Applicative</code> provides <code>pure</code>.)</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb47-1"><a href="#cb47-1"></a><span class="kw">type</span> <span class="dt">Prism</span> s t a b <span class="ot">=</span></span>
+<span id="cb47-2"><a href="#cb47-2"></a>  (<span class="dt">Profunctor</span> p, <span class="dt">Bypass</span> p, <span class="dt">Applicative</span> f) <span class="ot">=&gt;</span> p a (f b) <span class="ot">-&gt;</span> p s (f t)</span></code></pre></div>
+<p>(Why <code>Applicative</code> and not <code>Functor</code>? Because we’d need to be able to turn <code>t</code> into <code>f t</code> in case we do the bypass, and <code>Applicative</code> provides <code>pure</code>.)</p>
 <hr />
-<p>This lets us write prisms already (an exercise: write the instance of <code>Bypass</code> for <code>Tagged</code>). However, there's a way to do it with a more elegant class than <code>Bypass</code>. I won't try to guess how I could've thought of it independently, I'll just tell you about it and we'll move on.</p>
+<p>This lets us write prisms already (an exercise: write the instance of <code>Bypass</code> for <code>Tagged</code>). However, there’s a way to do it with a more elegant class than <code>Bypass</code>. I won’t try to guess how I could’ve thought of it independently, I’ll just tell you about it and we’ll move on.</p>
 <p>The class is called <a href="http://hackage.haskell.org/package/profunctors/docs/Data-Profunctor.html#t:Choice"><code>Choice</code></a>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Profunctor</span> p <span class="ot">=&gt;</span> <span class="dt">Choice</span> p <span class="kw">where</span>
-<span class="ot">  left&#39;  ::</span> p a b <span class="ot">-&gt;</span> p (<span class="dt">Either</span> a c) (<span class="dt">Either</span> b c)
-<span class="ot">  right&#39; ::</span> p a b <span class="ot">-&gt;</span> p (<span class="dt">Either</span> c a) (<span class="dt">Either</span> c b)</code></pre></div>
-<p>(It's called <code>right'</code> because <a href="http://hackage.haskell.org/package/base/docs/Control-Arrow.html#v:right"><code>right</code></a> is already taken by a similar method in <a href="http://hackage.haskell.org/package/base/docs/Control-Arrow.html#t:ArrowChoice"><code>ArrowChoice</code></a>.)</p>
-<p>An exercise: implement <code>left'</code> using <code>right'</code> (thus showing that it's enough to have only 1 method out of 2).</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb48-1"><a href="#cb48-1"></a><span class="kw">class</span> <span class="dt">Profunctor</span> p <span class="ot">=&gt;</span> <span class="dt">Choice</span> p <span class="kw">where</span></span>
+<span id="cb48-2"><a href="#cb48-2"></a><span class="ot">  left&#39;  ::</span> p a b <span class="ot">-&gt;</span> p (<span class="dt">Either</span> a c) (<span class="dt">Either</span> b c)</span>
+<span id="cb48-3"><a href="#cb48-3"></a><span class="ot">  right&#39; ::</span> p a b <span class="ot">-&gt;</span> p (<span class="dt">Either</span> c a) (<span class="dt">Either</span> c b)</span></code></pre></div>
+<p>(It’s called <code>right'</code> because <a href="http://hackage.haskell.org/package/base/docs/Control-Arrow.html#v:right"><code>right</code></a> is already taken by a similar method in <a href="http://hackage.haskell.org/package/base/docs/Control-Arrow.html#t:ArrowChoice"><code>ArrowChoice</code></a>.)</p>
+<p>An exercise: implement <code>left'</code> using <code>right'</code> (thus showing that it’s enough to have only 1 method out of 2).</p>
 <p>The difference between <code>right'</code> and <code>bypass</code> is that <code>bypass</code> requires us to provide a splitting function, while <code>right'</code> just assumes that the input is already split.</p>
 <p>This is the result of <code>bypass</code>:</p>
 <pre><code>                   x-----------x
@@ -438,132 +466,132 @@ modifyLeft f ac <span class="fu">=</span> <span class="kw">case</span> getLeft a
               |c|_________________|c|
               |ccccccccccccccccccccc|
                ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾</code></pre>
-<p>An exercise: implement <code>instance Choice p =&gt; Bypass p</code> (don't forget that you can use <code>Profunctor</code> methods too).</p>
-<p>Hm, isn't that too much exercises— nah, it's not. Another exercise (a more complicated one): implement <code>instance (Profunctor p, Bypass p) =&gt; Choice p</code>.</p>
+<p>An exercise: implement <code>instance Choice p =&gt; Bypass p</code> (don’t forget that you can use <code>Profunctor</code> methods too).</p>
+<p>Hm, isn’t that too much exercises— nah, it’s not. Another exercise (a more complicated one): implement <code>instance (Profunctor p, Bypass p) =&gt; Choice p</code>.</p>
 <h2 id="basic-operations-on-prisms">Basic operations on prisms</h2>
-<p><code>review</code> lets us convert <code>b</code> to <code>t</code> using a prism, and it's the same as for isomorphisms:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">AReview</span> t b <span class="fu">=</span> <span class="dt">Tagged</span> b (<span class="dt">Identity</span> b) <span class="ot">-&gt;</span> <span class="dt">Tagged</span> t (<span class="dt">Identity</span> t)
-
-<span class="ot">review ::</span> <span class="dt">AReview</span> t b <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> t
-review r <span class="fu">=</span> runIdentity <span class="fu">.</span> unTagged <span class="fu">.</span> r <span class="fu">.</span> <span class="dt">Tagged</span> <span class="fu">.</span> <span class="dt">Identity</span></code></pre></div>
-<p><code>prism</code> lets us construct a prism from 2 functions; it's trivial with <code>bypass</code> and slightly less trivial with <code>right'</code>. You should try implementing it by yourself before looking at this definition:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- This uses dimap instead of lmap+rmap because why not (and also because</span>
-<span class="co">-- that&#39;s what is used in lens):</span>
-<span class="fu">--</span>
-<span class="co">--     dimap f g = lmap f . rmap g</span>
-
-<span class="ot">prism ::</span> (b <span class="ot">-&gt;</span> t) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> <span class="dt">Either</span> t a) <span class="ot">-&gt;</span> <span class="dt">Prism</span> s t a b
-prism bt seta <span class="fu">=</span> dimap seta (either pure (fmap bt)) <span class="fu">.</span> right&#39;</code></pre></div>
+<p><code>review</code> lets us convert <code>b</code> to <code>t</code> using a prism, and it’s the same as for isomorphisms:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb51-1"><a href="#cb51-1"></a><span class="kw">type</span> <span class="dt">AReview</span> t b <span class="ot">=</span> <span class="dt">Tagged</span> b (<span class="dt">Identity</span> b) <span class="ot">-&gt;</span> <span class="dt">Tagged</span> t (<span class="dt">Identity</span> t)</span>
+<span id="cb51-2"><a href="#cb51-2"></a></span>
+<span id="cb51-3"><a href="#cb51-3"></a><span class="ot">review ::</span> <span class="dt">AReview</span> t b <span class="ot">-&gt;</span> b <span class="ot">-&gt;</span> t</span>
+<span id="cb51-4"><a href="#cb51-4"></a>review r <span class="ot">=</span> runIdentity <span class="op">.</span> unTagged <span class="op">.</span> r <span class="op">.</span> <span class="dt">Tagged</span> <span class="op">.</span> <span class="dt">Identity</span></span></code></pre></div>
+<p><code>prism</code> lets us construct a prism from 2 functions; it’s trivial with <code>bypass</code> and slightly less trivial with <code>right'</code>. You should try implementing it by yourself before looking at this definition:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb52-1"><a href="#cb52-1"></a><span class="co">-- This uses dimap instead of lmap+rmap because why not (and also because</span></span>
+<span id="cb52-2"><a href="#cb52-2"></a><span class="co">-- that&#39;s what is used in lens):</span></span>
+<span id="cb52-3"><a href="#cb52-3"></a><span class="co">--</span></span>
+<span id="cb52-4"><a href="#cb52-4"></a><span class="co">--     dimap f g = lmap f . rmap g</span></span>
+<span id="cb52-5"><a href="#cb52-5"></a></span>
+<span id="cb52-6"><a href="#cb52-6"></a><span class="ot">prism ::</span> (b <span class="ot">-&gt;</span> t) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> <span class="dt">Either</span> t a) <span class="ot">-&gt;</span> <span class="dt">Prism</span> s t a b</span>
+<span id="cb52-7"><a href="#cb52-7"></a>prism bt seta <span class="ot">=</span> dimap seta (<span class="fu">either</span> <span class="fu">pure</span> (<span class="fu">fmap</span> bt)) <span class="op">.</span> right&#39;</span></code></pre></div>
 <h2 id="market"><code>Market</code></h2>
-<p>As with isomorphisms, we'd like to be able to decompose a prism back into functions from which that prism was created. We used <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Internal-Iso.html#t:Exchange"><code>Exchange</code></a> with isomorphisms:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Exchange</span> a b s t <span class="fu">=</span> <span class="dt">Exchange</span> (s <span class="ot">-&gt;</span> a) (b <span class="ot">-&gt;</span> t)</code></pre></div>
+<p>As with isomorphisms, we’d like to be able to decompose a prism back into functions from which that prism was created. We used <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Internal-Iso.html#t:Exchange"><code>Exchange</code></a> with isomorphisms:</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb53-1"><a href="#cb53-1"></a><span class="kw">data</span> <span class="dt">Exchange</span> a b s t <span class="ot">=</span> <span class="dt">Exchange</span> (s <span class="ot">-&gt;</span> a) (b <span class="ot">-&gt;</span> t)</span></code></pre></div>
 <p>The corresponding type for prisms is called <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Internal-Prism.html#t:Market"><code>Market</code></a>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">data</span> <span class="dt">Market</span> a b s t <span class="fu">=</span> <span class="dt">Market</span> (b <span class="ot">-&gt;</span> t) (s <span class="ot">-&gt;</span> <span class="dt">Either</span> t a)</code></pre></div>
-<p>Writing instances of <code>Functor</code>, <code>Profunctor</code>, and <code>Choice</code> for <code>Market</code> is boring and doesn't require almost any thinking (just follow the types), so you can copy them from here:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Functor</span> (<span class="dt">Market</span> a b s) <span class="kw">where</span>
-  fmap f (<span class="dt">Market</span> bt seta) <span class="fu">=</span> <span class="dt">Market</span> (f <span class="fu">.</span> bt) (either (<span class="dt">Left</span> <span class="fu">.</span> f) <span class="dt">Right</span> <span class="fu">.</span> seta)
-
-<span class="kw">instance</span> <span class="dt">Profunctor</span> (<span class="dt">Market</span> a b) <span class="kw">where</span>
-  lmap f (<span class="dt">Market</span> bt seta) <span class="fu">=</span> <span class="dt">Market</span> bt (seta <span class="fu">.</span> f)
-  rmap f (<span class="dt">Market</span> bt seta) <span class="fu">=</span> fmap f (<span class="dt">Market</span> bt seta)
-
-<span class="kw">instance</span> <span class="dt">Choice</span> (<span class="dt">Market</span> a b) <span class="kw">where</span>
-  right&#39; (<span class="dt">Market</span> bt seta) <span class="fu">=</span> <span class="dt">Market</span> (<span class="dt">Right</span> <span class="fu">.</span> bt) <span class="fu">$</span> \cs <span class="ot">-&gt;</span> <span class="kw">case</span> cs <span class="kw">of</span>
-    <span class="dt">Left</span> c <span class="ot">-&gt;</span> <span class="dt">Left</span> (<span class="dt">Left</span> c)
-    <span class="dt">Right</span> s <span class="ot">-&gt;</span> <span class="kw">case</span> seta s <span class="kw">of</span>
-      <span class="dt">Left</span> t <span class="ot">-&gt;</span> <span class="dt">Left</span> (<span class="dt">Right</span> t)
-      <span class="dt">Right</span> a <span class="ot">-&gt;</span> <span class="dt">Right</span> a</code></pre></div>
-<p>Decomposing the prism actually doesn't require any thinking either, especially if you use holes (<code>_</code>) liberally.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">unPrism ::</span> <span class="dt">Prism</span> s t a b <span class="ot">-&gt;</span> (b <span class="ot">-&gt;</span> t, s <span class="ot">-&gt;</span> <span class="dt">Either</span> t a)
-unPrism p <span class="fu">=</span>
-  <span class="kw">let</span> <span class="co">-- bft   :: b -&gt; Identity t</span>
-      <span class="co">-- setfa :: s -&gt; Either (Identity t) a</span>
-      <span class="dt">Market</span> bft setfa <span class="fu">=</span> p (<span class="dt">Market</span> <span class="dt">Identity</span> <span class="dt">Right</span>)
-      <span class="co">-- bt    :: b -&gt; t</span>
-      <span class="co">-- seta  :: s -&gt; Either t a</span>
-      bt <span class="fu">=</span> runIdentity <span class="fu">.</span> bft
-      seta <span class="fu">=</span> either (<span class="dt">Left</span> <span class="fu">.</span> runIdentity) <span class="dt">Right</span> <span class="fu">.</span> setfa
-  <span class="kw">in</span> (bt, seta)</code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb54-1"><a href="#cb54-1"></a><span class="kw">data</span> <span class="dt">Market</span> a b s t <span class="ot">=</span> <span class="dt">Market</span> (b <span class="ot">-&gt;</span> t) (s <span class="ot">-&gt;</span> <span class="dt">Either</span> t a)</span></code></pre></div>
+<p>Writing instances of <code>Functor</code>, <code>Profunctor</code>, and <code>Choice</code> for <code>Market</code> is boring and doesn’t require almost any thinking (just follow the types), so you can copy them from here:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb55-1"><a href="#cb55-1"></a><span class="kw">instance</span> <span class="dt">Functor</span> (<span class="dt">Market</span> a b s) <span class="kw">where</span></span>
+<span id="cb55-2"><a href="#cb55-2"></a>  <span class="fu">fmap</span> f (<span class="dt">Market</span> bt seta) <span class="ot">=</span> <span class="dt">Market</span> (f <span class="op">.</span> bt) (<span class="fu">either</span> (<span class="dt">Left</span> <span class="op">.</span> f) <span class="dt">Right</span> <span class="op">.</span> seta)</span>
+<span id="cb55-3"><a href="#cb55-3"></a></span>
+<span id="cb55-4"><a href="#cb55-4"></a><span class="kw">instance</span> <span class="dt">Profunctor</span> (<span class="dt">Market</span> a b) <span class="kw">where</span></span>
+<span id="cb55-5"><a href="#cb55-5"></a>  lmap f (<span class="dt">Market</span> bt seta) <span class="ot">=</span> <span class="dt">Market</span> bt (seta <span class="op">.</span> f)</span>
+<span id="cb55-6"><a href="#cb55-6"></a>  rmap f (<span class="dt">Market</span> bt seta) <span class="ot">=</span> <span class="fu">fmap</span> f (<span class="dt">Market</span> bt seta)</span>
+<span id="cb55-7"><a href="#cb55-7"></a></span>
+<span id="cb55-8"><a href="#cb55-8"></a><span class="kw">instance</span> <span class="dt">Choice</span> (<span class="dt">Market</span> a b) <span class="kw">where</span></span>
+<span id="cb55-9"><a href="#cb55-9"></a>  right&#39; (<span class="dt">Market</span> bt seta) <span class="ot">=</span> <span class="dt">Market</span> (<span class="dt">Right</span> <span class="op">.</span> bt) <span class="op">$</span> \cs <span class="ot">-&gt;</span> <span class="kw">case</span> cs <span class="kw">of</span></span>
+<span id="cb55-10"><a href="#cb55-10"></a>    <span class="dt">Left</span> c <span class="ot">-&gt;</span> <span class="dt">Left</span> (<span class="dt">Left</span> c)</span>
+<span id="cb55-11"><a href="#cb55-11"></a>    <span class="dt">Right</span> s <span class="ot">-&gt;</span> <span class="kw">case</span> seta s <span class="kw">of</span></span>
+<span id="cb55-12"><a href="#cb55-12"></a>      <span class="dt">Left</span> t <span class="ot">-&gt;</span> <span class="dt">Left</span> (<span class="dt">Right</span> t)</span>
+<span id="cb55-13"><a href="#cb55-13"></a>      <span class="dt">Right</span> a <span class="ot">-&gt;</span> <span class="dt">Right</span> a</span></code></pre></div>
+<p>Decomposing the prism actually doesn’t require any thinking either, especially if you use holes (<code>_</code>) liberally.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb56-1"><a href="#cb56-1"></a><span class="ot">unPrism ::</span> <span class="dt">Prism</span> s t a b <span class="ot">-&gt;</span> (b <span class="ot">-&gt;</span> t, s <span class="ot">-&gt;</span> <span class="dt">Either</span> t a)</span>
+<span id="cb56-2"><a href="#cb56-2"></a>unPrism p <span class="ot">=</span></span>
+<span id="cb56-3"><a href="#cb56-3"></a>  <span class="kw">let</span> <span class="co">-- bft   :: b -&gt; Identity t</span></span>
+<span id="cb56-4"><a href="#cb56-4"></a>      <span class="co">-- setfa :: s -&gt; Either (Identity t) a</span></span>
+<span id="cb56-5"><a href="#cb56-5"></a>      <span class="dt">Market</span> bft setfa <span class="ot">=</span> p (<span class="dt">Market</span> <span class="dt">Identity</span> <span class="dt">Right</span>)</span>
+<span id="cb56-6"><a href="#cb56-6"></a>      <span class="co">-- bt    :: b -&gt; t</span></span>
+<span id="cb56-7"><a href="#cb56-7"></a>      <span class="co">-- seta  :: s -&gt; Either t a</span></span>
+<span id="cb56-8"><a href="#cb56-8"></a>      bt <span class="ot">=</span> runIdentity <span class="op">.</span> bft</span>
+<span id="cb56-9"><a href="#cb56-9"></a>      seta <span class="ot">=</span> <span class="fu">either</span> (<span class="dt">Left</span> <span class="op">.</span> runIdentity) <span class="dt">Right</span> <span class="op">.</span> setfa</span>
+<span id="cb56-10"><a href="#cb56-10"></a>  <span class="kw">in</span> (bt, seta)</span></code></pre></div>
 <p>Instead of <code>unPrism</code>, lens defines <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Prism.html#v:withPrism"><code>withPrism</code></a>, which is almost the same thing:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">withPrism ::</span> <span class="dt">APrism</span> s t a b <span class="ot">-&gt;</span> ((b <span class="ot">-&gt;</span> t) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> <span class="dt">Either</span> t a) <span class="ot">-&gt;</span> r) <span class="ot">-&gt;</span> r </code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb57-1"><a href="#cb57-1"></a><span class="ot">withPrism ::</span> <span class="dt">APrism</span> s t a b <span class="ot">-&gt;</span> ((b <span class="ot">-&gt;</span> t) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> <span class="dt">Either</span> t a) <span class="ot">-&gt;</span> r) <span class="ot">-&gt;</span> r</span></code></pre></div>
 <p>It also uses <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Prism.html#t:APrism"><code>APrism</code></a> instead of <code>Prism</code> to require as little polymorphism as possible:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">APrism</span> s t a b <span class="fu">=</span> <span class="dt">Market</span> a b a (<span class="dt">Identity</span> b) <span class="ot">-&gt;</span> <span class="dt">Market</span> a b s (<span class="dt">Identity</span> t)</code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb58-1"><a href="#cb58-1"></a><span class="kw">type</span> <span class="dt">APrism</span> s t a b <span class="ot">=</span> <span class="dt">Market</span> a b a (<span class="dt">Identity</span> b) <span class="ot">-&gt;</span> <span class="dt">Market</span> a b s (<span class="dt">Identity</span> t)</span></code></pre></div>
 <h2 id="coercions-everywhere">Coercions everywhere</h2>
-<p>If you look at the definition of <code>withPrism</code> in lens, you'll see that starting from GHC 7.8 it uses a much simpler definition:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">withPrism p f <span class="fu">=</span> <span class="kw">case</span> coerce (p (<span class="dt">Market</span> <span class="dt">Identity</span> <span class="dt">Right</span>)) <span class="kw">of</span>
-  <span class="dt">Market</span> bt seta <span class="ot">-&gt;</span> f bt seta</code></pre></div>
+<p>If you look at the definition of <code>withPrism</code> in lens, you’ll see that starting from GHC 7.8 it uses a much simpler definition:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb59-1"><a href="#cb59-1"></a>withPrism p f <span class="ot">=</span> <span class="kw">case</span> coerce (p (<span class="dt">Market</span> <span class="dt">Identity</span> <span class="dt">Right</span>)) <span class="kw">of</span></span>
+<span id="cb59-2"><a href="#cb59-2"></a>  <span class="dt">Market</span> bt seta <span class="ot">-&gt;</span> f bt seta</span></code></pre></div>
 <p><a href="http://hackage.haskell.org/package/base/docs/Data-Coerce.html#v:coerce"><code>coerce</code></a> is a function that lets you convert between things that have the same memory representation:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">coerce ::</span> <span class="dt">Identity</span> a <span class="ot">-&gt;</span> a
-<span class="ot">coerce ::</span> [<span class="dt">Identity</span> a] <span class="ot">-&gt;</span> [a]
-<span class="ot">coerce ::</span> [<span class="dt">Identity</span> (<span class="dt">Maybe</span> a)] <span class="ot">-&gt;</span> <span class="dt">Identity</span> [<span class="dt">Maybe</span> (<span class="dt">Identity</span> a)]
-<span class="fu">...</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb60-1"><a href="#cb60-1"></a><span class="ot">coerce ::</span> <span class="dt">Identity</span> a <span class="ot">-&gt;</span> a</span>
+<span id="cb60-2"><a href="#cb60-2"></a><span class="ot">coerce ::</span> [<span class="dt">Identity</span> a] <span class="ot">-&gt;</span> [a]</span>
+<span id="cb60-3"><a href="#cb60-3"></a><span class="ot">coerce ::</span> [<span class="dt">Identity</span> (<span class="dt">Maybe</span> a)] <span class="ot">-&gt;</span> <span class="dt">Identity</span> [<span class="dt">Maybe</span> (<span class="dt">Identity</span> a)]</span>
+<span id="cb60-4"><a href="#cb60-4"></a><span class="op">...</span></span></code></pre></div>
 <p>Generally, if you have 2 types that only differ in newtypes (<code>Identity</code>, <code>Tagged</code>, <code>Const</code>, etc), <code>coerce</code> would always be able to convert one to another. In case of <code>withPrism</code>, <code>coerce</code> removes 2 applications of <code>Identity</code>.</p>
 <p>Now look at <code>review</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">review r <span class="fu">=</span> runIdentity <span class="fu">.</span> unTagged <span class="fu">.</span> r <span class="fu">.</span> <span class="dt">Tagged</span> <span class="fu">.</span> <span class="dt">Identity</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb61-1"><a href="#cb61-1"></a>review r <span class="ot">=</span> runIdentity <span class="op">.</span> unTagged <span class="op">.</span> r <span class="op">.</span> <span class="dt">Tagged</span> <span class="op">.</span> <span class="dt">Identity</span></span></code></pre></div>
 <p>It does nothing but wrap and unwrap newtypes. We can replace it <em>all</em> with <code>coerce</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">review <span class="fu">=</span> coerce</code></pre></div>
-<p>In lens, however, it's implemented like this:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">review r <span class="fu">=</span> runIdentity <span class="fu">#.</span> unTagged <span class="fu">#.</span> r <span class="fu">.#</span> <span class="dt">Tagged</span> <span class="fu">.#</span> <span class="dt">Identity</span></code></pre></div>
-<p>Here <a href="http://hackage.haskell.org/package/profunctors/docs/Data-Profunctor-Unsafe.html#v:-35-."><code>#.</code></a> and <a href="http://hackage.haskell.org/package/profunctors/docs/Data-Profunctor-Unsafe.html#v:.-35-"><code>.#</code></a> are operators that do the same thing as <code>lmap</code> and <code>rmap</code> (you could think of them both as of <code>.</code>) but require one argument to be something like <code>Tagged</code> or <code>runIdentity</code>. So, the whole chain still gets interpreted as a coercion (and thus it's fast), but it shows the steps more clearly.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb62-1"><a href="#cb62-1"></a>review <span class="ot">=</span> coerce</span></code></pre></div>
+<p>In lens, however, it’s implemented like this:</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb63-1"><a href="#cb63-1"></a>review r <span class="ot">=</span> runIdentity <span class="op">#.</span> unTagged <span class="op">#.</span> r <span class="op">.#</span> <span class="dt">Tagged</span> <span class="op">.#</span> <span class="dt">Identity</span></span></code></pre></div>
+<p>Here <a href="http://hackage.haskell.org/package/profunctors/docs/Data-Profunctor-Unsafe.html#v:-35-."><code>#.</code></a> and <a href="http://hackage.haskell.org/package/profunctors/docs/Data-Profunctor-Unsafe.html#v:.-35-"><code>.#</code></a> are operators that do the same thing as <code>lmap</code> and <code>rmap</code> (you could think of them both as of <code>.</code>) but require one argument to be something like <code>Tagged</code> or <code>runIdentity</code>. So, the whole chain still gets interpreted as a coercion (and thus it’s fast), but it shows the steps more clearly.</p>
 <h2 id="some-prisms">Some prisms</h2>
 <p>Okay, back to prisms. The simplest ones are <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Prism.html#v:_Left"><code>_Left</code></a> and <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Prism.html#v:_Right"><code>_Right</code></a>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">_<span class="dt">Left</span><span class="ot"> ::</span> <span class="dt">Prism</span> (<span class="dt">Either</span> a c) (<span class="dt">Either</span> b c) a b
-_<span class="dt">Right</span><span class="ot"> ::</span> <span class="dt">Prism</span> (<span class="dt">Either</span> c a) (<span class="dt">Either</span> c b) a b </code></pre></div>
-<p>Unlike with lenses, there's no manual way to write a prism (apart from using <code>dimap</code> and so on), so you'll have to use <code>prism</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">_<span class="dt">Left</span>  <span class="fu">=</span> prism <span class="dt">Left</span>  (either <span class="dt">Right</span> (<span class="dt">Left</span> <span class="fu">.</span> <span class="dt">Right</span>))
-_<span class="dt">Right</span> <span class="fu">=</span> prism <span class="dt">Right</span> (either (<span class="dt">Left</span> <span class="fu">.</span> <span class="dt">Left</span>) <span class="dt">Right</span>)</code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb64-1"><a href="#cb64-1"></a><span class="ot">_Left ::</span> <span class="dt">Prism</span> (<span class="dt">Either</span> a c) (<span class="dt">Either</span> b c) a b</span>
+<span id="cb64-2"><a href="#cb64-2"></a><span class="ot">_Right ::</span> <span class="dt">Prism</span> (<span class="dt">Either</span> c a) (<span class="dt">Either</span> c b) a b</span></code></pre></div>
+<p>Unlike with lenses, there’s no manual way to write a prism (apart from using <code>dimap</code> and so on), so you’ll have to use <code>prism</code>:</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb65-1"><a href="#cb65-1"></a>_Left  <span class="ot">=</span> prism <span class="dt">Left</span>  (<span class="fu">either</span> <span class="dt">Right</span> (<span class="dt">Left</span> <span class="op">.</span> <span class="dt">Right</span>))</span>
+<span id="cb65-2"><a href="#cb65-2"></a>_Right <span class="ot">=</span> prism <span class="dt">Right</span> (<span class="fu">either</span> (<span class="dt">Left</span> <span class="op">.</span> <span class="dt">Left</span>) <span class="dt">Right</span>)</span></code></pre></div>
 <p>You can use prisms as traversals:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="dt">Left</span> <span class="dv">0</span> <span class="fu">^?</span> _<span class="dt">Left</span>
-<span class="dt">Just</span> <span class="dv">0</span>
-
-<span class="fu">&gt;</span> <span class="dt">Right</span> <span class="dv">1</span> <span class="fu">^?</span> _<span class="dt">Left</span>
-<span class="dt">Nothing</span></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb66-1"><a href="#cb66-1"></a><span class="op">&gt;</span> <span class="dt">Left</span> <span class="dv">0</span> <span class="op">^?</span> _Left</span>
+<span id="cb66-2"><a href="#cb66-2"></a><span class="dt">Just</span> <span class="dv">0</span></span>
+<span id="cb66-3"><a href="#cb66-3"></a></span>
+<span id="cb66-4"><a href="#cb66-4"></a><span class="op">&gt;</span> <span class="dt">Right</span> <span class="dv">1</span> <span class="op">^?</span> _Left</span>
+<span id="cb66-5"><a href="#cb66-5"></a><span class="dt">Nothing</span></span></code></pre></div>
 <p>You can use prisms as constructors, too:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> review _<span class="dt">Left</span> <span class="dv">0</span>
-<span class="dt">Left</span> <span class="dv">0</span></code></pre></div>
+<div class="sourceCode" id="cb67"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb67-1"><a href="#cb67-1"></a><span class="op">&gt;</span> review _Left <span class="dv">0</span></span>
+<span id="cb67-2"><a href="#cb67-2"></a><span class="dt">Left</span> <span class="dv">0</span></span></code></pre></div>
 <p><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Review.html#v:-35-"><code>#</code></a> is another name for <code>review</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> _<span class="dt">Left</span> <span class="fu">#</span> <span class="dv">0</span>
-<span class="dt">Left</span> <span class="dv">0</span></code></pre></div>
-<p>Prisms don't necessarily have to be constructors – e.g. look at <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Prism.html#v:_Show"><code>_Show</code></a>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">_<span class="dt">Show</span><span class="ot"> ::</span> (<span class="dt">Read</span> a, <span class="dt">Show</span> a) <span class="ot">=&gt;</span> <span class="dt">Prism&#39;</span> <span class="dt">String</span> a</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> _<span class="dt">Show</span> <span class="fu">#</span> <span class="dv">0</span>
-<span class="st">&quot;0&quot;</span>
-
-<span class="fu">&gt;</span> <span class="st">&quot;EQ&quot;</span> <span class="fu">^?</span> _<span class="dt">Show</span><span class="ot"> ::</span> <span class="dt">Maybe</span> <span class="dt">Ordering</span>
-<span class="dt">Just</span> <span class="dt">EQ</span></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb68-1"><a href="#cb68-1"></a><span class="op">&gt;</span> _Left <span class="op">#</span> <span class="dv">0</span></span>
+<span id="cb68-2"><a href="#cb68-2"></a><span class="dt">Left</span> <span class="dv">0</span></span></code></pre></div>
+<p>Prisms don’t necessarily have to be constructors – e.g. look at <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Prism.html#v:_Show"><code>_Show</code></a>:</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb69-1"><a href="#cb69-1"></a><span class="ot">_Show ::</span> (<span class="dt">Read</span> a, <span class="dt">Show</span> a) <span class="ot">=&gt;</span> <span class="dt">Prism&#39;</span> <span class="dt">String</span> a</span></code></pre></div>
+<div class="sourceCode" id="cb70"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb70-1"><a href="#cb70-1"></a><span class="op">&gt;</span> _Show <span class="op">#</span> <span class="dv">0</span></span>
+<span id="cb70-2"><a href="#cb70-2"></a><span class="st">&quot;0&quot;</span></span>
+<span id="cb70-3"><a href="#cb70-3"></a></span>
+<span id="cb70-4"><a href="#cb70-4"></a><span class="op">&gt;</span> <span class="st">&quot;EQ&quot;</span> <span class="op">^?</span><span class="ot"> _Show ::</span> <span class="dt">Maybe</span> <span class="dt">Ordering</span></span>
+<span id="cb70-5"><a href="#cb70-5"></a><span class="dt">Just</span> <span class="dt">EQ</span></span></code></pre></div>
 <p>Or <a href="http://hackage.haskell.org/package/lens/docs/Numeric-Lens.html#v:hex"><code>hex</code></a> (from <a href="http://hackage.haskell.org/package/lens/docs/Numeric-Lens.html"><code>Numeric.Lens</code></a>):</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">hex ::</span> <span class="dt">Integral</span> a <span class="ot">=&gt;</span> <span class="dt">Prism&#39;</span> <span class="dt">String</span> a </code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="st">&quot;ad32&quot;</span> <span class="fu">^?</span> hex
-<span class="dt">Just</span> <span class="dv">44338</span>
-
-<span class="fu">&gt;</span> hex <span class="fu">#</span> <span class="dv">5710</span>
-<span class="st">&quot;164e&quot;</span>
-
-<span class="fu">&gt;</span> <span class="dv">5710</span> <span class="fu">^.</span> re hex
-<span class="st">&quot;164e&quot;</span></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb71-1"><a href="#cb71-1"></a><span class="ot">hex ::</span> <span class="dt">Integral</span> a <span class="ot">=&gt;</span> <span class="dt">Prism&#39;</span> <span class="dt">String</span> a</span></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb72-1"><a href="#cb72-1"></a><span class="op">&gt;</span> <span class="st">&quot;ad32&quot;</span> <span class="op">^?</span> hex</span>
+<span id="cb72-2"><a href="#cb72-2"></a><span class="dt">Just</span> <span class="dv">44338</span></span>
+<span id="cb72-3"><a href="#cb72-3"></a></span>
+<span id="cb72-4"><a href="#cb72-4"></a><span class="op">&gt;</span> hex <span class="op">#</span> <span class="dv">5710</span></span>
+<span id="cb72-5"><a href="#cb72-5"></a><span class="st">&quot;164e&quot;</span></span>
+<span id="cb72-6"><a href="#cb72-6"></a></span>
+<span id="cb72-7"><a href="#cb72-7"></a><span class="op">&gt;</span> <span class="dv">5710</span> <span class="op">^.</span> re hex</span>
+<span id="cb72-8"><a href="#cb72-8"></a><span class="st">&quot;164e&quot;</span></span></code></pre></div>
 <p><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Review.html#v:re"><code>re</code></a> makes a getter out of a prism:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">re ::</span> <span class="dt">Prism</span> s t a b <span class="ot">-&gt;</span> <span class="dt">Getter</span> b t
-re p <span class="fu">=</span> to (p <span class="fu">#</span>)</code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb73-1"><a href="#cb73-1"></a><span class="ot">re ::</span> <span class="dt">Prism</span> s t a b <span class="ot">-&gt;</span> <span class="dt">Getter</span> b t</span>
+<span id="cb73-2"><a href="#cb73-2"></a>re p <span class="ot">=</span> to (p <span class="op">#</span>)</span></code></pre></div>
 <h2 id="prisms-as-smart-constructors">Prisms as smart constructors</h2>
 <p>Prisms are quite useful as smart constructors, because you can compose them and the resulting thing would still be usable both as a constructor and as a deconstructor/pattern:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- duplication!</span>
-
-makeL3 <span class="fu">=</span> <span class="dt">Left</span> <span class="fu">.</span> <span class="dt">Left</span> <span class="fu">.</span> <span class="dt">Left</span>
-
-getL3 (<span class="dt">Left</span> (<span class="dt">Left</span> (<span class="dt">Left</span> x))) <span class="fu">=</span> <span class="dt">Just</span> x
-getL3 _                      <span class="fu">=</span> <span class="dt">Nothing</span>
-
-<span class="co">-- better</span>
-
-_<span class="dt">L3</span> <span class="fu">=</span> _<span class="dt">Left</span> <span class="fu">.</span> _<span class="dt">Left</span> <span class="fu">.</span> _<span class="dt">Left</span></code></pre></div>
-<p>This is particularly useful when you're working with e.g. JSON or Template Haskell and want to create “aliases” for long chains of patterns.</p>
-<p>Another nice thing about prisms is that you can check them with <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Fold.html#v:has"><code>has</code></a>, but you can't do the same with constructors:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> has _<span class="dt">Left</span> (<span class="dt">Right</span> <span class="dv">0</span>)
-<span class="dt">False</span>
-
-<span class="co">-- Without prisms, we have to use a helper that somebody else wrote:</span>
-<span class="fu">&gt;</span> isLeft (<span class="dt">Right</span> <span class="dv">0</span>)
-<span class="dt">False</span></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb74-1"><a href="#cb74-1"></a><span class="co">-- duplication!</span></span>
+<span id="cb74-2"><a href="#cb74-2"></a></span>
+<span id="cb74-3"><a href="#cb74-3"></a>makeL3 <span class="ot">=</span> <span class="dt">Left</span> <span class="op">.</span> <span class="dt">Left</span> <span class="op">.</span> <span class="dt">Left</span></span>
+<span id="cb74-4"><a href="#cb74-4"></a></span>
+<span id="cb74-5"><a href="#cb74-5"></a>getL3 (<span class="dt">Left</span> (<span class="dt">Left</span> (<span class="dt">Left</span> x))) <span class="ot">=</span> <span class="dt">Just</span> x</span>
+<span id="cb74-6"><a href="#cb74-6"></a>getL3 _                      <span class="ot">=</span> <span class="dt">Nothing</span></span>
+<span id="cb74-7"><a href="#cb74-7"></a></span>
+<span id="cb74-8"><a href="#cb74-8"></a><span class="co">-- better</span></span>
+<span id="cb74-9"><a href="#cb74-9"></a></span>
+<span id="cb74-10"><a href="#cb74-10"></a>_L3 <span class="ot">=</span> _Left <span class="op">.</span> _Left <span class="op">.</span> _Left</span></code></pre></div>
+<p>This is particularly useful when you’re working with e.g. JSON or Template Haskell and want to create “aliases” for long chains of patterns.</p>
+<p>Another nice thing about prisms is that you can check them with <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Fold.html#v:has"><code>has</code></a>, but you can’t do the same with constructors:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb75-1"><a href="#cb75-1"></a><span class="op">&gt;</span> has _Left (<span class="dt">Right</span> <span class="dv">0</span>)</span>
+<span id="cb75-2"><a href="#cb75-2"></a><span class="dt">False</span></span>
+<span id="cb75-3"><a href="#cb75-3"></a></span>
+<span id="cb75-4"><a href="#cb75-4"></a><span class="co">-- Without prisms, we have to use a helper that somebody else wrote:</span></span>
+<span id="cb75-5"><a href="#cb75-5"></a><span class="op">&gt;</span> isLeft (<span class="dt">Right</span> <span class="dv">0</span>)</span>
+<span id="cb75-6"><a href="#cb75-6"></a><span class="dt">False</span></span></code></pre></div>
 <p>(You can even use <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Extras.html#v:is"><code>is</code></a> instead of <code>has</code> if you export <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Extras.html"><code>Control.Lens.Extras</code></a>.)</p>
 <p>Here are some places with more prisms:</p>
 <ul>
@@ -577,127 +605,127 @@ _<span class="dt">L3</span> <span class="fu">=</span> _<span class="dt">Left</sp
 </ul>
 <h2 id="half-simple-prisms">Half-simple prisms</h2>
 <p>Remember how I said that you can build simple prisms with <code>prism'</code>?</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prism&#39; ::</span> (a <span class="ot">-&gt;</span> s) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a) <span class="ot">-&gt;</span> <span class="dt">Prism&#39;</span> s a</code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb76-1"><a href="#cb76-1"></a><span class="ot">prism&#39; ::</span> (a <span class="ot">-&gt;</span> s) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a) <span class="ot">-&gt;</span> <span class="dt">Prism&#39;</span> s a</span></code></pre></div>
 <p>Well, the actual type in lens is slightly more general:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prism&#39; ::</span> (b <span class="ot">-&gt;</span> s) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a) <span class="ot">-&gt;</span> <span class="dt">Prism</span> s s a b</code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb77-1"><a href="#cb77-1"></a><span class="ot">prism&#39; ::</span> (b <span class="ot">-&gt;</span> s) <span class="ot">-&gt;</span> (s <span class="ot">-&gt;</span> <span class="dt">Maybe</span> a) <span class="ot">-&gt;</span> <span class="dt">Prism</span> s s a b</span></code></pre></div>
 <p>There are several prisms in lens that are “half-simple” – for instance, <a href="http://hackage.haskell.org/package/lens/docs/Numeric-Lens.html#v:integral"><code>integral</code></a> and <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Prism.html#v:_Void"><code>_Void</code></a>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">integral ::</span> (<span class="dt">Integral</span> a, <span class="dt">Integral</span> b) <span class="ot">=&gt;</span> <span class="dt">Prism</span> <span class="dt">Integer</span> <span class="dt">Integer</span> a b
-
-_<span class="dt">Void</span><span class="ot"> ::</span> <span class="dt">Prism</span> s s a <span class="dt">Void</span></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb78-1"><a href="#cb78-1"></a><span class="ot">integral ::</span> (<span class="dt">Integral</span> a, <span class="dt">Integral</span> b) <span class="ot">=&gt;</span> <span class="dt">Prism</span> <span class="dt">Integer</span> <span class="dt">Integer</span> a b</span>
+<span id="cb78-2"><a href="#cb78-2"></a></span>
+<span id="cb78-3"><a href="#cb78-3"></a><span class="ot">_Void ::</span> <span class="dt">Prism</span> s s a <span class="dt">Void</span></span></code></pre></div>
 <p>And now, instead of explanations – exercises:</p>
 <ul>
-<li><p>What can you do with lens's <code>integral</code> that you can't do with this one?</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">integral ::</span> <span class="dt">Integral</span> a <span class="ot">=&gt;</span> <span class="dt">Prism&#39;</span> <span class="dt">Integer</span> a</code></pre></div></li>
+<li><p>What can you do with lens’s <code>integral</code> that you can’t do with this one?</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb79-1"><a href="#cb79-1"></a><span class="ot">integral ::</span> <span class="dt">Integral</span> a <span class="ot">=&gt;</span> <span class="dt">Prism&#39;</span> <span class="dt">Integer</span> a</span></code></pre></div></li>
 <li><p>Reflect on the nature of <code>_Void</code>.</p></li>
 </ul>
 <h2 id="prism-utilities"><code>Prism</code> utilities</h2>
-<p>lens defines some utilities for prisms, so let's look at them and figure out what they are for. (We won't bother implementing them, because they all are pretty easy to get with <code>withPrism</code>.)</p>
+<p>lens defines some utilities for prisms, so let’s look at them and figure out what they are for. (We won’t bother implementing them, because they all are pretty easy to get with <code>withPrism</code>.)</p>
 <h3 id="aside-without"><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Prism.html#v:aside"><code>aside</code></a>, <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Prism.html#v:without"><code>without</code></a></h3>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">aside ::</span> <span class="dt">Prism</span> s t a b <span class="ot">-&gt;</span> <span class="dt">Prism</span> (e, s) (e, t) (e, a) (e, b)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">without ::</span> <span class="dt">Prism</span> s t a b <span class="ot">-&gt;</span> <span class="dt">Prism</span> u v c d
-        <span class="ot">-&gt;</span> <span class="dt">Prism</span> (<span class="dt">Either</span> s u) (<span class="dt">Either</span> t v) (<span class="dt">Either</span> a c) (<span class="dt">Either</span> b d)</code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb80-1"><a href="#cb80-1"></a><span class="ot">aside ::</span> <span class="dt">Prism</span> s t a b <span class="ot">-&gt;</span> <span class="dt">Prism</span> (e, s) (e, t) (e, a) (e, b)</span></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb81-1"><a href="#cb81-1"></a><span class="ot">without ::</span> <span class="dt">Prism</span> s t a b <span class="ot">-&gt;</span> <span class="dt">Prism</span> u v c d</span>
+<span id="cb81-2"><a href="#cb81-2"></a>        <span class="ot">-&gt;</span> <span class="dt">Prism</span> (<span class="dt">Either</span> s u) (<span class="dt">Either</span> t v) (<span class="dt">Either</span> a c) (<span class="dt">Either</span> b d)</span></code></pre></div>
 <p>It should be obvious from the signatures what these do.</p>
-<p>To be honest, I don't know when they are useful.</p>
+<p>To be honest, I don’t know when they are useful.</p>
 <h3 id="below"><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Prism.html#v:below"><code>below</code></a></h3>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">below ::</span> <span class="dt">Traversable</span> f <span class="ot">=&gt;</span> <span class="dt">Prism&#39;</span> s a <span class="ot">-&gt;</span> <span class="dt">Prism&#39;</span> (f s) (f a)</code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb82-1"><a href="#cb82-1"></a><span class="ot">below ::</span> <span class="dt">Traversable</span> f <span class="ot">=&gt;</span> <span class="dt">Prism&#39;</span> s a <span class="ot">-&gt;</span> <span class="dt">Prism&#39;</span> (f s) (f a)</span></code></pre></div>
 <p><code>below</code> lets you define patterns like this:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- pseudocode</span>
-
-f [<span class="dt">Right</span> a, <span class="dt">Right</span> b, <span class="fu">...</span>, <span class="dt">Right</span> x] <span class="fu">=</span> <span class="kw">do</span> something with [a,b,<span class="fu">...</span>,x]
-f _                                <span class="fu">=</span> <span class="kw">do</span> whatever <span class="kw">else</span></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb83-1"><a href="#cb83-1"></a><span class="co">-- pseudocode</span></span>
+<span id="cb83-2"><a href="#cb83-2"></a></span>
+<span id="cb83-3"><a href="#cb83-3"></a>f [<span class="dt">Right</span> a, <span class="dt">Right</span> b, <span class="op">...</span>, <span class="dt">Right</span> x] <span class="ot">=</span> <span class="kw">do</span> something with [a,b,<span class="op">...</span>,x]</span>
+<span id="cb83-4"><a href="#cb83-4"></a>f _                                <span class="ot">=</span> <span class="kw">do</span> whatever <span class="kw">else</span></span></code></pre></div>
 <p>In other words, <code>below p</code> checks that all elements in some structure match the prism <code>p</code>, and if they do, it strips <code>p</code> from those elements:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> [<span class="dt">Right</span> <span class="ch">&#39;a&#39;</span>, <span class="dt">Right</span> <span class="ch">&#39;b&#39;</span>, <span class="dt">Right</span> <span class="ch">&#39;c&#39;</span>] <span class="fu">^?</span> below _<span class="dt">Right</span>
-<span class="dt">Just</span> <span class="st">&quot;abc&quot;</span>
-
-<span class="fu">&gt;</span> [<span class="dt">Right</span> <span class="ch">&#39;a&#39;</span>, <span class="dt">Right</span> <span class="ch">&#39;b&#39;</span>, <span class="dt">Left</span> <span class="ch">&#39;c&#39;</span>] <span class="fu">^?</span> below _<span class="dt">Right</span>
-<span class="dt">Nothing</span></code></pre></div>
-<p>The structure can be anything <code>Traversable</code> (so it doesn't have to be a list).</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb84-1"><a href="#cb84-1"></a><span class="op">&gt;</span> [<span class="dt">Right</span> <span class="ch">&#39;a&#39;</span>, <span class="dt">Right</span> <span class="ch">&#39;b&#39;</span>, <span class="dt">Right</span> <span class="ch">&#39;c&#39;</span>] <span class="op">^?</span> below _Right</span>
+<span id="cb84-2"><a href="#cb84-2"></a><span class="dt">Just</span> <span class="st">&quot;abc&quot;</span></span>
+<span id="cb84-3"><a href="#cb84-3"></a></span>
+<span id="cb84-4"><a href="#cb84-4"></a><span class="op">&gt;</span> [<span class="dt">Right</span> <span class="ch">&#39;a&#39;</span>, <span class="dt">Right</span> <span class="ch">&#39;b&#39;</span>, <span class="dt">Left</span> <span class="ch">&#39;c&#39;</span>] <span class="op">^?</span> below _Right</span>
+<span id="cb84-5"><a href="#cb84-5"></a><span class="dt">Nothing</span></span></code></pre></div>
+<p>The structure can be anything <code>Traversable</code> (so it doesn’t have to be a list).</p>
 <h3 id="outside"><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Prism.html#v:outside"><code>outside</code></a></h3>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">outside ::</span> <span class="dt">Prism</span> s t a b <span class="ot">-&gt;</span> <span class="dt">Lens</span> (t <span class="ot">-&gt;</span> r) (s <span class="ot">-&gt;</span> r) (b <span class="ot">-&gt;</span> r) (a <span class="ot">-&gt;</span> r)</code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb85-1"><a href="#cb85-1"></a><span class="ot">outside ::</span> <span class="dt">Prism</span> s t a b <span class="ot">-&gt;</span> <span class="dt">Lens</span> (t <span class="ot">-&gt;</span> r) (s <span class="ot">-&gt;</span> r) (b <span class="ot">-&gt;</span> r) (a <span class="ot">-&gt;</span> r)</span></code></pre></div>
 <p>The documentation for <code>outside</code> is a bit mysterious:</p>
 <blockquote>
 <p>Use a <code>Prism</code> as a kind of first-class pattern.</p>
 </blockquote>
-<p>To figure it out, let's apply <code>outside</code> to some prism and look at the resulting type:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">outside _<span class="dt">Right</span>
-<span class="ot">  ::</span> <span class="dt">Lens</span> (<span class="dt">Either</span> c b <span class="ot">-&gt;</span> r) (<span class="dt">Either</span> c a <span class="ot">-&gt;</span> r) (b <span class="ot">-&gt;</span> r) (a <span class="ot">-&gt;</span> r)</code></pre></div>
-<p>And let's restrict the type to <code>Lens'</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">outside _<span class="dt">Right</span><span class="ot"> ::</span> <span class="dt">Lens&#39;</span> (<span class="dt">Either</span> c a <span class="ot">-&gt;</span> r) (a <span class="ot">-&gt;</span> r)</code></pre></div>
-<p>Okay, it's clearer now. Given some function that works on <code>Either</code>, we can:</p>
+<p>To figure it out, let’s apply <code>outside</code> to some prism and look at the resulting type:</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb86-1"><a href="#cb86-1"></a>outside _Right</span>
+<span id="cb86-2"><a href="#cb86-2"></a><span class="ot">  ::</span> <span class="dt">Lens</span> (<span class="dt">Either</span> c b <span class="ot">-&gt;</span> r) (<span class="dt">Either</span> c a <span class="ot">-&gt;</span> r) (b <span class="ot">-&gt;</span> r) (a <span class="ot">-&gt;</span> r)</span></code></pre></div>
+<p>And let’s restrict the type to <code>Lens'</code>:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb87-1"><a href="#cb87-1"></a>outside<span class="ot"> _Right ::</span> <span class="dt">Lens&#39;</span> (<span class="dt">Either</span> c a <span class="ot">-&gt;</span> r) (a <span class="ot">-&gt;</span> r)</span></code></pre></div>
+<p>Okay, it’s clearer now. Given some function that works on <code>Either</code>, we can:</p>
 <ul>
 <li>find out what it does with the right part of <code>Either</code></li>
 <li>make it do something <em>else</em> with the right part of <code>Either</code></li>
 </ul>
-<p>Let's define <code>fromLeft</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">fromLeft ::</span> <span class="dt">Either</span> a b <span class="ot">-&gt;</span> a
-fromLeft (<span class="dt">Left</span> a) <span class="fu">=</span> a
-fromLeft _        <span class="fu">=</span> error <span class="st">&quot;right&quot;</span></code></pre></div>
+<p>Let’s define <code>fromLeft</code>:</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb88-1"><a href="#cb88-1"></a><span class="ot">fromLeft ::</span> <span class="dt">Either</span> a b <span class="ot">-&gt;</span> a</span>
+<span id="cb88-2"><a href="#cb88-2"></a>fromLeft (<span class="dt">Left</span> a) <span class="ot">=</span> a</span>
+<span id="cb88-3"><a href="#cb88-3"></a>fromLeft _        <span class="ot">=</span> <span class="fu">error</span> <span class="st">&quot;right&quot;</span></span></code></pre></div>
 <p>What does <code>fromLeft</code> do with a <code>Left</code>?</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> (fromLeft <span class="fu">^.</span> outside _<span class="dt">Left</span>) <span class="dv">0</span>     <span class="co">-- equivalent to “fromLeft (Left 0)”</span>
-<span class="dv">0</span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb89-1"><a href="#cb89-1"></a><span class="op">&gt;</span> (fromLeft <span class="op">^.</span> outside _Left) <span class="dv">0</span>     <span class="co">-- equivalent to “fromLeft (Left 0)”</span></span>
+<span id="cb89-2"><a href="#cb89-2"></a><span class="dv">0</span></span></code></pre></div>
 <p>And a <code>Right</code>?</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> (fromLeft <span class="fu">^.</span> outside _<span class="dt">Right</span>) <span class="dv">0</span>    <span class="co">-- equivalent to “fromLeft (Right 0)”</span>
-<span class="fu">***</span> <span class="dt">Exception</span><span class="fu">:</span> hi</code></pre></div>
-<p>Okay, that's not terribly interesting. The modifying part is better:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">let</span> fromLeftDef def <span class="fu">=</span> fromLeft <span class="fu">&amp;</span> outside _<span class="dt">Right</span> <span class="fu">.~</span> const def
-
-<span class="fu">&gt;</span> fromLeftDef <span class="dv">0</span> (<span class="dt">Left</span> <span class="dv">5</span>)
-<span class="dv">5</span>
-
-<span class="fu">&gt;</span> fromLeftDef <span class="dv">0</span> (<span class="dt">Right</span> <span class="dv">5</span>)
-<span class="dv">0</span></code></pre></div>
-<p>We've already seen similar function-modifying behavior with <code>ix</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">let</span> safeDiv x <span class="fu">=</span> (x <span class="ot">`div`</span>) <span class="fu">&amp;</span> at <span class="dv">0</span> <span class="fu">.~</span> <span class="dv">0</span>
-
-<span class="fu">&gt;</span> safeDiv <span class="dv">6</span> <span class="dv">2</span>
-<span class="dv">3</span>
-
-<span class="fu">&gt;</span> safeDiv <span class="dv">6</span> <span class="dv">0</span>
-<span class="dv">0</span></code></pre></div>
-<p>The difference between <code>ix</code> and <code>outside</code> is that you can only use <code>ix</code> with arguments that can be compared with <code>==</code>, while <code>outside</code> is more like pattern-matching. (An exercise: look at <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Prism.html#v:only"><code>only</code></a> and figure out how to use it with <code>outside</code> to modify a function's value at some point.)</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb90-1"><a href="#cb90-1"></a><span class="op">&gt;</span> (fromLeft <span class="op">^.</span> outside _Right) <span class="dv">0</span>    <span class="co">-- equivalent to “fromLeft (Right 0)”</span></span>
+<span id="cb90-2"><a href="#cb90-2"></a><span class="op">***</span> <span class="dt">Exception</span><span class="op">:</span> hi</span></code></pre></div>
+<p>Okay, that’s not terribly interesting. The modifying part is better:</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb91-1"><a href="#cb91-1"></a><span class="op">&gt;</span> <span class="kw">let</span> fromLeftDef def <span class="ot">=</span> fromLeft <span class="op">&amp;</span> outside _Right <span class="op">.~</span> <span class="fu">const</span> def</span>
+<span id="cb91-2"><a href="#cb91-2"></a></span>
+<span id="cb91-3"><a href="#cb91-3"></a><span class="op">&gt;</span> fromLeftDef <span class="dv">0</span> (<span class="dt">Left</span> <span class="dv">5</span>)</span>
+<span id="cb91-4"><a href="#cb91-4"></a><span class="dv">5</span></span>
+<span id="cb91-5"><a href="#cb91-5"></a></span>
+<span id="cb91-6"><a href="#cb91-6"></a><span class="op">&gt;</span> fromLeftDef <span class="dv">0</span> (<span class="dt">Right</span> <span class="dv">5</span>)</span>
+<span id="cb91-7"><a href="#cb91-7"></a><span class="dv">0</span></span></code></pre></div>
+<p>We’ve already seen similar function-modifying behavior with <code>ix</code>:</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb92-1"><a href="#cb92-1"></a><span class="op">&gt;</span> <span class="kw">let</span> safeDiv x <span class="ot">=</span> (x <span class="ot">`div`</span>) <span class="op">&amp;</span> at <span class="dv">0</span> <span class="op">.~</span> <span class="dv">0</span></span>
+<span id="cb92-2"><a href="#cb92-2"></a></span>
+<span id="cb92-3"><a href="#cb92-3"></a><span class="op">&gt;</span> safeDiv <span class="dv">6</span> <span class="dv">2</span></span>
+<span id="cb92-4"><a href="#cb92-4"></a><span class="dv">3</span></span>
+<span id="cb92-5"><a href="#cb92-5"></a></span>
+<span id="cb92-6"><a href="#cb92-6"></a><span class="op">&gt;</span> safeDiv <span class="dv">6</span> <span class="dv">0</span></span>
+<span id="cb92-7"><a href="#cb92-7"></a><span class="dv">0</span></span></code></pre></div>
+<p>The difference between <code>ix</code> and <code>outside</code> is that you can only use <code>ix</code> with arguments that can be compared with <code>==</code>, while <code>outside</code> is more like pattern-matching. (An exercise: look at <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Prism.html#v:only"><code>only</code></a> and figure out how to use it with <code>outside</code> to modify a function’s value at some point.)</p>
 <h2 id="final-exercise">Final exercise</h2>
 <p>We made <code>Traversal1</code> out of <code>Traversal</code> by switching <code>Applicative</code> with <code>Apply</code>. Similarly we could try to get <code>Prism1</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">Prism1</span> s t a b <span class="fu">=</span>
-  forall p f<span class="fu">.</span> (<span class="dt">Choice</span> p, <span class="dt">Apply</span> f) <span class="ot">=&gt;</span> p a (f b) <span class="ot">-&gt;</span> p s (f t)</code></pre></div>
-<p>Since <code>Prism1</code> can return at least one <code>a</code> and <em>at most</em> one <code>a</code>, it's the same as <code>Iso</code>. (Remember: prisms are 0-or-1 traversals, so <code>Prism1</code> is a 1-or-1 traversal, so it's a getter in one direction and a getter in another direction, so it's simply <code>s -&gt; a</code> plus <code>b -&gt; t</code>, so it's the same as <code>Iso</code>.)</p>
-<p>(Actually, since it won't ever return more than 1 element, we can even replace <code>Apply</code> with <code>Functor</code>.)</p>
-<p>Now, getting <code>b -&gt; t</code> out of <code>Prism1</code> is easy and we've done it before:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">prism1ToIso ::</span> <span class="dt">Prism1</span> s t a b <span class="ot">-&gt;</span> <span class="dt">Iso</span> s t a b
-prism1ToIso p <span class="fu">=</span>
-  <span class="kw">let</span> bt <span class="fu">=</span> runIdentity <span class="fu">.</span> unTagged <span class="fu">.</span> p <span class="fu">.</span> <span class="dt">Tagged</span> <span class="fu">.</span> <span class="dt">Identity</span>
-      sa <span class="fu">=</span> <span class="fu">...</span>
-  <span class="kw">in</span>  iso sa bt</code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb93-1"><a href="#cb93-1"></a><span class="kw">type</span> <span class="dt">Prism1</span> s t a b <span class="ot">=</span></span>
+<span id="cb93-2"><a href="#cb93-2"></a>  <span class="kw">forall</span> p f<span class="op">.</span> (<span class="dt">Choice</span> p, <span class="dt">Apply</span> f) <span class="ot">=&gt;</span> p a (f b) <span class="ot">-&gt;</span> p s (f t)</span></code></pre></div>
+<p>Since <code>Prism1</code> can return at least one <code>a</code> and <em>at most</em> one <code>a</code>, it’s the same as <code>Iso</code>. (Remember: prisms are 0-or-1 traversals, so <code>Prism1</code> is a 1-or-1 traversal, so it’s a getter in one direction and a getter in another direction, so it’s simply <code>s -&gt; a</code> plus <code>b -&gt; t</code>, so it’s the same as <code>Iso</code>.)</p>
+<p>(Actually, since it won’t ever return more than 1 element, we can even replace <code>Apply</code> with <code>Functor</code>.)</p>
+<p>Now, getting <code>b -&gt; t</code> out of <code>Prism1</code> is easy and we’ve done it before:</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb94-1"><a href="#cb94-1"></a><span class="ot">prism1ToIso ::</span> <span class="dt">Prism1</span> s t a b <span class="ot">-&gt;</span> <span class="dt">Iso</span> s t a b</span>
+<span id="cb94-2"><a href="#cb94-2"></a>prism1ToIso p <span class="ot">=</span></span>
+<span id="cb94-3"><a href="#cb94-3"></a>  <span class="kw">let</span> bt <span class="ot">=</span> runIdentity <span class="op">.</span> unTagged <span class="op">.</span> p <span class="op">.</span> <span class="dt">Tagged</span> <span class="op">.</span> <span class="dt">Identity</span></span>
+<span id="cb94-4"><a href="#cb94-4"></a>      sa <span class="ot">=</span> <span class="op">...</span></span>
+<span id="cb94-5"><a href="#cb94-5"></a>  <span class="kw">in</span>  iso sa bt</span></code></pre></div>
 <p>Your task is to get <code>s -&gt; a</code> and complete <code>prism1ToIso</code>.</p>
 <h1 id="answers-to-some-exercises">Answers to some exercises</h1>
 <blockquote>
 <p>convert between <code>Bypass</code> and <code>Choice</code></p>
 </blockquote>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Choice</span> p <span class="ot">=&gt;</span> <span class="dt">Bypass</span> p <span class="kw">where</span>
-  bypass sat <span class="fu">=</span> rmap (either id id) <span class="fu">.</span> lmap sat <span class="fu">.</span> left&#39;
-
-<span class="kw">instance</span> (<span class="dt">Profunctor</span> p, <span class="dt">Bypass</span> p) <span class="ot">=&gt;</span> <span class="dt">Choice</span> p <span class="kw">where</span>
-  right&#39; <span class="fu">=</span> bypass (either (<span class="dt">Right</span> <span class="fu">.</span> <span class="dt">Left</span>) <span class="dt">Left</span>) <span class="fu">.</span> rmap <span class="dt">Right</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb95-1"><a href="#cb95-1"></a><span class="kw">instance</span> <span class="dt">Choice</span> p <span class="ot">=&gt;</span> <span class="dt">Bypass</span> p <span class="kw">where</span></span>
+<span id="cb95-2"><a href="#cb95-2"></a>  bypass sat <span class="ot">=</span> rmap (<span class="fu">either</span> <span class="fu">id</span> <span class="fu">id</span>) <span class="op">.</span> lmap sat <span class="op">.</span> left&#39;</span>
+<span id="cb95-3"><a href="#cb95-3"></a></span>
+<span id="cb95-4"><a href="#cb95-4"></a><span class="kw">instance</span> (<span class="dt">Profunctor</span> p, <span class="dt">Bypass</span> p) <span class="ot">=&gt;</span> <span class="dt">Choice</span> p <span class="kw">where</span></span>
+<span id="cb95-5"><a href="#cb95-5"></a>  right&#39; <span class="ot">=</span> bypass (<span class="fu">either</span> (<span class="dt">Right</span> <span class="op">.</span> <span class="dt">Left</span>) <span class="dt">Left</span>) <span class="op">.</span> rmap <span class="dt">Right</span></span></code></pre></div>
 <hr />
 <blockquote>
-<p>What can you do with lens's <code>integral</code> that you can't do with this one?</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">integral ::</span> <span class="dt">Integral</span> a <span class="ot">=&gt;</span> <span class="dt">Prism&#39;</span> <span class="dt">Integer</span> a</code></pre></div>
+<p>What can you do with lens’s <code>integral</code> that you can’t do with this one?</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb96-1"><a href="#cb96-1"></a><span class="ot">integral ::</span> <span class="dt">Integral</span> a <span class="ot">=&gt;</span> <span class="dt">Prism&#39;</span> <span class="dt">Integer</span> a</span></code></pre></div>
 </blockquote>
-<p>With this <code>integral</code> you wouldn't be able to use a type-changing function internally. For instance, imagine that you have <code>f :: Word -&gt; Int</code>, and you want to convert the <code>Integer</code> to <code>Word</code>, apply <code>f</code>, and convert the <code>Int</code> back to <code>Integer</code>. You can do it with original <code>integral</code> like this:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> n <span class="fu">&amp;</span> integral <span class="fu">%~</span> f</code></pre></div>
+<p>With this <code>integral</code> you wouldn’t be able to use a type-changing function internally. For instance, imagine that you have <code>f :: Word -&gt; Int</code>, and you want to convert the <code>Integer</code> to <code>Word</code>, apply <code>f</code>, and convert the <code>Int</code> back to <code>Integer</code>. You can do it with original <code>integral</code> like this:</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb97-1"><a href="#cb97-1"></a><span class="op">&gt;</span> n <span class="op">&amp;</span> integral <span class="op">%~</span> f</span></code></pre></div>
 <p>but not with a type-restricted <code>integral</code>.</p>
 <hr />
 <blockquote>
 <p>Reflect on the nature of <code>_Void</code>.</p>
 </blockquote>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">_<span class="dt">Void</span><span class="ot"> ::</span> forall a<span class="fu">.</span> <span class="dt">Prism</span> s s a <span class="dt">Void</span></code></pre></div>
-<p><code>_Void</code> shows that <code>forall a. a</code> is equivalent to <code>Void</code> (that is, both are uninhabited types, and don't nitpick about <code>undefined</code>.)</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb98-1"><a href="#cb98-1"></a><span class="ot">_Void ::</span> <span class="kw">forall</span> a<span class="op">.</span> <span class="dt">Prism</span> s s a <span class="dt">Void</span></span></code></pre></div>
+<p><code>_Void</code> shows that <code>forall a. a</code> is equivalent to <code>Void</code> (that is, both are uninhabited types, and don’t nitpick about <code>undefined</code>.)</p>
 <p>Well, it probably shows more things than that, but whatever.</p>
 </article>
 
 
 <div id="series">
       <a href="/lens-over-tea-4">&lt;&lt;&lt;</a>
-
+  
   <a href="/#lens-over-tea">“lens over tea”</a>
 
       <a href="/lens-over-tea-6">&gt;&gt;&gt;</a>
@@ -709,9 +737,8 @@ prism1ToIso p <span class="fu">=</span>
   <h3>I'm doing software consulting!</h3>
   <p>
     Nowadays I'm running a functional programming consultancy at
-    <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
-    PureScript, Clojure, and Agda. We are looking for more clients and more
-    consultants!
+    <a href="https://monadfix.com">Monadfix</a>. We have experts in Haskell
+    and Agda. We are looking for more clients and more consultants!
   </p>
 </div>
 
@@ -731,7 +758,7 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
 <div id="footer" class="blue-links">
-<a href="https://github.com/neongreen/artyom.me/blob/master/posts/lens-over-tea-5.md">view source</a>—<a href="mailto:artyom@artyom.me?subject=Comment on lens-over-tea-5">comment by email</a>—<a href="/curiosity">curiosity killed the cat</a>
+<a href="https://github.com/neongreen/artyom.me/blob/master/posts/lens-over-tea-5.md">view source</a>—<a href="mailto:artyom@artyom.me?subject=Comment on lens-over-tea-5">comment by email</a>
 </div>
 
 </div>

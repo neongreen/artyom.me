@@ -7,9 +7,12 @@ series:
   next: /lens-over-tea-2
 ---
 
-Okay, so I never could really understand how [lens](@hackage) works. This is
-an attempt to understand lens as completely as possible, including the ideas
-behind it, the implementation, and the design choices. (A later update: it's not that good for actually learning how to use lenses, and frankly should be fully rewritten, but I don't have the time.)
+Okay, so I never could really understand how
+[lens](https://hackage.haskell.org/package/lens) works. This is an
+attempt to understand lens as completely as possible, including the ideas
+behind it, the implementation, and the design choices. (A later update: it's
+not that good for actually learning how to use lenses, and frankly should be
+fully rewritten, but I don't have the time.)
 
 There are already articles which explain how to *use* lenses and how to
 *make* basic lenses, but some things don't seem to be explained well
@@ -964,7 +967,7 @@ This problem is solved by better stating what `view`, `over` and `set` need:
 And now some convenient type synonyms (which mimic the ones in lens library):
 
 ~~~ haskell
-type Getting s a = (a -> Const a a) -> s -> Const a s 
+type Getting s a = (a -> Const a a) -> s -> Const a s
 
 type Setting s t a b = (a -> Identity b) -> s -> Identity t
 ~~~
@@ -1049,7 +1052,7 @@ view (_all 0) [0, 1, 2] :: (Num a, Eq a) => a
 Take another look at the [`Const`][] docs:
 
 > Instances:
-> 
+>
 >   * `Functor (Const m)`
 >   * **`Monoid m => Applicative (Const m)`**
 >   * `Foldable (Const m)`
@@ -1126,7 +1129,7 @@ data First a = First (Maybe a)
 
 instance Monoid (First a) where
   mempty = First Nothing
-  
+
   mappend (First Nothing) y = y
   mappend        x        _ = x
 ~~~
@@ -1184,7 +1187,7 @@ Don't you think the types of functions we've written are kinda overly long?
 They're the same as the original `Getting s a`
 
 ~~~ haskell
-type Getting s a = (a -> Const a a) -> s -> Const a s 
+type Getting s a = (a -> Const a a) -> s -> Const a s
 ~~~
 
 with various monoids in place of `a` in `Const a`. Why not simply add an
@@ -1227,7 +1230,7 @@ There's no single definite reason for not implementing everything in terms of
   * It would be “pretty odd” (as I got told on #haskell-lens).
 
   * It would probably be slower.
-  
+
   * Aw c'mon, they're all one-liners anyway.
 
 ## `toListOf` is subtly broken
@@ -1646,7 +1649,7 @@ downside is that instead of a single instance like `Traversable t => Each
       {-# INLINE each #-}
     #endif
     ~~~
-    
+
   * Several “default” instances without implementation:
 
     ~~~ haskell
@@ -1710,7 +1713,7 @@ Um, just so that it wouldn't be left unexplained... In a nutshell:
 
 So we've learned that HLint doesn't like this code because of `default`. Some
 googling shows us that `default` in type classes is enabled by the
-[`DefaultSignatures`](@ghc-ext) extension, which HLint apparently isn't yet
+[`DefaultSignatures`](https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-DefaultSignatures) extension, which HLint apparently isn't yet
 aware of. If you aren't aware of it either – again, here's an “in a nutshell”
 explanation [hm, or should I call it “bullet list explanation”?]:
 
@@ -1904,7 +1907,7 @@ it involves explaining how GHC works with instances.
     whether the context is right. If the context isn't “right”, GHC will
     complain – but it won't look for other instances which could match.
 
-Now, if we write 
+Now, if we write
 
 ~~~ haskell
 instance Each (a, a) (b, b) a b where
@@ -2092,7 +2095,7 @@ strings shorter than one chunk.)
 
     ~~~ haskell
     -- Mentally simplified to “(a -> r) -> s -> r”.
-    type Getting r s a = (a -> Const r a) -> s -> Const r s 
+    type Getting r s a = (a -> Const r a) -> s -> Const r s
 
     -- Mentally simplified to “(a -> b) -> s -> r”.
     type Setting s t a b = (a -> Identity b) -> s -> Identity t
@@ -2348,7 +2351,7 @@ The answers to all other exercises are [here](http://lpaste.net/6450842794700308
 
 # P.S.
 
-[lens](@hackage) is a huge package, so I took a chunk out of it and put into a separate library – [microlens](@gh:aelve/microlens). It has no dependencies, it compiles in about 4 seconds, and in many cases it's a good replacement for lens (i.e. if you want to use the power of lenses in your library and don't like heavy dependencies).
+[lens](https://hackage.haskell.org/package/lens) is a huge package, so I took a chunk out of it and put into a separate library – [microlens](https://github.com/monadfix/microlens). It has no dependencies, it compiles in about 4 seconds, and in many cases it's a good replacement for lens (i.e. if you want to use the power of lenses in your library and don't like heavy dependencies).
 
 Don't use microlens for this series, tho; many of things I'm covering here are lens-specific (isomorphisms, prisms, indexed traversals, etc).
 

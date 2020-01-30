@@ -78,7 +78,7 @@ $endfor$
     Founder of <a href="https://aelve.com">Aelve</a>
   </div
   ><div class="badge">
-    Co-founder of <a href="https://monadfix.io">Monadfix</a>
+    Co-founder of <a href="https://monadfix.com">Monadfix</a>
   </div
 
   ><div class="badge">
@@ -159,9 +159,8 @@ $endif$
   <h3>I'm doing software consulting!</h3>
   <p>
     Nowadays I'm running a functional programming consultancy at
-    <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
-    PureScript, Clojure, and Agda. We are looking for more clients and more
-    consultants!
+    <a href="https://monadfix.com">Monadfix</a>. We have experts in Haskell
+    and Agda. We are looking for more clients and more consultants!
   </p>
 </div>
 
@@ -183,7 +182,7 @@ s.setAttribute('data-timestamp', +new Date());
 $endif$
 
 <div id="footer" class="blue-links">
-<a href="https://github.com/neongreen/artyom.me/blob/master/$src$">view source</a>—<a href="mailto:artyom@artyom.me?subject=Comment on $url$">comment by email</a>—<a href="/curiosity">curiosity killed the cat</a>
+<a href="https://github.com/neongreen/artyom.me/blob/master/$src$">view source</a>—<a href="mailto:artyom@artyom.me?subject=Comment on $url$">comment by email</a>
 </div>
 
 </div>

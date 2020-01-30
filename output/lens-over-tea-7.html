@@ -15,44 +15,72 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
   <![endif]-->
   <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="/css.css?date=2019-06-21">
+  <link rel="stylesheet" href="/css.css?date=2020-01-30">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154447441-1"></script>
 <script>
@@ -89,7 +117,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
     Founder of <a href="https://aelve.com">Aelve</a>
   </div
   ><div class="badge">
-    Co-founder of <a href="https://monadfix.io">Monadfix</a>
+    Co-founder of <a href="https://monadfix.com">Monadfix</a>
   </div
 
   ><div class="badge">
@@ -107,7 +135,7 @@ Unfinished.
 
 <div id="series">
       <a href="/lens-over-tea-6">&lt;&lt;&lt;</a>
-
+  
   <a href="/#lens-over-tea">“lens over tea”</a>
 
       <span class="grey"><a href="/#lens-over-tea">&gt;&gt;&gt;</a></span>
@@ -118,297 +146,297 @@ Unfinished.
 <h1 class="title">lens over tea #7: indexed traversals</h1>
 
 <p>At long last, the power of indexed traversals is within our grasp.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> (<span class="dt">Choice</span> p,
-       <span class="dt">Corepresentable</span> p,
-       <span class="dt">Comonad</span> (<span class="dt">Corep</span> p),
-       <span class="dt">Traversable</span> (<span class="dt">Corep</span> p),
-       <span class="dt">Strong</span> p,
-       <span class="dt">Representable</span> p,
-       <span class="dt">Monad</span> (<span class="dt">Rep</span> p),
-       <span class="dt">MonadFix</span> (<span class="dt">Rep</span> p),
-       <span class="dt">Distributive</span> (<span class="dt">Rep</span> p),
-       <span class="dt">Costrong</span> p,
-       <span class="dt">ArrowLoop</span> p,
-       <span class="dt">ArrowApply</span> p,
-       <span class="dt">ArrowChoice</span> p,
-       <span class="dt">Closed</span> p)
-  <span class="ot">=&gt;</span> <span class="dt">Conjoined</span> p</code></pre></div>
-<p>Yes, all this. But before that...</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">class</span> (<span class="dt">Choice</span> p,</span>
+<span id="cb1-2"><a href="#cb1-2"></a>       <span class="dt">Corepresentable</span> p, </span>
+<span id="cb1-3"><a href="#cb1-3"></a>       <span class="dt">Comonad</span> (<span class="dt">Corep</span> p),</span>
+<span id="cb1-4"><a href="#cb1-4"></a>       <span class="dt">Traversable</span> (<span class="dt">Corep</span> p),</span>
+<span id="cb1-5"><a href="#cb1-5"></a>       <span class="dt">Strong</span> p,</span>
+<span id="cb1-6"><a href="#cb1-6"></a>       <span class="dt">Representable</span> p, </span>
+<span id="cb1-7"><a href="#cb1-7"></a>       <span class="dt">Monad</span> (<span class="dt">Rep</span> p),</span>
+<span id="cb1-8"><a href="#cb1-8"></a>       <span class="dt">MonadFix</span> (<span class="dt">Rep</span> p),</span>
+<span id="cb1-9"><a href="#cb1-9"></a>       <span class="dt">Distributive</span> (<span class="dt">Rep</span> p),</span>
+<span id="cb1-10"><a href="#cb1-10"></a>       <span class="dt">Costrong</span> p,</span>
+<span id="cb1-11"><a href="#cb1-11"></a>       <span class="dt">ArrowLoop</span> p,</span>
+<span id="cb1-12"><a href="#cb1-12"></a>       <span class="dt">ArrowApply</span> p,</span>
+<span id="cb1-13"><a href="#cb1-13"></a>       <span class="dt">ArrowChoice</span> p,</span>
+<span id="cb1-14"><a href="#cb1-14"></a>       <span class="dt">Closed</span> p)</span>
+<span id="cb1-15"><a href="#cb1-15"></a>  <span class="ot">=&gt;</span> <span class="dt">Conjoined</span> p</span></code></pre></div>
+<p>Yes, all this. But before that…</p>
 <h1 id="how-to-use-indexed-traversals">How to use indexed traversals</h1>
-<p>An indexed traversal is a traversal that provides the index of the traversed element to the function. Indexed traversals can be used like ordinary traversals too – that's what <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Internal-Indexed.html#t:Conjoined"><code>Conjoined</code></a> is for, actually.</p>
-<p>Most of the time you can make an indexed operator of an ordinary one by adding <code>@</code> to it, or an indexed function out of ordinary one by sticking <code>i</code> in front of it. A lot of standard traversals are already indexed (e.g. <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Traversal.html#v:traversed"><code>traversed</code></a>). For instance, here we multiply each element in the list by its index:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> [<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>] <span class="fu">&amp;</span> traversed <span class="fu">%@~</span> (\i x <span class="ot">-&gt;</span> (i<span class="fu">+</span><span class="dv">1</span>) <span class="fu">*</span> x)
-[<span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">6</span>,<span class="dv">12</span>,<span class="dv">5</span>]</code></pre></div>
+<p>An indexed traversal is a traversal that provides the index of the traversed element to the function. Indexed traversals can be used like ordinary traversals too – that’s what <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Internal-Indexed.html#t:Conjoined"><code>Conjoined</code></a> is for, actually.</p>
+<p>Most of the time you can make an indexed operator of an ordinary one by adding <code>@</code> to it, or an indexed function out of ordinary one by sticking <code>i</code> in front of it. A lot of standard traversals are already indexed (e.g. <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Traversal.html#v:traversed"><code>traversed</code></a>). For instance, here we multiply each element in the list by its index:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1"></a><span class="op">&gt;</span> [<span class="dv">1</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">1</span>] <span class="op">&amp;</span> traversed <span class="op">%@~</span> (\i x <span class="ot">-&gt;</span> (i<span class="op">+</span><span class="dv">1</span>) <span class="op">*</span> x)</span>
+<span id="cb2-2"><a href="#cb2-2"></a>[<span class="dv">1</span>,<span class="dv">8</span>,<span class="dv">6</span>,<span class="dv">12</span>,<span class="dv">5</span>]</span></code></pre></div>
 <p>A lot of functions from base have their indexed counterparts in lens. For instance, you can use <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Indexed.html#v:iany"><code>iany</code></a> to check whether any element in the list is equal to its index, and <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Indexed.html#v:ifind"><code>ifind</code></a> to actually find that element:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> iany (<span class="fu">==</span>) [<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>]
-<span class="dt">True</span>
-
-<span class="fu">&gt;</span> ifind (<span class="fu">==</span>) [<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>]
-<span class="dt">Just</span> (<span class="dv">3</span>,<span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1"></a><span class="op">&gt;</span> iany (<span class="op">==</span>) [<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>]</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="dt">True</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="op">&gt;</span> ifind (<span class="op">==</span>) [<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>]</span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="dt">Just</span> (<span class="dv">3</span>,<span class="dv">3</span>)</span></code></pre></div>
 <p>You can combine <code>indices</code> with another traversal to only traverse elements with index satisfying some condition:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> over (traversed<span class="fu">.</span>indices (<span class="fu">&gt;</span><span class="dv">0</span>)) reverse [<span class="st">&quot;He&quot;</span>,<span class="st">&quot;was&quot;</span>,<span class="st">&quot;stressed&quot;</span>,<span class="st">&quot;o_O&quot;</span>]
-[<span class="st">&quot;He&quot;</span>,<span class="st">&quot;saw&quot;</span>,<span class="st">&quot;desserts&quot;</span>,<span class="st">&quot;O_o&quot;</span>]</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1"></a><span class="op">&gt;</span> over (traversed<span class="op">.</span>indices (<span class="op">&gt;</span><span class="dv">0</span>)) <span class="fu">reverse</span> [<span class="st">&quot;He&quot;</span>,<span class="st">&quot;was&quot;</span>,<span class="st">&quot;stressed&quot;</span>,<span class="st">&quot;o_O&quot;</span>]</span>
+<span id="cb4-2"><a href="#cb4-2"></a>[<span class="st">&quot;He&quot;</span>,<span class="st">&quot;saw&quot;</span>,<span class="st">&quot;desserts&quot;</span>,<span class="st">&quot;O_o&quot;</span>]</span></code></pre></div>
 <p>When you compose indexed traversals, by default the index from the right traversal is retained:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> [<span class="st">&quot;abcd&quot;</span>,<span class="st">&quot;efgh&quot;</span>] <span class="fu">^@..</span> traversed<span class="fu">.</span>traversed
-[(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;b&#39;</span>),(<span class="dv">2</span>,<span class="ch">&#39;c&#39;</span>),(<span class="dv">3</span>,<span class="ch">&#39;d&#39;</span>),
- (<span class="dv">0</span>,<span class="ch">&#39;e&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;f&#39;</span>),(<span class="dv">2</span>,<span class="ch">&#39;g&#39;</span>),(<span class="dv">3</span>,<span class="ch">&#39;h&#39;</span>)]</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1"></a><span class="op">&gt;</span> [<span class="st">&quot;abcd&quot;</span>,<span class="st">&quot;efgh&quot;</span>] <span class="op">^@..</span> traversed<span class="op">.</span>traversed</span>
+<span id="cb5-2"><a href="#cb5-2"></a>[(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;b&#39;</span>),(<span class="dv">2</span>,<span class="ch">&#39;c&#39;</span>),(<span class="dv">3</span>,<span class="ch">&#39;d&#39;</span>),</span>
+<span id="cb5-3"><a href="#cb5-3"></a> (<span class="dv">0</span>,<span class="ch">&#39;e&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;f&#39;</span>),(<span class="dv">2</span>,<span class="ch">&#39;g&#39;</span>),(<span class="dv">3</span>,<span class="ch">&#39;h&#39;</span>)]</span></code></pre></div>
 <p>You can use <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Indexed.html#v:-60-."><code>&lt;.</code></a> to retain the index from the left traversal:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> [<span class="st">&quot;abcd&quot;</span>,<span class="st">&quot;efgh&quot;</span>] <span class="fu">^@..</span> traversed<span class="fu">&lt;.</span>traversed
-[(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>),(<span class="dv">0</span>,<span class="ch">&#39;b&#39;</span>),(<span class="dv">0</span>,<span class="ch">&#39;c&#39;</span>),(<span class="dv">0</span>,<span class="ch">&#39;d&#39;</span>),
- (<span class="dv">1</span>,<span class="ch">&#39;e&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;f&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;g&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;h&#39;</span>)]</code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1"></a><span class="op">&gt;</span> [<span class="st">&quot;abcd&quot;</span>,<span class="st">&quot;efgh&quot;</span>] <span class="op">^@..</span> traversed<span class="op">&lt;.</span>traversed</span>
+<span id="cb6-2"><a href="#cb6-2"></a>[(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>),(<span class="dv">0</span>,<span class="ch">&#39;b&#39;</span>),(<span class="dv">0</span>,<span class="ch">&#39;c&#39;</span>),(<span class="dv">0</span>,<span class="ch">&#39;d&#39;</span>),</span>
+<span id="cb6-3"><a href="#cb6-3"></a> (<span class="dv">1</span>,<span class="ch">&#39;e&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;f&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;g&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;h&#39;</span>)]</span></code></pre></div>
 <p>Or you can use <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Indexed.html#v:-60-.-62-"><code>&lt;.&gt;</code></a> to combine both indexes into a tuple:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> [<span class="st">&quot;abcd&quot;</span>,<span class="st">&quot;efgh&quot;</span>] <span class="fu">^@..</span> traversed<span class="fu">&lt;.&gt;</span>traversed
-[((<span class="dv">0</span>,<span class="dv">0</span>),<span class="ch">&#39;a&#39;</span>),((<span class="dv">0</span>,<span class="dv">1</span>),<span class="ch">&#39;b&#39;</span>),((<span class="dv">0</span>,<span class="dv">2</span>),<span class="ch">&#39;c&#39;</span>),((<span class="dv">0</span>,<span class="dv">3</span>),<span class="ch">&#39;d&#39;</span>),
- ((<span class="dv">1</span>,<span class="dv">0</span>),<span class="ch">&#39;e&#39;</span>),((<span class="dv">1</span>,<span class="dv">1</span>),<span class="ch">&#39;f&#39;</span>),((<span class="dv">1</span>,<span class="dv">2</span>),<span class="ch">&#39;g&#39;</span>),((<span class="dv">1</span>,<span class="dv">3</span>),<span class="ch">&#39;h&#39;</span>)]</code></pre></div>
-<p>For some types, several variants of indexing are possible – for instance, when you're traversing a <code>Map k v</code>, you could say that the index should be <code>k</code> (i.e. the element's key), or <code>Int</code> (i.e. the order in which it was traversed). <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Indexed.html#v:itraversed"><code>itraversed</code></a> gives you the former, and <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Traversal.html#v:traversed"><code>traversed</code></a> gives you the latter:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> <span class="kw">let</span> m <span class="fu">=</span> Map.fromList [(<span class="st">&quot;John&quot;</span>,<span class="st">&quot;Doe&quot;</span>), (<span class="st">&quot;Jane&quot;</span>,<span class="st">&quot;Roe&quot;</span>)]
-
-<span class="fu">&gt;</span> m <span class="fu">^@..</span> traversed
-[(<span class="dv">0</span>,<span class="st">&quot;Roe&quot;</span>),(<span class="dv">1</span>,<span class="st">&quot;Doe&quot;</span>)]
-
-<span class="fu">&gt;</span> m <span class="fu">^@..</span> itraversed
-[(<span class="st">&quot;Jane&quot;</span>,<span class="st">&quot;Roe&quot;</span>),(<span class="st">&quot;John&quot;</span>,<span class="st">&quot;Doe&quot;</span>)]</code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1"></a><span class="op">&gt;</span> [<span class="st">&quot;abcd&quot;</span>,<span class="st">&quot;efgh&quot;</span>] <span class="op">^@..</span> traversed<span class="op">&lt;.&gt;</span>traversed</span>
+<span id="cb7-2"><a href="#cb7-2"></a>[((<span class="dv">0</span>,<span class="dv">0</span>),<span class="ch">&#39;a&#39;</span>),((<span class="dv">0</span>,<span class="dv">1</span>),<span class="ch">&#39;b&#39;</span>),((<span class="dv">0</span>,<span class="dv">2</span>),<span class="ch">&#39;c&#39;</span>),((<span class="dv">0</span>,<span class="dv">3</span>),<span class="ch">&#39;d&#39;</span>),</span>
+<span id="cb7-3"><a href="#cb7-3"></a> ((<span class="dv">1</span>,<span class="dv">0</span>),<span class="ch">&#39;e&#39;</span>),((<span class="dv">1</span>,<span class="dv">1</span>),<span class="ch">&#39;f&#39;</span>),((<span class="dv">1</span>,<span class="dv">2</span>),<span class="ch">&#39;g&#39;</span>),((<span class="dv">1</span>,<span class="dv">3</span>),<span class="ch">&#39;h&#39;</span>)]</span></code></pre></div>
+<p>For some types, several variants of indexing are possible – for instance, when you’re traversing a <code>Map k v</code>, you could say that the index should be <code>k</code> (i.e. the element’s key), or <code>Int</code> (i.e. the order in which it was traversed). <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Indexed.html#v:itraversed"><code>itraversed</code></a> gives you the former, and <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Traversal.html#v:traversed"><code>traversed</code></a> gives you the latter:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1"></a><span class="op">&gt;</span> <span class="kw">let</span> m <span class="ot">=</span> Map.fromList [(<span class="st">&quot;John&quot;</span>,<span class="st">&quot;Doe&quot;</span>), (<span class="st">&quot;Jane&quot;</span>,<span class="st">&quot;Roe&quot;</span>)]</span>
+<span id="cb8-2"><a href="#cb8-2"></a></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="op">&gt;</span> m <span class="op">^@..</span> traversed</span>
+<span id="cb8-4"><a href="#cb8-4"></a>[(<span class="dv">0</span>,<span class="st">&quot;Roe&quot;</span>),(<span class="dv">1</span>,<span class="st">&quot;Doe&quot;</span>)]</span>
+<span id="cb8-5"><a href="#cb8-5"></a></span>
+<span id="cb8-6"><a href="#cb8-6"></a><span class="op">&gt;</span> m <span class="op">^@..</span> itraversed</span>
+<span id="cb8-7"><a href="#cb8-7"></a>[(<span class="st">&quot;Jane&quot;</span>,<span class="st">&quot;Roe&quot;</span>),(<span class="st">&quot;John&quot;</span>,<span class="st">&quot;Doe&quot;</span>)]</span></code></pre></div>
 <p><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Indexed.html#v:indexing"><code>indexing</code></a> can turn any traversal into an indexed traversal, and [<code>indexed64</code>][] does the same but uses <code>Int64</code> as the index (in case your structure is really big).</p>
 <h1 id="how-indexed-traversals-work">How indexed traversals work</h1>
-<p>Let's begin with writing a very simple indexed traversal. An ordinary <code>traverse</code> for lists looks like this:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">traverse ::</span> <span class="dt">Applicative</span> f <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> f b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> f [b]
-traverse f <span class="fu">=</span> go
-  <span class="kw">where</span>
-    go   []   <span class="fu">=</span> pure []
-    go (x<span class="fu">:</span>xs) <span class="fu">=</span> (<span class="fu">:</span>) <span class="fu">&lt;$&gt;</span> f x <span class="fu">&lt;*&gt;</span> go xs</code></pre></div>
+<p>Let’s begin with writing a very simple indexed traversal. An ordinary <code>traverse</code> for lists looks like this:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">traverse</span><span class="ot"> ::</span> <span class="dt">Applicative</span> f <span class="ot">=&gt;</span> (a <span class="ot">-&gt;</span> f b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> f [b]</span>
+<span id="cb9-2"><a href="#cb9-2"></a><span class="fu">traverse</span> f <span class="ot">=</span> go</span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="kw">where</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>    go   []   <span class="ot">=</span> <span class="fu">pure</span> []</span>
+<span id="cb9-5"><a href="#cb9-5"></a>    go (x<span class="op">:</span>xs) <span class="ot">=</span> (<span class="op">:</span>) <span class="op">&lt;$&gt;</span> f x <span class="op">&lt;*&gt;</span> go xs</span></code></pre></div>
 <p>An indexed traversal, therefore, would look like this:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">itraverse ::</span> <span class="dt">Applicative</span> f <span class="ot">=&gt;</span> (<span class="dt">Int</span> <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> f b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> f [b]
-itraverse f <span class="fu">=</span> go <span class="dv">0</span>
-  <span class="kw">where</span>
-    go i   []   <span class="fu">=</span> pure []
-    go i (x<span class="fu">:</span>xs) <span class="fu">=</span> (<span class="fu">:</span>) <span class="fu">&lt;$&gt;</span> f i x <span class="fu">&lt;*&gt;</span> go (i<span class="fu">+</span><span class="dv">1</span>) xs</code></pre></div>
-<p>Excellent. Now let's use our favorite trick – typeclasses – to make a type for things that can be both ordinary and indexed traversals. Basically we just need to be able to turn <code>a -&gt; b</code> into <code>Int -&gt; a -&gt; b</code> (which we can always do) and then feed it to the indexed traversal. Well:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">class</span> <span class="dt">Indexable</span> i p <span class="kw">where</span>
-<span class="ot">  indexed ::</span> p a b <span class="ot">-&gt;</span> (i <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b)
-
-<span class="kw">instance</span> <span class="dt">Indexable</span> i (<span class="ot">-&gt;</span>) <span class="kw">where</span>
-  indexed <span class="fu">=</span> const</code></pre></div>
-<p>(I use <code>i</code> instead of <code>Int</code> because in reality it doesn't have to be <code>Int</code> and also because it's exactly what lens does and this way we're just writing lens-compatible code from the start.)</p>
-<p>Then we also need to make an instance for <code>Indexable i (i -&gt; a -&gt; b)</code> so that we'd be able to use indexed traversals with indexed functions. However, it's a bit complicated – how are you going to write <code>i -&gt; a -&gt; b</code> in the <code>p a b</code> form? What will <code>p</code> be?</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1"></a><span class="ot">itraverse ::</span> <span class="dt">Applicative</span> f <span class="ot">=&gt;</span> (<span class="dt">Int</span> <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> f b) <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> f [b]</span>
+<span id="cb10-2"><a href="#cb10-2"></a>itraverse f <span class="ot">=</span> go <span class="dv">0</span></span>
+<span id="cb10-3"><a href="#cb10-3"></a>  <span class="kw">where</span></span>
+<span id="cb10-4"><a href="#cb10-4"></a>    go i   []   <span class="ot">=</span> <span class="fu">pure</span> []</span>
+<span id="cb10-5"><a href="#cb10-5"></a>    go i (x<span class="op">:</span>xs) <span class="ot">=</span> (<span class="op">:</span>) <span class="op">&lt;$&gt;</span> f i x <span class="op">&lt;*&gt;</span> go (i<span class="op">+</span><span class="dv">1</span>) xs</span></code></pre></div>
+<p>Excellent. Now let’s use our favorite trick – typeclasses – to make a type for things that can be both ordinary and indexed traversals. Basically we just need to be able to turn <code>a -&gt; b</code> into <code>Int -&gt; a -&gt; b</code> (which we can always do) and then feed it to the indexed traversal. Well:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1"></a><span class="kw">class</span> <span class="dt">Indexable</span> i p <span class="kw">where</span></span>
+<span id="cb11-2"><a href="#cb11-2"></a><span class="ot">  indexed ::</span> p a b <span class="ot">-&gt;</span> (i <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b)</span>
+<span id="cb11-3"><a href="#cb11-3"></a></span>
+<span id="cb11-4"><a href="#cb11-4"></a><span class="kw">instance</span> <span class="dt">Indexable</span> i (<span class="ot">-&gt;</span>) <span class="kw">where</span></span>
+<span id="cb11-5"><a href="#cb11-5"></a>  indexed <span class="ot">=</span> <span class="fu">const</span></span></code></pre></div>
+<p>(I use <code>i</code> instead of <code>Int</code> because in reality it doesn’t have to be <code>Int</code> and also because it’s exactly what lens does and this way we’re just writing lens-compatible code from the start.)</p>
+<p>Then we also need to make an instance for <code>Indexable i (i -&gt; a -&gt; b)</code> so that we’d be able to use indexed traversals with indexed functions. However, it’s a bit complicated – how are you going to write <code>i -&gt; a -&gt; b</code> in the <code>p a b</code> form? What will <code>p</code> be?</p>
 <p>Instead, we have to create a newtype:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Indexed</span> i a b <span class="fu">=</span> <span class="dt">Indexed</span> {<span class="ot"> runIndexed ::</span> i <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b }
-
-<span class="kw">instance</span> <span class="dt">Indexable</span> i (<span class="dt">Indexed</span> i) <span class="kw">where</span>
-  indexed <span class="fu">=</span> runIndexed</code></pre></div>
-<p>Okay, and now we're ready to write a real indexed traversal:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">IndexedTraversal</span> i s t a b <span class="fu">=</span>
-  forall p f<span class="fu">.</span> (<span class="dt">Indexable</span> i p, <span class="dt">Applicative</span> f) <span class="ot">=&gt;</span> p a (f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t
-
-<span class="ot">itraversed ::</span> <span class="dt">IndexedTraversal</span> <span class="dt">Int</span> [a] [b] a b
-itraversed f <span class="fu">=</span> go (<span class="dv">0</span><span class="ot"> ::</span> <span class="dt">Int</span>)
-  <span class="kw">where</span>
-    go i   []   <span class="fu">=</span> pure []
-    go i (x<span class="fu">:</span>xs) <span class="fu">=</span> (<span class="fu">:</span>) <span class="fu">&lt;$&gt;</span> (indexed f) i x <span class="fu">&lt;*&gt;</span> go (i<span class="fu">+</span><span class="dv">1</span>) xs</code></pre></div>
-<p>Let's test it. First, as an ordinary traversal:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> itraversed print <span class="st">&quot;abc&quot;</span>
-<span class="ch">&#39;a&#39;</span>
-<span class="ch">&#39;b&#39;</span>
-<span class="ch">&#39;c&#39;</span>
-[(),(),()]</code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1"></a><span class="kw">newtype</span> <span class="dt">Indexed</span> i a b <span class="ot">=</span> <span class="dt">Indexed</span> {<span class="ot"> runIndexed ::</span> i <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b }</span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="kw">instance</span> <span class="dt">Indexable</span> i (<span class="dt">Indexed</span> i) <span class="kw">where</span></span>
+<span id="cb12-4"><a href="#cb12-4"></a>  indexed <span class="ot">=</span> runIndexed</span></code></pre></div>
+<p>Okay, and now we’re ready to write a real indexed traversal:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">type</span> <span class="dt">IndexedTraversal</span> i s t a b <span class="ot">=</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="kw">forall</span> p f<span class="op">.</span> (<span class="dt">Indexable</span> i p, <span class="dt">Applicative</span> f) <span class="ot">=&gt;</span> p a (f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t</span>
+<span id="cb13-3"><a href="#cb13-3"></a></span>
+<span id="cb13-4"><a href="#cb13-4"></a><span class="ot">itraversed ::</span> <span class="dt">IndexedTraversal</span> <span class="dt">Int</span> [a] [b] a b</span>
+<span id="cb13-5"><a href="#cb13-5"></a>itraversed f <span class="ot">=</span> go (<span class="dv">0</span><span class="ot"> ::</span> <span class="dt">Int</span>)</span>
+<span id="cb13-6"><a href="#cb13-6"></a>  <span class="kw">where</span></span>
+<span id="cb13-7"><a href="#cb13-7"></a>    go i   []   <span class="ot">=</span> <span class="fu">pure</span> []</span>
+<span id="cb13-8"><a href="#cb13-8"></a>    go i (x<span class="op">:</span>xs) <span class="ot">=</span> (<span class="op">:</span>) <span class="op">&lt;$&gt;</span> (indexed f) i x <span class="op">&lt;*&gt;</span> go (i<span class="op">+</span><span class="dv">1</span>) xs</span></code></pre></div>
+<p>Let’s test it. First, as an ordinary traversal:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb14-1"><a href="#cb14-1"></a><span class="op">&gt;</span> itraversed <span class="fu">print</span> <span class="st">&quot;abc&quot;</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="ch">&#39;a&#39;</span></span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="ch">&#39;b&#39;</span></span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="ch">&#39;c&#39;</span></span>
+<span id="cb14-5"><a href="#cb14-5"></a>[(),(),()]</span></code></pre></div>
 <p>And then as an indexed one:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> itraversed (<span class="dt">Indexed</span> (\i c <span class="ot">-&gt;</span> print (i, c))) <span class="st">&quot;abc&quot;</span>
-
-<span class="fu">&lt;</span>interactive<span class="fu">&gt;:</span><span class="dv">1</span><span class="fu">-</span><span class="dv">10</span><span class="fu">:</span>
-    <span class="dt">No</span> <span class="kw">instance</span> for (<span class="dt">Indexable</span> <span class="dt">Int</span> (<span class="dt">Indexed</span> t0))
-      arising from a use <span class="kw">of</span> ‘itraversed’
-    <span class="dt">The</span> <span class="kw">type</span> variable ‘t0’ is ambiguous
-    <span class="dt">Note</span><span class="fu">:</span> there is a potential <span class="kw">instance</span> available<span class="fu">:</span>
-      <span class="kw">instance</span> <span class="dt">Indexable</span> i (<span class="dt">Indexed</span> i)
-    <span class="dt">In</span> the expression<span class="fu">:</span>
-      itraversed (<span class="dt">Indexed</span> (\ i c <span class="ot">-&gt;</span> print (i, c))) <span class="st">&quot;abc&quot;</span>
-    <span class="dt">In</span> an equation for ‘it’<span class="fu">:</span>
-        it <span class="fu">=</span> itraversed (<span class="dt">Indexed</span> (\ i c <span class="ot">-&gt;</span> print (i, c))) <span class="st">&quot;abc&quot;</span></code></pre></div>
-<p>Ouch. What's going on? If we specify <code>i :: Int</code>, it works:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> itraversed (<span class="dt">Indexed</span> (\i c <span class="ot">-&gt;</span> print (<span class="ot">i ::</span> <span class="dt">Int</span>, c))) <span class="st">&quot;abc&quot;</span>
-(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>)
-(<span class="dv">1</span>,<span class="ch">&#39;b&#39;</span>)
-(<span class="dv">2</span>,<span class="ch">&#39;c&#39;</span>)
-[(),(),()]</code></pre></div>
-<p>If GHC says that the type variable is ambiguous, it means that some other instance is possible <em>in theory</em>, even if it's not actually present. So, can we write any other instance that would fit here?</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb15-1"><a href="#cb15-1"></a><span class="op">&gt;</span> itraversed (<span class="dt">Indexed</span> (\i c <span class="ot">-&gt;</span> <span class="fu">print</span> (i, c))) <span class="st">&quot;abc&quot;</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a></span>
+<span id="cb15-3"><a href="#cb15-3"></a><span class="op">&lt;</span>interactive<span class="op">&gt;:</span><span class="dv">1</span><span class="op">-</span><span class="dv">10</span><span class="op">:</span></span>
+<span id="cb15-4"><a href="#cb15-4"></a>    <span class="dt">No</span> <span class="kw">instance</span> for (<span class="dt">Indexable</span> <span class="dt">Int</span> (<span class="dt">Indexed</span> t0))</span>
+<span id="cb15-5"><a href="#cb15-5"></a>      arising from a use <span class="kw">of</span> ‘itraversed’</span>
+<span id="cb15-6"><a href="#cb15-6"></a>    <span class="dt">The</span> <span class="kw">type</span> variable ‘t0’ is ambiguous</span>
+<span id="cb15-7"><a href="#cb15-7"></a>    <span class="dt">Note</span><span class="op">:</span> there is a potential <span class="kw">instance</span> available<span class="op">:</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>      <span class="kw">instance</span> <span class="dt">Indexable</span> i (<span class="dt">Indexed</span> i)</span>
+<span id="cb15-9"><a href="#cb15-9"></a>    <span class="dt">In</span> the expression<span class="op">:</span></span>
+<span id="cb15-10"><a href="#cb15-10"></a>      itraversed (<span class="dt">Indexed</span> (\ i c <span class="ot">-&gt;</span> <span class="fu">print</span> (i, c))) <span class="st">&quot;abc&quot;</span></span>
+<span id="cb15-11"><a href="#cb15-11"></a>    <span class="dt">In</span> an equation for ‘it’<span class="op">:</span></span>
+<span id="cb15-12"><a href="#cb15-12"></a>        it <span class="ot">=</span> itraversed (<span class="dt">Indexed</span> (\ i c <span class="ot">-&gt;</span> <span class="fu">print</span> (i, c))) <span class="st">&quot;abc&quot;</span></span></code></pre></div>
+<p>Ouch. What’s going on? If we specify <code>i :: Int</code>, it works:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb16-1"><a href="#cb16-1"></a><span class="op">&gt;</span> itraversed (<span class="dt">Indexed</span> (\i c <span class="ot">-&gt;</span> <span class="fu">print</span> (<span class="ot">i ::</span> <span class="dt">Int</span>, c))) <span class="st">&quot;abc&quot;</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>)</span>
+<span id="cb16-3"><a href="#cb16-3"></a>(<span class="dv">1</span>,<span class="ch">&#39;b&#39;</span>)</span>
+<span id="cb16-4"><a href="#cb16-4"></a>(<span class="dv">2</span>,<span class="ch">&#39;c&#39;</span>)</span>
+<span id="cb16-5"><a href="#cb16-5"></a>[(),(),()]</span></code></pre></div>
+<p>If GHC says that the type variable is ambiguous, it means that some other instance is possible <em>in theory</em>, even if it’s not actually present. So, can we write any other instance that would fit here?</p>
 <p>Actually, yes:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Indexable</span> <span class="dt">Int</span> (<span class="dt">Indexed</span> <span class="dt">Int64</span>) <span class="kw">where</span>
-  indexed p <span class="fu">=</span> \i a <span class="ot">-&gt;</span> (runIndexed p) (fromIntegral i) a</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> itraversed (<span class="dt">Indexed</span> (\i c <span class="ot">-&gt;</span> print (<span class="ot">i ::</span> <span class="dt">Int64</span>, c))) <span class="st">&quot;abc&quot;</span>
-(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>)
-(<span class="dv">1</span>,<span class="ch">&#39;b&#39;</span>)
-(<span class="dv">2</span>,<span class="ch">&#39;c&#39;</span>)
-[(),(),()]</code></pre></div>
-<p>Okay, let's allow only one instance of <code>Indexable Indexed</code> by using type equality and the knowledge of how GHC resolves instances (which I already talked about in part 1):</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> (i <span class="fu">~</span> j) <span class="ot">=&gt;</span> <span class="dt">Indexable</span> i (<span class="dt">Indexed</span> j) <span class="kw">where</span>
-  indexed <span class="fu">=</span> runIndexed</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> itraversed (<span class="dt">Indexed</span> (\i c <span class="ot">-&gt;</span> print (i, c))) <span class="st">&quot;abc&quot;</span>
-(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>)
-(<span class="dv">1</span>,<span class="ch">&#39;b&#39;</span>)
-(<span class="dv">2</span>,<span class="ch">&#39;c&#39;</span>)
-[(),(),()]</code></pre></div>
-<p>If we don't want the user to have to use <code>Indexed</code>, we'll have to write a helper:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="co">-- As usual, the type is kept as specific as possible</span>
-itraverseOf
-<span class="ot">  ::</span> (<span class="dt">Indexed</span> i a (f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)
-  <span class="ot">-&gt;</span> (i <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> f b)    <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t
-itraverseOf l f <span class="fu">=</span> l (<span class="dt">Indexed</span> f)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> itraverseOf itraversed (\i c <span class="ot">-&gt;</span> print (i, c)) <span class="st">&quot;abc&quot;</span>
-(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>)
-(<span class="dv">1</span>,<span class="ch">&#39;b&#39;</span>)
-(<span class="dv">2</span>,<span class="ch">&#39;c&#39;</span>)
-[(),(),()]</code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb17-1"><a href="#cb17-1"></a><span class="kw">instance</span> <span class="dt">Indexable</span> <span class="dt">Int</span> (<span class="dt">Indexed</span> <span class="dt">Int64</span>) <span class="kw">where</span></span>
+<span id="cb17-2"><a href="#cb17-2"></a>  indexed p <span class="ot">=</span> \i a <span class="ot">-&gt;</span> (runIndexed p) (<span class="fu">fromIntegral</span> i) a</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb18-1"><a href="#cb18-1"></a><span class="op">&gt;</span> itraversed (<span class="dt">Indexed</span> (\i c <span class="ot">-&gt;</span> <span class="fu">print</span> (<span class="ot">i ::</span> <span class="dt">Int64</span>, c))) <span class="st">&quot;abc&quot;</span></span>
+<span id="cb18-2"><a href="#cb18-2"></a>(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>)</span>
+<span id="cb18-3"><a href="#cb18-3"></a>(<span class="dv">1</span>,<span class="ch">&#39;b&#39;</span>)</span>
+<span id="cb18-4"><a href="#cb18-4"></a>(<span class="dv">2</span>,<span class="ch">&#39;c&#39;</span>)</span>
+<span id="cb18-5"><a href="#cb18-5"></a>[(),(),()]</span></code></pre></div>
+<p>Okay, let’s allow only one instance of <code>Indexable Indexed</code> by using type equality and the knowledge of how GHC resolves instances (which I already talked about in part 1):</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">instance</span> (i <span class="op">~</span> j) <span class="ot">=&gt;</span> <span class="dt">Indexable</span> i (<span class="dt">Indexed</span> j) <span class="kw">where</span></span>
+<span id="cb19-2"><a href="#cb19-2"></a>  indexed <span class="ot">=</span> runIndexed</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb20-1"><a href="#cb20-1"></a><span class="op">&gt;</span> itraversed (<span class="dt">Indexed</span> (\i c <span class="ot">-&gt;</span> <span class="fu">print</span> (i, c))) <span class="st">&quot;abc&quot;</span></span>
+<span id="cb20-2"><a href="#cb20-2"></a>(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>)</span>
+<span id="cb20-3"><a href="#cb20-3"></a>(<span class="dv">1</span>,<span class="ch">&#39;b&#39;</span>)</span>
+<span id="cb20-4"><a href="#cb20-4"></a>(<span class="dv">2</span>,<span class="ch">&#39;c&#39;</span>)</span>
+<span id="cb20-5"><a href="#cb20-5"></a>[(),(),()]</span></code></pre></div>
+<p>If we don’t want the user to have to use <code>Indexed</code>, we’ll have to write a helper:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb21-1"><a href="#cb21-1"></a><span class="co">-- As usual, the type is kept as specific as possible</span></span>
+<span id="cb21-2"><a href="#cb21-2"></a>itraverseOf</span>
+<span id="cb21-3"><a href="#cb21-3"></a><span class="ot">  ::</span> (<span class="dt">Indexed</span> i a (f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)</span>
+<span id="cb21-4"><a href="#cb21-4"></a>  <span class="ot">-&gt;</span> (i <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> f b)    <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t</span>
+<span id="cb21-5"><a href="#cb21-5"></a>itraverseOf l f <span class="ot">=</span> l (<span class="dt">Indexed</span> f)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb22-1"><a href="#cb22-1"></a><span class="op">&gt;</span> itraverseOf itraversed (\i c <span class="ot">-&gt;</span> <span class="fu">print</span> (i, c)) <span class="st">&quot;abc&quot;</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>)</span>
+<span id="cb22-3"><a href="#cb22-3"></a>(<span class="dv">1</span>,<span class="ch">&#39;b&#39;</span>)</span>
+<span id="cb22-4"><a href="#cb22-4"></a>(<span class="dv">2</span>,<span class="ch">&#39;c&#39;</span>)</span>
+<span id="cb22-5"><a href="#cb22-5"></a>[(),(),()]</span></code></pre></div>
 <h1 id="creating-and-modifying-indexed-traversals">Creating and modifying indexed traversals</h1>
 <h2 id="indexing"><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Indexed.html#v:indexing"><code>indexing</code></a></h2>
-<p>Writing indexed traversals by hand isn't <em>that</em> hard, but it'd be much nicer if we could create them automatically. It's actually easy – we just need to store the current index in <code>State</code>, and increment it every time we traverse another element.</p>
+<p>Writing indexed traversals by hand isn’t <em>that</em> hard, but it’d be much nicer if we could create them automatically. It’s actually easy – we just need to store the current index in <code>State</code>, and increment it every time we traverse another element.</p>
 <p>To add <code>State</code> to any <code>Applicative</code>, we can write something like this:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">newtype</span> <span class="dt">Indexing</span> f a <span class="fu">=</span> <span class="dt">Indexing</span> {<span class="ot"> runIndexing ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> (<span class="dt">Int</span>, f a) }</code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb23-1"><a href="#cb23-1"></a><span class="kw">newtype</span> <span class="dt">Indexing</span> f a <span class="ot">=</span> <span class="dt">Indexing</span> {<span class="ot"> runIndexing ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> (<span class="dt">Int</span>, f a) }</span></code></pre></div>
 <p><code>runIndexing</code> here means “given initial index, compute new index and some result”. So, for instance, traversing just one element would look like <code>Indexing (\i -&gt; (i+1, f a))</code>.</p>
 <p>We also have to write an <code>Applicative</code> instance for <code>Indexing</code> so that traversing several elements would work:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Applicative</span> f <span class="ot">=&gt;</span> <span class="dt">Applicative</span> (<span class="dt">Indexing</span> f) <span class="kw">where</span>
-  pure x <span class="fu">=</span> <span class="dt">Indexing</span> <span class="fu">$</span> \i <span class="ot">-&gt;</span> (i, pure x)
-
-  <span class="dt">Indexing</span> mf <span class="fu">&lt;*&gt;</span> <span class="dt">Indexing</span> ma <span class="fu">=</span> <span class="dt">Indexing</span> <span class="fu">$</span>
-    \i <span class="ot">-&gt;</span> <span class="kw">case</span> mf i <span class="kw">of</span>
-      (j, ff) <span class="ot">-&gt;</span> <span class="kw">case</span> ma j <span class="kw">of</span>
-        (k, fa) <span class="ot">-&gt;</span> (k, ff <span class="fu">&lt;*&gt;</span> fa)</code></pre></div>
-<p><code>pure</code> doesn't traverse anything and so doesn't change the index. <code>mf &lt;*&gt; ma</code> passes initial index to <code>mf</code>, then passes the new index to <code>ma</code>, and then applies (unwrapped) <code>mf</code> to (unwrapped) <code>ma</code>.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb24-1"><a href="#cb24-1"></a><span class="kw">instance</span> <span class="dt">Applicative</span> f <span class="ot">=&gt;</span> <span class="dt">Applicative</span> (<span class="dt">Indexing</span> f) <span class="kw">where</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>  <span class="fu">pure</span> x <span class="ot">=</span> <span class="dt">Indexing</span> <span class="op">$</span> \i <span class="ot">-&gt;</span> (i, <span class="fu">pure</span> x)</span>
+<span id="cb24-3"><a href="#cb24-3"></a></span>
+<span id="cb24-4"><a href="#cb24-4"></a>  <span class="dt">Indexing</span> mf <span class="op">&lt;*&gt;</span> <span class="dt">Indexing</span> ma <span class="ot">=</span> <span class="dt">Indexing</span> <span class="op">$</span> </span>
+<span id="cb24-5"><a href="#cb24-5"></a>    \i <span class="ot">-&gt;</span> <span class="kw">case</span> mf i <span class="kw">of</span></span>
+<span id="cb24-6"><a href="#cb24-6"></a>      (j, ff) <span class="ot">-&gt;</span> <span class="kw">case</span> ma j <span class="kw">of</span></span>
+<span id="cb24-7"><a href="#cb24-7"></a>        (k, fa) <span class="ot">-&gt;</span> (k, ff <span class="op">&lt;*&gt;</span> fa)</span></code></pre></div>
+<p><code>pure</code> doesn’t traverse anything and so doesn’t change the index. <code>mf &lt;*&gt; ma</code> passes initial index to <code>mf</code>, then passes the new index to <code>ma</code>, and then applies (unwrapped) <code>mf</code> to (unwrapped) <code>ma</code>.</p>
 <p>We would also need a <code>Functor</code> instance:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">instance</span> <span class="dt">Functor</span> f <span class="ot">=&gt;</span> <span class="dt">Functor</span> (<span class="dt">Indexing</span> f) <span class="kw">where</span>
-  fmap f (<span class="dt">Indexing</span> m) <span class="fu">=</span> <span class="dt">Indexing</span> <span class="fu">$</span> \i <span class="ot">-&gt;</span> <span class="kw">case</span> m i <span class="kw">of</span>
-    (j, x) <span class="ot">-&gt;</span> (j, fmap f x)</code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb25-1"><a href="#cb25-1"></a><span class="kw">instance</span> <span class="dt">Functor</span> f <span class="ot">=&gt;</span> <span class="dt">Functor</span> (<span class="dt">Indexing</span> f) <span class="kw">where</span></span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">fmap</span> f (<span class="dt">Indexing</span> m) <span class="ot">=</span> <span class="dt">Indexing</span> <span class="op">$</span> \i <span class="ot">-&gt;</span> <span class="kw">case</span> m i <span class="kw">of</span></span>
+<span id="cb25-3"><a href="#cb25-3"></a>    (j, x) <span class="ot">-&gt;</span> (j, <span class="fu">fmap</span> f x)</span></code></pre></div>
 <p>And now we can finally write <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Indexed.html#v:indexing"><code>indexing</code></a>. The type signature is as follows:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">indexing
-<span class="ot">  ::</span> ((a <span class="ot">-&gt;</span> <span class="dt">Indexing</span> f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Indexing</span> f t)
-  <span class="ot">-&gt;</span> <span class="dt">Indexed</span> <span class="dt">Int</span> a (f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t</code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb26-1"><a href="#cb26-1"></a>indexing</span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="ot">  ::</span> ((a <span class="ot">-&gt;</span> <span class="dt">Indexing</span> f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Indexing</span> f t)</span>
+<span id="cb26-3"><a href="#cb26-3"></a>  <span class="ot">-&gt;</span> <span class="dt">Indexed</span> <span class="dt">Int</span> a (f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t</span></code></pre></div>
 <p>It takes an ordinary traversal (with <code>Indexing f</code> being the choice of functor – remember, we can choose any), and turns it into an <code>Int</code>-indexed traversal. (At this point I should probably remind that <code>Indexed Int a (f b)</code> is just wrapped <code>Int -&gt; a -&gt; f b</code>.)</p>
 <p>Now, the implementation:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">indexing l f s <span class="fu">=</span> <span class="fu">...</span>
-
-<span class="co">-- l :: (a -&gt; Indexing f b) -&gt; s -&gt; Indexing f t</span>
-<span class="co">-- f :: Indexed Int a (f b)</span>
-<span class="co">-- s :: s</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb27-1"><a href="#cb27-1"></a>indexing l f s <span class="ot">=</span> <span class="op">...</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a></span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="co">-- l :: (a -&gt; Indexing f b) -&gt; s -&gt; Indexing f t</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="co">-- f :: Indexed Int a (f b)</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="co">-- s :: s</span></span></code></pre></div>
 <p>First we need something of type <code>a -&gt; Indexing f b</code> to feed to <code>l</code>. This is easy – <code>a -&gt; Indexing f b</code> is the same as <code>a -&gt; Int -&gt; (Int, f b)</code>, so we know <code>a</code> and current index, so we can feed them to <code>f</code> and get <code>f b</code> back, and the new index is just current index + 1.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">indexing l f s <span class="fu">=</span> <span class="fu">...</span>
-  <span class="kw">where</span>
-    f&#39; a <span class="fu">=</span> <span class="dt">Indexing</span> <span class="fu">$</span> \i <span class="ot">-&gt;</span> (i<span class="fu">+</span><span class="dv">1</span>, (runIndexed f) i a)</code></pre></div>
-<p>And after feeding <code>f'</code> and <code>s</code> to <code>l</code> we'll get <code>Indexing f t</code>, which again requires some index, but we'll just give it 0 because indexing starts at 0 – and we'll throw away the final index. Again, easy.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">indexing l f s <span class="fu">=</span> snd <span class="fu">$</span> runIndexing (l f&#39; s) <span class="dv">0</span>
-  <span class="kw">where</span>
-    f&#39; a <span class="fu">=</span> <span class="dt">Indexing</span> <span class="fu">$</span> \i <span class="ot">-&gt;</span> (i<span class="fu">+</span><span class="dv">1</span>, (runIndexed f) i a)</code></pre></div>
-<p>Let's test:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> itraverseOf (indexing traverse) (\i a <span class="ot">-&gt;</span> print (i, a)) <span class="st">&quot;abc&quot;</span>
-(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>)
-(<span class="dv">1</span>,<span class="ch">&#39;b&#39;</span>)
-(<span class="dv">2</span>,<span class="ch">&#39;c&#39;</span>)
-[(),(),()]</code></pre></div>
-<p>There's just one minor flaw – we produce an indexed traversal which can't be used as an ordinary traversal. This can be fixed with <code>Indexable</code> (and replacing <code>runIndexed</code> with <code>indexed</code>):</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">indexing
-<span class="ot">  ::</span> <span class="dt">Indexable</span> <span class="dt">Int</span> p
-  <span class="ot">=&gt;</span> ((a <span class="ot">-&gt;</span> <span class="dt">Indexing</span> f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Indexing</span> f t)
-  <span class="ot">-&gt;</span> p a (f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t
-indexing l f s <span class="fu">=</span> snd <span class="fu">$</span> runIndexing (l f&#39; s) <span class="dv">0</span>
-  <span class="kw">where</span>
-    f&#39; a <span class="fu">=</span> <span class="dt">Indexing</span> <span class="fu">$</span> \i <span class="ot">-&gt;</span> (i<span class="fu">+</span><span class="dv">1</span>, (indexed f) i a)</code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb28-1"><a href="#cb28-1"></a>indexing l f s <span class="ot">=</span> <span class="op">...</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>  <span class="kw">where</span></span>
+<span id="cb28-3"><a href="#cb28-3"></a>    f&#39; a <span class="ot">=</span> <span class="dt">Indexing</span> <span class="op">$</span> \i <span class="ot">-&gt;</span> (i<span class="op">+</span><span class="dv">1</span>, (runIndexed f) i a)</span></code></pre></div>
+<p>And after feeding <code>f'</code> and <code>s</code> to <code>l</code> we’ll get <code>Indexing f t</code>, which again requires some index, but we’ll just give it 0 because indexing starts at 0 – and we’ll throw away the final index. Again, easy.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb29-1"><a href="#cb29-1"></a>indexing l f s <span class="ot">=</span> <span class="fu">snd</span> <span class="op">$</span> runIndexing (l f&#39; s) <span class="dv">0</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a>  <span class="kw">where</span></span>
+<span id="cb29-3"><a href="#cb29-3"></a>    f&#39; a <span class="ot">=</span> <span class="dt">Indexing</span> <span class="op">$</span> \i <span class="ot">-&gt;</span> (i<span class="op">+</span><span class="dv">1</span>, (runIndexed f) i a)</span></code></pre></div>
+<p>Let’s test:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb30-1"><a href="#cb30-1"></a><span class="op">&gt;</span> itraverseOf (indexing <span class="fu">traverse</span>) (\i a <span class="ot">-&gt;</span> <span class="fu">print</span> (i, a)) <span class="st">&quot;abc&quot;</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a>(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>)</span>
+<span id="cb30-3"><a href="#cb30-3"></a>(<span class="dv">1</span>,<span class="ch">&#39;b&#39;</span>)</span>
+<span id="cb30-4"><a href="#cb30-4"></a>(<span class="dv">2</span>,<span class="ch">&#39;c&#39;</span>)</span>
+<span id="cb30-5"><a href="#cb30-5"></a>[(),(),()]</span></code></pre></div>
+<p>There’s just one minor flaw – we produce an indexed traversal which can’t be used as an ordinary traversal. This can be fixed with <code>Indexable</code> (and replacing <code>runIndexed</code> with <code>indexed</code>):</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb31-1"><a href="#cb31-1"></a>indexing</span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="ot">  ::</span> <span class="dt">Indexable</span> <span class="dt">Int</span> p</span>
+<span id="cb31-3"><a href="#cb31-3"></a>  <span class="ot">=&gt;</span> ((a <span class="ot">-&gt;</span> <span class="dt">Indexing</span> f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Indexing</span> f t)</span>
+<span id="cb31-4"><a href="#cb31-4"></a>  <span class="ot">-&gt;</span> p a (f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t</span>
+<span id="cb31-5"><a href="#cb31-5"></a>indexing l f s <span class="ot">=</span> <span class="fu">snd</span> <span class="op">$</span> runIndexing (l f&#39; s) <span class="dv">0</span></span>
+<span id="cb31-6"><a href="#cb31-6"></a>  <span class="kw">where</span></span>
+<span id="cb31-7"><a href="#cb31-7"></a>    f&#39; a <span class="ot">=</span> <span class="dt">Indexing</span> <span class="op">$</span> \i <span class="ot">-&gt;</span> (i<span class="op">+</span><span class="dv">1</span>, (indexed f) i a)</span></code></pre></div>
 <h2 id="section"><a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Indexed.html#v:-60-."><code>&lt;.</code></a>, <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Indexed.html#v:.-62-"><code>.&gt;</code></a>, <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Indexed.html#v:-60-.-62-"><code>&lt;.&gt;</code></a></h2>
-<p>Composing indexed traversals isn't as simple as composing ordinary traversals, because we can choose to combine indexes, use the index of the left traversal, or the index of the right traversal. I'll repeat the examples from before:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> [<span class="st">&quot;abcd&quot;</span>,<span class="st">&quot;efgh&quot;</span>] <span class="fu">^@..</span> traversed<span class="fu">.</span>traversed
-[(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;b&#39;</span>),(<span class="dv">2</span>,<span class="ch">&#39;c&#39;</span>),(<span class="dv">3</span>,<span class="ch">&#39;d&#39;</span>),
- (<span class="dv">0</span>,<span class="ch">&#39;e&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;f&#39;</span>),(<span class="dv">2</span>,<span class="ch">&#39;g&#39;</span>),(<span class="dv">3</span>,<span class="ch">&#39;h&#39;</span>)]
-
-<span class="fu">&gt;</span> [<span class="st">&quot;abcd&quot;</span>,<span class="st">&quot;efgh&quot;</span>] <span class="fu">^@..</span> traversed<span class="fu">&lt;.</span>traversed
-[(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>),(<span class="dv">0</span>,<span class="ch">&#39;b&#39;</span>),(<span class="dv">0</span>,<span class="ch">&#39;c&#39;</span>),(<span class="dv">0</span>,<span class="ch">&#39;d&#39;</span>),
- (<span class="dv">1</span>,<span class="ch">&#39;e&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;f&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;g&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;h&#39;</span>)]
-
-<span class="fu">&gt;</span> [<span class="st">&quot;abcd&quot;</span>,<span class="st">&quot;efgh&quot;</span>] <span class="fu">^@..</span> traversed<span class="fu">&lt;.&gt;</span>traversed
-[((<span class="dv">0</span>,<span class="dv">0</span>),<span class="ch">&#39;a&#39;</span>),((<span class="dv">0</span>,<span class="dv">1</span>),<span class="ch">&#39;b&#39;</span>),((<span class="dv">0</span>,<span class="dv">2</span>),<span class="ch">&#39;c&#39;</span>),((<span class="dv">0</span>,<span class="dv">3</span>),<span class="ch">&#39;d&#39;</span>),
- ((<span class="dv">1</span>,<span class="dv">0</span>),<span class="ch">&#39;e&#39;</span>),((<span class="dv">1</span>,<span class="dv">1</span>),<span class="ch">&#39;f&#39;</span>),((<span class="dv">1</span>,<span class="dv">2</span>),<span class="ch">&#39;g&#39;</span>),((<span class="dv">1</span>,<span class="dv">3</span>),<span class="ch">&#39;h&#39;</span>)]</code></pre></div>
+<p>Composing indexed traversals isn’t as simple as composing ordinary traversals, because we can choose to combine indexes, use the index of the left traversal, or the index of the right traversal. I’ll repeat the examples from before:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb32-1"><a href="#cb32-1"></a><span class="op">&gt;</span> [<span class="st">&quot;abcd&quot;</span>,<span class="st">&quot;efgh&quot;</span>] <span class="op">^@..</span> traversed<span class="op">.</span>traversed</span>
+<span id="cb32-2"><a href="#cb32-2"></a>[(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;b&#39;</span>),(<span class="dv">2</span>,<span class="ch">&#39;c&#39;</span>),(<span class="dv">3</span>,<span class="ch">&#39;d&#39;</span>),</span>
+<span id="cb32-3"><a href="#cb32-3"></a> (<span class="dv">0</span>,<span class="ch">&#39;e&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;f&#39;</span>),(<span class="dv">2</span>,<span class="ch">&#39;g&#39;</span>),(<span class="dv">3</span>,<span class="ch">&#39;h&#39;</span>)]</span>
+<span id="cb32-4"><a href="#cb32-4"></a></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="op">&gt;</span> [<span class="st">&quot;abcd&quot;</span>,<span class="st">&quot;efgh&quot;</span>] <span class="op">^@..</span> traversed<span class="op">&lt;.</span>traversed</span>
+<span id="cb32-6"><a href="#cb32-6"></a>[(<span class="dv">0</span>,<span class="ch">&#39;a&#39;</span>),(<span class="dv">0</span>,<span class="ch">&#39;b&#39;</span>),(<span class="dv">0</span>,<span class="ch">&#39;c&#39;</span>),(<span class="dv">0</span>,<span class="ch">&#39;d&#39;</span>),</span>
+<span id="cb32-7"><a href="#cb32-7"></a> (<span class="dv">1</span>,<span class="ch">&#39;e&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;f&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;g&#39;</span>),(<span class="dv">1</span>,<span class="ch">&#39;h&#39;</span>)]</span>
+<span id="cb32-8"><a href="#cb32-8"></a></span>
+<span id="cb32-9"><a href="#cb32-9"></a><span class="op">&gt;</span> [<span class="st">&quot;abcd&quot;</span>,<span class="st">&quot;efgh&quot;</span>] <span class="op">^@..</span> traversed<span class="op">&lt;.&gt;</span>traversed</span>
+<span id="cb32-10"><a href="#cb32-10"></a>[((<span class="dv">0</span>,<span class="dv">0</span>),<span class="ch">&#39;a&#39;</span>),((<span class="dv">0</span>,<span class="dv">1</span>),<span class="ch">&#39;b&#39;</span>),((<span class="dv">0</span>,<span class="dv">2</span>),<span class="ch">&#39;c&#39;</span>),((<span class="dv">0</span>,<span class="dv">3</span>),<span class="ch">&#39;d&#39;</span>),</span>
+<span id="cb32-11"><a href="#cb32-11"></a> ((<span class="dv">1</span>,<span class="dv">0</span>),<span class="ch">&#39;e&#39;</span>),((<span class="dv">1</span>,<span class="dv">1</span>),<span class="ch">&#39;f&#39;</span>),((<span class="dv">1</span>,<span class="dv">2</span>),<span class="ch">&#39;g&#39;</span>),((<span class="dv">1</span>,<span class="dv">3</span>),<span class="ch">&#39;h&#39;</span>)]</span></code></pre></div>
 <p>By the way, an exercise: write <code>^@..</code> by yourself. This type will be useful:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="kw">type</span> <span class="dt">IndexedGetting</span> i m s a <span class="fu">=</span> <span class="dt">Indexed</span> i a (<span class="dt">Const</span> m a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Const</span> m s
-
-<span class="co">-- compare with Getting:</span>
-<span class="co">-- type Getting r s a = (a -&gt; Const r a) -&gt; s -&gt; Const r s</span></code></pre></div>
-<p>And don't forget <code>infixl 8 ^@..</code>, otherwise examples might not work.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb33-1"><a href="#cb33-1"></a><span class="kw">type</span> <span class="dt">IndexedGetting</span> i m s a <span class="ot">=</span> <span class="dt">Indexed</span> i a (<span class="dt">Const</span> m a) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> <span class="dt">Const</span> m s</span>
+<span id="cb33-2"><a href="#cb33-2"></a></span>
+<span id="cb33-3"><a href="#cb33-3"></a><span class="co">-- compare with Getting:</span></span>
+<span id="cb33-4"><a href="#cb33-4"></a><span class="co">-- type Getting r s a = (a -&gt; Const r a) -&gt; s -&gt; Const r s</span></span></code></pre></div>
+<p>And don’t forget <code>infixl 8 ^@..</code>, otherwise examples might not work.</p>
 <hr />
 <p>Okay, now <code>&lt;.&gt;</code>. What should its type be? Well, the type of <code>(.)</code> for traversals is roughly as follows:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(.) ::</span> ((a <span class="ot">-&gt;</span> f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)
-    <span class="ot">-&gt;</span> ((x <span class="ot">-&gt;</span> f y) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> f b)
-    <span class="ot">-&gt;</span> ((x <span class="ot">-&gt;</span> f y) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)</code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb34-1"><a href="#cb34-1"></a><span class="ot">(.) ::</span> ((a <span class="ot">-&gt;</span> f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)</span>
+<span id="cb34-2"><a href="#cb34-2"></a>    <span class="ot">-&gt;</span> ((x <span class="ot">-&gt;</span> f y) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> f b)</span>
+<span id="cb34-3"><a href="#cb34-3"></a>    <span class="ot">-&gt;</span> ((x <span class="ot">-&gt;</span> f y) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)</span></code></pre></div>
 <p>Then the type of <code>&lt;.&gt;</code> will be:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(&lt;.&gt;) ::</span> (<span class="dt">Indexed</span>  i    a (f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)
-      <span class="ot">-&gt;</span> (<span class="dt">Indexed</span>    j  x (f y) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> f b)
-      <span class="ot">-&gt;</span> (<span class="dt">Indexed</span> (i,j) x (f y) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)</code></pre></div>
-<p>You can write it by blindly connecting things with matching types, but it's still better to understand what's going on.</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(<span class="fu">&lt;.&gt;</span>) abst xyab (<span class="dt">Indexed</span> fij) s <span class="fu">=</span> <span class="fu">...</span>
-
-<span class="co">-- abst :: Indexed i a (f b) -&gt; s -&gt; f t</span>
-<span class="co">-- xyab :: Indexed j x (f y) -&gt; a -&gt; f b</span>
-
-<span class="co">-- fij :: (i,j) -&gt; x -&gt; f y</span>
-<span class="co">-- s :: s</span></code></pre></div>
-<p>We're traversing all <code>x</code>s in <code>s</code>. Those <code>x</code>s are inside <code>a</code>s, and <code>a</code>s are inside <code>s</code>. When traversing an <code>x</code>, we want to know both the index of that <code>x</code> in the <code>a</code>, and the index of the <code>a</code> in <code>s</code>.</p>
-<p>We're given a traversing function that needs an index of form <code>(i,j)</code>, so we have to somehow construct <code>(i,j)</code> for it. The <code>i</code> part is provided by <code>abst</code>, so we first run the <code>abst</code> traversal, which traverses all <code>a</code>s in our <code>s</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(<span class="fu">&lt;.&gt;</span>) abst xyab (<span class="dt">Indexed</span> fij) s <span class="fu">=</span> abst (<span class="dt">Indexed</span> ab) s
-  <span class="kw">where</span>
-    ab i a <span class="fu">=</span> <span class="fu">...</span>
-
-<span class="co">-- ab :: i -&gt; a -&gt; f b</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb35-1"><a href="#cb35-1"></a><span class="ot">(&lt;.&gt;) ::</span> (<span class="dt">Indexed</span>  i    a (f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)</span>
+<span id="cb35-2"><a href="#cb35-2"></a>      <span class="ot">-&gt;</span> (<span class="dt">Indexed</span>    j  x (f y) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> f b)</span>
+<span id="cb35-3"><a href="#cb35-3"></a>      <span class="ot">-&gt;</span> (<span class="dt">Indexed</span> (i,j) x (f y) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)</span></code></pre></div>
+<p>You can write it by blindly connecting things with matching types, but it’s still better to understand what’s going on.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb36-1"><a href="#cb36-1"></a>(<span class="op">&lt;.&gt;</span>) abst xyab (<span class="dt">Indexed</span> fij) s <span class="ot">=</span> <span class="op">...</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a></span>
+<span id="cb36-3"><a href="#cb36-3"></a><span class="co">-- abst :: Indexed i a (f b) -&gt; s -&gt; f t</span></span>
+<span id="cb36-4"><a href="#cb36-4"></a><span class="co">-- xyab :: Indexed j x (f y) -&gt; a -&gt; f b</span></span>
+<span id="cb36-5"><a href="#cb36-5"></a></span>
+<span id="cb36-6"><a href="#cb36-6"></a><span class="co">-- fij :: (i,j) -&gt; x -&gt; f y</span></span>
+<span id="cb36-7"><a href="#cb36-7"></a><span class="co">-- s :: s</span></span></code></pre></div>
+<p>We’re traversing all <code>x</code>s in <code>s</code>. Those <code>x</code>s are inside <code>a</code>s, and <code>a</code>s are inside <code>s</code>. When traversing an <code>x</code>, we want to know both the index of that <code>x</code> in the <code>a</code>, and the index of the <code>a</code> in <code>s</code>.</p>
+<p>We’re given a traversing function that needs an index of form <code>(i,j)</code>, so we have to somehow construct <code>(i,j)</code> for it. The <code>i</code> part is provided by <code>abst</code>, so we first run the <code>abst</code> traversal, which traverses all <code>a</code>s in our <code>s</code>:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb37-1"><a href="#cb37-1"></a>(<span class="op">&lt;.&gt;</span>) abst xyab (<span class="dt">Indexed</span> fij) s <span class="ot">=</span> abst (<span class="dt">Indexed</span> ab) s</span>
+<span id="cb37-2"><a href="#cb37-2"></a>  <span class="kw">where</span></span>
+<span id="cb37-3"><a href="#cb37-3"></a>    ab i a <span class="ot">=</span> <span class="op">...</span></span>
+<span id="cb37-4"><a href="#cb37-4"></a></span>
+<span id="cb37-5"><a href="#cb37-5"></a><span class="co">-- ab :: i -&gt; a -&gt; f b</span></span></code></pre></div>
 <p>Once we have access to <code>a</code>, we can traverse all <code>x</code>s in <code>a</code>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell">(<span class="fu">&lt;.&gt;</span>) abst xyab (<span class="dt">Indexed</span> fij) s <span class="fu">=</span> abst (<span class="dt">Indexed</span> ab) s
-  <span class="kw">where</span>
-    ab i a <span class="fu">=</span> xyab (<span class="dt">Indexed</span> xy) a
-      <span class="kw">where</span>
-        xy j x <span class="fu">=</span> <span class="fu">...</span>
-
-<span class="co">-- ab :: i -&gt; a -&gt; f b</span>
-<span class="co">-- xy :: j -&gt; x -&gt; f y</span></code></pre></div>
-<p>And finally, inside <code>xy</code> we've got access to both <code>x</code> and <code>i,j</code>, so we can give the original <code>fij</code> function what it wants:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(&lt;.&gt;) ::</span> (<span class="dt">Indexed</span>  i    a (f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)
-      <span class="ot">-&gt;</span> (<span class="dt">Indexed</span>    j  x (f y) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> f b)
-      <span class="ot">-&gt;</span> (<span class="dt">Indexed</span> (i,j) x (f y) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)
-(<span class="fu">&lt;.&gt;</span>) abst xyab (<span class="dt">Indexed</span> fij) s <span class="fu">=</span> abst (<span class="dt">Indexed</span> ab) s
-  <span class="kw">where</span>
-    ab i a <span class="fu">=</span> xyab (<span class="dt">Indexed</span> xy) a
-      <span class="kw">where</span>
-        xy j x <span class="fu">=</span> fij (i,j) x
-
-<span class="kw">infixr</span> <span class="dv">9</span> <span class="fu">&lt;.&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb38-1"><a href="#cb38-1"></a>(<span class="op">&lt;.&gt;</span>) abst xyab (<span class="dt">Indexed</span> fij) s <span class="ot">=</span> abst (<span class="dt">Indexed</span> ab) s</span>
+<span id="cb38-2"><a href="#cb38-2"></a>  <span class="kw">where</span></span>
+<span id="cb38-3"><a href="#cb38-3"></a>    ab i a <span class="ot">=</span> xyab (<span class="dt">Indexed</span> xy) a</span>
+<span id="cb38-4"><a href="#cb38-4"></a>      <span class="kw">where</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a>        xy j x <span class="ot">=</span> <span class="op">...</span></span>
+<span id="cb38-6"><a href="#cb38-6"></a></span>
+<span id="cb38-7"><a href="#cb38-7"></a><span class="co">-- ab :: i -&gt; a -&gt; f b</span></span>
+<span id="cb38-8"><a href="#cb38-8"></a><span class="co">-- xy :: j -&gt; x -&gt; f y</span></span></code></pre></div>
+<p>And finally, inside <code>xy</code> we’ve got access to both <code>x</code> and <code>i,j</code>, so we can give the original <code>fij</code> function what it wants:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb39-1"><a href="#cb39-1"></a><span class="ot">(&lt;.&gt;) ::</span> (<span class="dt">Indexed</span>  i    a (f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)</span>
+<span id="cb39-2"><a href="#cb39-2"></a>      <span class="ot">-&gt;</span> (<span class="dt">Indexed</span>    j  x (f y) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> f b)</span>
+<span id="cb39-3"><a href="#cb39-3"></a>      <span class="ot">-&gt;</span> (<span class="dt">Indexed</span> (i,j) x (f y) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)</span>
+<span id="cb39-4"><a href="#cb39-4"></a>(<span class="op">&lt;.&gt;</span>) abst xyab (<span class="dt">Indexed</span> fij) s <span class="ot">=</span> abst (<span class="dt">Indexed</span> ab) s</span>
+<span id="cb39-5"><a href="#cb39-5"></a>  <span class="kw">where</span></span>
+<span id="cb39-6"><a href="#cb39-6"></a>    ab i a <span class="ot">=</span> xyab (<span class="dt">Indexed</span> xy) a</span>
+<span id="cb39-7"><a href="#cb39-7"></a>      <span class="kw">where</span></span>
+<span id="cb39-8"><a href="#cb39-8"></a>        xy j x <span class="ot">=</span> fij (i,j) x</span>
+<span id="cb39-9"><a href="#cb39-9"></a></span>
+<span id="cb39-10"><a href="#cb39-10"></a><span class="kw">infixr</span> <span class="dv">9</span> <span class="op">&lt;.&gt;</span></span></code></pre></div>
 <p>This <em>almost</em> concludes it – we also want to be able to use the resulting indexed traversal as an ordinary traversal, so we apply <code>Indexable</code> to it:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(&lt;.&gt;) ::</span> <span class="dt">Indexable</span> (i,j) p
-      <span class="ot">=&gt;</span> (<span class="dt">Indexed</span> i   a (f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)
-      <span class="ot">-&gt;</span> (<span class="dt">Indexed</span>   j x (f y) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> f b)
-      <span class="ot">-&gt;</span> (   p        x (f y) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)
-(<span class="fu">&lt;.&gt;</span>) abst xyab fij s <span class="fu">=</span> abst (<span class="dt">Indexed</span> ab) s
-  <span class="kw">where</span>
-    ab i a <span class="fu">=</span> xyab (<span class="dt">Indexed</span> xy) a
-      <span class="kw">where</span>
-        xy j x <span class="fu">=</span> (indexed fij) (i,j) x
-
-<span class="kw">infixr</span> <span class="dv">9</span> <span class="fu">&lt;.&gt;</span></code></pre></div>
-<p>And we can generalise it a bit (like it's done in lens) since we don't depend on <code>f</code> and we can also replace <code>s -&gt; f t</code> with any <code>r</code> and nothing would change:</p>
-<div class="sourceCode"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span class="ot">(&lt;.&gt;) ::</span> <span class="dt">Indexable</span> (i,j) p
-      <span class="ot">=&gt;</span> (<span class="dt">Indexed</span> i a b <span class="ot">-&gt;</span> r)
-      <span class="ot">-&gt;</span> (<span class="dt">Indexed</span> j x y <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b)
-      <span class="ot">-&gt;</span> (    p     x y <span class="ot">-&gt;</span> r)
-(<span class="fu">&lt;.&gt;</span>) abst xyab fij <span class="fu">=</span> abst (<span class="dt">Indexed</span> ab)
-  <span class="kw">where</span>
-    ab i a <span class="fu">=</span> xyab (<span class="dt">Indexed</span> xy) a
-      <span class="kw">where</span>
-        xy j x <span class="fu">=</span> (indexed fij) (i,j) x
-
-<span class="kw">infixr</span> <span class="dv">9</span> <span class="fu">&lt;.&gt;</span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb40-1"><a href="#cb40-1"></a><span class="ot">(&lt;.&gt;) ::</span> <span class="dt">Indexable</span> (i,j) p</span>
+<span id="cb40-2"><a href="#cb40-2"></a>      <span class="ot">=&gt;</span> (<span class="dt">Indexed</span> i   a (f b) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)</span>
+<span id="cb40-3"><a href="#cb40-3"></a>      <span class="ot">-&gt;</span> (<span class="dt">Indexed</span>   j x (f y) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> f b)</span>
+<span id="cb40-4"><a href="#cb40-4"></a>      <span class="ot">-&gt;</span> (   p        x (f y) <span class="ot">-&gt;</span> s <span class="ot">-&gt;</span> f t)</span>
+<span id="cb40-5"><a href="#cb40-5"></a>(<span class="op">&lt;.&gt;</span>) abst xyab fij s <span class="ot">=</span> abst (<span class="dt">Indexed</span> ab) s</span>
+<span id="cb40-6"><a href="#cb40-6"></a>  <span class="kw">where</span></span>
+<span id="cb40-7"><a href="#cb40-7"></a>    ab i a <span class="ot">=</span> xyab (<span class="dt">Indexed</span> xy) a</span>
+<span id="cb40-8"><a href="#cb40-8"></a>      <span class="kw">where</span></span>
+<span id="cb40-9"><a href="#cb40-9"></a>        xy j x <span class="ot">=</span> (indexed fij) (i,j) x</span>
+<span id="cb40-10"><a href="#cb40-10"></a></span>
+<span id="cb40-11"><a href="#cb40-11"></a><span class="kw">infixr</span> <span class="dv">9</span> <span class="op">&lt;.&gt;</span></span></code></pre></div>
+<p>And we can generalise it a bit (like it’s done in lens) since we don’t depend on <code>f</code> and we can also replace <code>s -&gt; f t</code> with any <code>r</code> and nothing would change:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode haskell"><code class="sourceCode haskell"><span id="cb41-1"><a href="#cb41-1"></a><span class="ot">(&lt;.&gt;) ::</span> <span class="dt">Indexable</span> (i,j) p</span>
+<span id="cb41-2"><a href="#cb41-2"></a>      <span class="ot">=&gt;</span> (<span class="dt">Indexed</span> i a b <span class="ot">-&gt;</span> r)</span>
+<span id="cb41-3"><a href="#cb41-3"></a>      <span class="ot">-&gt;</span> (<span class="dt">Indexed</span> j x y <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b)</span>
+<span id="cb41-4"><a href="#cb41-4"></a>      <span class="ot">-&gt;</span> (    p     x y <span class="ot">-&gt;</span> r)</span>
+<span id="cb41-5"><a href="#cb41-5"></a>(<span class="op">&lt;.&gt;</span>) abst xyab fij <span class="ot">=</span> abst (<span class="dt">Indexed</span> ab)</span>
+<span id="cb41-6"><a href="#cb41-6"></a>  <span class="kw">where</span></span>
+<span id="cb41-7"><a href="#cb41-7"></a>    ab i a <span class="ot">=</span> xyab (<span class="dt">Indexed</span> xy) a</span>
+<span id="cb41-8"><a href="#cb41-8"></a>      <span class="kw">where</span></span>
+<span id="cb41-9"><a href="#cb41-9"></a>        xy j x <span class="ot">=</span> (indexed fij) (i,j) x</span>
+<span id="cb41-10"><a href="#cb41-10"></a></span>
+<span id="cb41-11"><a href="#cb41-11"></a><span class="kw">infixr</span> <span class="dv">9</span> <span class="op">&lt;.&gt;</span></span></code></pre></div>
 <p>Exercise: write <code>&lt;.</code> and <code>.&gt;</code>.</p>
 <h2 id="bazaar"><code>Bazaar</code></h2>
 <p>Lens has some more advanced functions that work on traversals. For instance, <a href="http://hackage.haskell.org/package/lens/docs/Control-Lens-Traversal.html#v:taking"><code>taking</code></a>:</p>
-<div class="sourceCode"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span class="fu">&gt;</span> [<span class="dv">1</span><span class="fu">..</span><span class="dv">10</span>] <span class="fu">&amp;</span> taking <span class="dv">5</span> each <span class="fu">%~</span> negate
-[<span class="fu">-</span><span class="dv">1</span>,<span class="fu">-</span><span class="dv">2</span>,<span class="fu">-</span><span class="dv">3</span>,<span class="fu">-</span><span class="dv">4</span>,<span class="fu">-</span><span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>]</code></pre></div>
-<p>22:54 <bennofs> puregreen: isn't Conjoined just a performance hack? I think you can implement everything without conjoined, it just wont be as efficient 22:54 <shachaf> Yes, that's the intent. 22:54 <shachaf> (It can let you implement completely different indexed and non-indexed traversals, of course, but you're not supposed to do that.) 22:56 <puregreen> yeah, I kinda forgot about that (and then remembered and then forgot again) -!- Day changed to Saturday, June 18, 2016 00:21 <edwardk> puregreen: they are all consequences of it being a profunctor on hask that is both representable and corepresentable 00:22 <edwardk> that is to say with those superclasses you have all the power and consequences of being able to 'slop' all the information in the profunctor to the left or right hand side of an (-&gt;) 00:22 <shachaf> Which is to say, of it being isomorphic to (e,a) -&gt; b 00:30 <edwardk> yeah we have a boring category with only one adjunction in it 00:31 <edwardk> i care about that way of thinking a bit more when i start thinking about 'pure profunctor lenses' in richer categories 01:00 <Taneb> edwardk, has anyone ever thought about lenses in poorer categories? 02:12 <dolio> Really, the 'richer' categories are actually poorer. 02:13 <dolio> Since you can do basically every construction on Set/Hask, they end up being boring.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode haskell repl"><code class="sourceCode haskell"><span id="cb42-1"><a href="#cb42-1"></a><span class="op">&gt;</span> [<span class="dv">1</span><span class="op">..</span><span class="dv">10</span>] <span class="op">&amp;</span> taking <span class="dv">5</span> each <span class="op">%~</span> <span class="fu">negate</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>[<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">2</span>,<span class="op">-</span><span class="dv">3</span>,<span class="op">-</span><span class="dv">4</span>,<span class="op">-</span><span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>,<span class="dv">9</span>,<span class="dv">10</span>]</span></code></pre></div>
+<p>22:54 <bennofs> puregreen: isn’t Conjoined just a performance hack? I think you can implement everything without conjoined, it just wont be as efficient 22:54 <shachaf> Yes, that’s the intent. 22:54 <shachaf> (It can let you implement completely different indexed and non-indexed traversals, of course, but you’re not supposed to do that.) 22:56 <puregreen> yeah, I kinda forgot about that (and then remembered and then forgot again) -!- Day changed to Saturday, June 18, 2016 00:21 <edwardk> puregreen: they are all consequences of it being a profunctor on hask that is both representable and corepresentable 00:22 <edwardk> that is to say with those superclasses you have all the power and consequences of being able to ‘slop’ all the information in the profunctor to the left or right hand side of an (-&gt;) 00:22 <shachaf> Which is to say, of it being isomorphic to (e,a) -&gt; b 00:30 <edwardk> yeah we have a boring category with only one adjunction in it 00:31 <edwardk> i care about that way of thinking a bit more when i start thinking about ‘pure profunctor lenses’ in richer categories 01:00 <Taneb> edwardk, has anyone ever thought about lenses in poorer categories? 02:12 <dolio> Really, the ‘richer’ categories are actually poorer. 02:13 <dolio> Since you can do basically every construction on Set/Hask, they end up being boring.</p>
 <h1 id="conjoined"><code>Conjoined</code></h1>
 </article>
 
 
 <div id="series">
       <a href="/lens-over-tea-6">&lt;&lt;&lt;</a>
-
+  
   <a href="/#lens-over-tea">“lens over tea”</a>
 
       <span class="grey"><a href="/#lens-over-tea">&gt;&gt;&gt;</a></span>
@@ -420,9 +448,8 @@ indexing l f s <span class="fu">=</span> snd <span class="fu">$</span> runIndexi
   <h3>I'm doing software consulting!</h3>
   <p>
     Nowadays I'm running a functional programming consultancy at
-    <a href="https://monadfix.io">Monadfix</a>. We have experts in Haskell,
-    PureScript, Clojure, and Agda. We are looking for more clients and more
-    consultants!
+    <a href="https://monadfix.com">Monadfix</a>. We have experts in Haskell
+    and Agda. We are looking for more clients and more consultants!
   </p>
 </div>
 
@@ -442,7 +469,7 @@ s.setAttribute('data-timestamp', +new Date());
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
 <div id="footer" class="blue-links">
-<a href="https://github.com/neongreen/artyom.me/blob/master/posts/lens-over-tea-7.md">view source</a>—<a href="mailto:artyom@artyom.me?subject=Comment on lens-over-tea-7">comment by email</a>—<a href="/curiosity">curiosity killed the cat</a>
+<a href="https://github.com/neongreen/artyom.me/blob/master/posts/lens-over-tea-7.md">view source</a>—<a href="mailto:artyom@artyom.me?subject=Comment on lens-over-tea-7">comment by email</a>
 </div>
 
 </div>

@@ -2,7 +2,7 @@
 
 Okay, first, what the hell is polysemy?
 
-> [Polysemy](@w) is the capacity for a sign (such as a word, phrase, or symbol) to have multiple meanings (that is, multiple semes or sememes and thus multiple senses), usually related by contiguity of meaning within a semantic field.
+> [Polysemy](https://en.wikipedia.org/wiki/Polysemy) is the capacity for a sign (such as a word, phrase, or symbol) to have multiple meanings (that is, multiple semes or sememes and thus multiple senses), usually related by contiguity of meaning within a semantic field.
 
 That is, polysemy is when a word has many meanings and those meanings are somehow connected (when they aren't connected at all, it's homonymy). An example: in English words “do” and “make” have dozens of meanings. For a smaller example, see “man”:
 
@@ -40,14 +40,14 @@ Well, *principled* overloading means that there are laws that overloaded functio
 [`Monoid`]: https://hackage.haskell.org/package/base/docs/Data-Monoid.html
 
 > The class of monoids (types with an associative binary operation that has an identity). Instances should satisfy the following laws:
-> 
+>
 > ~~~ haskell
 > mappend mempty x = x
 > mappend x mempty = x
 > mappend x (mappend y z) = mappend (mappend x y) z
 > mconcat = foldr mappend mempty
 > ~~~
-> 
+>
 > Methods:
 >
 > * `mempty :: a` – identity of `mappend`
