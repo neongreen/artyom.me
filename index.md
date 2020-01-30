@@ -2,6 +2,10 @@
 pagetitle: Artyom Kazak
 ---
 
+# Read my blog
+
+This is my blog: <https://blog.artyom.me>.
+
 # If you want to hire me
 
 The best way to hire me is by hiring [Monadfix](https://monadfix.io) services. I'm also open to other opportunities, especially in sales engineering and marketing roles. Here's my [resume](/cv).
