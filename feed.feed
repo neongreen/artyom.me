@@ -43,12 +43,6 @@ RSS
   , Guid False   "empathy-consequentialism"
   ] ,
 
-  [ Title        "CV"
-  , Link         "https://artyom.me/cv"
-  , Description  "I finally have a CV online, just in case anybody ever wants to hire me."
-  , Guid False   "cv"
-  ] ,
-
   [ Title        "lens over tea #5: prisms"
   , Link         "https://artyom.me/lens-over-tea-5"
   , Description  "Prisms (and a recap of isomorphisms)."
