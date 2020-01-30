@@ -4,11 +4,16 @@ pagetitle: Artyom Kazak
 
 # Read my blog
 
-This is my blog: <https://blog.artyom.me>.
+Most of my posts are here now: [blog.artyom.me](https://blog.artyom.me).
 
 # If you want to hire me
 
 The best way to hire me is by hiring [Monadfix](https://monadfix.com) services. I'm also open to other opportunities – I would love to try my hand at sales, marketing, and product development. Here is my [LinkedIn profile](https://www.linkedin.com/in/artyom-kazak-1a8737105/).
+
+# Very old posts
+
+<details>
+<summary>Click here</summary>
 
 ## lens over tea
 
@@ -38,23 +43,23 @@ It's a work in progress; the future parts will mention:
   * pure profunctor lenses and traversals, [link 1](https://www.reddit.com/r/haskell/comments/1jeo0p/theres_a_massive_gap_between_the_average_and/cbe1ebv), [link 2](https://github.com/purescript-contrib/purescript-lens/issues/26), [link 3](http://lpaste.net/103359), [link 4](http://r6research.livejournal.com/27476.html), symmetric lenses (`(g a -> f b) -> g s -> f t`), [link](http://slbkbs.org/pr.hs)
   * `Control.Lens.Plated`, `Control.Lens.Level`, `Control.Lens.Zoom`
 
-## Other stuff
+## Other Haskell stuff
 
   * [Aeson: the tutorial](/aeson)
   * [Making a CTF task in Haskell](/haskell-ctf)
   * [Some common and annoying mistakes in Haddocks](/haddock-mistakes)
 
-# Stuff that is sort of related to psychology
+## Stuff that is sort of related to psychology
 
   * [Unconditional empathy](/empathy-consequentialism)
   * [The YX problem](/yx)
 
-# Stuff that is sort of related to linguistics
+## Stuff that is sort of related to linguistics
 
   * [Why you don't want “irregardless” to be a word](/irregardless)
   * [Polysemy (i.e. overloading) in programming](/polysemy)
 
-# Racket
+## Racket
 
 Several years ago I've been learning Racket and making notes (which then became somewhat popular):
 
@@ -67,3 +72,5 @@ Several years ago I've been learning Racket and making notes (which then became 
   * [list of topics to cover](/racket-topics). Gray because it can't be finished almost by definition.
 
 </div>
+
+</details>
