@@ -67,11 +67,11 @@ $endfor$
   </div
   ><div class="badge">
     <i class="fab fa-telegram"></i>
-    <a href="http://t.me/lightgreen">lightgreen</a>
+    <a href="https://telegram.me/lightgreen">lightgreen</a>
   </div
   ><div class="badge">
     <i class="fab fa-github"></i>
-    <a href="http://github.com/neongreen">neongreen</a>
+    <a href="https://github.com/neongreen">neongreen</a>
   </div
 
   ><div class="badge">
@@ -80,6 +80,12 @@ $endfor$
 
   ><div class="badge">
     Living in Minsk (come hang out!)
+  </div
+  ><div class="badge">
+    <a href="https://blog.artyom.me">Blog</a>
+  </div
+  ><div class="badge">
+    <a href="https://getrevue.co/profile/artyom">Newsletter</a>
   </div>
 </div>
 
